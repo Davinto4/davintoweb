@@ -3,78 +3,167 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb</title>
+  <title>DavintoWeb | Empowering Your Online Vision</title>
   <style>
+    :root {
+      --primary: #00c3ff;
+      --dark: #0f2027;
+      --light: #f5f5f5;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
       font-family: 'Segoe UI', sans-serif;
     }
 
     body {
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
     }
 
-    .container {
+    header {
+      padding: 40px 20px;
       text-align: center;
-      animation: fadeIn 2s ease-in-out forwards;
-      opacity: 0;
+      background: rgba(0, 0, 0, 0.3);
     }
 
-    h1 {
+    header h1 {
       font-size: 3rem;
-      margin-bottom: 1rem;
-      animation: slideDown 1s ease forwards;
+      animation: fadeInDown 1s ease forwards;
     }
 
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
       color: #cce7ff;
-      animation: slideUp 1s ease forwards;
+      animation: fadeInUp 1s ease forwards;
     }
 
-    a {
-      padding: 12px 24px;
-      background: #00c3ff;
-      color: white;
-      border-radius: 25px;
+    nav {
+      margin-top: 20px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: var(--primary);
       text-decoration: none;
-      transition: all 0.3s ease;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    a:hover {
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .feature-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .feature-box h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta a {
+      padding: 14px 30px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .cta a:hover {
       background: #007acc;
-      transform: scale(1.05);
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 0.9rem;
+      color: #aaa;
     }
 
-    @keyframes slideDown {
-      from { transform: translateY(-40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to DavintoWeb</h1>
-    <p>Your gateway to the future of smart technology</p>
-    <a href="https://wa.me/2348169045105" target="_blank">Contact Developer</a>
-  </div>
+
+  <header>
+    <h1>DavintoWeb</h1>
+    <p>We build lightning-fast, futuristic websites for creators & businesses.</p>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="features">
+    <h2 style="text-align: center; margin-bottom: 30px;">🚀 What We Offer</h2>
+    <div class="features">
+      <div class="feature-box">
+        <h3>⚡ Fast & Secure Hosting</h3>
+        <p>Your site runs on Netlify — globally optimized and free forever.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🎨 Beautiful Modern Design</h3>
+        <p>Clean animations, responsive layout, and mobile-first structure.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🤖 AI Integration</h3>
+        <p>Power your site with OpenAI chatbots or auto-reply tools (DavintoMD).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 style="text-align: center; margin-bottom: 20px;">📖 About DavintoWeb</h2>
+    <p style="text-align: center; max-width: 700px; margin: auto;">
+      DavintoWeb is a digital arm of the Solariin Empire — founded by Omeka Velar. We specialize in building smart, efficient, and beautiful web experiences. Whether you're an individual, business, or community, DavintoWeb brings your online vision to life.
+    </p>
+  </section>
+
+  <section id="contact" class="cta">
+    <h2 style="margin-bottom: 15px;">💬 Contact Developer</h2>
+    <a href="https://wa.me/2348169045105" target="_blank">Message on WhatsApp</a>
+  </section>
+
+  <footer>
+    Made with ❤️ by DavintoWeb — Powered by Chimdindu MacDonald & Solariin Empire.
+  </footer>
+
 </body>
 </html>
