@@ -1,13 +1,80 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DavintoWeb</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      animation: fadeIn 2s ease-in-out forwards;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: slideDown 1s ease forwards;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #cce7ff;
+      animation: slideUp 1s ease forwards;
+    }
+
+    a {
+      padding: 12px 24px;
+      background: #00c3ff;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background: #007acc;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to DavintoWeb!</h1>
-  <p>This is your live site deployed from GitHub to Netlify.</p>
+  <div class="container">
+    <h1>Welcome to DavintoWeb</h1>
+    <p>Your gateway to the future of smart technology</p>
+    <a href="https://wa.me/2348169045105" target="_blank">Contact Developer</a>
+  </div>
 </body>
 </html>
