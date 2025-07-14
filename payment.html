@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm Your Payment | DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Confirm Payment</h1>
+  </header>
+
+  <section style="padding: 2rem; text-align: center;">
+    <h2>Make Payment To:</h2>
+    <p>
+      <strong>Bank:</strong> Access Bank<br/>
+      <strong>Account Name:</strong> Chima Chimdindu MacDonald<br/>
+      <strong>Account Number:</strong> 1719816647
+    </p>
+
+    <p>After making payment, fill out the confirmation form below 👇</p>
+
+    <form name="payment-confirmation" method="POST" data-netlify="true">
+      <input type="text" name="fullname" placeholder="Your Full Name" required />
+      <input type="email" name="email" placeholder="Your Email Address" required />
+      <input type="text" name="amount" placeholder="Amount Paid (₦)" required />
+      <textarea name="note" placeholder="Tell us what website you want" required></textarea>
+      <button type="submit">Confirm Payment</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 DavintoWeb | Built by Chimdindu MacDonald (Davinto)</p>
+  </footer>
+
+</body>
+</html>
