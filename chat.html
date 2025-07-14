@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ask DavintoMD (AI Assistant)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Ask DavintoMD (AI)</h1>
+  </header>
+
+  <main>
+    <form id="chatForm">
+      <input type="text" id="userInput" placeholder="Ask something..." required />
+      <button type="submit">Send</button>
+    </form>
+    <div id="chatBox"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('userInput');
+    const chatBox = document.getElementById('chatBox');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userText = input.value;
+      chatBox.innerHTML += `<p><strong>You:</strong> ${userText}</p>`;
+      input.value = '';
+
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer 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"
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: userText }]
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.choices[0].message.content;
+      chatBox.innerHTML += `<p><strong>DavintoMD:</strong> ${reply}</p>`;
+    });
+  </script>
+
+</body>
+</html>
