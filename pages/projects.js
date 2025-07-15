@@ -3,13 +3,16 @@ import Link from 'next/link';
 
 export default function Projects() {
   const projects = [
-    {
-      id: 1,
-      title: 'Client Portfolio',
-      description: 'A responsive portfolio for a creative professional.',
-      image: '/images/project1.jpg',
-      url: 'https://example.com',
-    },
+    const projects = [
+  {
+    id: 1,
+    title: 'Your Client Site',
+    description: 'A responsive site for a local business.',
+    image: '/images/your-site.jpg',
+    url: 'https://your-site.vercel.app',
+  },
+  // Add more
+];,
     {
       id: 2,
       title: 'Business Landing Page',
