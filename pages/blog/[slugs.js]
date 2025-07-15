@@ -1,0 +1,63 @@
+import Head from 'next/head';
+import Link from 'next/link';
+
+export default function Post({ post }) {
+  return (
+    <div>
+      <Head>
+        <title>{post.title} - Davinto</title>
+        <meta name="description" content={post.excerpt} />
+      </Head>
+      <header className="header">
+        <div className="logo">Davinto</div>
+        <nav>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+          <Link href="/services">Services</Link>
+          <Link href="/projects">Projects</Link>
+          <Link href="/blog">Blog</Link>
+          <Link href="/contact">Contact</Link>
+        </nav>
+      </header>
+      <main>
+        <section className="post">
+          <h1>{post.title}</h1>
+          <p>{post.content}</p>
+          <Link href="/blog">Back to Blog</Link>
+        </section>
+      </main>
+      <footer className="footer">
+        <p>© 2025 Davinto. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
+
+export async function getStaticPaths() {
+  const posts = [
+    { slug: 'first-post' },
+    { slug: 'why-vercel' },
+  ];
+  return {
+    paths: posts.map((post) => ({ params: { slug: post.slug } })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const posts = {
+    'first-post': {
+      title: 'My Web Development Journey',
+      excerpt: 'How I started building websites for clients.',
+      content: 'I’m Davinto, a freelance web developer from Nigeria. My journey began with a passion for creating online solutions for businesses. I now build affordable, responsive websites to help clients succeed.',
+    },
+    'why-vercel': {
+      title: 'Why Choose Vercel?',
+      excerpt: 'Benefits of Vercel for fast, modern websites.',
+      content: 'Vercel offers easy deployment, free hosting, and support for dynamic features like blogs and forms, making it perfect for client websites.',
+    },
+  };
+  return {
+    props: { post: posts[params.slug] },
+  };
+}
