@@ -1,52 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat - DavintoWeb</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DavintoWeb - Chat</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <h1>DavintoWeb Live Chat</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
-      <a href="admin.html">Admin</a>
-    </nav>
-  </header>
+<header>
+  <h1>Live AI Chat Support</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
 
-  <section style="padding: 2rem; text-align: center;">
-    <h2>Let's Talk!</h2>
-    <p>The AI agent is here to help you 24/7</p>
-  </section>
+<section style="padding: 2rem; text-align: center;">
+  <h2>Chat with Our AI Agent</h2>
+  <p>If nothing appears below, your bot may not be published or is missing a welcome trigger.</p>
+</section>
 
-  <!-- Botpress WebChat Script -->
-  <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
-  <script>
-    window.botpressWebChat.init({
-      "hostUrl": "https://cdn.botpress.cloud/webchat/v3",
-      "messagingUrl": "https://messaging.botpress.cloud",
-      "botId": "beba-ba0e3ba3a0",
-      "clientId": "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
-      "botName": "DavintoBot",
-      "composerPlaceholder": "Type your message here...",
-      "containerWidth": "100%",
-      "layout": "standard",
-      "showPoweredBy": false,
-      "hideWidget": false,
-      "disableAnimations": false
-    });
-  </script>
+<!-- Botpress WebChat -->
+<script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
+<script>
+  window.botpressWebChat.init({
+    "hostUrl": "https://cdn.botpress.cloud/webchat/v3",
+    "messagingUrl": "https://messaging.botpress.cloud",
+    "botId": "beba-ba0e3ba3a0",
+    "clientId": "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
+    "botName": "DavintoBot",
+    "composerPlaceholder": "Ask me anything...",
+    "showPoweredBy": false,
+    "disableAnimations": false,
+    "enableTranscriptDownload": false,
+    "stylesheet": "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css"
+  });
+</script>
 
-  <footer>
-    <p>© 2025 DavintoWeb | Developer: Chimdindu Macdonald</p>
-    <p>WhatsApp: +2348169045105 | Email: chimdindumacdonald165@gmail.com | Nigeria</p>
-  </footer>
+<footer>
+  <p>© 2025 DavintoWeb | Chimdindu Macdonald</p>
+</footer>
 
 </body>
 </html>
