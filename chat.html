@@ -2,26 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    #webchat.bpwebchat {
-      position: unset;
-      width: 100%;
-      height: 100%;
-      max-height: 900px;
-      border-radius: 10px;
-    }
-    #webchat.bpFab {
-      display: none;
-    }
-    .chat-wrapper {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DavintoWeb - Chat</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -33,47 +16,40 @@
       <a href="portfolio.html">Portfolio</a>
       <a href="pricing.html">Pricing</a>
       <a href="contact.html">Contact</a>
+      <a href="admin.html">Admin</a>
     </nav>
   </header>
 
-  <div class="chat-wrapper">
-    <div id="webchat" style="width: 100%; height: 600px;"></div>
-  </div>
+  <section style="padding: 2rem; text-align: center;">
+    <h2>Let's Talk!</h2>
+    <p>The AI agent is here to help you 24/7</p>
+  </section>
+
+  <!-- Botpress Chat Embed -->
+  <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
+  <script>
+    window.botpressWebChat.init({
+      "botId": "beba-ba0e3ba3a0",
+      "clientId": "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
+      "hostUrl": "https://cdn.botpress.cloud/webchat/v3",
+      "messagingUrl": "https://messaging.botpress.cloud",
+      "composerPlaceholder": "Ask anything...",
+      "botConversationDescription": "DavintoBot AI Assistant",
+      "botName": "DavintoBot",
+      "avatarUrl": "https://cdn-icons-png.flaticon.com/512/4712/4712107.png",
+      "showPoweredBy": false,
+      "theme": "prism",
+      "containerWidth": "100%",
+      "layout": "standard",
+      "hideWidget": false,
+      "disableAnimations": false
+    });
+  </script>
 
   <footer>
     <p>© 2025 DavintoWeb | Developer: Chimdindu Macdonald</p>
-    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105</p>
+    <p>WhatsApp: +2348169045105 | Email: chimdindumacdonald165@gmail.com | Nigeria</p>
   </footer>
-
-  <!-- Botpress Webchat Embed -->
-  <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
-  <script>
-    window.botpress.chat.on('webchatReady', () => {
-      window.botpress.open();
-    });
-
-    window.botpress.init({
-      composerPlaceholder: "Chat with DavintoBot",
-      botConversationDescription: "Your AI assistant",
-      botId: "beba-ba0e3ba3a0",
-      hostUrl: "https://cdn.botpress.cloud/webchat/v3/inject.js",
-      messagingUrl: "https://messaging.botpress.cloud",
-      clientId: "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
-      selector: "#webchat",
-      primaryColor: "#3276FA",
-      avatarUrl: "https://your-bot-avatar-url.png",
-      botName: "DavintoBot",
-      showPoweredBy: true,
-      layout: "standard",
-      variant: "standard",
-      bubbleStyle: "compact",
-      enableFullScreen: true,
-      fontFamily: "Inter",
-      hideThemeToggle: true,
-      enableFeedbackBubbles: true,
-      footer: "<span style='font-size: 10px;'>Powered by Botpress</span>"
-    });
-  </script>
 
 </body>
 </html>
