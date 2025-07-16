@@ -3,48 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DavintoWeb - Chat</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>DavintoWeb Chat</title>
 </head>
 <body>
 
-<header>
-  <h1>Live AI Chat Support</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Contact</a>
-    <a href="admin.html">Admin</a>
-  </nav>
-</header>
+<h2>Chat With Our AI Assistant</h2>
 
-<section style="padding: 2rem; text-align: center;">
-  <h2>Chat with Our AI Agent</h2>
-  <p>If nothing appears below, your bot may not be published or is missing a welcome trigger.</p>
-</section>
-
-<!-- Botpress WebChat -->
+<!-- Botpress Chat Widget -->
 <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
 <script>
   window.botpressWebChat.init({
-    "hostUrl": "https://cdn.botpress.cloud/webchat/v3",
-    "messagingUrl": "https://messaging.botpress.cloud",
     "botId": "beba-ba0e3ba3a0",
     "clientId": "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
+    "hostUrl": "https://cdn.botpress.cloud/webchat/v3",
+    "messagingUrl": "https://messaging.botpress.cloud",
     "botName": "DavintoBot",
-    "composerPlaceholder": "Ask me anything...",
+    "composerPlaceholder": "Type your message here...",
     "showPoweredBy": false,
-    "disableAnimations": false,
-    "enableTranscriptDownload": false,
-    "stylesheet": "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css"
+    "stylesheet": "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css",
+    "enableTranscriptDownload": false
   });
 </script>
-
-<footer>
-  <p>© 2025 DavintoWeb | Chimdindu Macdonald</p>
-</footer>
 
 </body>
 </html>
