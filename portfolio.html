@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .portfolio-section {
+      padding: 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .project-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .project-card h3 {
+      color: #007BFF;
+      margin-top: 0.8rem;
+    }
+
+    .project-card p {
+      font-size: 0.95rem;
+      margin: 0.5rem 0;
+    }
+
+    .btn {
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Web Projects</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="chat.html">Chat</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="portfolio-section">
+    <h2>Projects I've Built</h2>
+    <div class="project-grid">
+
+      <div class="project-card" data-animate>
+        <img src="assets/project1.jpg" alt="Project 1" />
+        <h3>Trionix Translator</h3>
+        <p>A fast real-time translator app with Firebase and AI integration.</p>
+        <a href="#" class="btn">View Demo</a>
+      </div>
+
+      <div class="project-card" data-animate>
+        <img src="assets/project2.jpg" alt="Project 2" />
+        <h3>Quest Builder</h3>
+        <p>Dynamic zone & quest generation platform for gamified learning.</p>
+        <a href="#" class="btn">View Demo</a>
+      </div>
+
+      <div class="project-card" data-animate>
+        <img src="assets/project3.jpg" alt="Project 3" />
+        <h3>Davinto Core</h3>
+        <p>A bot control dashboard built using Node.js + Firebase + Admin Auth.</p>
+        <a href="#" class="btn">View Demo</a>
+      </div>
+
+      <div class="project-card" data-animate>
+        <img src="assets/project4.jpg" alt="Project 4" />
+        <h3>Novel Reader</h3>
+        <p>Static and dynamic reader app with sample chapters and realtime DB.</p>
+        <a href="#" class="btn">View Demo</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DavintoWeb | Developer: Chimdindu Macdonald (Davinto)</p>
+    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105</p>
+  </footer>
+
+  <script>
+    // Animate on scroll
+    const cards = document.querySelectorAll("[data-animate]");
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in-up");
+        }
+      });
+    }, { threshold: 0.1 });
+    cards.forEach(card => obs.observe(card));
+  </script>
+</body>
+</html>
