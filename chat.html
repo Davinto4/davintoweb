@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat with DavintoBot</title>
+  <title>Chat - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    #webchat {
+      height: 90vh;
+      width: 100%;
+      border: none;
+      margin-top: 1rem;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,15 +20,15 @@
 
     header {
       background-color: #007BFF;
-      padding: 1rem;
       color: white;
+      padding: 1rem;
       text-align: center;
     }
 
     nav a {
       color: white;
-      margin: 0 1rem;
       text-decoration: none;
+      margin: 0 0.8rem;
     }
 
     nav a:hover {
@@ -32,22 +39,15 @@
       background-color: #222;
       color: white;
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-
-    #webchat {
-      height: 90vh;
-      width: 100%;
-      border: none;
-      margin-top: 1rem;
+      padding: 1.5rem;
+      margin-top: 3rem;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Chat with DavintoBot</h1>
+    <h1>DavintoBot - Live Chat</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -57,6 +57,7 @@
     </nav>
   </header>
 
+  <!-- Botpress Webchat Iframe -->
   <iframe
     id="webchat"
     src="https://cdn.botpress.cloud/webchat/v3/index.html?botId=beba-ba0e3ba3a0&clientId=421F83D1-20B5-4B61-beba-ba0e3ba3a0"
@@ -64,7 +65,7 @@
   </iframe>
 
   <footer>
-    <p>© 2025 DavintoWeb | Built by Chimdindu Macdonald</p>
+    <p>© 2025 DavintoWeb | Developed by Chimdindu Macdonald</p>
   </footer>
 
 </body>
