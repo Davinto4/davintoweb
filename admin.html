@@ -1,16 +1,27 @@
-<!-- ✅ admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin - DavintoWeb</title>
+
+  <!-- Prevent indexing -->
+  <meta name="robots" content="noindex, nofollow" />
+
   <link rel="stylesheet" href="style.css" />
+  <script>
+    const PASSWORD = "08022664487@Mac";
+    window.onload = function () {
+      const entered = prompt("Enter admin password:");
+      if (entered !== PASSWORD) {
+        document.body.innerHTML = "<h2 style='text-align:center;margin-top:3rem;color:red;'>Access Denied</h2>";
+      }
+    };
+  </script>
 </head>
 <body>
+
   <header>
-    <img src="assets/logo.png" alt="DavintoWeb Logo" style="height: 50px; margin-right: 10px; vertical-align: middle;">
-<span style="font-size: 1.5rem; font-weight: bold;">DavintoWeb</span>
     <h1>Admin Panel</h1>
     <nav>
       <a href="index.html">Home</a>
@@ -21,30 +32,16 @@
     </nav>
   </header>
 
-  <section>
-    <h2>Enter Admin Password</h2>
-    <form onsubmit="return checkPassword()">
-      <label for="password">Password:</label>
-      <input type="password" id="password" required />
-      <button class="btn" type="submit">Login</button>
-    </form>
+  <section class="section">
+    <h2>Welcome, Admin!</h2>
+    <p>This page is protected and not visible to search engines.</p>
+    <p>You can manage the backend from here (future dynamic controls can be added).</p>
   </section>
 
   <footer>
-    <p>© 2025 DavintoWeb | Developed by Chimdindu Macdonald</p>
+    <p>© 2025 DavintoWeb | Chimdindu Macdonald (Davinto)</p>
+    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105 | Nigeria</p>
   </footer>
 
-  <script>
-    function checkPassword() {
-      const input = document.getElementById("password").value;
-      if (input === "08022664487@Mac") {
-        alert("Access granted!");
-        return true;
-      } else {
-        alert("Wrong password.");
-        return false;
-      }
-    }
-  </script>
 </body>
 </html>
