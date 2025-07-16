@@ -3,126 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb AI Chat</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Chat - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    .chatbox {
-      max-width: 700px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    .chat-messages {
-      height: 400px;
-      overflow-y: auto;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      padding: 1rem;
-      border-radius: 5px;
-      background: #f9f9f9;
-    }
-
-    .message {
-      margin-bottom: 1rem;
-    }
-
-    .message.user {
-      text-align: right;
-      color: #007BFF;
-    }
-
-    .message.bot {
-      text-align: left;
-      color: #222;
-    }
-
-    textarea {
+    #webchat.bpwebchat {
+      position: unset;
       width: 100%;
-      padding: 1rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      resize: none;
+      height: 100%;
+      max-height: 900px;
+      border-radius: 10px;
     }
-
-    button {
-      margin-top: 1rem;
-      padding: 0.7rem 1.5rem;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    #webchat.bpFab {
+      display: none;
     }
-
-    button:hover {
-      background-color: #0056b3;
+    .chat-wrapper {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>AI Chat Assistant</h1>
+    <h1>Live Chat with DavintoBot</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="pricing.html">Pricing</a>
       <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
       <a href="contact.html">Contact</a>
-      <a href="chat.html">Chat</a>
     </nav>
   </header>
 
-  <div class="chatbox">
-    <div class="chat-messages" id="chatBox"></div>
-
-    <form id="chatForm">
-      <textarea id="userInput" rows="3" placeholder="Type your message here..." required></textarea>
-      <button type="submit">Send</button>
-    </form>
+  <div class="chat-wrapper">
+    <div id="webchat" style="width: 100%; height: 600px;"></div>
   </div>
 
+  <footer>
+    <p>© 2025 DavintoWeb | Developer: Chimdindu Macdonald</p>
+    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105</p>
+  </footer>
+
+  <!-- Botpress Webchat Embed -->
+  <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
   <script>
-    const form = document.getElementById('chatForm');
-    const chatBox = document.getElementById('chatBox');
-    const input = document.getElementById('userInput');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const userText = input.value.trim();
-      if (!userText) return;
-
-      appendMessage('user', userText);
-      input.value = '';
-
-      appendMessage('bot', 'Typing...');
-
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userText })
-        });
-        const data = await res.json();
-        chatBox.lastChild.remove(); // Remove "Typing..."
-        appendMessage('bot', data.reply);
-      } catch (err) {
-        chatBox.lastChild.remove();
-        appendMessage('bot', 'Error: Failed to connect.');
-      }
+    window.botpress.chat.on('webchatReady', () => {
+      window.botpress.open();
     });
 
-    function appendMessage(sender, text) {
-      const msg = document.createElement('div');
-      msg.className = 'message ' + sender;
-      msg.textContent = text;
-      chatBox.appendChild(msg);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+    window.botpress.init({
+      composerPlaceholder: "Chat with DavintoBot",
+      botConversationDescription: "Your AI assistant",
+      botId: "beba-ba0e3ba3a0",
+      hostUrl: "https://cdn.botpress.cloud/webchat/v3/inject.js",
+      messagingUrl: "https://messaging.botpress.cloud",
+      clientId: "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
+      selector: "#webchat",
+      primaryColor: "#3276FA",
+      avatarUrl: "https://your-bot-avatar-url.png",
+      botName: "DavintoBot",
+      showPoweredBy: true,
+      layout: "standard",
+      variant: "standard",
+      bubbleStyle: "compact",
+      enableFullScreen: true,
+      fontFamily: "Inter",
+      hideThemeToggle: true,
+      enableFeedbackBubbles: true,
+      footer: "<span style='font-size: 10px;'>Powered by Botpress</span>"
+    });
   </script>
 
 </body>
