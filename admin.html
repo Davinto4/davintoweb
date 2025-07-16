@@ -1,0 +1,48 @@
+<!-- ✅ admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Admin Panel</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>Enter Admin Password</h2>
+    <form onsubmit="return checkPassword()">
+      <label for="password">Password:</label>
+      <input type="password" id="password" required />
+      <button class="btn" type="submit">Login</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 DavintoWeb | Developed by Chimdindu Macdonald</p>
+  </footer>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === "08022664487@Mac") {
+        alert("Access granted!");
+        return true;
+      } else {
+        alert("Wrong password.");
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
