@@ -4,112 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DavintoWeb - Home</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #007BFF;
-      padding: 1rem;
-      text-align: center;
-      color: white;
-      animation: fadeInDown 1s ease;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #ffd700;
-    }
-
-    .hero {
-      padding: 3rem 2rem;
-      background: linear-gradient(to right, #007BFF, #00c6ff);
-      color: white;
-      text-align: center;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .section {
-      padding: 2.5rem 1rem;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: slideUp 1s ease forwards;
-      animation-delay: 0.5s;
-    }
-
-    .section:nth-of-type(2) {
-      background-color: #e9ecef;
-      animation-delay: 0.8s;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      background-color: #007BFF;
-      color: white;
-      padding: 0.7rem 1.2rem;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #0056b3;
-    }
-
-    footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 1.5rem;
-      animation: fadeInUp 1.5s ease;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slideUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -126,18 +21,18 @@
     </nav>
   </header>
 
-  <section class="hero">
+  <section class="hero fade-in-up">
     <h2>We Build Modern, Fast & Secure Websites</h2>
     <p>Let Davinto help you bring your ideas to life with style.</p>
     <a href="pricing.html" class="btn">View Plans</a>
   </section>
 
-  <section class="section">
+  <section class="section fade-in-up">
     <h2>Why Choose Us?</h2>
     <p>We use HTML5, CSS3, JavaScript, Firebase, Node.js and more to build websites that perform and impress.</p>
   </section>
 
-  <section class="section">
+  <section class="section fade-in-up">
     <h2>Ready to Collaborate?</h2>
     <p>We build dynamic and static websites for businesses, blogs, portfolios, and personal brands.</p>
     <a href="contact.html" class="btn">Contact Me</a>
