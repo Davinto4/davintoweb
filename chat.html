@@ -3,37 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat with Davinto AI</title>
+  <title>Chat with DavintoBot</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f4f4;
     }
 
     header {
-      background: #007BFF;
+      background-color: #007BFF;
       padding: 1rem;
-      text-align: center;
       color: white;
+      text-align: center;
     }
 
     nav a {
       color: white;
-      text-decoration: none;
       margin: 0 1rem;
+      text-decoration: none;
     }
 
     nav a:hover {
       color: #ffd700;
-    }
-
-    iframe {
-      width: 100%;
-      height: 90vh;
-      border: none;
-      margin-top: 1rem;
     }
 
     footer {
@@ -41,13 +33,21 @@
       color: white;
       text-align: center;
       padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    #webchat {
+      height: 90vh;
+      width: 100%;
+      border: none;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Live Chat - Davinto AI Agent</h1>
+    <h1>Chat with DavintoBot</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -57,11 +57,14 @@
     </nav>
   </header>
 
-  <!-- Fullscreen Embedded Botpress Chat -->
-  <iframe src="https://cdn.botpress.cloud/webchat/v3/index.html?botId=c9a400e9-8359-4ff8-9a77-fc5001ef4d9f&clientId=c9a400e9-8359-4ff8-9a77-fc5001ef4d9f" allow="microphone; camera"></iframe>
+  <iframe
+    id="webchat"
+    src="https://cdn.botpress.cloud/webchat/v3/index.html?botId=beba-ba0e3ba3a0&clientId=421F83D1-20B5-4B61-beba-ba0e3ba3a0"
+    allow="microphone; camera">
+  </iframe>
 
   <footer>
-    <p>© 2025 DavintoWeb | Powered by Chimdindu Macdonald</p>
+    <p>© 2025 DavintoWeb | Built by Chimdindu Macdonald</p>
   </footer>
 
 </body>
