@@ -1,29 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DavintoWeb Chat</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #chat-container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #007BFF;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
-<body>
-
-<h2>Chat With Our AI Assistant</h2>
-
-<!-- Botpress Chat Widget -->
-<script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
-<script>
-  window.botpressWebChat.init({
-    "botId": "beba-ba0e3ba3a0",
-    "clientId": "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
-    "hostUrl": "https://cdn.botpress.cloud/webchat/v3",
-    "messagingUrl": "https://messaging.botpress.cloud",
-    "botName": "DavintoBot",
-    "composerPlaceholder": "Type your message here...",
-    "showPoweredBy": false,
-    "stylesheet": "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css",
-    "enableTranscriptDownload": false
-  });
-</script>
-
-</body>
+<body>  <header>
+    <h1>DavintoWeb Chat</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+      <a href="chat.html" class="active">Chat</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>  <section id="chat-container">
+    <h1>Chat With Us</h1>
+    <!-- Live chat via Botpress -->
+    <div id="webchat"></div>
+  </section>  <footer>
+    <p>© 2025 DavintoWeb | Developer: Chimdindu Macdonald</p>
+    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105</p>
+  </footer>  <!-- Botpress Chat Embed Script -->  <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>  <script>
+    window.botpressWebChat.init({
+      botId: "beba-ba0e3ba3a0",
+      clientId: "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
+      hostUrl: "https://cdn.botpress.cloud/webchat/v3",
+      messagingUrl: "https://messaging.botpress.cloud",
+      selector: "#webchat",
+      composerPlaceholder: "Type your message here...",
+      botName: "Davinto Assistant",
+      stylesheet: "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css",
+      showPoweredBy: false,
+      enableTranscriptDownload: false
+    });
+  </script></body>
 </html>
