@@ -11,14 +11,13 @@
       max-width: 900px;
       height: 600px;
       margin: 2rem auto;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Nav Bar -->
+  <!-- Navigation -->
   <header>
     <h1>DavintoWeb Chat</h1>
     <nav>
@@ -32,27 +31,27 @@
     </nav>
   </header>
 
-  <!-- Chat Container -->
+  <!-- Chat Section -->
   <section>
     <div id="webchat"></div>
   </section>
 
   <footer>
     <p>© 2025 DavintoWeb | Developed by Chimdindu Macdonald (Davinto)</p>
-    <p>Contact: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105</p>
+    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105</p>
   </footer>
 
-  <!-- Botpress Chat Script -->
+  <!-- Botpress Script (Latest Bot ID) -->
   <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
   <script>
     window.botpressWebChat.init({
-      botId: "beba-ba0e3ba3a0",
-      clientId: "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
       hostUrl: "https://cdn.botpress.cloud/webchat/v3",
       messagingUrl: "https://messaging.botpress.cloud",
+      botId: "c9a400e9-8359-4ff8-9a77-fc5001ef4d9f",
+      clientId: "c9a400e9-8359-4ff8-9a77-fc5001ef4d9f",
       container: "#webchat",
       botName: "DavintoBot",
-      composerPlaceholder: "Type your message here...",
+      composerPlaceholder: "Type your message...",
       showPoweredBy: false,
       enableTranscriptDownload: false,
       stylesheet: "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css"
