@@ -3,78 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Live Chat – DavintoWeb</title>
+  <title>Live Chat - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .chat-container {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-    }
-
     #webchat {
+      width: 100%;
+      max-width: 900px;
       height: 600px;
-      max-width: 100%;
-    }
-
-    @media (max-width: 768px) {
-      #webchat {
-        height: 500px;
-      }
+      margin: 2rem auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Nav Bar -->
   <header>
-    <h1>Live Chat Support</h1>
+    <h1>DavintoWeb Chat</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="pricing.html">Pricing</a>
       <a href="portfolio.html">Portfolio</a>
       <a href="contact.html">Contact</a>
+      <a href="chat.html">Chat</a>
       <a href="admin.html">Admin</a>
     </nav>
   </header>
 
-  <section class="chat-container">
-    <h2>Let's Talk!</h2>
-    <p>The AI agent is here to help you 24/7</p>
+  <!-- Chat Container -->
+  <section>
     <div id="webchat"></div>
   </section>
 
   <footer>
-    <p>© 2025 DavintoWeb | Developer: Chimdindu Macdonald</p>
-    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105 | Nigeria</p>
+    <p>© 2025 DavintoWeb | Developed by Chimdindu Macdonald (Davinto)</p>
+    <p>Contact: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105</p>
   </footer>
 
-  <!-- Botpress Live Chat -->
+  <!-- Botpress Chat Script -->
   <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
   <script>
     window.botpressWebChat.init({
       botId: "beba-ba0e3ba3a0",
+      clientId: "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
       hostUrl: "https://cdn.botpress.cloud/webchat/v3",
       messagingUrl: "https://messaging.botpress.cloud",
-      clientId: "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
       container: "#webchat",
       botName: "DavintoBot",
-      showPoweredBy: false,
       composerPlaceholder: "Type your message here...",
-      layout: "standard",
-      stylesheet: "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css",
-      avatarUrl: "https://i.ibb.co/6gPbJcN/chatbot.png",
-      primaryColor: "#007BFF",
-      enableTranscriptDownload: false
+      showPoweredBy: false,
+      enableTranscriptDownload: false,
+      stylesheet: "https://webchat-css.botpress.cloud/v1/css/botpress-webchat-v1.css"
     });
 
-    // Auto open on load
-    window.botpressWebChat.onEvent(
-      function () {
-        window.botpressWebChat.sendEvent({ type: "show" });
-      },
-      ["LIFECYCLE.LOADED"]
-    );
+    window.botpressWebChat.onEvent(() => {
+      window.botpressWebChat.sendEvent({ type: "show" });
+    }, ["LIFECYCLE.LOADED"]);
   </script>
 
 </body>
