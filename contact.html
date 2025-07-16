@@ -4,54 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact - DavintoWeb</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background-color: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      color: #007BFF;
-      text-align: center;
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      margin-top: 1rem;
-      padding: 0.5rem 1.5rem;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="container">
+  <header>
     <h1>Contact DavintoWeb</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+      <a href="chat.html">Chat</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+
+  <section class="section fade-in-up">
     <form action="mailto:chimdindumacdonald165@gmail.com" method="POST" enctype="text/plain">
       <label for="name">Your Name</label>
       <input type="text" id="name" name="name" required />
@@ -62,9 +32,14 @@
       <label for="message">Your Message</label>
       <textarea id="message" name="message" rows="6" required></textarea>
 
-      <button type="submit">Send Message</button>
+      <button type="submit" class="btn">Send Message</button>
     </form>
-  </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DavintoWeb | Developed by Chimdindu Macdonald (Davinto)</p>
+    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp/Telegram: +2348169045105 | Nigeria</p>
+  </footer>
 
 </body>
 </html>
