@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb - Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header>
-    <h1>Live Chat with DavintoBot</h1>
+    <h1>DavintoWeb Live Chat</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -25,22 +25,19 @@
     <p>The AI agent is here to help you 24/7</p>
   </section>
 
-  <!-- Botpress Chat Embed -->
+  <!-- Botpress WebChat Script -->
   <script src="https://cdn.botpress.cloud/webchat/v3/inject.js"></script>
   <script>
     window.botpressWebChat.init({
-      "botId": "beba-ba0e3ba3a0",
-      "clientId": "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
       "hostUrl": "https://cdn.botpress.cloud/webchat/v3",
       "messagingUrl": "https://messaging.botpress.cloud",
-      "composerPlaceholder": "Ask anything...",
-      "botConversationDescription": "DavintoBot AI Assistant",
+      "botId": "beba-ba0e3ba3a0",
+      "clientId": "421F83D1-20B5-4B61-beba-ba0e3ba3a0",
       "botName": "DavintoBot",
-      "avatarUrl": "https://cdn-icons-png.flaticon.com/512/4712/4712107.png",
-      "showPoweredBy": false,
-      "theme": "prism",
+      "composerPlaceholder": "Type your message here...",
       "containerWidth": "100%",
       "layout": "standard",
+      "showPoweredBy": false,
       "hideWidget": false,
       "disableAnimations": false
     });
