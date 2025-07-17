@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- Navigation Menu -->
+  <!-- NAVIGATION -->
   <nav class="menu">
     <div class="logo">DavintoWeb</div>
     <ul class="desktop-links">
@@ -25,7 +25,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Nav -->
+  <!-- MOBILE MENU -->
   <div class="mobile-links" id="mobileMenu">
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About</a>
@@ -35,18 +35,23 @@
     <a href="chat.html">Chats</a>
   </div>
 
+  <!-- MAIN CONTENT -->
   <main>
     <h1 class="page-title">Welcome to DavintoWeb</h1>
-    <p>Your gateway to powerful, beautiful websites built with passion and precision.</p>
+    <p style="text-align:center; font-size: 1.2rem; max-width: 700px; margin: auto;">
+      Explore a world of modern, fast, and responsive websites built by Davinto — crafted with care and coded with precision.
+    </p>
+    <br />
+    <p style="text-align:center;">
+      <strong>📢 Tip:</strong> Click the <strong>menu icon</strong> on mobile to explore more sections!
+    </p>
   </main>
 
-  <!-- Script -->
   <script>
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      menu.classList.toggle('show');
     }
   </script>
-
 </body>
 </html>
