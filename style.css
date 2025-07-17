@@ -1,25 +1,27 @@
-body {
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
   background-color: #000;
   color: #fff;
 }
 
 .navbar {
-  position: sticky;
-  top: 0;
   background-color: #111;
   padding: 15px 30px;
+  position: sticky;
+  top: 0;
   z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
 }
 
 .logo {
@@ -35,23 +37,23 @@ body {
 }
 
 .nav-links li a {
-  color: #fff;
   text-decoration: none;
-  padding: 6px 12px;
-  transition: background 0.3s;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
 }
 
 .nav-links li a:hover,
 .nav-links li a.active {
   background-color: #00acee;
   color: #000;
-  border-radius: 5px;
 }
 
 .hamburger {
   display: none;
+  color: white;
   font-size: 24px;
-  color: #fff;
   cursor: pointer;
 }
 
@@ -59,11 +61,10 @@ body {
   .nav-links {
     display: none;
     flex-direction: column;
-    gap: 10px;
-    background: #111;
     position: absolute;
     top: 60px;
     right: 30px;
+    background: #111;
     padding: 15px;
     border-radius: 5px;
   }
@@ -77,6 +78,7 @@ body {
   }
 }
 
+/* Hero Section */
 .hero-section {
   text-align: center;
   padding: 100px 20px;
