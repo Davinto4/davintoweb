@@ -1,13 +1,14 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DavintoWeb — Galactic Experience</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- NAVIGATION MENU -->
+  <!-- STAR‑THEMED NAV BAR -->
   <nav class="nav-sssrank">
     <div class="logo glow">DavintoWeb</div>
     <ul class="nav-links">
@@ -18,71 +19,95 @@
       <li><a href="contact.html">Contacts</a></li>
       <li><a href="chat.html">Chats</a></li>
     </ul>
-    <div class="mobile-toggle" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
+    <div class="mobile-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></div>
   </nav>
   <div class="mobile-nav" id="mobileNav">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contacts</a>
-    <a href="chat.html">Chats</a>
-  </div>  <!-- HERO SECTION -->  <header class="hero-section">
-    <h1 class="hero-title">Welcome to <span>DavintoWeb</span></h1>
-    <p class="hero-subtitle">Crafting divine digital experiences — coded by Chimdindu MacDonald (Davinto).</p>
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="pricing.html">Pricing</a>
+    <a href="projects.html">Projects</a><a href="contact.html">Contacts</a><a href="chat.html">Chats</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <header class="hero-section">
+    <h1 class="hero-title">DavintoWeb — Galactic Web Craft</h1>
+    <p class="hero-subtitle">Shaping the future of digital with cosmic precision, coded by Davinto (Chimdindu MacDonald).</p>
     <a class="hero-btn" href="https://wa.me/2348169045105" target="_blank">💬 Chat on WhatsApp</a>
     <a class="support-btn" href="#support">💸 Support My Work</a>
-  </header>  <!-- VIDEO SECTION -->  <section class="video-section">
-    <h2>🎬 Watch & Support</h2>
-    <video controls width="100%" height="auto">
-      <source src="videos/davintoads.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <p>🎥 As you watch, your support helps grow DavintoWeb! 💰</p>
-  </section>  <!-- NEWS SECTION -->  <section class="news-section">
-    <h2>📰 Trending News</h2>
-    <div class="news-grid">
-      <article>
-        <h3>🌍 World News</h3>
-        <p>The United Nations announces global tech fund for youth innovators.</p>
-      </article>
-      <article>
-        <h3>⚽ Sports</h3>
-        <p>Lionel Messi hits 900 career goals — a true GOAT moment!</p>
-      </article>
-      <article>
-        <h3>🎶 Entertainment</h3>
-        <p>Grammy Awards 2025: Nigerian artists dominate nominations.</p>
-      </article>
-      <article>
-        <h3>🚀 Tech</h3>
-        <p>AI robots now build websites in under 10 seconds — powered by DavintoCore.</p>
-      </article>
+  </header>
+
+  <!-- DYNAMIC VIDEO SOCIAL FEED -->
+  <section class="video-feed">
+    <h2>🎥 Featured Videos</h2>
+    <div class="video-grid" id="videoGrid"></div>
+  </section>
+
+  <!-- REAL-TIME NEWS FEED -->
+  <section class="news-feed">
+    <h2>📰 Latest News</h2>
+    <div class="news-grid" id="newsGrid">
+      <!-- Populated by JS -->
     </div>
-  </section>  <!-- SUPPORT SECTION -->  <section id="support" class="support-section">
+  </section>
+
+  <!-- SUPPORT SECTION -->
+  <section id="support" class="support-section">
     <h2>Support DavintoWeb</h2>
-    <p>If you love what I do, support me directly!</p>
+    <p>Your support fuels this cosmic journey.</p>
     <div class="support-box">
-      <p><strong>Bank Name:</strong> Access Bank</p>
-      <p><strong>Account Name:</strong> Chima Chimdindu Macdonald</p>
-      <p><strong>Account Number:</strong> 1719816647</p>
-      <button onclick="copySupportDetails()">📋 Copy Details</button>
+      <p><strong>Bank:</strong> Access Bank</p>
+      <p><strong>Name:</strong> Chima Chimdindu Macdonald</p>
+      <p><strong>Account:</strong> 1719816647</p>
+      <button onclick="copySupportDetails()">📋 Copy Support Info</button>
     </div>
-  </section>  <!-- FOOTER -->  <footer class="footer">
-    <p>&copy; 2025 DavintoWeb — Built with 💙 by Chimdindu MacDonald</p>
-  </footer>  <script>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">© 2025 DavintoWeb — Powered by Cosmos-class code wizardry</footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Toggle mobile nav
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobileNav');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      const nav = document.getElementById('mobileNav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
     }
 
+    // Copy bank details
     function copySupportDetails() {
-      const details = `Access Bank\nChima Chimdindu Macdonald\n1719816647`;
-      navigator.clipboard.writeText(details).then(() => {
-        alert('Support details copied!');
+      const info = 'Access Bank\\nChima Chimdindu Macdonald\\n1719816647';
+      navigator.clipboard.writeText(info).then(() => alert('Copied to clipboard!'));
+    }
+
+    // Mock dynamic video feed integration
+    const videoSources = [
+      { title: 'Promotional Demo', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
+      { title: 'TikTok Teaser', url: 'https://www.youtube.com/embed/oHg5SJYRHA0' },
+      { title: 'Reels Snapshot', url: 'https://www.youtube.com/embed/QtBDL8EiNZo' }
+    ];
+    const videoGrid = document.getElementById('videoGrid');
+    videoSources.forEach(v => {
+      const div = document.createElement('div');
+      div.className = 'video-card';
+      div.innerHTML = `<iframe src="${v.url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><h3>${v.title}</h3>`;
+      videoGrid.appendChild(div);
+    });
+
+    // Fetch real trivia news headlines (mocked)
+    async function loadNews() {
+      const data = [
+        { category: 'World', headline: 'Tech summit 2025 empowers youth innovators.' },
+        { category: 'Sports', headline: 'Lionel Messi scores again—a legend forever.' },
+        { category: 'Entertainment', headline: 'New Nollywood film trend breaks streaming records.' },
+        { category: 'Tech', headline: 'AI website builders now powered by DavintoCore.' }
+      ];
+      const grid = document.getElementById('newsGrid');
+      data.forEach(n => {
+        const art = document.createElement('article');
+        art.innerHTML = `<h3>${n.category}</h3><p>${n.headline}</p>`;
+        grid.appendChild(art);
       });
     }
-  </script></body>
+    loadNews();
+  </script>
+
+</body>
 </html>
