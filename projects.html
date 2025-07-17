@@ -5,8 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Projects – DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar .logo img {
+      height: 40px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .nav-links a.active {
+      color: #007bff;
+    }
+
+    .projects-section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      padding: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .project-card h3 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .project-card p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: #007bff;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      background: #eee;
+      margin-top: 4rem;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Navigation -->
   <nav class="navbar">
     <div class="logo">
       <img src="images/logo.png" alt="DavintoWeb Logo" />
@@ -19,23 +127,25 @@
     </ul>
   </nav>
 
+  <!-- Projects Section -->
   <section class="projects-section">
-    <h1 class="section-title">Our Projects</h1>
+    <h1 class="section-title">Web Projects</h1>
+
     <div class="projects-grid">
 
       <!-- Project 1: Personal Portfolio -->
       <div class="project-card">
         <img src="images/project1.jpg" alt="Personal Portfolio">
         <h3>Personal Portfolio</h3>
-        <p>A responsive and modern personal portfolio website built with HTML, CSS, and JavaScript. Showcases skills, projects, and contact details.</p>
-        <a href="#" class="btn" onclick="event.preventDefault(); alert('This is a demo project.');">View Demo</a>
+        <p>A modern portfolio site showcasing personal branding, skills, and contact info.</p>
+        <a href="#" class="btn" onclick="event.preventDefault(); alert('This is a demo project, not linked yet.');">View Demo</a>
       </div>
 
       <!-- Project 2: Business Website -->
       <div class="project-card">
         <img src="images/project2.jpg" alt="Business Website">
         <h3>Business Website</h3>
-        <p>A clean and professional business website tailored for small businesses and startups. Includes services, testimonials, and contact forms.</p>
+        <p>Designed for startups and entrepreneurs. Includes about, services, and contact sections.</p>
         <a href="https://davintoweb-davinto.vercel.app/" class="btn" target="_blank">View Live</a>
       </div>
 
@@ -43,15 +153,17 @@
       <div class="project-card">
         <img src="images/project3.jpg" alt="E-commerce Store">
         <h3>E-commerce Store</h3>
-        <p>An online store built with HTML, CSS, and JavaScript. Includes product pages, shopping cart, and responsive design.</p>
+        <p>A fully responsive online store layout featuring product listings and shopping cart UI.</p>
         <a href="https://davintoweb-davinto.vercel.app/" class="btn" target="_blank">View Live</a>
       </div>
 
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
   </footer>
+
 </body>
 </html>
