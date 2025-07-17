@@ -1,115 +1,133 @@
-import { useEffect, useState } from "react"; import { Card } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { initializeApp } from "firebase/app"; import { getDatabase } from "firebase/database"; import "./App.css";
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Professional website building services by DavintoWeb">
+    <title>DavintoWeb | Home</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/script.js"></script>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <script>
+      window.smartupp = { key: '0d074f1a6588d3c0562657b1e5a3dd332cf9af81' };
+    </script>
+    <script async src="https://web.smartupps.com/widget.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <nav>
+          <button onclick="toggleTheme()">🌞/🌙</button>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="contact.html">Contact</a>
+          <a href="chat.html">Chat</a>
+        </nav>
+      </aside>
+      <main class="content">
+        <header class="hero">
+          <h1>🚀 Build Any Website You Imagine</h1>
+          <p>
+            Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.
+          </p>
+          <a class="btn" href="/portfolio.pdf" download>Download Portfolio</a>
+        </header><section class="why-choose">
+      <h2>🌟 Why Choose DavintoWeb?</h2>
+      <ul>
+        <li>✅ Fast and mobile-optimized websites</li>
+        <li>✅ Free HTTPS Security</li>
+        <li>✅ Firebase-powered dashboards</li>
+        <li>✅ AI Chatbot & Translator Integration</li>
+        <li>✅ Ongoing support</li>
+      </ul>
+    </section>
 
-const firebaseConfig = { apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8", authDomain: "davintoweb-payments.firebaseapp.com", databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com", projectId: "davintoweb-payments", storageBucket: "davintoweb-payments.appspot.com", messagingSenderId: "667742200333", appId: "1:667742200333:web:cf75f6cef6798eed432b44" };
+    <section class="what-we-build">
+      <h2>🧩 What We Build</h2>
+      <div class="grid">
+        <div>Personal Websites</div>
+        <div>Blogs & Portfolios</div>
+        <div>Business Sites</div>
+        <div>E-commerce</div>
+        <div>Educational Platforms</div>
+        <div>Community Portals</div>
+        <div>AI Bots & Tools</div>
+        <div>Family & Event Sites</div>
+      </div>
+    </section>
 
-initializeApp(firebaseConfig); getDatabase();
-
-const musicList = [ "https://example.com/song1.mp3", "https://example.com/song2.mp3", "https://example.com/song3.mp3" ];
-
-export default function HomePage() { const [song, setSong] = useState("");
-
-useEffect(() => { const random = Math.floor(Math.random() * musicList.length); setSong(musicList[random]);
-
-const script = document.createElement("script");
-script.src = "https://www.smartupp.io/widget/0d074f1a6588d3c0562657b1e5a3dd332cf9af81.js";
-script.async = true;
-document.body.appendChild(script);
-
-}, []);
-
-return ( <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen"> <audio src={song} autoPlay loop hidden /> <div className="flex"> <nav className="w-48 bg-gray-800 text-white p-4 flex flex-col space-y-4"> <Button variant="outline">🌞/🌙</Button> <Button variant="outline">Home</Button> <Button variant="outline">About</Button> <Button variant="outline">Pricing</Button> <Button variant="outline">Portfolio</Button> <Button variant="outline">Contact</Button> <Button variant="outline">Chat</Button> </nav>
-
-<main className="flex-1 p-6 space-y-10">
-      <section className="text-center">
-        <h1 className="text-4xl font-bold">🚀 Build Any Website You Imagine</h1>
-        <p className="text-lg mt-4 max-w-xl mx-auto">
-          Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.
-        </p>
-        <Button className="mt-4">📄 Download Portfolio</Button>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold">🌟 Why Choose DavintoWeb?</h2>
-        <ul className="list-disc pl-6 mt-2">
-          <li>Fast and mobile-optimized websites</li>
-          <li>Free HTTPS Security</li>
-          <li>Firebase-powered dashboards</li>
-          <li>AI Chatbot & Translator Integration</li>
-          <li>Ongoing support</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold">🧩 What We Build</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
-          <Card>Personal Websites</Card>
-          <Card>Blogs & Portfolios</Card>
-          <Card>Business Sites</Card>
-          <Card>E-commerce</Card>
-          <Card>Educational Platforms</Card>
-          <Card>Community Portals</Card>
-          <Card>AI Bots & Tools</Card>
-          <Card>Family & Event Sites</Card>
+    <section class="pricing">
+      <h2>💰 Pricing Packages</h2>
+      <div class="pricing-cards">
+        <div class="card">
+          <h3>🌐 Starter Site</h3>
+          <p>From ₦5,000</p>
+          <ul>
+            <li>1–2 Pages</li>
+            <li>Responsive Design</li>
+            <li>Contact Form</li>
+          </ul>
         </div>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold">💰 Pricing Packages</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-          <Card className="p-4">
-            <h3 className="font-bold">🌐 Starter Site</h3>
-            <p>From ₦5,000</p>
-            <ul className="text-sm list-disc pl-4">
-              <li>1–2 Pages</li>
-              <li>Responsive Design</li>
-              <li>Contact Form</li>
-            </ul>
-          </Card>
-          <Card className="p-4">
-            <h3 className="font-bold">📝 Blog / Portfolio</h3>
-            <p>From ₦15,000</p>
-            <ul className="text-sm list-disc pl-4">
-              <li>CMS Admin Panel</li>
-              <li>SEO + Social Sharing</li>
-            </ul>
-          </Card>
-          <Card className="p-4">
-            <h3 className="font-bold">🏢 Business Site</h3>
-            <p>From ₦30,000</p>
-            <ul className="text-sm list-disc pl-4">
-              <li>Multi-Page Design</li>
-              <li>WhatsApp Booking</li>
-            </ul>
-          </Card>
-          <Card className="p-4">
-            <h3 className="font-bold">🛒 E-commerce</h3>
-            <p>From ₦60,000</p>
-            <ul className="text-sm list-disc pl-4">
-              <li>Payment Integration</li>
-              <li>Product Dashboard</li>
-            </ul>
-          </Card>
-          <Card className="p-4">
-            <h3 className="font-bold">⚙️ Web App + AI</h3>
-            <p>From ₦100,000+</p>
-            <ul className="text-sm list-disc pl-4">
-              <li>Custom Dashboards</li>
-              <li>Realtime DB & Auth</li>
-            </ul>
-          </Card>
-          <Card className="p-4">
-            <h3 className="font-bold">🧠 Custom Projects</h3>
-            <p>Let’s Discuss</p>
-            <ul className="text-sm list-disc pl-4">
-              <li>Translators, Bots, Platforms</li>
-              <li>Chat with Davinto Now</li>
-            </ul>
-          </Card>
+        <div class="card">
+          <h3>📝 Blog / Portfolio</h3>
+          <p>From ₦15,000</p>
+          <ul>
+            <li>CMS Admin Panel</li>
+            <li>SEO + Social Sharing</li>
+          </ul>
         </div>
-      </section>
-    </main>
-  </div>
+        <div class="card">
+          <h3>🏢 Business Site</h3>
+          <p>From ₦30,000</p>
+          <ul>
+            <li>Multi-Page Design</li>
+            <li>WhatsApp Booking</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🛒 E-commerce</h3>
+          <p>From ₦60,000</p>
+          <ul>
+            <li>Payment Integration</li>
+            <li>Product Dashboard</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>⚙️ Web App + AI</h3>
+          <p>From ₦100,000+</p>
+          <ul>
+            <li>Custom Dashboards</li>
+            <li>Realtime DB & Auth</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🧠 Custom Projects</h3>
+          <p>Let’s Discuss</p>
+          <ul>
+            <li>Translators, Bots, Platforms</li>
+          </ul>
+        </div>
+      </div>
+      <a class="btn btn-primary" href="chat.html">Chat with Davinto Now</a>
+    </section>
+  </main>
 </div>
 
-); }
+<script>
+  const songs = [
+    '/music/gospel1.mp3',
+    '/music/gospel2.mp3',
+    '/music/hiphop1.mp3',
+    '/music/rap1.mp3',
+    '/music/rap2.mp3'
+  ];
+  const randomSong = songs[Math.floor(Math.random() * songs.length)];
+  const audio = new Audio(randomSong);
+  audio.autoplay = true;
+  audio.volume = 0.4;
+  audio.play();
+</script>
 
+  </body>
+</html>
