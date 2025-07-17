@@ -1,142 +1,141 @@
-<!DOCTYPE html><html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DavintoWeb — Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#1D4ED8',
-              secondary: '#FACC15',
-            },
-          },
-        },
-      };
-    </script>
-    <link rel="icon" href="favicon.ico" />
-  </head>
-  <body class="bg-gray-100 text-gray-900">
-    <div class="flex h-screen">
-      <!-- Sidebar -->
-      <aside class="w-64 bg-white shadow-xl p-4 flex flex-col justify-between">
-        <div>
-          <h1 class="text-2xl font-bold text-primary mb-6">DavintoWeb</h1>
-          <nav class="space-y-4">
-            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
-              <span class="material-icons mr-3">home</span>
-              Home
-            </a>
-            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
-              <span class="material-icons mr-3">info</span>
-              About
-            </a>
-            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
-              <span class="material-icons mr-3">attach_money</span>
-              Pricing
-            </a>
-            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
-              <span class="material-icons mr-3">folder</span>
-              Portfolio
-            </a>
-            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
-              <span class="material-icons mr-3">contact_mail</span>
-              Contact
-            </a>
-            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
-              <span class="material-icons mr-3">chat</span>
-              Chat
-            </a>
-          </nav>
-        </div>
-        <button class="mt-10 p-2 w-full bg-primary text-white rounded hover:bg-blue-700 transition">
-          Download Portfolio
-        </button>
-      </aside><!-- Main Content -->
-  <main class="flex-1 overflow-y-auto p-8">
-    <section class="mb-12">
-      <h2 class="text-4xl font-bold mb-2">🚀 Build Any Website You Imagine</h2>
-      <p class="text-lg text-gray-700">
-        Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.
-      </p>
-    </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DavintoWeb | Homepage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="favicon.ico" />
+</head>
+<body class="bg-white text-gray-900 font-sans">
 
-    <section class="mb-12">
-      <h3 class="text-2xl font-bold mb-4">🌟 Why Choose DavintoWeb?</h3>
-      <ul class="list-disc list-inside space-y-2">
-        <li>Fast and mobile-optimized websites</li>
-        <li>Free HTTPS Security</li>
-        <li>Firebase-powered dashboards</li>
-        <li>AI Chatbot & Translator Integration</li>
-        <li>Ongoing support</li>
-      </ul>
-    </section>
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Nav -->
+    <aside class="w-64 bg-gray-100 border-r border-gray-300 p-4 fixed h-full">
+      <div class="mb-8 text-2xl font-bold text-blue-600">DavintoWeb</div>
+      <nav class="flex flex-col space-y-4">
+        <a href="index.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">🏠 Home</a>
+        <a href="about.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">ℹ️ About</a>
+        <a href="pricing.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">💰 Pricing</a>
+        <a href="portfolio.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">🖼️ Portfolio</a>
+        <a href="contact.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">📞 Contact</a>
+        <a href="chat.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">💬 Chat</a>
+      </nav>
 
-    <section class="mb-12">
-      <h3 class="text-2xl font-bold mb-4">🧩 What We Build</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="bg-white p-4 rounded shadow">Personal Websites</div>
-        <div class="bg-white p-4 rounded shadow">Blogs & Portfolios</div>
-        <div class="bg-white p-4 rounded shadow">Business Sites</div>
-        <div class="bg-white p-4 rounded shadow">E-commerce</div>
-        <div class="bg-white p-4 rounded shadow">Educational Platforms</div>
-        <div class="bg-white p-4 rounded shadow">Community Portals</div>
-        <div class="bg-white p-4 rounded shadow">AI Bots & Tools</div>
-        <div class="bg-white p-4 rounded shadow">Family & Event Sites</div>
+      <!-- WhatsApp Button -->
+      <div class="mt-10">
+        <a href="https://wa.me/2348169045105" target="_blank"
+           class="block px-4 py-3 text-center bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+          📱 Chat on WhatsApp
+        </a>
       </div>
-    </section>
+    </aside>
 
-    <section>
-      <h3 class="text-2xl font-bold mb-4">💰 Pricing Packages</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded shadow">
-          <h4 class="text-xl font-semibold mb-2">🌐 Starter Site</h4>
-          <p>From ₦5,000</p>
-          <ul class="list-disc list-inside mt-2">
-            <li>1–2 Pages</li>
-            <li>Responsive Design</li>
-            <li>Contact Form</li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded shadow">
-          <h4 class="text-xl font-semibold mb-2">📝 Blog / Portfolio</h4>
-          <p>From ₦15,000</p>
-          <ul class="list-disc list-inside mt-2">
-            <li>CMS Admin Panel</li>
-            <li>SEO + Social Sharing</li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded shadow">
-          <h4 class="text-xl font-semibold mb-2">🏢 Business Site</h4>
-          <p>From ₦30,000</p>
-          <ul class="list-disc list-inside mt-2">
-            <li>Multi-Page Design</li>
-            <li>WhatsApp Booking</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
+    <!-- Main Content -->
+    <main class="ml-64 p-6 w-full overflow-y-auto">
+      <!-- Hero -->
+      <section class="mb-12">
+        <h1 class="text-4xl font-extrabold mb-4">🚀 Build Any Website You Imagine</h1>
+        <p class="text-lg text-gray-700">Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
+        <a href="portfolio.pdf" download class="mt-4 inline-block bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition">📄 Download Portfolio</a>
+      </section>
 
-<!-- SmartUpp Live Chat -->
-<script type="text/javascript">
-  var _smartsupp = _smartsupp || {};
-  _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-  window.smartsupp || (function(d) {
-    var s, c, o = smartsupp = function() { o._.push(arguments) };
-    o._ = [];
-    s = d.getElementsByTagName('script')[0];
-    c = d.createElement('script');
-    c.type = 'text/javascript';
-    c.charset = 'utf-8';
-    c.async = true;
-    c.src = 'https://www.smartsuppchat.com/loader.js?';
-    s.parentNode.insertBefore(c, s);
-  })(document);
-</script>
+      <!-- Why Choose -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">🌟 Why Choose DavintoWeb?</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-700">
+          <li>Fast and mobile-optimized websites</li>
+          <li>Free HTTPS Security</li>
+          <li>Firebase-powered dashboards</li>
+          <li>AI Chatbot & Translator Integration</li>
+          <li>Ongoing support</li>
+        </ul>
+      </section>
 
-  </body>
+      <!-- What We Build -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-4">🧩 What We Build</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-800">
+          <div class="p-4 bg-gray-100 rounded shadow">Personal Websites</div>
+          <div class="p-4 bg-gray-100 rounded shadow">Blogs & Portfolios</div>
+          <div class="p-4 bg-gray-100 rounded shadow">Business Sites</div>
+          <div class="p-4 bg-gray-100 rounded shadow">E-commerce</div>
+          <div class="p-4 bg-gray-100 rounded shadow">Educational Platforms</div>
+          <div class="p-4 bg-gray-100 rounded shadow">Community Portals</div>
+          <div class="p-4 bg-gray-100 rounded shadow">AI Bots & Tools</div>
+          <div class="p-4 bg-gray-100 rounded shadow">Family & Event Sites</div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">💰 Pricing Packages</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-6 bg-white border rounded-lg shadow">
+            <h3 class="text-xl font-semibold">🌐 Starter Site</h3>
+            <p class="text-gray-600">From ₦5,000</p>
+            <ul class="mt-2 text-gray-700 list-disc list-inside">
+              <li>1–2 Pages</li>
+              <li>Responsive Design</li>
+              <li>Contact Form</li>
+            </ul>
+          </div>
+          <div class="p-6 bg-white border rounded-lg shadow">
+            <h3 class="text-xl font-semibold">📝 Blog / Portfolio</h3>
+            <p class="text-gray-600">From ₦15,000</p>
+            <ul class="mt-2 text-gray-700 list-disc list-inside">
+              <li>CMS Admin Panel</li>
+              <li>SEO + Social Sharing</li>
+            </ul>
+          </div>
+          <div class="p-6 bg-white border rounded-lg shadow">
+            <h3 class="text-xl font-semibold">🏢 Business Site</h3>
+            <p class="text-gray-600">From ₦30,000</p>
+            <ul class="mt-2 text-gray-700 list-disc list-inside">
+              <li>Multi-Page Design</li>
+              <li>WhatsApp Booking</li>
+            </ul>
+          </div>
+          <div class="p-6 bg-white border rounded-lg shadow">
+            <h3 class="text-xl font-semibold">🛒 E-commerce</h3>
+            <p class="text-gray-600">From ₦60,000</p>
+            <ul class="mt-2 text-gray-700 list-disc list-inside">
+              <li>Payment Integration</li>
+              <li>Product Dashboard</li>
+            </ul>
+          </div>
+          <div class="p-6 bg-white border rounded-lg shadow">
+            <h3 class="text-xl font-semibold">⚙️ Web App + AI</h3>
+            <p class="text-gray-600">From ₦100,000+</p>
+            <ul class="mt-2 text-gray-700 list-disc list-inside">
+              <li>Custom Dashboards</li>
+              <li>Realtime DB & Auth</li>
+            </ul>
+          </div>
+          <div class="p-6 bg-white border rounded-lg shadow">
+            <h3 class="text-xl font-semibold">🧠 Custom Projects</h3>
+            <p class="text-gray-600">Let’s Discuss</p>
+            <ul class="mt-2 text-gray-700 list-disc list-inside">
+              <li>Translators, Bots, Platforms</li>
+              <li>Chat with Davinto Now</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- SmartUpp -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = "0d074f1a6588d3c0562657b1e5a3dd332cf9af81";
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
+  </script>
+
+</body>
 </html>
