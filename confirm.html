@@ -2,69 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Confirm Payment | DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+    }
+
+    nav {
+      background: #000;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      background: #222;
+      margin-right: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: #444;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
     .loader {
-      border: 4px solid #f3f3f3;
+      display: none;
+      margin: 20px auto;
+      width: 30px;
+      height: 30px;
+      border: 4px solid #ddd;
       border-top: 4px solid #3498db;
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
       animation: spin 1s linear infinite;
-      display: inline-block;
-      margin-left: 10px;
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      to { transform: rotate(360deg); }
     }
 
-    form input, form textarea {
+    .success {
+      display: none;
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    input, textarea {
       width: 100%;
+      margin-bottom: 15px;
       padding: 10px;
-      margin-bottom: 1rem;
       border: 1px solid #ccc;
       border-radius: 6px;
+    }
+
+    button {
+      background: #3498db;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2980b9;
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo">DavintoWeb</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="confirm.html">Confirm Payment</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+
+  <nav>
+    <div><a href="index.html">🏠 Home</a></div>
+    <div>
+      <a href="pricing.html">💰 Pricing</a>
+      <a href="about.html">ℹ️ About</a>
+      <a href="contact.html">📞 Contact</a>
+    </div>
   </nav>
 
-  <section class="section">
-    <h1>📨 Confirm Your Payment</h1>
+  <div class="container">
+    <h2>🔐 Confirm Your Payment</h2>
     <form id="confirmForm">
       <input type="text" name="accountName" placeholder="Account Name" required>
       <input type="text" name="bankName" placeholder="Bank Name" required>
       <input type="text" name="accountNumber" placeholder="Account Number" required>
       <input type="tel" name="phone" placeholder="Phone Number" required>
       <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" placeholder="Additional Message" required></textarea>
-      <button type="submit" id="submitBtn">Submit</button>
-      <span id="loader" style="display:none;" class="loader"></span>
+      <textarea name="message" placeholder="Additional Message" rows="3"></textarea>
+      <button type="submit">✅ Submit Confirmation</button>
+      <div class="loader" id="loader"></div>
+      <div class="success" id="successMsg">✅ Successfully Submitted!</div>
     </form>
-    <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-reward-1085.mp3"></audio>
-  </section>
+  </div>
 
-  <footer class="footer">© 2025 DavintoWeb. All rights reserved.</footer>
+  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav"></audio>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
@@ -75,46 +132,54 @@
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const formRef = ref(db, 'confirmations');
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
     const form = document.getElementById('confirmForm');
     const loader = document.getElementById('loader');
-    const successSound = document.getElementById('successSound');
+    const successMsg = document.getElementById('successMsg');
+    const sound = document.getElementById('successSound');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      loader.style.display = 'inline-block';
+      loader.style.display = 'block';
+      successMsg.style.display = 'none';
 
-      const formData = new FormData(form);
-      const data = {};
-      formData.forEach((value, key) => data[key] = value);
-      data.timestamp = serverTimestamp();
+      const data = {
+        accountName: form.accountName.value,
+        bankName: form.bankName.value,
+        accountNumber: form.accountNumber.value,
+        phone: form.phone.value,
+        email: form.email.value,
+        message: form.message.value,
+        timestamp: new Date().toISOString()
+      };
 
       try {
-        await push(formRef, data);
+        await db.ref('confirmations').push(data);
         loader.style.display = 'none';
-        successSound.play();
-        alert('✅ Confirmation submitted successfully!');
+        sound.play();
+        successMsg.style.display = 'block';
         form.reset();
       } catch (err) {
+        alert("Error submitting form.");
         loader.style.display = 'none';
-        alert('❌ Error submitting confirmation.');
       }
     });
   </script>
 
   <!-- SmartUpp Chat -->
-  <script>
+  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
-    _smartsupp.key = "0d074f1a6588d3c0562657b1e5a3dd332cf9af81";
-    window.smartsupp || (function (d) {
-      var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
-      s = d.getElementsByTagName("script")[0]; c = d.createElement("script");
-      c.type = "text/javascript"; c.charset = "utf-8"; c.async = true;
-      c.src = "https://www.smartsuppchat.com/loader.js?"; s.parentNode.insertBefore(c, s);
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';
+      s.parentNode.insertBefore(c,s);
     })(document);
   </script>
+
 </body>
 </html>
