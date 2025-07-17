@@ -1,18 +1,21 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* BODY */
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background-color: #000;
   color: #fff;
 }
 
+/* NAVBAR */
 .navbar {
   background-color: #111;
-  padding: 15px 30px;
+  padding: 12px 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -31,17 +34,17 @@ body {
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 18px;
+  list-style: none;
 }
 
 .nav-links li a {
-  text-decoration: none;
   color: white;
+  text-decoration: none;
   padding: 8px 12px;
+  transition: 0.3s;
   border-radius: 4px;
-  transition: background 0.3s ease;
 }
 
 .nav-links li a:hover,
@@ -52,8 +55,8 @@ body {
 
 .hamburger {
   display: none;
-  color: white;
   font-size: 24px;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -61,12 +64,12 @@ body {
   .nav-links {
     display: none;
     flex-direction: column;
+    background-color: #111;
     position: absolute;
     top: 60px;
-    right: 30px;
-    background: #111;
-    padding: 15px;
-    border-radius: 5px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 8px;
   }
 
   .nav-links.show {
@@ -78,31 +81,33 @@ body {
   }
 }
 
-/* Hero Section */
-.hero-section {
+/* HERO SECTION */
+.hero {
   text-align: center;
   padding: 100px 20px;
   background: linear-gradient(to right, #000, #001f3f);
 }
 
-.hero-section h1 {
+.hero h1 {
   font-size: 3rem;
   color: #00acee;
+  margin-bottom: 10px;
 }
 
-.hero-section p {
+.hero p {
   font-size: 1.2rem;
-  margin: 20px 0;
+  margin-bottom: 30px;
+  color: #ccc;
 }
 
 .whatsapp-btn {
   background-color: #25d366;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   text-decoration: none;
   border-radius: 8px;
   font-weight: bold;
-  transition: background 0.3s ease;
+  transition: 0.3s;
 }
 
 .whatsapp-btn:hover {
