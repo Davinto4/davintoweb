@@ -2,53 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DavintoWeb | Home</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <!-- NAVIGATION MENU -->
-  <nav class="menu">
-    <div class="logo">DavintoWeb</div>
-    <ul class="desktop-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="contact.html">Contacts</a></li>
-      <li><a href="chat.html">Chats</a></li>
-    </ul>
-    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars"></i>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">DavintoWeb</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contacts</a></li>
+        <li><a href="chat.html">Chats</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
     </div>
   </nav>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-links" id="mobileMenu">
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contacts</a>
-    <a href="chat.html">Chats</a>
-  </div>
+  <!-- Main Section -->
+  <header class="hero-section">
+    <h1>Welcome to DavintoWeb</h1>
+    <p>Creating websites that speak style and performance.</p>
+    <a href="https://wa.me/2348169045105" class="whatsapp-btn" target="_blank">💬 Chat on WhatsApp</a>
+  </header>
 
-  <!-- MAIN SECTION -->
-  <main style="margin-top: 80px; padding: 2rem;">
-    <h1 class="page-title">Welcome to DavintoWeb</h1>
-    <p>
-      DavintoWeb is your go-to for powerful and creative web solutions, from clean design to seamless functionality.
-    </p>
-  </main>
-
-  <!-- MENU TOGGLE SCRIPT -->
   <script>
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('show');
     }
   </script>
+
 </body>
 </html>
