@@ -1,101 +1,117 @@
-<!DOCTYPE html><html lang="en" data-theme="light">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — DavintoWeb</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
-<body>  <!-- Theme Toggle -->  <div class="theme-toggle">
-    <button onclick="toggleTheme()">Toggle Mode</button>
-  </div>  <!-- Navigation -->  <nav class="collapsible-navbar">
-    <a href="index.html">🏠 Home</a>
-    <a href="about.html" class="active">📖 About</a>
-    <a href="services.html">🛠 Services</a>
-    <a href="pricing.html">💰 Pricing</a>
-    <a href="contact.html">📞 Contact</a>
-  </nav>  <!-- About Section -->  <section class="features">
-    <h2>👨‍💻 Meet the Developer: Chimdindu MacDonald</h2>
-    <p>
-      Hello, I’m <strong>Chimdindu MacDonald</strong>, the self-taught creator and developer behind <strong>DavintoWeb</strong>. I design, develop, and launch beautiful, functional websites for clients across all industries — from personal brands and families to startups, schools, and businesses.
-    </p><h2>🌐 About DavintoWeb</h2>
-<p>
-  <strong>DavintoWeb</strong> is a web development service that transforms your ideas into fully functional, modern websites. Every line of code is handcrafted with purpose — no shortcuts, no templates, no bots — just pure, custom development.
-</p>
+<body class="light-mode">
+  <header class="navbar">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn active"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html" class="nav-btn"><i class="fas fa-money-bill"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+    <button id="themeToggle" class="nav-btn toggle-btn"><i class="fas fa-adjust"></i></button>
+  </header>
 
-<h3>🎯 Our Mission</h3>
-<p>
-  To provide high-quality, affordable, and customized web development solutions to individuals, small businesses, and organizations. We aim to empower clients with beautiful, secure, and scalable websites that meet their unique needs.
-</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>👋 Meet <span class="highlight">Chimdindu</span>, Creator of DavintoWeb</h1>
+    <p>I build powerful websites tailored to your ideas – fast, secure, and smart.</p>
+    <a href="#services" class="button">Explore What We Do</a>
+  </section>
 
-<h3>💡 Services We Offer</h3>
-<div class="services-grid">
-  <div class="service-item">
-    <img src="img/business-site.jpg" alt="Business Website">
-    <p>💼 Professional Business Websites</p>
-  </div>
-  <div class="service-item">
-    <img src="img/blog.jpg" alt="Blog">
-    <p>📰 Personal Blogs & Journals</p>
-  </div>
-  <div class="service-item">
-    <img src="img/school.jpg" alt="School Website">
-    <p>🎓 School Portals & Admin Panels</p>
-  </div>
-  <div class="service-item">
-    <img src="img/health.jpg" alt="Health System">
-    <p>🏥 Health System Platforms</p>
-  </div>
-  <div class="service-item">
-    <img src="img/gaming.jpg" alt="Game Website">
-    <p>🎮 Game & Quest Platforms</p>
-  </div>
-  <div class="service-item">
-    <img src="img/bookstore.jpg" alt="Online Library">
-    <p>📖 Online Bookstores & Libraries</p>
-  </div>
-</div>
+  <!-- About DavintoWeb -->
+  <section class="section">
+    <h2><i class="fas fa-code"></i> About DavintoWeb</h2>
+    <p>DavintoWeb is a creative digital development studio led by Chimdindu MacDonald. We design and develop websites ranging from simple pages to powerful apps using modern tools like Firebase, AI APIs, and real-time databases.</p>
+    <p>We combine creativity, logic, and speed to deliver websites that don't just look good – they perform.</p>
+  </section>
 
-<h3>⭐ Testimonials</h3>
-<blockquote>
-  "DavintoWeb created a stunning website for our school. It’s fast, secure, and easy for parents and staff to use!"<br>
-  <strong>– Principal, Golden Bridge College</strong>
-</blockquote>
-<blockquote>
-  "The blog Davinto built for me changed everything. It looks professional and was very affordable."<br>
-  <strong>– Amanda E., Lifestyle Blogger</strong>
-</blockquote>
-<blockquote>
-  "I needed a custom dashboard for my e-commerce startup — Davinto delivered beyond expectations."<br>
-  <strong>– Ifeanyi O., Founder, NaijaMall</strong>
-</blockquote>
+  <!-- Our Mission -->
+  <section class="section">
+    <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+    <p>To empower individuals and businesses in Nigeria and beyond by building accessible, affordable, and innovative web solutions.</p>
+  </section>
 
-<h3>📄 Download My Portfolio</h3>
-<p>
-  Want to see more of what I can do? <a href="portfolio.pdf" class="download-btn" download>📥 Download PDF Portfolio</a>
-</p>
+  <!-- Services Grid -->
+  <section id="services" class="section">
+    <h2><i class="fas fa-tools"></i> What We Can Do</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="images/site.png" alt="Starter Site"/>
+        <h3>1–2 Page Websites</h3>
+        <p>Perfect for quick launches and bio sites.</p>
+      </div>
+      <div class="card">
+        <img src="images/blog.png" alt="Blog"/>
+        <h3>Blogs & Portfolios</h3>
+        <p>Dynamic content with CMS and author tools.</p>
+      </div>
+      <div class="card">
+        <img src="images/business.png" alt="Business"/>
+        <h3>Business Sites</h3>
+        <p>Company profiles, services, and contact forms.</p>
+      </div>
+      <div class="card">
+        <img src="images/store.png" alt="Ecommerce"/>
+        <h3>E-commerce</h3>
+        <p>Online stores with cart, payments, and orders.</p>
+      </div>
+      <div class="card">
+        <img src="images/app.png" alt="App"/>
+        <h3>Web Apps</h3>
+        <p>Firebase-powered apps with AI, login, and data.</p>
+      </div>
+    </div>
+  </section>
 
-<p>
-  Whether you need a static site, a dynamic dashboard, Firebase integration, or a custom CMS — <strong>DavintoWeb can build it</strong>. If you can imagine it, we can code it.
-</p>
+  <!-- Testimonials -->
+  <section class="section">
+    <h2><i class="fas fa-star"></i> What Clients Say</h2>
+    <div class="testimonials">
+      <blockquote>
+        "DavintoWeb created our NGO platform in 3 days – fast and clean!"<br><cite>– Sarah M., Lagos</cite>
+      </blockquote>
+      <blockquote>
+        "They brought my idea to life with a web app connected to WhatsApp and AI!"<br><cite>– Emeka J., Abuja</cite>
+      </blockquote>
+      <blockquote>
+        "Professional, creative and always on time!"<br><cite>– Peace I., PH</cite>
+      </blockquote>
+    </div>
+  </section>
 
-  </section>  <!-- Call to Action -->  <div class="contact-cta">
-    <a href="https://wa.me/2348169045105" class="whatsapp-button" target="_blank">
-      💬 Chat on WhatsApp
-    </a>
-  </div>  <!-- SmartUpp Live Chat -->  <script type="text/javascript">
+  <!-- Portfolio Download -->
+  <section class="section">
+    <h2><i class="fas fa-download"></i> View My Portfolio</h2>
+    <p>You can check out sample projects and designs by downloading the full PDF portfolio.</p>
+    <a href="DavintoWeb_Portfolio.pdf" class="button" download><i class="fas fa-file-pdf"></i> Download Portfolio</a>
+  </section>
+
+  <!-- SmartUpp Live Chat -->
+  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
     window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
       s=d.getElementsByTagName('script')[0];c=d.createElement('script');
       c.type='text/javascript';c.charset='utf-8';c.async=true;
       c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
     })(document);
-  </script>  <!-- Theme Toggle Script -->  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
-    }
-  </script></body>
+  </script>
+
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('light-mode');
+    });
+  </script>
+</body>
 </html>
