@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,13 +6,17 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="layout">
+  <!-- Background Audio -->
+  <audio autoplay loop hidden>
+    <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>  <div class="layout">
     <!-- Sidebar / Navigation -->
     <aside class="sidebar" id="sidebar">
       <div class="logo">🚀 DavintoWeb</div>
       <nav>
         <ul class="nav-vertical">
-          <li><a href="index.html">🏠 Home</a></li>
+          <li><a href="index.html" class="active">🏠 Home</a></li>
           <li><a href="about.html">ℹ️ About</a></li>
           <li><a href="pricing.html">💰 Pricing</a></li>
           <li><a href="projects.html">🧰 Portfolio</a></li>
@@ -21,30 +24,40 @@
           <li><a href="chat.html">💬 Chat</a></li>
         </ul>
       </nav>
-    </aside>
+    </aside><!-- Mobile Toggle Button -->
+<button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-    <!-- Mobile Toggle Button -->
-    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+<!-- Main Content -->
+<main class="main-content">
+  <section class="hero-section slide-in">
+    <h1>Welcome to DavintoWeb</h1>
+    <p>Crafting beautiful and modern websites, self-taught by Chimdindu MacDonald.</p>
+    <a href="https://wa.me/2348169045105" class="whatsapp-button">💬 Chat on WhatsApp</a>
+  </section>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <section class="hero-section">
-        <h1>Welcome to DavintoWeb</h1>
-        <p>Crafting beautiful and modern websites, self-taught by Chimdindu MacDonald.</p>
-        <a href="https://wa.me/2348169045105" class="whatsapp-button">💬 Chat on WhatsApp</a>
-      </section>
+  <!-- Reviews Section -->
+  <section class="reviews">
+    <h2>User Reviews ⭐</h2>
+    <div class="review-box">
+      <p><strong>John D.:</strong> "Absolutely stunning design! You feel the SSS-rank energy everywhere."</p>
+    </div>
+    <div class="review-box">
+      <p><strong>Amaka O.:</strong> "This website feels like it was made by top-tier developers from the future."</p>
+    </div>
+    <div class="review-box">
+      <p><strong>Aliyu B.:</strong> "Every section is crisp and clean. Best experience I've had online!"</p>
+    </div>
+  </section>
 
-      <footer>
-        <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
-      </footer>
-    </main>
-  </div>
+  <footer>
+    <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
+  </footer>
+</main>
 
-  <script>
+  </div>  <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.toggle('collapsed');
     }
-  </script>
-</body>
+  </script></body>
 </html>
