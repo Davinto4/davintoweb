@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb | Home</title>
+  <title>DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <!-- NAVIGATION BAR -->
+  <!-- ✅ NAVBAR -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">DavintoWeb</div>
+      <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -21,17 +24,14 @@
         <li><a href="contact.html">Contacts</a></li>
         <li><a href="chat.html">Chats</a></li>
       </ul>
-      <div class="hamburger" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-      </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <header class="hero-section">
+  <!-- Hero section -->
+  <header class="hero">
     <h1>Welcome to DavintoWeb</h1>
-    <p>Crafting beautiful and modern websites, self-taught by Chimdindu MacDonald.</p>
-    <a href="https://wa.me/2348169045105" class="whatsapp-btn" target="_blank">💬 Chat on WhatsApp</a>
+    <p>Building world-class websites. Started from scratch. Self-taught. Passion-driven.</p>
+    <a href="https://wa.me/2348169045105" class="whatsapp-btn" target="_blank">💬 Chat with Me</a>
   </header>
 
   <script>
