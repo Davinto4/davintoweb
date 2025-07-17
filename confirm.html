@@ -2,58 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirm Payment – DavintoWeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirm Payment - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
-    function submitForm() {
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const service = document.getElementById('service').value;
-      const account = document.getElementById('account').value;
-      const message = document.getElementById('message').value;
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
 
-      // Send to WhatsApp
-      const phone = "2348169045105";
-      const waMsg = `DavintoWeb Payment Confirmation:\n\n👤 Name: ${name}\n📧 Email: ${email}\n💼 Service: ${service}\n🏦 Account Used: ${account}\n📝 Message: ${message}`;
-      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(waMsg)}`, "_blank");
+    function sendWhatsApp() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const account = document.getElementById("account").value;
+      const message = document.getElementById("message").value;
 
-      // Optional: Redirect or show confirmation
-      alert("Payment confirmed! Admin has been notified via WhatsApp.");
+      const text = `🧾 Payment Confirmation\n\n👤 Name: ${name}\n📧 Email: ${email}\n🏦 Account Used: ${account}\n✉️ Message: ${message}`;
+      const phone = "2348169045105"; // Your WhatsApp number
+
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
     }
   </script>
 </head>
 <body>
-  <main class="confirm-page">
-    <h1>💳 Confirm Your Payment</h1>
-    <p>Please enter the account you used to make payment. Admin will verify and unlock your service automatically.</p>
+  <header class="navbar">
+    <h1>DavintoWeb</h1>
+    <nav>
+      <a href="index.html" class="btn">🏠 Home</a>
+      <a href="about.html" class="btn">👨‍💻 About</a>
+      <a href="pricing.html" class="btn">💰 Pricing</a>
+      <button onclick="toggleDarkMode()" class="btn">🌗 Toggle Mode</button>
+    </nav>
+  </header>
 
-    <form onsubmit="event.preventDefault(); submitForm();">
-      <label>Full Name</label>
-      <input type="text" id="name" required />
+  <main class="container">
+    <section class="hero">
+      <h2>🔒 Confirm Your Payment</h2>
+      <p>After sending payment to:</p>
+      <p><strong>Access Bank</strong></p>
+      <p><strong>1719816647 - Chima Chimdindu Macdonald</strong></p>
+      <p>👇 Fill out the form below to confirm your payment.</p>
+    </section>
 
-      <label>Email</label>
-      <input type="email" id="email" required />
+    <form
+      action="https://www.appsheet.com/template/appdef?state=%7B%22ids%22%3A%5B%221w3DmP8HBLz1PNgQd7ZZKfVRVfJ9YFeeu5P6aUuxMM2w%22%5D,%22action%22%3A%22open%22%7D&appName=DAVINTOWEBPAYMENTCONFIRMATION-839843014#Home"
+      method="GET"
+      target="_blank"
+      class="form"
+    >
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
 
-      <label>Service Paid For</label>
-      <select id="service" required>
-        <option value="Starter Website (₦5,000)">Starter Website (₦5,000)</option>
-        <option value="Portfolio/Blog (₦15,000)">Portfolio / Blog (₦15,000)</option>
-        <option value="Business Site (₦30,000)">Business Site (₦30,000)</option>
-        <option value="E-Commerce (₦60,000)">E-commerce (₦60,000)</option>
-        <option value="Web App (₦100,000+)">Full Web App (₦100,000+)</option>
-        <option value="Custom Project">Custom Project</option>
-      </select>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
 
-      <label>Account Used for Payment</label>
-      <input type="text" id="account" placeholder="Your Bank Name / Account Name" required />
+      <label for="account">Account Used to Pay</label>
+      <input type="text" id="account" name="account" placeholder="Your Bank Account" required>
 
-      <label>Message or Notes</label>
-      <textarea id="message" rows="4"></textarea>
+      <label for="message">Message (Optional)</label>
+      <textarea id="message" name="message" placeholder="Message or Service Paid For..."></textarea>
 
-      <button type="submit">✅ Confirm Now</button>
+      <button type="submit" class="btn" onclick="sendWhatsApp()">✅ Confirm Payment</button>
     </form>
   </main>
+
+  <footer>
+    <p>© 2025 DavintoWeb. Built by Davinto.</p>
+  </footer>
 </body>
 </html>
