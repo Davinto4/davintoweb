@@ -4,32 +4,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papmFzYXKzNq7+1p6MoU1r6F0tFfWVmDbShwKiLNOQ+1JXLU3vv8V0T+1b8j7R0gJ7M5kHv4y7vFQ8Db2RXVQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script>
-    function confirmPayment() {
-      const accInput = document.getElementById("accountNumber");
-      const accountNumber = accInput.value.trim();
-      if (!accountNumber) {
-        alert("Please enter the account number you used to pay.");
-        return;
-      }fetch("https://script.google.com/macros/s/AKfycbxMYeEpKUNnfg_ylapf0H-ZtVqdd9vu_fcmwI5F9RDC9DoUArNE7hMiRH_MrVWcDNdr/exec", {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: `accountNumber=${encodeURIComponent(accountNumber)}`
-  });
-
-  const msg = `DavintoWeb Payment Confirmation\nAccount Number: ${accountNumber}`;
-  const whatsappLink = `https://wa.me/2348169045105?text=${encodeURIComponent(msg)}`;
-  window.open(whatsappLink, "_blank");
-
-  accInput.value = "";
-  alert("✅ Confirmation received. We'll get back to you shortly!");
-}
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }window.onload = function () {
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') {
+    document.body.classList.add('dark');
+  }
+};
 
   </script>
 </head>
@@ -41,22 +28,58 @@
     <a href="portfolio.html"><i class="fas fa-image"></i> Portfolio</a>
     <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
     <a href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Chat</a>
+    <button onclick="toggleDarkMode()">🌓</button>
   </nav>  <main class="main-content">
     <section class="pricing-hero" data-aos="fade-down">
       <h1>💸 Website Pricing by DavintoWeb</h1>
-      <p>Affordable, flexible, and high-quality websites — from ₦5,000 to over ₦100,000 depending on features. Choose what suits your vision!</p>
+      <p>Click any pricing box to proceed with payment confirmation. Account: <strong>1719816647 (Access Bank)</strong> – <em>Chima Chimdindu Macdonald</em>.</p>
       <a href="Davinto_Portfolio.pdf" class="btn download-btn" download><i class="fas fa-file-download"></i> Download PDF Pricing & Portfolio</a>
     </section><section class="pricing-section" data-aos="fade-up">
   <div class="price-list">
-    <!-- Pricing boxes remain unchanged -->
+    <!-- Price boxes with redirect -->
+    <div class="price-box" data-aos="zoom-in" onclick="location.href='confirm.html?plan=starter'">
+      <h3>🌐 Starter Website</h3>
+      <p>From ₦5,000</p>
+      <ul><li>1–2 Pages</li><li>Mobile Responsive</li><li>Basic Contact Form</li><li>Delivery: 1–2 Days</li></ul>
+    </div>
+
+    <div class="price-box" data-aos="zoom-in" onclick="location.href='confirm.html?plan=portfolio'">
+      <h3>🖼️ Portfolio / Blog</h3>
+      <p>From ₦15,000</p>
+      <ul><li>CMS for Posts</li><li>SEO Setup</li><li>Admin Access</li><li>Stylish Layout</li></ul>
+    </div>
+
+    <div class="price-box" data-aos="zoom-in" onclick="location.href='confirm.html?plan=business'">
+      <h3>🏢 Business Site</h3>
+      <p>From ₦30,000</p>
+      <ul><li>About, Team, Services Pages</li><li>Quote Form</li><li>WhatsApp Integration</li><li>Pro Theme</li></ul>
+    </div>
+
+    <div class="price-box" data-aos="zoom-in" onclick="location.href='confirm.html?plan=ecommerce'">
+      <h3>🛒 E-commerce</h3>
+      <p>From ₦60,000</p>
+      <ul><li>Store & Payments</li><li>Inventory System</li><li>Product Management</li><li>Secure Checkout</li></ul>
+    </div>
+
+    <div class="price-box" data-aos="zoom-in" onclick="location.href='confirm.html?plan=webapp'">
+      <h3>⚙️ Full Web App</h3>
+      <p>From ₦100,000+</p>
+      <ul><li>Login System</li><li>Database (Firebase)</li><li>Admin Panel</li><li>AI Bot Support</li></ul>
+    </div>
+
+    <div class="price-box" data-aos="zoom-in" onclick="location.href='confirm.html?plan=custom'">
+      <h3>🎨 Custom Projects</h3>
+      <p>Custom Quote</p>
+      <ul><li>Educational Portals</li><li>NGOs, Family Sites</li><li>Churches & Clubs</li><li>AI Bots, Translators</li></ul>
+    </div>
   </div>
 </section>
 
 <section class="extras-section" data-aos="fade-up">
   <h2>💡 Extras & Add-ons</h2>
   <ul>
-    <li>🌐 Custom Domain Setup: ₦6,000/year</li>
-    <li>🔐 Free SSL (HTTPS)</li>
+    <li>🌐 Domain Setup: ₦6,000/year</li>
+    <li>🔐 SSL (Free)</li>
     <li>📊 Google Analytics</li>
     <li>🎨 UI Design Upgrade</li>
     <li>📥 Hosting Support</li>
@@ -64,25 +87,29 @@
 </section>
 
 <section class="testimonials" data-aos="fade-up">
-  <h2>🌟 What Clients Say</h2>
-  <blockquote>“DavintoWeb brought my brand online in just 2 days. Professional, fast and very affordable!” – Joy A., Makeup Artist</blockquote>
-  <blockquote>“Our school now has a modern portal for students and parents. Highly recommend!” – Mr. Nnaji, Administrator</blockquote>
-  <blockquote>“We loved the church website — donation system and all. Thank you Davinto!” – Rev. Emmanuel</blockquote>
+  <h2>🌟 Client Testimonials</h2>
+  <blockquote>“Quick delivery and sleek layout!” – Blessing O.</blockquote>
+  <blockquote>“Loved how my business site turned out. Highly recommend.” – Ifeanyi K.</blockquote>
+  <blockquote>“We got a full web app with admin features within a week. Amazing!” – Uche N.</blockquote>
 </section>
 
 <section class="cta-section" data-aos="fade-up">
   <a class="whatsapp-button" href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Contact Davinto Now</a>
 </section>
 
-<section class="payment-confirm" data-aos="fade-up">
-  <h2>💳 Confirm Your Payment</h2>
-  <p>After payment, enter the account number you used and confirm below. We'll verify and get back to you shortly.</p>
-  <input type="text" id="accountNumber" placeholder="Your Bank Account Number Used" class="confirm-input">
-  <button onclick="confirmPayment()" class="btn confirm-btn">✅ Confirm Payment</button>
-  <p><strong>Payment Details:</strong><br>Acc No: <b>1719816647</b><br>Name: <b>Chima Chimdindu Macdonald</b><br>Bank: <b>Access Bank</b></p>
-</section>
-
   </main>  <script>
     AOS.init();
+  </script>  <!-- SmartUpp Chat -->  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp || (function (d) {
+      var s, c, o = smartsupp = function () { o._.push(arguments) };
+      o._ = [];
+      s = d.getElementsByTagName('script')[0];
+      c = d.createElement('script');
+      c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js?';
+      s.parentNode.insertBefore(c, s);
+    })(document);
   </script></body>
 </html>
