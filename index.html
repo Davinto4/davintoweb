@@ -3,37 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb - Home</title>
+  <title>DavintoWeb | Home</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Facebook-Style Vertical Navigation -->
-  <nav class="fb-nav vertical">
-    <div class="fb-logo">DavintoWeb</div>
-    <div class="fb-menu-vertical">
-      <a href="index.html">🏠 Home</a>
-      <a href="about.html">👤 About</a>
-      <a href="pricing.html">💵 Pricing</a>
-      <a href="projects.html">🧩 Portfolio</a>
-      <a href="contact.html">📞 Contact</a>
-      <a href="chat.html">💬 Chat</a>
-    </div>
+  <!-- Navigation Menu -->
+  <nav class="navbar">
+    <div class="logo">🚀 DavintoWeb</div>
+    <ul class="nav-menu">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="about.html">👨‍💻 About</a></li>
+      <li><a href="pricing.html">💵 Pricing</a></li>
+      <li><a href="projects.html">📂 Projects</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+      <li><a href="chat.html">💬 Chat</a></li>
+    </ul>
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <h1>Welcome to <span class="highlight">DavintoWeb</span></h1>
-    <p>Crafting beautiful and modern websites, self-taught by <strong>Chimdindu MacDonald</strong>.</p>
-    <a href="https://wa.me/2348169045105" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+  <header class="hero">
+    <h1>Welcome to <span>DavintoWeb</span></h1>
+    <p>Crafting beautiful and modern websites,<br> self-taught by <strong>Chimdindu MacDonald</strong> (aka Davinto).</p>
+    
+    <div class="btn-group">
+      <a class="btn whatsapp-btn" href="https://wa.me/2348169045105" target="_blank">💬 Chat on WhatsApp</a>
+      <button class="btn support-btn" onclick="showSupportOptions()">💰 Send Support</button>
+    </div>
+  </header>
+
+  <!-- Video Section -->
+  <section class="video-section">
+    <h2>🎥 Watch & Support</h2>
+    <video controls autoplay loop muted>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <p>Every watch helps support my journey 🙌</p>
   </section>
 
-  <!-- Support Section -->
-  <section class="support">
-    <h2>Support My Work</h2>
-    <p>If you enjoy my work, you can support me directly:</p>
-    <button onclick="window.open('https://banking.example.com/support/1719816647', '_blank')">
-      💰 Send Support to: Access Bank - 1719816647 (Chima Chimdindu Macdonald)
-    </button>
-  </section>
+  <!-- Support Modal -->
+  <div id="supportModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="hideSupportOptions()">&times;</span>
+      <h3>Select Your Bank (USSD)</h3>
+      <ul class="ussd-list">
+        <li><a href="tel:*901*1719816647#" class="ussd-code">Access Bank: *901*1719816647#</a></li>
+        <li><a href="tel:*737*1719816647#" class="ussd-code">GTBank: *737*1719816647#</a></li>
+        <li><a href="tel:*894*1719816647#" class="ussd-code">First Bank: *894*1719816647#</a></li>
+        <li><a href="tel:*966*1719816647#" class="ussd-code">Zenith Bank: *966*1719816647#</a></li>
+      </ul>
+      <p>Account Name: Chima Chimdindu Macdonald</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 DavintoWeb. Built by Davinto.</p>
+  </footer>
+
+  <script>
+    function showSupportOptions() {
+      document.getElementById('supportModal').style.display = 'block';
+    }
+    function hideSupportOptions() {
+      document.getElementById('supportModal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
