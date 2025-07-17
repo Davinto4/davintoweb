@@ -1,14 +1,14 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DavintoWeb - Home</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- Navigation Menu -->
-  <nav class="navbar">
+  <!-- Navigation -->
+  <nav class="nav-bar">
     <div class="logo">DavintoWeb</div>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
@@ -18,52 +18,36 @@
       <li><a href="contact.html">Contacts</a></li>
       <li><a href="chat.html">Chats</a></li>
     </ul>
-  </nav>  <!-- Hero Section -->  <section class="hero">
-    <h1 class="hero-title" data-aos="fade-up">Welcome to DavintoWeb</h1>
-    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
-      Crafting futuristic websites with elite precision — built by Chimdindu MacDonald, aka Davinto.
-    </p>
-    <a href="https://wa.me/2348169045105" class="whatsapp-button" target="_blank">
-      <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-    </a>
-  </section>  <!-- Video Section -->  <section class="video-section">
-    <h2>Featured Video</h2>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to <span>DavintoWeb</span></h1>
+    <p>Crafting beautiful and modern websites, self-taught by Chimdindu MacDonald (Davinto).</p>
+    <a href="https://wa.me/2348169045105" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+  </section>
+
+  <!-- Video Section (Simulated Ad Revenue Section) -->
+  <section class="video-section">
+    <h2>🎥 Watch & Support</h2>
+    <p>Every time you watch, you're supporting DavintoWeb 💖</p>
+
+    <!-- YouTube Video Embed -->
     <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Tech Video" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/7wtfhZwyrcc?autoplay=0&rel=0" 
+        title="Tech Showcase Video" frameborder="0" allowfullscreen></iframe>
     </div>
-  </section>  <!-- News Section -->  <section class="news-section">
-    <h2>Latest World News</h2>
-    <div class="news-feed" id="newsFeed">
-      <!-- News articles dynamically injected here -->
-    </div>
-  </section>  <!-- Support Me Section -->  <section class="support-section">
-    <h2>Support My Work</h2>
-    <p>If you love what I do, support me by sending any amount ❤️</p>
-    <div class="bank-details">
-      <strong>Account Name:</strong> Chima Chimdindu Macdonald<br>
-      <strong>Account Number:</strong> 1719816647<br>
-      <strong>Bank:</strong> Access Bank
-    </div>
-  </section>  <footer class="footer">
+
+    <p class="support-note">
+      ❤️ Your views help us grow. Want to support directly?
+      <br>
+      <strong>Bank Account:</strong> 1719816647 (Chima Chimdindu Macdonald, Access Bank)
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
     <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
-  </footer>  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
-    AOS.init();
-
-    // Simulated dynamic news
-    const news = [
-      "🌍 NASA announces new mission to Titan in 2026!",
-      "🎬 Oppenheimer wins Best Picture at Intergalactic Film Awards.",
-      "⚽ Messi joins AI Football League with robotic teammates.",
-      "💻 Quantum computing reaches commercial breakthrough!",
-      "🛰️ Nigeria launches new communication satellite."
-    ];
-
-    const feed = document.getElementById('newsFeed');
-    news.forEach(item => {
-      const article = document.createElement('div');
-      article.className = 'news-article';
-      article.innerText = item;
-      feed.appendChild(article);
-    });
-  </script></body>
+  </footer>
+</body>
 </html>
