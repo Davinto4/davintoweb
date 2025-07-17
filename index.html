@@ -2,188 +2,196 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | Professional Web Solutions</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DavintoWeb - Build Any Website</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
-      color: white;
+      padding: 0;
     }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      min-height: 100vh;
+    }
+
     nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200px;
-      height: 100vh;
-      background-color: #111;
-      padding-top: 20px;
+      background: #111;
+      width: 180px;
+      min-height: 100vh;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 1rem;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 1000;
+      position: fixed;
+      left: 0;
+      top: 0;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      background: #222;
-      border-radius: 8px;
-      transition: all 0.3s;
-      margin: 5px;
-      text-align: center;
+
+    nav button {
+      padding: 0.8rem;
+      font-size: 1rem;
+      color: #fff;
+      background: transparent;
+      border: 1px solid #444;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    nav a:hover {
+
+    nav button:hover {
       background: #444;
       transform: translateX(5px);
     }
-    .main {
-      margin-left: 220px;
-      padding: 30px;
+
+    main {
+      margin-left: 200px;
+      padding: 2rem;
+      flex: 1;
     }
-    section {
-      margin-bottom: 60px;
+
+    h1 {
+      font-size: 2.2rem;
+      color: #ffcc00;
+      margin-bottom: 1rem;
     }
-    h1, h2 {
-      color: #00ffcc;
+
+    h2 {
+      color: #ffcc00;
+      margin: 1.5rem 0 1rem;
+      font-size: 1.6rem;
     }
-    .button {
-      background-color: #00ffcc;
+
+    ul {
+      list-style: square inside;
+      padding-left: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .cta-btn {
+      margin-top: 1rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background: #ffcc00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
       color: #000;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 8px;
-      display: inline-block;
-      margin-top: 15px;
-      font-weight: bold;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #1f1f1f;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+
+    @media (max-width: 768px) {
+      nav {
+        position: relative;
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        overflow-x: scroll;
+      }
+
+      nav button {
+        flex: 1;
+        font-size: 0.9rem;
+        padding: 0.6rem;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="#">🌞/🌙</a>
-    <a href="#">Home</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-    <a href="chat.html">Chat</a>
-  </nav>
+<nav>
+  <button>🌞 / 🌙</button>
+  <button>Home</button>
+  <button>About</button>
+  <button>Pricing</button>
+  <button>Portfolio</button>
+  <button>Contact</button>
+  <button>Chat</button>
+</nav>
 
-  <div class="main">
-    <section>
-      <h1>🚀 Build Any Website You Imagine</h1>
-      <p>Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
-      <a href="DavintoWeb-Portfolio.pdf" class="button" download>📄 Download Portfolio</a>
-    </section>
+<main>
+  <h1>🚀 Build Any Website You Imagine</h1>
+  <p>Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
+  <button class="cta-btn">📥 Download Portfolio</button>
 
-    <section>
-      <h2>🌟 Why Choose DavintoWeb?</h2>
-      <ul>
-        <li>⚡ Fast and mobile-optimized websites</li>
-        <li>🔒 Free HTTPS Security</li>
-        <li>🔥 Firebase-powered dashboards</li>
-        <li>🤖 AI Chatbot & Translator Integration</li>
-        <li>🔧 Ongoing support</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>🧩 What We Build</h2>
-      <div class="grid">
-        <div class="card">Personal Websites</div>
-        <div class="card">Blogs & Portfolios</div>
-        <div class="card">Business Sites</div>
-        <div class="card">E-commerce</div>
-        <div class="card">Educational Platforms</div>
-        <div class="card">Community Portals</div>
-        <div class="card">AI Bots & Tools</div>
-        <div class="card">Family & Event Sites</div>
-      </div>
-    </section>
-
-    <section>
-      <h2>💰 Pricing Packages</h2>
-      <div class="grid">
-        <div class="card">🌐 Starter Site<br><b>From ₦5,000</b><br>1–2 Pages, Responsive Design, Contact Form</div>
-        <div class="card">📝 Blog / Portfolio<br><b>From ₦15,000</b><br>CMS Admin Panel, SEO + Social Sharing</div>
-        <div class="card">🏢 Business Site<br><b>From ₦30,000</b><br>Multi-Page, WhatsApp Booking</div>
-        <div class="card">🛒 E-commerce<br><b>From ₦60,000</b><br>Payment Integration, Product Dashboard</div>
-        <div class="card">⚙️ Web App + AI<br><b>From ₦100,000+</b><br>Custom Dashboards, Realtime DB & Auth</div>
-        <div class="card">🧠 Custom Projects<br>Let’s Discuss<br>Translators, Bots, Platforms</div>
-      </div>
-    </section>
+  <div class="section">
+    <h2>🌟 Why Choose DavintoWeb?</h2>
+    <ul>
+      <li>Fast, mobile-optimized websites</li>
+      <li>Free HTTPS Security</li>
+      <li>Firebase-powered dashboards</li>
+      <li>AI Chatbot & Translator Integration</li>
+      <li>Ongoing support</li>
+    </ul>
   </div>
 
-  <!-- ✅ SmartUpp Live Chat -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '22fa3a5b79f07c4b51022c3cc994d184cc5d0ce2';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-    })(document);
-  </script>
+  <div class="section">
+    <h2>🧩 What We Build</h2>
+    <p>Personal Websites, Blogs & Portfolios, Business Sites, E-commerce, Educational Platforms, Community Portals, AI Bots & Tools, Family & Event Sites</p>
+  </div>
 
-  <!-- ✅ Firebase Integration -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  <div class="section">
+    <h2>💰 Pricing Packages</h2>
+    <ul>
+      <li><strong>🌐 Starter Site</strong> – ₦5,000 (1–2 Pages)</li>
+      <li><strong>📝 Blog / Portfolio</strong> – ₦15,000</li>
+      <li><strong>🏢 Business Site</strong> – ₦30,000</li>
+      <li><strong>🛒 E-commerce</strong> – ₦60,000</li>
+      <li><strong>⚙️ Web App + AI</strong> – ₦100,000+</li>
+      <li><strong>🧠 Custom Projects</strong> – Let’s Discuss</li>
+    </ul>
+  </div>
+</main>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.firebasestorage.app",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
+<!-- Firebase + Random Music -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const auth = getAuth(app);
+  const firebaseConfig = {
+    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+    authDomain: "davintoweb-payments.firebaseapp.com",
+    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+    projectId: "davintoweb-payments",
+    storageBucket: "davintoweb-payments.firebasestorage.app",
+    messagingSenderId: "667742200333",
+    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+  };
 
-    console.log("✅ Firebase Initialized");
-  </script>
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const auth = getAuth(app);
+  console.log("✅ Firebase Connected");
 
-  <!-- ✅ Random Music Playback -->
-  <script>
-    const songs = [
-      "https://docs.google.com/uc?export=open&id=1wuwm6PZrZFtKnF8kS9LxuKfAHFvYQbn9", // XXXTentacion
-      "https://docs.google.com/uc?export=open&id=1tsR-RFjG7hUTweKsxayxv_mDkQx-sSEN", // Juice WRLD
-      "https://docs.google.com/uc?export=open&id=1TVaPoD4Kh1ODZG_5_gAuvuslkkEC4i5q", // Pop Smoke
-      "https://docs.google.com/uc?export=open&id=1uWALf-8TZuLKLv4DYkVkFozgOHyR2Ke4"  // Gospel
-    ];
-    const randomIndex = Math.floor(Math.random() * songs.length);
-    const selectedSong = songs[randomIndex];
-    const audio = new Audio(selectedSong);
-    audio.volume = 0.5;
-    audio.loop = true;
-    audio.autoplay = true;
-    audio.play().catch(e => console.log("🔇 Autoplay blocked"));
-    window.addEventListener("click", () => {
-      audio.play();
-    }, { once: true });
-  </script>
+  const songs = [
+    "https://docs.google.com/uc?export=open&id=1wuwm6PZrZFtKnF8kS9LxuKfAHFvYQbn9",
+    "https://docs.google.com/uc?export=open&id=1tsR-RFjG7hUTweKsxayxv_mDkQx-sSEN",
+    "https://docs.google.com/uc?export=open&id=1TVaPoD4Kh1ODZG_5_gAuvuslkkEC4i5q",
+    "https://docs.google.com/uc?export=open&id=1uWALf-8TZuLKLv4DYkVkFozgOHyR2Ke4"
+  ];
+  const audio = new Audio(songs[Math.floor(Math.random() * songs.length)]);
+  audio.volume = 0.5;
+  audio.loop = true;
+  audio.play();
+</script>
 
 </body>
 </html>
