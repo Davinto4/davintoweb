@@ -5,184 +5,166 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Projects – DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <style>
-    :root {
-      --primary: #0066ff;
-      --secondary: #00c6ff;
-      --dark: #111;
-      --light: #f9f9f9;
-      --radius: 12px;
-    }
-
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--light);
-      color: var(--dark);
+      background: #f5f7fb;
+      color: #111;
     }
 
-    .navbar {
+    header {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #fff;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .logo img {
-      height: 40px;
+      height: 42px;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 1.2rem;
+    nav ul {
       list-style: none;
+      display: flex;
+      gap: 1.5rem;
     }
 
-    .nav-links a {
+    nav ul li a {
       text-decoration: none;
-      font-weight: 500;
-      color: var(--dark);
+      color: #111;
+      font-weight: 600;
       position: relative;
     }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: #0066ff;
     }
 
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
-    }
-
-    .projects-section {
-      padding: 4rem 2rem;
+    .section {
       max-width: 1200px;
-      margin: auto;
+      margin: 0 auto;
+      padding: 4rem 2rem;
     }
 
-    .section-title {
-      font-size: 2.5rem;
+    .section h1 {
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
       text-align: center;
-      margin-bottom: 3rem;
-      font-weight: 700;
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
     .projects-grid {
       display: grid;
-      gap: 2rem;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
 
-    .project-card {
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      color: white;
-      border-radius: var(--radius);
+    .project {
+      background: white;
       padding: 2rem;
-      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-      position: relative;
-      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 5px solid #0072ff;
     }
 
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
-      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    .project:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
     }
 
-    .project-card h3 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+    .project h3 {
+      margin-top: 0;
+      color: #0072ff;
     }
 
-    .project-card p {
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.6;
+    .project p {
+      color: #333;
     }
 
     .btn {
       margin-top: 1rem;
       display: inline-block;
-      padding: 0.5rem 1.2rem;
-      background: #fff;
-      color: #0072ff;
+      padding: 0.5rem 1.1rem;
+      background: #0072ff;
+      color: white;
       border-radius: 6px;
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
+      transition: 0.3s ease;
     }
 
     .btn:hover {
-      background: #0072ff;
-      color: white;
+      background: #0057cc;
     }
 
-    .footer {
+    footer {
       text-align: center;
-      background: #eee;
       padding: 2rem;
+      background: #eee;
+      font-size: 0.9rem;
       margin-top: 4rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
+  <header>
     <div class="logo">
-      <img src="images/logo.png" alt="DavintoWeb Logo" />
+      <img src="images/logo.png" alt="DavintoWeb Logo">
     </div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="projects.html" class="active">Projects</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="chat.html">AI Chat</a></li>
-    </ul>
-  </nav>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="chat.html">AI Chat</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Main Projects Section -->
-  <section class="projects-section">
-    <h1 class="section-title">Awesome Projects</h1>
+  <section class="section">
+    <h1 data-aos="fade-down">Explore My Web Projects</h1>
 
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project" data-aos="fade-up" data-aos-delay="100">
         <h3>Personal Portfolio</h3>
-        <p>Professional online portfolio to showcase your work and personal brand with style.</p>
-        <a href="#" class="btn" onclick="event.preventDefault(); alert('Demo not linked yet.');">View Demo</a>
+        <p>Elegant and responsive portfolio to showcase your skills, projects, and social links.</p>
+        <a href="#" class="btn" onclick="event.preventDefault(); alert('Demo not linked yet.')">Preview</a>
       </div>
 
-      <div class="project-card">
+      <div class="project" data-aos="fade-up" data-aos-delay="200">
         <h3>Business Website</h3>
-        <p>Responsive business site perfect for agencies, startups, or personal brands.</p>
-        <a href="https://davintoweb-davinto.vercel.app/" class="btn" target="_blank">Visit Site</a>
+        <p>Modern website for small businesses and agencies with services, about, and contact sections.</p>
+        <a href="https://davintoweb-davinto.vercel.app/" target="_blank" class="btn">View Site</a>
       </div>
 
-      <div class="project-card">
-        <h3>E-commerce Store</h3>
-        <p>Complete UI for a shop: products, categories, and cart interface all included.</p>
-        <a href="https://davintoweb-davinto.vercel.app/" class="btn" target="_blank">Explore Demo</a>
+      <div class="project" data-aos="fade-up" data-aos-delay="300">
+        <h3>E-Commerce UI</h3>
+        <p>Basic shop layout including product cards, categories, and cart functionality.</p>
+        <a href="https://davintoweb-davinto.vercel.app/" target="_blank" class="btn">Explore Demo</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
+  <footer>
+    &copy; 2025 DavintoWeb. Built with ❤️ by Chimdindu MacDonald.
   </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+  </script>
 
 </body>
 </html>
