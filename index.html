@@ -1,131 +1,189 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | Home</title>
+  <title>DavintoWeb | Professional Web Solutions</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
+      color: white;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: #111;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      background: #222;
+      border-radius: 8px;
+      transition: all 0.3s;
+      margin: 5px;
+      text-align: center;
+    }
+    nav a:hover {
+      background: #444;
+      transform: translateX(5px);
+    }
+    .main {
+      margin-left: 220px;
+      padding: 30px;
+    }
+    section {
+      margin-bottom: 60px;
+    }
+    h1, h2 {
+      color: #00ffcc;
+    }
+    .button {
+      background-color: #00ffcc;
+      color: #000;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #1f1f1f;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+  </style>
 </head>
 <body>
-  <div class="nav">
-    <button>🌞/🌙</button>
-    <button onclick="scrollToSection('home')">Home</button>
-    <button onclick="scrollToSection('about')">About</button>
-    <button onclick="scrollToSection('pricing')">Pricing</button>
-    <button onclick="scrollToSection('portfolio')">Portfolio</button>
-    <button onclick="scrollToSection('contact')">Contact</button>
-    <button onclick="scrollToSection('chat')">Chat</button>
-  </div>  <main>
-    <section id="home">
+
+  <nav>
+    <a href="#">🌞/🌙</a>
+    <a href="#">Home</a>
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+    <a href="chat.html">Chat</a>
+  </nav>
+
+  <div class="main">
+    <section>
       <h1>🚀 Build Any Website You Imagine</h1>
       <p>Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
-      <a href="/portfolio.pdf" download class="btn">Download Portfolio</a>
-    </section><section id="about">
-  <h2>🌟 Why Choose DavintoWeb?</h2>
-  <ul>
-    <li>Fast and mobile-optimized websites</li>
-    <li>Free HTTPS Security</li>
-    <li>Firebase-powered dashboards</li>
-    <li>AI Chatbot & Translator Integration</li>
-    <li>Ongoing support</li>
-  </ul>
-</section>
+      <a href="DavintoWeb-Portfolio.pdf" class="button" download>📄 Download Portfolio</a>
+    </section>
 
-<section id="portfolio">
-  <h2>🧩 What We Build</h2>
-  <div class="grid">
-    <div>Personal Websites</div>
-    <div>Blogs & Portfolios</div>
-    <div>Business Sites</div>
-    <div>E-commerce</div>
-    <div>Educational Platforms</div>
-    <div>Community Portals</div>
-    <div>AI Bots & Tools</div>
-    <div>Family & Event Sites</div>
+    <section>
+      <h2>🌟 Why Choose DavintoWeb?</h2>
+      <ul>
+        <li>⚡ Fast and mobile-optimized websites</li>
+        <li>🔒 Free HTTPS Security</li>
+        <li>🔥 Firebase-powered dashboards</li>
+        <li>🤖 AI Chatbot & Translator Integration</li>
+        <li>🔧 Ongoing support</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>🧩 What We Build</h2>
+      <div class="grid">
+        <div class="card">Personal Websites</div>
+        <div class="card">Blogs & Portfolios</div>
+        <div class="card">Business Sites</div>
+        <div class="card">E-commerce</div>
+        <div class="card">Educational Platforms</div>
+        <div class="card">Community Portals</div>
+        <div class="card">AI Bots & Tools</div>
+        <div class="card">Family & Event Sites</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>💰 Pricing Packages</h2>
+      <div class="grid">
+        <div class="card">🌐 Starter Site<br><b>From ₦5,000</b><br>1–2 Pages, Responsive Design, Contact Form</div>
+        <div class="card">📝 Blog / Portfolio<br><b>From ₦15,000</b><br>CMS Admin Panel, SEO + Social Sharing</div>
+        <div class="card">🏢 Business Site<br><b>From ₦30,000</b><br>Multi-Page, WhatsApp Booking</div>
+        <div class="card">🛒 E-commerce<br><b>From ₦60,000</b><br>Payment Integration, Product Dashboard</div>
+        <div class="card">⚙️ Web App + AI<br><b>From ₦100,000+</b><br>Custom Dashboards, Realtime DB & Auth</div>
+        <div class="card">🧠 Custom Projects<br>Let’s Discuss<br>Translators, Bots, Platforms</div>
+      </div>
+    </section>
   </div>
-</section>
 
-<section id="pricing">
-  <h2>💰 Pricing Packages</h2>
-  <div class="grid">
-    <div>
-      <h3>🌐 Starter Site</h3>
-      <p>From ₦5,000</p>
-      <ul><li>1–2 Pages</li><li>Responsive Design</li><li>Contact Form</li></ul>
-    </div>
-    <div>
-      <h3>📝 Blog / Portfolio</h3>
-      <p>From ₦15,000</p>
-      <ul><li>CMS Admin Panel</li><li>SEO + Social Sharing</li></ul>
-    </div>
-    <div>
-      <h3>🏢 Business Site</h3>
-      <p>From ₦30,000</p>
-      <ul><li>Multi-Page Design</li><li>WhatsApp Booking</li></ul>
-    </div>
-    <div>
-      <h3>🛒 E-commerce</h3>
-      <p>From ₦60,000</p>
-      <ul><li>Payment Integration</li><li>Product Dashboard</li></ul>
-    </div>
-    <div>
-      <h3>⚙️ Web App + AI</h3>
-      <p>From ₦100,000+</p>
-      <ul><li>Custom Dashboards</li><li>Realtime DB & Auth</li></ul>
-    </div>
-    <div>
-      <h3>🧠 Custom Projects</h3>
-      <p>Let’s Discuss</p>
-      <ul><li>Translators, Bots, Platforms</li></ul>
-    </div>
-  </div>
-</section>
+  <!-- ✅ SmartUpp Live Chat -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '22fa3a5b79f07c4b51022c3cc994d184cc5d0ce2';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
+  </script>
 
-<section id="contact">
-  <h2>📞 Contact</h2>
-  <p>Reach us via WhatsApp: <a href="https://wa.me/2348169045105">+2348169045105</a></p>
-</section>
+  <!-- ✅ Firebase Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-<section id="chat">
-  <h2>💬 Chat with Davinto Now</h2>
-  <div id="smartupp-livechat"></div>
-</section>
-
-  </main>  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
+      storageBucket: "davintoweb-payments.firebasestorage.app",
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
-    firebase.initializeApp(firebaseConfig);
-  </script>  <script>
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+
+    console.log("✅ Firebase Initialized");
+  </script>
+
+  <!-- ✅ Random Music Playback -->
+  <script>
     const songs = [
-      'music/song1.mp3',
-      'music/song2.mp3',
-      'music/song3.mp3'
+      "https://docs.google.com/uc?export=open&id=1wuwm6PZrZFtKnF8kS9LxuKfAHFvYQbn9", // XXXTentacion
+      "https://docs.google.com/uc?export=open&id=1tsR-RFjG7hUTweKsxayxv_mDkQx-sSEN", // Juice WRLD
+      "https://docs.google.com/uc?export=open&id=1TVaPoD4Kh1ODZG_5_gAuvuslkkEC4i5q", // Pop Smoke
+      "https://docs.google.com/uc?export=open&id=1uWALf-8TZuLKLv4DYkVkFozgOHyR2Ke4"  // Gospel
     ];
-    const random = Math.floor(Math.random() * songs.length);
-    const audio = new Audio(songs[random]);
-    audio.volume = 0.3;
-    audio.play();
-  </script>  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };
-      o._=[];s=d.createElement('script');s.type='text/javascript';s.charset='utf-8';
-      s.async=true;s.src='https://www.smartsuppchat.com/loader.js?';
-      c=d.getElementsByTagName('script')[0];c.parentNode.insertBefore(s,c);
-    })(document);
-  </script>  <script>
-    function scrollToSection(id) {
-      const section = document.getElementById(id);
-      if (section) section.scrollIntoView({ behavior: 'smooth' });
-    }
-  </script></body>
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    const selectedSong = songs[randomIndex];
+    const audio = new Audio(selectedSong);
+    audio.volume = 0.5;
+    audio.loop = true;
+    audio.autoplay = true;
+    audio.play().catch(e => console.log("🔇 Autoplay blocked"));
+    window.addEventListener("click", () => {
+      audio.play();
+    }, { once: true });
+  </script>
+
+</body>
 </html>
