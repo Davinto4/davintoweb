@@ -1,195 +1,107 @@
-/* Base Styles */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #1e1e1e, #121212);
-  color: #ffffff;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* NAVIGATION */
+/* Navigation Menu */
 .menu {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #0f0f0f;
+  background-color: #1c1c1c;
   color: white;
-  padding: 15px 20px;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
-}
-
-.menu .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #00ffd0;
-}
-
-.menu ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.menu ul li a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.menu ul li a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background: #00ffd0;
-  left: 0;
-  bottom: -4px;
-  transition: 0.4s ease;
-}
-
-.menu ul li a:hover {
-  color: #00ffd0;
-}
-
-.menu ul li a:hover::after {
+  position: fixed;
+  top: 0;
   width: 100%;
+  z-index: 1000;
 }
-
-/* MOBILE NAV */
+.menu .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.desktop-links {
+  display: flex;
+  gap: 1.2rem;
+}
+.desktop-links li {
+  list-style: none;
+}
+.desktop-links a {
+  color: white;
+  text-decoration: none;
+}
+.desktop-links a.active {
+  border-bottom: 2px solid #00d4ff;
+}
 .mobile-menu-icon {
   display: none;
-  font-size: 1.8rem;
-  color: white;
-  cursor: pointer;
+  font-size: 1.5rem;
 }
-
 .mobile-links {
   display: none;
   flex-direction: column;
-  background: #111;
-  text-align: center;
-  padding: 12px 0;
+  background-color: #111;
+  padding: 1rem;
 }
-
 .mobile-links a {
-  padding: 12px;
-  text-decoration: none;
   color: white;
-  font-weight: 500;
-  border-top: 1px solid #333;
-  transition: background 0.3s;
+  text-decoration: none;
+  margin-bottom: 1rem;
 }
 
-.mobile-links a:hover {
-  background: #1a1a1a;
-  color: #00ffd0;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .menu ul {
+  .desktop-links {
     display: none;
   }
-
   .mobile-menu-icon {
     display: block;
   }
-
-  .mobile-links {
-    display: flex;
-  }
 }
 
-/* MAIN CONTENT */
-main {
-  padding: 100px 20px 50px;
-  max-width: 1100px;
+/* Timeline Section */
+.timeline-section {
+  padding: 3rem 1rem;
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+}
+.timeline-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #00d4ff;
+}
+.timeline {
+  position: relative;
+  max-width: 900px;
   margin: auto;
 }
-
-main h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: #00ffd0;
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  width: 4px;
+  background: #00d4ff;
+  height: 100%;
 }
-
-main p {
-  font-size: 1.1rem;
-  color: #dddddd;
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left: 50px;
 }
-
-/* WHATSAPP BUTTON */
-.whatsapp-btn {
-  display: inline-block;
-  background: #25d366;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 30px;
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  background: #00d4ff;
+  border-radius: 50%;
+  position: absolute;
+  left: 13px;
+  top: 6px;
+}
+.timeline-content h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #fff;
+}
+.timeline-content p {
+  margin: 0.5rem 0 0;
   font-size: 1rem;
-  font-weight: bold;
-  margin-top: 20px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.whatsapp-btn:hover {
-  background: #1ebc57;
-}
-
-/* REVIEWS */
-.reviews {
-  margin-top: 3rem;
-  text-align: center;
-}
-
-.reviews h2 {
-  font-size: 2rem;
-  color: #00ffd0;
-  margin-bottom: 1.2rem;
-}
-
-.review-boxes {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.review {
-  background: #1f1f1f;
-  padding: 1rem;
-  border-left: 5px solid #00ffd0;
-  font-style: italic;
-  font-size: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.review:hover {
-  transform: translateX(10px);
-}
-
-/* MENU PROMPT */
-.menu-prompt {
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  text-align: center;
-  color: #eeeeee;
-  animation: fadeIn 2s ease;
-}
-
-/* ANIMATIONS */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* SCROLL ANIMATIONS (Handled by AOS lib) */
-[data-aos] {
-  transition-property: opacity, transform;
+  line-height: 1.6;
+  color: #ccc;
 }
