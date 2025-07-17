@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel - Confirmations</title>
+  <title>Admin Panel - Protected</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body { font-family: sans-serif; }
+    .hidden { display: none; }
     .entry { border-bottom: 1px solid #ccc; padding: 10px; }
     .entry:nth-child(even) { background: #f9f9f9; }
     .admin-header { background: linear-gradient(to right, #4f46e5, #7c3aed); color: white; padding: 1rem; text-align: center; }
@@ -14,13 +15,25 @@
 </head>
 <body class="dark:bg-black dark:text-white bg-white text-black transition duration-300">
 
-  <div class="admin-header">
-    <h1 class="text-2xl font-bold">DavintoWeb Admin Panel</h1>
-    <p class="text-sm">Payment Confirmations</p>
+  <!-- Password Prompt -->
+  <div id="passwordPrompt" class="flex flex-col items-center justify-center min-h-screen">
+    <h2 class="text-xl font-semibold mb-2">🔒 Admin Access</h2>
+    <input type="password" id="adminPassword" placeholder="Enter admin password"
+      class="px-4 py-2 border rounded w-64 mb-2 dark:bg-gray-800 dark:text-white" />
+    <button onclick="checkPassword()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Login</button>
+    <p id="error" class="text-red-500 text-sm mt-2 hidden">Wrong password!</p>
   </div>
 
-  <div id="entries" class="max-w-3xl mx-auto p-4 mt-6 bg-gray-100 dark:bg-gray-900 rounded shadow-md">
-    <p>Loading entries...</p>
+  <!-- Admin Panel (hidden by default) -->
+  <div id="adminPanel" class="hidden">
+    <div class="admin-header">
+      <h1 class="text-2xl font-bold">DavintoWeb Admin Panel</h1>
+      <p class="text-sm">Payment Confirmations</p>
+    </div>
+
+    <div id="entries" class="max-w-3xl mx-auto p-4 mt-6 bg-gray-100 dark:bg-gray-900 rounded shadow-md">
+      <p>Loading entries...</p>
+    </div>
   </div>
 
   <!-- Firebase SDK -->
@@ -41,31 +54,45 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    const entriesDiv = document.getElementById('entries');
-    entriesDiv.innerHTML = '';
+    const correctPassword = "08022664487@Mac"; // 🔐 Your chosen password
 
-    db.ref('confirmations').on('value', snapshot => {
-      entriesDiv.innerHTML = '';
-      const data = snapshot.val();
-
-      if (!data) {
-        entriesDiv.innerHTML = '<p>No confirmations yet.</p>';
-        return;
+    function checkPassword() {
+      const input = document.getElementById('adminPassword').value;
+      if (input === correctPassword) {
+        document.getElementById('passwordPrompt').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        loadAdminData();
+      } else {
+        document.getElementById('error').classList.remove('hidden');
       }
+    }
 
-      Object.entries(data).reverse().forEach(([key, val]) => {
-        const div = document.createElement('div');
-        div.className = 'entry';
-        div.innerHTML = `
-          <h3 class="font-semibold text-lg">${val.name}</h3>
-          <p><strong>Email:</strong> ${val.email}</p>
-          <p><strong>Account:</strong> ${val.account}</p>
-          <p><strong>Message:</strong> ${val.message || '—'}</p>
-          <p class="text-xs text-gray-600">📅 ${new Date(val.timestamp).toLocaleString()}</p>
-        `;
-        entriesDiv.appendChild(div);
+    function loadAdminData() {
+      const entriesDiv = document.getElementById('entries');
+      entriesDiv.innerHTML = '';
+      db.ref('confirmations').on('value', snapshot => {
+        entriesDiv.innerHTML = '';
+        const data = snapshot.val();
+
+        if (!data) {
+          entriesDiv.innerHTML = '<p>No confirmations yet.</p>';
+          return;
+        }
+
+        Object.entries(data).reverse().forEach(([key, val]) => {
+          const div = document.createElement('div');
+          div.className = 'entry';
+          div.innerHTML = `
+            <h3 class="font-semibold text-lg">${val.name}</h3>
+            <p><strong>Email:</strong> ${val.email}</p>
+            <p><strong>Account:</strong> ${val.account}</p>
+            <p><strong>Message:</strong> ${val.message || '—'}</p>
+            <p class="text-xs text-gray-600">📅 ${new Date(val.timestamp).toLocaleString()}</p>
+          `;
+          entriesDiv.appendChild(div);
+        });
       });
-    });
+    }
   </script>
 </body>
 </html>
