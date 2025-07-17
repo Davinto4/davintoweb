@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Confirm Payment - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .loader {
+      display: none;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .loader.active {
+      display: block;
+    }
+    .success {
+      display: none;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .success.active {
+      display: block;
+    }
+  </style>
   <script>
     function toggleTheme() {
       const root = document.documentElement;
@@ -22,6 +42,23 @@
     }
 
     window.onload = fillServiceFromURL;
+
+    function showLoader() {
+      document.getElementById('loader').classList.add('active');
+    }
+
+    function showSuccessMessage() {
+      document.getElementById('successMsg').classList.add('active');
+    }
+
+    function handleSubmit(e) {
+      showLoader();
+      setTimeout(() => {
+        showSuccessMessage();
+        document.getElementById('loader').classList.remove('active');
+        document.getElementById('form').reset();
+      }, 2500); // Simulate processing time
+    }
   </script>
 </head>
 <body>
@@ -43,7 +80,7 @@
       <p>After submitting, your entry is logged automatically, and you'll get a WhatsApp confirmation link.</p>
     </section>
 
-    <form method="POST" action="https://www.appsheet.com/template/appform?appName=DAVINTOWEBPAYMENTCONFIRMATION-839843014&tableName=Sheet1">
+    <form id="form" target="_blank" method="POST" action="https://www.appsheet.com/template/appform?appName=DAVINTOWEBPAYMENTCONFIRMATION-839843014&tableName=Sheet1" onsubmit="handleSubmit(event)">
       <input type="hidden" id="service" name="Service" value=""/>
 
       <label for="Name">Your Name:</label>
@@ -60,6 +97,9 @@
 
       <button type="submit">✅ Submit Confirmation</button>
     </form>
+
+    <div id="loader" class="loader">⏳ Submitting your payment...</div>
+    <div id="successMsg" class="success">✅ Payment confirmation submitted successfully!</div>
 
     <div class="wa-notice">
       <p>📲 After submitting, you may also notify us via WhatsApp:</p>
