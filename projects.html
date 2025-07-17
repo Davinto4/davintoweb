@@ -7,57 +7,61 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f5f7fb;
-      color: #111;
+      background: linear-gradient(to right, #0047ab, #0099ff);
+      color: white;
+      min-height: 100vh;
     }
 
     header {
-      background: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: #222;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .logo img {
-      height: 42px;
+      height: 48px;
     }
 
     nav ul {
-      list-style: none;
       display: flex;
       gap: 1.5rem;
+      list-style: none;
     }
 
     nav ul li a {
       text-decoration: none;
       color: #111;
       font-weight: 600;
-      position: relative;
     }
 
-    nav ul li a:hover,
-    nav ul li a.active {
-      color: #0066ff;
+    nav ul li a.active,
+    nav ul li a:hover {
+      color: #007bff;
     }
 
     .section {
-      max-width: 1200px;
-      margin: 0 auto;
       padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .section h1 {
-      font-size: 2.8rem;
-      margin-bottom: 2rem;
+      font-size: 3rem;
       text-align: center;
-      background: linear-gradient(90deg, #0072ff, #00c6ff);
-      -webkit-background-clip: text;
-      color: transparent;
+      margin-bottom: 2rem;
+      color: #fff;
     }
 
     .projects-grid {
@@ -67,17 +71,17 @@
     }
 
     .project {
-      background: white;
+      background: linear-gradient(135deg, #ffffff, #e0f0ff);
+      color: #111;
+      border-radius: 20px;
       padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border-left: 5px solid #0072ff;
     }
 
     .project:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
     }
 
     .project h3 {
@@ -86,16 +90,16 @@
     }
 
     .project p {
-      color: #333;
+      font-size: 0.95rem;
     }
 
     .btn {
       margin-top: 1rem;
       display: inline-block;
-      padding: 0.5rem 1.1rem;
+      padding: 0.6rem 1.2rem;
       background: #0072ff;
       color: white;
-      border-radius: 6px;
+      border-radius: 8px;
       text-decoration: none;
       transition: 0.3s ease;
     }
@@ -105,10 +109,11 @@
     }
 
     footer {
+      background: #001f3f;
       text-align: center;
       padding: 2rem;
-      background: #eee;
       font-size: 0.9rem;
+      color: #ccc;
       margin-top: 4rem;
     }
   </style>
@@ -129,34 +134,37 @@
   </header>
 
   <section class="section">
-    <h1 data-aos="fade-down">Explore My Web Projects</h1>
+    <h1 data-aos="fade-down">Creative & Dynamic Projects</h1>
 
     <div class="projects-grid">
-      <div class="project" data-aos="fade-up" data-aos-delay="100">
+      <div class="project" data-aos="zoom-in" data-aos-delay="100">
         <h3>Business Website</h3>
-        <p>Modern website for small businesses and agencies with services, about, and contact sections.</p>
+        <p>Clean and professional websites for small businesses and service providers.</p>
         <a href="https://davintoweb-davinto.vercel.app/" target="_blank" class="btn">View Site</a>
       </div>
 
-      <div class="project" data-aos="fade-up" data-aos-delay="200">
+      <div class="project" data-aos="zoom-in" data-aos-delay="200">
         <h3>E-Commerce UI</h3>
-        <p>Basic shop layout including product cards, categories, and cart functionality.</p>
-        <a href="https://davintoweb-davinto.vercel.app/" target="_blank" class="btn">Explore Demo</a>
+        <p>Beautiful shopping interface with smooth layout and responsive product sections.</p>
+        <a href="https://davintoweb-davinto.vercel.app/" target="_blank" class="btn">See Demo</a>
+      </div>
+
+      <div class="project" data-aos="zoom-in" data-aos-delay="300">
+        <h3>Blog Platform</h3>
+        <p>Stylish and easy-to-navigate blog template for content creators and storytellers.</p>
+        <a href="#" class="btn">Preview</a>
       </div>
     </div>
   </section>
 
   <footer>
-    &copy; 2025 DavintoWeb. Built with ❤️ by Chimdindu MacDonald.
+    &copy; 2025 DavintoWeb. Crafted with ❤️ by Chimdindu MacDonald.
   </footer>
 
-  <!-- AOS Script -->
+  <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 800,
-      once: true
-    });
+    AOS.init({ duration: 900, once: true });
   </script>
 
   <!-- Smartsupp Live Chat script -->
