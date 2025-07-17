@@ -1,137 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirm Payment - DavintoWeb</title>
+  <title>Payment Confirmation - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .loader {
-      display: none;
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .loader.active {
-      display: block;
-    }
-
-    .success {
-      display: none;
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      animation: fadeIn 1s ease-in-out;
-      color: #28a745;
-    }
-
-    .success.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    .loader { display: none; }
+    .success { display: none; color: green; font-weight: bold; font-size: 18px; margin-top: 20px; }
   </style>
-  <script>
-    let sound;
-
-    function toggleTheme() {
-      const root = document.documentElement;
-      const theme = root.getAttribute("data-theme");
-      root.setAttribute("data-theme", theme === "light" ? "dark" : "light");
-    }
-
-    function fillServiceFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      const service = params.get("service");
-      if (service) {
-        document.getElementById("service").value = service;
-        document.getElementById("selectedService").textContent = service;
-      }
-    }
-
-    window.onload = () => {
-      fillServiceFromURL();
-      sound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_c2b64bbf3d.mp3"); // gentle success chime
-    };
-
-    function showLoader() {
-      document.getElementById('loader').classList.add('active');
-    }
-
-    function showSuccessMessage() {
-      document.getElementById('successMsg').classList.add('active');
-      sound.play();
-    }
-
-    function handleSubmit(e) {
-      showLoader();
-      setTimeout(() => {
-        showSuccessMessage();
-        document.getElementById('loader').classList.remove('active');
-        document.getElementById('form').reset();
-      }, 2500); // Simulate processing delay
-    }
-  </script>
 </head>
-<body>
-  <header class="nav">
-    <h1>✅ Confirm Payment</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="admin.html">Admin</a>
-      <button onclick="toggleTheme()">🌓</button>
-    </nav>
-  </header>
+<body class="dark:bg-black dark:text-white bg-white text-black transition duration-300">
 
-  <main class="container">
-    <section class="intro">
-      <h2>Confirm Your Payment</h2>
-      <p>You're confirming payment for: <strong id="selectedService">...</strong></p>
-      <p>After submitting, your entry is logged automatically, and you'll get a WhatsApp confirmation link.</p>
-    </section>
+  <!-- Navbar -->
+  <nav class="p-4 shadow flex justify-between items-center bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
+    <h1 class="text-xl font-bold">DavintoWeb</h1>
+    <button onclick="toggleMode()" class="bg-white text-black px-3 py-1 rounded">🌓</button>
+  </nav>
 
-    <form id="form" target="_blank" method="POST" action="https://www.appsheet.com/template/appform?appName=DAVINTOWEBPAYMENTCONFIRMATION-839843014&tableName=Sheet1" onsubmit="handleSubmit(event)">
-      <input type="hidden" id="service" name="Service" value=""/>
+  <!-- Main Form -->
+  <section class="max-w-xl mx-auto p-6 mt-10 bg-gray-100 dark:bg-gray-800 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">Confirm Your Payment</h2>
+    <form id="confirmForm">
+      <label>Full Name:</label>
+      <input type="text" name="name" required class="w-full p-2 mb-3 rounded"/>
 
-      <label for="Name">Your Name:</label>
-      <input type="text" name="Name" required placeholder="Enter your full name"/>
+      <label>Email:</label>
+      <input type="email" name="email" required class="w-full p-2 mb-3 rounded"/>
 
-      <label for="Email">Email:</label>
-      <input type="email" name="Email" required placeholder="you@example.com"/>
+      <label>Account Used:</label>
+      <input type="text" name="account" required class="w-full p-2 mb-3 rounded"/>
 
-      <label for="Account">Account Used to Pay:</label>
-      <input type="text" name="Account" required placeholder="e.g. 0123456789 / GTB"/>
+      <label>Message:</label>
+      <textarea name="message" class="w-full p-2 mb-3 rounded"></textarea>
 
-      <label for="Message">Message (optional):</label>
-      <textarea name="Message" placeholder="Anything else to add?"></textarea>
-
-      <button type="submit">✅ Submit Confirmation</button>
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Submit</button>
     </form>
 
-    <div id="loader" class="loader">⏳ Submitting your payment...</div>
-    <div id="successMsg" class="success">🎉 Confirmation submitted successfully!</div>
+    <div class="loader mt-4">⏳ Processing...</div>
+    <div class="success mt-4">✅ Payment Confirmation Sent!</div>
+  </section>
 
-    <div class="wa-notice">
-      <p>📲 You can also notify us via WhatsApp:</p>
-      <a class="wa-btn" href="https://wa.me/2348169045105?text=Hello%20DavintoWeb!%20I%20just%20paid%20for%20a%20service%20and%20submitted%20my%20confirmation." target="_blank">📩 Notify on WhatsApp</a>
-    </div>
-  </main>
+  <audio id="successSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
 
-  <!-- SmartUpp Chat Widget -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-    })(document);
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "667742200333",
+      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Form submission
+    document.getElementById('confirmForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.querySelector('.loader').style.display = 'block';
+
+      const name = this.name.value;
+      const email = this.email.value;
+      const account = this.account.value;
+      const message = this.message.value;
+
+      db.ref('confirmations').push({
+        name, email, account, message, timestamp: new Date().toISOString()
+      }).then(() => {
+        document.querySelector('.loader').style.display = 'none';
+        document.querySelector('.success').style.display = 'block';
+        document.getElementById('successSound').play();
+        this.reset();
+      }).catch(err => {
+        alert("Failed to submit: " + err);
+        document.querySelector('.loader').style.display = 'none';
+      });
+    });
+
+    // Light/Dark toggle
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+    }
   </script>
 </body>
 </html>
