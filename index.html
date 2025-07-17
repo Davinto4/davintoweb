@@ -8,123 +8,178 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
   <style>
-    /* Menu Styling */
-    .menu {
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f7f7f7;
+    }
+
+    /* Header / Menu */
+    header {
       position: fixed;
       top: 0;
       width: 100%;
-      background: #0e0e0e;
+      background: #1b1b1b;
+      color: #fff;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
-      color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    .menu .logo {
-      font-size: 1.5rem;
+    header .logo {
+      font-size: 1.6rem;
       font-weight: bold;
     }
-    .menu ul {
+    header nav ul {
+      list-style: none;
       display: flex;
       gap: 1.2rem;
-      list-style: none;
     }
-    .menu ul li a {
+    header nav ul li a {
+      color: #fff;
       text-decoration: none;
-      color: white;
-      transition: color 0.3s ease;
+      font-weight: 500;
     }
-    .menu ul li a:hover {
+    header nav ul li a:hover {
       color: #00ffd0;
     }
-    .mobile-menu-icon {
+    .menu-toggle {
       display: none;
-      cursor: pointer;
       font-size: 1.5rem;
+      cursor: pointer;
     }
-    .mobile-links {
-      display: none;
-      flex-direction: column;
-      background: #1b1b1b;
-      width: 100%;
-      text-align: center;
+    @media (max-width: 768px) {
+      header nav ul {
+        display: none;
+        flex-direction: column;
+        background: #222;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        text-align: left;
+        padding: 10px;
+      }
+      header nav ul.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
     }
-    .mobile-links a {
+
+    main {
+      margin-top: 80px;
+      padding: 2rem;
+    }
+
+    h1, h2 {
+      color: #111;
+    }
+
+    .prompt {
+      margin-top: 1rem;
       padding: 10px;
-      border-top: 1px solid #333;
-      color: white;
-      text-decoration: none;
-    }
-    .mobile-links a:hover {
-      background: #111;
-      color: #00ffd0;
+      background: #fff8dc;
+      border-left: 5px solid #ffb703;
+      font-weight: bold;
     }
 
     .whatsapp-btn {
       display: inline-block;
-      margin-top: 20px;
+      margin: 30px 0;
       padding: 12px 24px;
       background: #25d366;
       color: white;
       font-weight: bold;
       border-radius: 30px;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     .whatsapp-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     }
 
-    @media (max-width: 768px) {
-      .menu ul {
-        display: none;
-      }
-      .mobile-menu-icon {
-        display: block;
-      }
+    /* Review Section */
+    .reviews {
+      margin-top: 40px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .review {
+      margin-bottom: 1rem;
+    }
+    .review strong {
+      color: #333;
+    }
+    .review p {
+      margin: 0.3rem 0;
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <nav class="menu">
+
+  <!-- Navigation / Menu -->
+  <header>
     <div class="logo">DavintoWeb</div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="contact.html">Contacts</a></li>
-      <li><a href="chat.html">Chats</a></li>
-    </ul>
-    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
+    <div class="menu-toggle" onclick="toggleMenu()">
       <i class="fas fa-bars"></i>
     </div>
-  </nav>
+    <nav>
+      <ul id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contacts</a></li>
+        <li><a href="chat.html">Chats</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="mobile-links" id="mobileMenu">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contacts</a>
-    <a href="chat.html">Chats</a>
-  </div>
-
-  <main style="margin-top: 80px; padding: 2rem;">
-    <h1 data-aos="fade-up">Welcome to DavintoWeb</h1>
-    <p data-aos="fade-up" data-aos-delay="200">
-      We design and develop modern, functional, and professional websites tailored to your vision.
-      Whether it's a business site, personal portfolio, or e-commerce platform — DavintoWeb has you covered.
+  <main>
+    <h1 data-aos="fade-down">Welcome to DavintoWeb</h1>
+    <p data-aos="fade-up" data-aos-delay="100">
+      At DavintoWeb, we build powerful, modern, and responsive websites that represent your brand, business, or idea — beautifully and professionally.
     </p>
-    <a href="https://wa.me/2348169045105" target="_blank" class="whatsapp-btn" data-aos="fade-up" data-aos-delay="400">
-      Chat with us on WhatsApp
+
+    <div class="prompt" data-aos="fade-in" data-aos-delay="300">
+      ☝️ Click the menu icon to explore more about our services (Home, About, Pricing, Projects, Contact, and Chat)!
+    </div>
+
+    <a href="https://wa.me/2348169045105" target="_blank" class="whatsapp-btn" data-aos="zoom-in" data-aos-delay="400">
+      💬 Chat with us on WhatsApp
     </a>
+
+    <!-- Reviews Section -->
+    <div class="reviews" data-aos="fade-up" data-aos-delay="500">
+      <h2>💬 What Clients Say</h2>
+
+      <div class="review">
+        <strong>Daniel Tech</strong>
+        <p>"DavintoWeb created a professional site for my startup. Fast, sleek, and mobile-friendly."</p>
+      </div>
+
+      <div class="review">
+        <strong>Ella Stores</strong>
+        <p>"My e-commerce website was done in 5 days — with chat, payments, and everything. Impressive!"</p>
+      </div>
+
+      <div class="review">
+        <strong>Jude - Blogger</strong>
+        <p>"My blog now loads super fast. I love the animations and the clean UI DavintoWeb delivered."</p>
+      </div>
+    </div>
   </main>
 
-  <!-- Smartsupp Live Chat -->
+  <!-- SmartSupp Live Chat -->
   <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
@@ -137,13 +192,13 @@
     })(document);
   </script>
 
-  <!-- AOS Animation Script -->
+  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('show');
     }
   </script>
 </body>
