@@ -1,93 +1,176 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb - Professional Web Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papmFzYXKzNq7+1p6MoU1r6F0tFfWVmDbShwKiLNOQ+1JXLU3vv8V0T+1b8j7R0gJ7M5kHv4y7vFQ8Db2RXVQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .collapsible-navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: #111;
+      padding: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      animation: slideDown 0.5s ease-out;
+    }.collapsible-navbar a {
+  display: inline-block;
+  background-color: #222;
+  color: white;
+  padding: 14px 20px;
+  margin: 6px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.1em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.collapsible-navbar a:hover {
+  background-color: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.collapsible-navbar a.active {
+  background-color: #ff9800;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 152, 0, 0.3);
+}
+
+.whatsapp-button {
+  display: inline-block;
+  padding: 14px 24px;
+  font-size: 1.2em;
+  background-color: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: bounceIn 1s ease forwards;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
+  background-color: #1ebe5b;
+}
+
+@keyframes bounceIn {
+  0%, 100% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+  </style>
 </head>
 <body>
-
-  <!-- Navbar -->
   <nav class="collapsible-navbar">
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
     <a href="about.html"><i class="fas fa-book"></i> About</a>
-    <a href="pricing.html"><i class="fas fa-money-bill-wave"></i> Pricing</a>
+    <a href="pricing.html" class="active"><i class="fas fa-money-bill-wave"></i> Pricing</a>
     <a href="portfolio.html"><i class="fas fa-image"></i> Portfolio</a>
     <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
     <a href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Chat</a>
-  </nav>
-
-  <!-- Hero Section -->
-  <header class="hero-banner">
-    <div class="hero-content">
-      <h1>We Build Stunning Websites</h1>
-      <p>Affordable, professional and fast. Let's take your brand online with DavintoWeb!</p>
-      <div class="hero-buttons">
-        <a href="portfolio.html" class="btn-primary"><i class="fas fa-eye"></i> View Portfolio</a>
-        <a href="DavintoPortfolio.pdf" download class="btn-secondary"><i class="fas fa-download"></i> Download Portfolio</a>
-      </div>
+  </nav>  <main class="main-content">
+    <section class="pricing-section">
+      <h1>💰 Our Pricing Packages</h1>
+      <p>Affordable and flexible pricing for all types of website needs. Whether you're an individual, a business, or an organization — we’ve got you covered.</p><div class="price-list">
+    <div class="price-box">
+      <h3>🌐 Starter Site</h3>
+      <p>From ₦5,000</p>
+      <ul>
+        <li>1–2 Pages</li>
+        <li>Contact Form</li>
+        <li>Responsive Design</li>
+        <li>Delivery: 1–2 Days</li>
+      </ul>
     </div>
-  </header>
 
-  <!-- Services Section -->
-  <section class="services-section">
-    <h2>What We Can Build For You</h2>
-    <div class="services-grid">
-      <div class="service-card"><i class="fas fa-globe"></i><h3>Business Websites</h3><p>Professional websites for companies and entrepreneurs.</p></div>
-      <div class="service-card"><i class="fas fa-blog"></i><h3>Blogs & News</h3><p>Modern blogs with SEO, CMS and fast loading speed.</p></div>
-      <div class="service-card"><i class="fas fa-store"></i><h3>E-commerce Stores</h3><p>Sell products online with payments and order tracking.</p></div>
-      <div class="service-card"><i class="fas fa-users"></i><h3>Community Platforms</h3><p>Social platforms, forums, or group networks.</p></div>
-      <div class="service-card"><i class="fas fa-graduation-cap"></i><h3>School Portals</h3><p>Student results, authentication, e-learning and more.</p></div>
-      <div class="service-card"><i class="fas fa-user-friends"></i><h3>Family Sites</h3><p>Connect your family and share memories beautifully.</p></div>
+    <div class="price-box">
+      <h3>📝 Blog / Portfolio</h3>
+      <p>From ₦15,000</p>
+      <ul>
+        <li>Dynamic Blog Pages</li>
+        <li>Author CMS</li>
+        <li>Social Share & SEO</li>
+        <li>Admin Panel</li>
+      </ul>
     </div>
-  </section>
 
-  <!-- Testimonials Section -->
-  <section class="testimonials-section">
-    <h2>What Clients Are Saying</h2>
-    <div class="testimonials-grid">
-      <div class="testimonial">
-        <p>“DavintoWeb delivered my site within 2 days. It's beautiful, responsive and exactly what I needed!”</p>
-        <span>— Sarah, Fashion Brand</span>
-      </div>
-      <div class="testimonial">
-        <p>“Affordable and professional. I’ve hired Davinto for all my businesses. Highly recommended.”</p>
-        <span>— Uche, Business Owner</span>
-      </div>
-      <div class="testimonial">
-        <p>“The e-commerce site built for me is perfect. I love the backend features for order management.”</p>
-        <span>— Moyo, Online Store Owner</span>
-      </div>
+    <div class="price-box">
+      <h3>🏢 Business Website</h3>
+      <p>From ₦30,000</p>
+      <ul>
+        <li>Company Profile</li>
+        <li>Team, Services, Contact</li>
+        <li>Quote or Booking Forms</li>
+        <li>WhatsApp & Email Integration</li>
+      </ul>
     </div>
-  </section>
 
-  <!-- Pricing Highlights -->
-  <section class="pricing-highlight">
-    <h2>Popular Packages</h2>
-    <div class="highlight-grid">
-      <div class="highlight-box">
-        <h3>Starter Website</h3>
-        <p>₦5,000 – 2 pages, responsive, contact form</p>
-      </div>
-      <div class="highlight-box">
-        <h3>Blog / Portfolio</h3>
-        <p>₦15,000 – Dynamic content, CMS, SEO</p>
-      </div>
-      <div class="highlight-box">
-        <h3>Business Website</h3>
-        <p>₦30,000 – Company profile, quote form, WhatsApp</p>
-      </div>
+    <div class="price-box">
+      <h3>🛒 E-commerce Website</h3>
+      <p>From ₦60,000</p>
+      <ul>
+        <li>Product Listings</li>
+        <li>Payment Integration</li>
+        <li>Cart System</li>
+        <li>Order Management</li>
+      </ul>
     </div>
-  </section>
 
-  <!-- Footer / Contact -->
-  <footer class="footer-contact">
-    <h2>Let’s Build Your Dream Website</h2>
-    <p>Click below to message us directly on WhatsApp and get started today!</p>
-    <a href="https://wa.me/2348169045105" class="whatsapp-button"><i class="fab fa-whatsapp"></i> Chat Now</a>
-  </footer>
+    <div class="price-box">
+      <h3>⚙️ Web App + Firebase</h3>
+      <p>From ₦100,000+</p>
+      <ul>
+        <li>User Authentication</li>
+        <li>Realtime Database</li>
+        <li>AI Chat Integration</li>
+        <li>Custom Dashboards</li>
+      </ul>
+    </div>
 
+    <div class="price-box">
+      <h3>🧩 Custom Projects</h3>
+      <p>Let’s Talk</p>
+      <ul>
+        <li>Educational Platforms</li>
+        <li>Community Portals</li>
+        <li>Family Websites</li>
+        <li>AI Bots, Translators, and More</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="extra-section">
+    <h2>🌍 Extra Add-ons</h2>
+    <ul>
+      <li>✅ Free SSL (HTTPS)</li>
+      <li>🌐 Custom Domain: ₦6,000/year</li>
+      <li>📊 Analytics Setup</li>
+      <li>🛡️ Security Enhancements</li>
+      <li>🚀 Speed Optimization</li>
+    </ul>
+  </div>
+
+  <div class="contact-cta">
+    <a href="https://wa.me/2348169045105" class="whatsapp-button"><i class="fab fa-whatsapp"></i> Chat with Davinto Now</a>
+  </div>
+</section>
+
+  </main>
 </body>
 </html>
