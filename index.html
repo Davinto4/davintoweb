@@ -1,147 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb - Website Design & Development</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing | DavintoWeb</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
-  <!-- Dark/Light Mode Toggle -->
-  <div class="theme-toggle">
-    <button onclick="toggleTheme()">🌞/🌙</button>
-  </div>
-
   <!-- Navigation -->
-  <nav class="collapsible-navbar">
-    <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
-    <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-    <a href="pricing.html"><i class="fas fa-tags"></i> Pricing</a>
-    <a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfolio</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-    <a href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Chat</a>
+  <nav class="nav">
+    <div class="nav-container">
+      <h1 class="logo">DavintoWeb</h1>
+      <div class="nav-buttons">
+        <a href="index.html" class="nav-btn">Home</a>
+        <a href="about.html" class="nav-btn">About</a>
+        <a href="pricing.html" class="nav-btn active">Pricing</a>
+        <a href="confirm.html" class="nav-btn">Confirm</a>
+        <a href="contact.html" class="nav-btn">Contact</a>
+      </div>
+    </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <h1>🚀 Build Any Website You Imagine</h1>
-    <p>Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
-    <a href="portfolio.pdf" download class="download-btn"><i class="fas fa-download"></i> Download Portfolio</a>
-  </header>
-
-  <!-- Features Section -->
-  <section class="features">
-    <h2>🌟 Why Choose DavintoWeb?</h2>
-    <ul>
-      <li><i class="fas fa-bolt"></i> Fast and mobile-optimized websites</li>
-      <li><i class="fas fa-lock"></i> Free HTTPS Security</li>
-      <li><i class="fas fa-cogs"></i> Firebase-powered dashboards</li>
-      <li><i class="fas fa-brain"></i> AI Chatbot & Translator Integration</li>
-      <li><i class="fas fa-headset"></i> Ongoing support</li>
-    </ul>
-  </section>
-
-  <!-- Services Grid -->
-  <section class="services">
-    <h2>🧩 What We Build</h2>
-    <div class="grid">
-      <div><i class="fas fa-user"></i><p>Personal Websites</p></div>
-      <div><i class="fas fa-blog"></i><p>Blogs & Portfolios</p></div>
-      <div><i class="fas fa-building"></i><p>Business Sites</p></div>
-      <div><i class="fas fa-shopping-cart"></i><p>E-commerce</p></div>
-      <div><i class="fas fa-graduation-cap"></i><p>Educational Platforms</p></div>
-      <div><i class="fas fa-users"></i><p>Community Portals</p></div>
-      <div><i class="fas fa-robot"></i><p>AI Bots & Tools</p></div>
-      <div><i class="fas fa-heart"></i><p>Family & Event Sites</p></div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
+  <!-- Pricing Section -->
   <section class="pricing-section">
-    <h2>💰 Pricing Packages</h2>
-    <div class="price-list">
-      <div class="price-box">
-        <h3>🌐 Starter Site</h3>
-        <p>From ₦5,000</p>
-        <ul>
-          <li>1–2 Pages</li>
-          <li>Responsive Design</li>
-          <li>Contact Form</li>
-        </ul>
+    <h2>Choose Your Package</h2>
+    <div class="pricing-grid">
+      <div class="card">
+        <h3>Starter Website</h3>
+        <p>Simple and responsive website</p>
+        <a href="confirm.html?service=Starter Website" class="btn">Select</a>
       </div>
 
-      <div class="price-box">
-        <h3>📝 Blog / Portfolio</h3>
-        <p>From ₦15,000</p>
-        <ul>
-          <li>CMS Admin Panel</li>
-          <li>SEO + Social Sharing</li>
-        </ul>
+      <div class="card">
+        <h3>Portfolio / Blog</h3>
+        <p>Showcase your works or blog posts</p>
+        <a href="confirm.html?service=Portfolio" class="btn">Select</a>
       </div>
 
-      <div class="price-box">
-        <h3>🏢 Business Site</h3>
-        <p>From ₦30,000</p>
-        <ul>
-          <li>Multi-Page Design</li>
-          <li>WhatsApp Booking</li>
-        </ul>
+      <div class="card">
+        <h3>Business Site</h3>
+        <p>For brands, companies, and businesses</p>
+        <a href="confirm.html?service=Business Site" class="btn">Select</a>
       </div>
 
-      <div class="price-box">
-        <h3>🛒 E-commerce</h3>
-        <p>From ₦60,000</p>
-        <ul>
-          <li>Payment Integration</li>
-          <li>Product Dashboard</li>
-        </ul>
+      <div class="card">
+        <h3>E-commerce</h3>
+        <p>Sell online with cart and payment system</p>
+        <a href="confirm.html?service=E-commerce" class="btn">Select</a>
       </div>
 
-      <div class="price-box">
-        <h3>⚙️ Web App + AI</h3>
-        <p>From ₦100,000+</p>
-        <ul>
-          <li>Custom Dashboards</li>
-          <li>Realtime DB & Auth</li>
-        </ul>
+      <div class="card">
+        <h3>Full Web App</h3>
+        <p>Complex, interactive web applications</p>
+        <a href="confirm.html?service=Web App" class="btn">Select</a>
       </div>
 
-      <div class="price-box">
-        <h3>🧠 Custom Projects</h3>
-        <p>Let’s Discuss</p>
-        <ul>
-          <li>Translators, Bots, Platforms</li>
-        </ul>
+      <div class="card">
+        <h3>Custom Projects</h3>
+        <p>Tailored to your unique needs</p>
+        <a href="confirm.html?service=Custom Project" class="btn">Select</a>
       </div>
     </div>
   </section>
 
-  <!-- Contact CTA -->
-  <section class="contact-cta">
-    <a href="https://wa.me/2348169045105" class="whatsapp-button"><i class="fab fa-whatsapp"></i> Chat with Davinto Now</a>
-  </section>
-
-  <!-- Smartupp Live Chat -->
+  <!-- SmartUpp Chat -->
   <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = "0d074f1a6588d3c0562657b1e5a3dd332cf9af81";
-    window.smartsupp || (function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
       s=d.getElementsByTagName("script")[0];c=d.createElement("script");
       c.type="text/javascript";c.charset="utf-8";c.async=true;
       c.src="https://www.smartsuppchat.com/loader.js?";s.parentNode.insertBefore(c,s);
     })(document);
   </script>
-
-  <!-- Theme Script -->
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
-    }
-  </script>
-
 </body>
 </html>
