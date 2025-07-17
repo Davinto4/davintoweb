@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Panel – Payment Confirmations</title>
+  <title>Admin Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -37,7 +37,7 @@
 
     button {
       padding: 0.7rem 1.2rem;
-      margin-top: 1rem;
+      margin: 0.5rem;
       background: #007bff;
       color: white;
       border: none;
@@ -69,6 +69,12 @@
 
     .logout {
       float: right;
+    }
+
+    .top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-top: -40px;
     }
 
@@ -96,8 +102,13 @@
 </div>
 
 <div class="admin-panel fade-in" id="adminPanel">
-  <h2>✅ Confirmations Dashboard</h2>
-  <button class="logout" onclick="logout()">Logout</button>
+  <div class="top-controls">
+    <h2>✅ Admin Page</h2>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <button onclick="window.location.href='confirm.html'">📋 View Confirmation Dashboard</button>
+
   <table id="dataTable">
     <thead>
       <tr>
