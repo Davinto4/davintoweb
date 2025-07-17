@@ -1,94 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Payment Confirmation</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background-color: #f5f5f5;
-      transition: background 0.3s;
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
     }
 
-    .dark-mode {
-      background-color: #121212;
-      color: #eee;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-
-    .container {
-      max-width: 500px;
-      margin: auto;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      background-color: #0066ff;
-      color: white;
-      padding: 0.75rem;
-      width: 100%;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    #loader {
-      display: none;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .toggle {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-    }
-
   </style>
 </head>
 <body>
-  <div class="toggle">
-    <button onclick="toggleTheme()">🌗 Toggle Mode</button>
-  </div>
-
   <div class="container">
-    <h2>Confirm Your Payment</h2>
+    <h1>✅ Confirm Your Payment</h1>
     <form id="confirmForm">
-      <input type="text" name="accountName" placeholder="Account Name" required />
-      <input type="text" name="bankName" placeholder="Bank Name" required />
-      <input type="text" name="accountNumber" placeholder="Account Number" required />
-      <input type="tel" name="phone" placeholder="Phone Number" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <textarea name="message" placeholder="Additional Message" rows="3"></textarea>
+      <input type="text" name="accountName" placeholder="Account Name" required>
+      <input type="text" name="bankName" placeholder="Bank Name" required>
+      <input type="text" name="accountNumber" placeholder="Account Number" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Additional Message" required></textarea>
       <button type="submit" id="submitBtn">Submit</button>
-      <div id="loader">⏳ Submitting...</div>
+      <span id="loader" style="display:none;" class="loader"></span>
     </form>
+    <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-reward-1085.mp3"></audio>
   </div>
 
-  <audio id="successSound" src="https://www.soundjay.com/buttons/sounds/button-4.mp3"></audio>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-
-  <script>
-    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
@@ -99,45 +54,38 @@
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const formRef = ref(db, 'confirmations');
 
     const form = document.getElementById('confirmForm');
     const loader = document.getElementById('loader');
-    const btn = document.getElementById('submitBtn');
     const successSound = document.getElementById('successSound');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      loader.style.display = 'block';
-      btn.disabled = true;
+      loader.style.display = 'inline-block';
 
       const formData = new FormData(form);
       const data = {};
-      formData.forEach((val, key) => data[key] = val);
-      data.timestamp = new Date().toISOString();
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      data.timestamp = serverTimestamp();
 
       try {
-        await db.ref('confirmations').push(data);
-        loader.innerHTML = '✅ Submitted!';
+        await push(formRef, data);
+        loader.style.display = 'none';
         successSound.play();
+        alert('✅ Confirmation submitted successfully!');
         form.reset();
-        setTimeout(() => {
-          loader.innerHTML = '';
-          loader.style.display = 'none';
-          btn.disabled = false;
-        }, 2000);
-      } catch (error) {
-        loader.innerHTML = '❌ Failed. Try Again.';
-        btn.disabled = false;
+      } catch (err) {
+        loader.style.display = 'none';
+        alert('❌ Error submitting confirmation.');
+        console.error(err);
       }
     });
-
-    // Dark/Light toggle
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-    }
   </script>
 </body>
 </html>
