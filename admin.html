@@ -1,103 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin - Confirmed Payments</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - Confirmations</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
-    }
-    th, td {
-      padding: 0.75rem;
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-    }
-    th {
-      background-color: #eee;
-    }
-    .loader {
-      text-align: center;
-      margin-top: 2rem;
-      font-weight: bold;
-    }
+    body { font-family: sans-serif; }
+    .entry { border-bottom: 1px solid #ccc; padding: 10px; }
+    .entry:nth-child(even) { background: #f9f9f9; }
+    .admin-header { background: linear-gradient(to right, #4f46e5, #7c3aed); color: white; padding: 1rem; text-align: center; }
   </style>
-  <script>
-    async function fetchSheetData() {
-      const loader = document.getElementById("loader");
-      const tableBody = document.getElementById("tableBody");
-
-      try {
-        const res = await fetch("https://opensheet.elk.sh/1w3DmP8HBLz1PNgQd7ZZKfVRVfJ9YFeeu5P6aUuxMM2w/Sheet1");
-        const data = await res.json();
-        loader.style.display = "none";
-
-        data.reverse().forEach((entry, index) => {
-          const row = `
-            <tr>
-              <td>${index + 1}</td>
-              <td>${entry.Service || "-"}</td>
-              <td>${entry.Name || "-"}</td>
-              <td>${entry.Email || "-"}</td>
-              <td>${entry.Account || "-"}</td>
-              <td>${entry.Message || "-"}</td>
-              <td>${entry.Timestamp || "-"}</td>
-            </tr>
-          `;
-          tableBody.innerHTML += row;
-        });
-      } catch (err) {
-        loader.innerText = "❌ Failed to load data.";
-        console.error(err);
-      }
-    }
-
-    window.onload = fetchSheetData;
-
-    function toggleTheme() {
-      const root = document.documentElement;
-      const theme = root.getAttribute("data-theme");
-      root.setAttribute("data-theme", theme === "light" ? "dark" : "light");
-    }
-  </script>
 </head>
-<body>
-  <header class="nav">
-    <h1>📋 Admin Panel</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="confirm.html">Confirm</a>
-      <button onclick="toggleTheme()">🌓</button>
-    </nav>
-  </header>
+<body class="dark:bg-black dark:text-white bg-white text-black transition duration-300">
 
-  <main class="container">
-    <h2>🧾 Confirmed Payments</h2>
-    <p>Below are all submissions from the payment confirmation form (live from Google Sheets):</p>
+  <div class="admin-header">
+    <h1 class="text-2xl font-bold">DavintoWeb Admin Panel</h1>
+    <p class="text-sm">Payment Confirmations</p>
+  </div>
 
-    <div id="loader" class="loader">⏳ Loading data from sheet...</div>
+  <div id="entries" class="max-w-3xl mx-auto p-4 mt-6 bg-gray-100 dark:bg-gray-900 rounded shadow-md">
+    <p>Loading entries...</p>
+  </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Service</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Account</th>
-          <th>Message</th>
-          <th>Timestamp</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-        <!-- Data will be inserted here -->
-      </tbody>
-    </table>
-  </main>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "667742200333",
+      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const entriesDiv = document.getElementById('entries');
+    entriesDiv.innerHTML = '';
+
+    db.ref('confirmations').on('value', snapshot => {
+      entriesDiv.innerHTML = '';
+      const data = snapshot.val();
+
+      if (!data) {
+        entriesDiv.innerHTML = '<p>No confirmations yet.</p>';
+        return;
+      }
+
+      Object.entries(data).reverse().forEach(([key, val]) => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        div.innerHTML = `
+          <h3 class="font-semibold text-lg">${val.name}</h3>
+          <p><strong>Email:</strong> ${val.email}</p>
+          <p><strong>Account:</strong> ${val.account}</p>
+          <p><strong>Message:</strong> ${val.message || '—'}</p>
+          <p class="text-xs text-gray-600">📅 ${new Date(val.timestamp).toLocaleString()}</p>
+        `;
+        entriesDiv.appendChild(div);
+      });
+    });
+  </script>
 </body>
 </html>
