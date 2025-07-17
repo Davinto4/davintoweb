@@ -5,6 +5,8 @@
   <title>Pricing - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papmFzYXKzNq7+1p6MoU1r6F0tFfWVmDbShwKiLNOQ+1JXLU3vv8V0T+1b8j7R0gJ7M5kHv4y7vFQ8Db2RXVQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
   <nav class="collapsible-navbar">
@@ -15,12 +17,13 @@
     <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
     <a href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Chat</a>
   </nav>  <main class="main-content">
-    <section class="pricing-hero">
+    <section class="pricing-hero" data-aos="fade-down">
       <h1>💸 Website Pricing by DavintoWeb</h1>
       <p>Affordable, flexible, and high-quality websites — from ₦5,000 to over ₦100,000 depending on features. Choose what suits your vision!</p>
-    </section><section class="pricing-section">
+      <a href="Davinto_Portfolio.pdf" class="btn download-btn" download><i class="fas fa-file-download"></i> Download PDF Pricing & Portfolio</a>
+    </section><section class="pricing-section" data-aos="fade-up">
   <div class="price-list">
-    <div class="price-box">
+    <div class="price-box" data-aos="zoom-in">
       <h3>🌐 Starter Website</h3>
       <p>From ₦5,000</p>
       <ul>
@@ -31,7 +34,7 @@
       </ul>
     </div>
 
-    <div class="price-box">
+    <div class="price-box" data-aos="zoom-in">
       <h3>🖼️ Portfolio / Blog</h3>
       <p>From ₦15,000</p>
       <ul>
@@ -42,7 +45,7 @@
       </ul>
     </div>
 
-    <div class="price-box">
+    <div class="price-box" data-aos="zoom-in">
       <h3>🏢 Business Site</h3>
       <p>From ₦30,000</p>
       <ul>
@@ -53,7 +56,7 @@
       </ul>
     </div>
 
-    <div class="price-box">
+    <div class="price-box" data-aos="zoom-in">
       <h3>🛒 E-commerce</h3>
       <p>From ₦60,000</p>
       <ul>
@@ -64,7 +67,7 @@
       </ul>
     </div>
 
-    <div class="price-box">
+    <div class="price-box" data-aos="zoom-in">
       <h3>⚙️ Full Web App</h3>
       <p>From ₦100,000+</p>
       <ul>
@@ -75,7 +78,7 @@
       </ul>
     </div>
 
-    <div class="price-box">
+    <div class="price-box" data-aos="zoom-in">
       <h3>🎨 Custom Projects</h3>
       <p>Custom Quote</p>
       <ul>
@@ -88,7 +91,7 @@
   </div>
 </section>
 
-<section class="extras-section">
+<section class="extras-section" data-aos="fade-up">
   <h2>💡 Extras & Add-ons</h2>
   <ul>
     <li>🌐 Custom Domain Setup: ₦6,000/year</li>
@@ -99,10 +102,18 @@
   </ul>
 </section>
 
-<section class="cta-section">
+<section class="testimonials" data-aos="fade-up">
+  <h2>🌟 What Clients Say</h2>
+  <blockquote>“DavintoWeb brought my brand online in just 2 days. Professional, fast and very affordable!” – Joy A., Makeup Artist</blockquote>
+  <blockquote>“Our school now has a modern portal for students and parents. Highly recommend!” – Mr. Nnaji, Administrator</blockquote>
+  <blockquote>“We loved the church website — donation system and all. Thank you Davinto!” – Rev. Emmanuel</blockquote>
+</section>
+
+<section class="cta-section" data-aos="fade-up">
   <a class="whatsapp-button" href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Contact Davinto Now</a>
 </section>
 
-  </main>
-</body>
+  </main>  <script>
+    AOS.init();
+  </script></body>
 </html>
