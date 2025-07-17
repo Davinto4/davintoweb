@@ -6,6 +6,71 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
+  <style>
+    .timeline-section {
+      padding: 2rem;
+      background-color: #f9f9f9;
+    }
+    .timeline-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .timeline {
+      list-style: none;
+      padding-left: 0;
+      max-width: 800px;
+      margin: auto;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #0077cc;
+    }
+    .timeline li {
+      margin-bottom: 2rem;
+      position: relative;
+      padding-left: 50px;
+    }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border: 3px solid #0077cc;
+      border-radius: 50%;
+    }
+    .timeline .date {
+      font-weight: bold;
+      color: #0077cc;
+    }
+    .quotes-section {
+      padding: 2rem;
+      background: linear-gradient(to right, #e3f2fd, #fff);
+      text-align: center;
+    }
+    .quotes-section blockquote {
+      font-size: 1.2rem;
+      font-style: italic;
+      margin: 1rem auto;
+      max-width: 700px;
+      color: #333;
+    }
+    .credit {
+      text-align: center;
+      padding: 1rem;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation Menu -->
@@ -31,44 +96,67 @@
     <a href="contact.html">Contacts</a>
     <a href="chat.html">Chats</a>
   </div>  <main style="margin-top: 80px; padding: 2rem;">
-    <section data-aos="fade-up">
-      <h1>About DavintoWeb</h1>
-      <p>
-        I'm <strong>Chimdindu Macdonald</strong>, widely known by my pseudonym <strong>Davinto</strong> — a visionary web developer, digital architect, and founder of DavintoWeb.
-      </p>
-      <p>
-        From scratch to success, I've transformed hundreds of ideas into stunning digital realities. My designs fuse functionality with beauty, delivering sites that load fast, engage visitors, and rank high.
-      </p>
-      <p>
-        DavintoWeb is a hub where creativity meets technology — building portfolios, business platforms, eCommerce stores, interactive dashboards, and more.
-      </p>
-    </section><section data-aos="fade-up" data-aos-delay="200">
-  <h2>📜 Timeline & Achievements</h2>
-  <ul>
-    <li><strong>2019:</strong> Started my web development journey with HTML/CSS.</li>
-    <li><strong>2020:</strong> Built first client site — a portfolio that went viral locally.</li>
-    <li><strong>2021:</strong> Launched DavintoWeb, offering full-stack solutions.</li>
-    <li><strong>2023:</strong> Deployed over 50 websites and SaaS platforms.</li>
-    <li><strong>2024:</strong> Integrated AI chatbots and real-time dashboards into projects.</li>
-  </ul>
-</section>
-
-<section data-aos="fade-up" data-aos-delay="300">
-  <h2>💬 Quotes that Define Me</h2>
-  <blockquote>"A good website does more than look nice — it speaks, acts, and converts."</blockquote>
-  <blockquote>"If you can dream it, I can build it — pixel by pixel."</blockquote>
-  <blockquote>"DavintoWeb isn't just a service. It's a digital revolution."</blockquote>
-</section>
-
-<section data-aos="fade-up" data-aos-delay="400">
-  <p><em>Credit to <strong>Heirzmax</strong> for his brilliant suggestion on our navigation menu design — your input is deeply appreciated.</em></p>
-</section>
-
-  </main>  <!-- AOS Animation Script -->  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
+    <h1 data-aos="fade-up">About DavintoWeb</h1>
+    <p data-aos="fade-up" data-aos-delay="200">
+      I'm Chimdindu Macdonald, but in the digital space, I go by <strong>Davinto</strong>. I'm a passionate web developer with a story rooted in self-taught perseverance and an obsession with design and code. 
+    </p>
+    <p data-aos="fade-up" data-aos-delay="300">
+      I began with nothing but curiosity and transformed that into DavintoWeb — a platform where I help individuals and brands turn their web visions into stunning, functional digital realities.
+    </p>
+  </main>  <!-- Timeline Section -->  <section class="timeline-section" data-aos="fade-up" data-aos-delay="200">
+    <h2>🚀 My Tech Timeline</h2>
+    <ul class="timeline">
+      <li>
+        <span class="date">September 2024</span>
+        <h3>Curiosity Sparked</h3>
+        <p>
+          It all started with a simple question: <em>“How are websites made?”</em> — that curiosity led me down the rabbit hole of web development. I was fascinated by how digital experiences were created and displayed to the world.
+        </p>
+      </li>
+      <li>
+        <span class="date">October - December 2024</span>
+        <h3>Self-Taught Exploration</h3>
+        <p>
+          With no mentor, no classes, and no formal training, I began to teach myself HTML, CSS, and JavaScript. I stayed up countless nights watching tutorials, reading documentation, and experimenting with code — all while failing again and again.
+        </p>
+      </li>
+      <li>
+        <span class="date">January 2025</span>
+        <h3>First Projects — And First Failures</h3>
+        <p>
+          My first attempts to build websites didn’t go well. I hit walls, bugs, and broken code. But I didn’t stop. I stayed relentless. I knew every failed line of code was one step closer to mastery.
+        </p>
+      </li>
+      <li>
+        <span class="date">March - April 2025</span>
+        <h3>Breakthrough</h3>
+        <p>
+          After months of consistent learning and practice, I finally began building websites that worked — clean, responsive, and interactive. The joy of seeing my ideas come to life in the browser pushed me forward.
+        </p>
+      </li>
+      <li>
+        <span class="date">May 2025</span>
+        <h3>Birth of <strong>DavintoWeb</strong></h3>
+        <p>
+          With a new level of confidence and skill, I founded DavintoWeb — a creative platform where I showcase my ability to design and build full websites from scratch. Every line of code represents my growth from nothing to something.
+        </p>
+      </li>
+    </ul>
+  </section>  <!-- Inspiring Quotes -->  <section class="quotes-section" data-aos="fade-up" data-aos-delay="300">
+    <h2>💡 Words I Live By</h2>
+    <blockquote>
+      “The web is my canvas, and code is my brush.” – Davinto
+    </blockquote>
+    <blockquote>
+      “Every failure taught me something the internet couldn’t.” – Davinto
+    </blockquote>
+    <blockquote>
+      “Start from scratch, stay consistent, and you’ll build your own empire.” – Davinto
+    </blockquote>
+  </section>  <!-- Credit -->  <p class="credit" data-aos="fade-up" data-aos-delay="400">
+    💡 Special thanks to <strong>Heirzmax</strong> for the brilliant suggestion on improving the navigation menu.
+  </p>  <!-- AOS Animation Script -->  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
+    AOS.init();
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
