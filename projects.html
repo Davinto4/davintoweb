@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Projects - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #222;
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+
+    .container {
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: white;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div><strong>DavintoWeb</strong></div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>My Web Projects</h1>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <h2>Personal Portfolio</h2>
+        <p>A modern, clean and responsive personal portfolio website to showcase skills and works.</p>
+        <a href="https://your-portfolio-link.com" class="btn" target="_blank">View Live</a>
+      </div>
+
+      <div class="project-card">
+        <h2>Davinto Chatbot</h2>
+        <p>AI-powered web assistant connected to SmartSupp for 24/7 user interaction and assistance.</p>
+        <a href="chat.html" class="btn" target="_blank">Try the Chat</a>
+      </div>
+
+      <div class="project-card">
+        <h2>Custom Blog Platform</h2>
+        <p>Lightweight blogging site built from scratch, including post editor, categories, and comments.</p>
+        <a href="#" class="btn" target="_blank">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 DavintoWeb. All rights reserved.
+  </footer>
+
+</body>
+</html>
