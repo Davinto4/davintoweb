@@ -14,18 +14,29 @@
     .loader.active {
       display: block;
     }
+
     .success {
       display: none;
-      color: green;
-      font-weight: bold;
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+      color: #28a745;
     }
+
     .success.active {
       display: block;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
   <script>
+    let sound;
+
     function toggleTheme() {
       const root = document.documentElement;
       const theme = root.getAttribute("data-theme");
@@ -41,7 +52,10 @@
       }
     }
 
-    window.onload = fillServiceFromURL;
+    window.onload = () => {
+      fillServiceFromURL();
+      sound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_c2b64bbf3d.mp3"); // gentle success chime
+    };
 
     function showLoader() {
       document.getElementById('loader').classList.add('active');
@@ -49,6 +63,7 @@
 
     function showSuccessMessage() {
       document.getElementById('successMsg').classList.add('active');
+      sound.play();
     }
 
     function handleSubmit(e) {
@@ -57,7 +72,7 @@
         showSuccessMessage();
         document.getElementById('loader').classList.remove('active');
         document.getElementById('form').reset();
-      }, 2500); // Simulate processing time
+      }, 2500); // Simulate processing delay
     }
   </script>
 </head>
@@ -99,10 +114,10 @@
     </form>
 
     <div id="loader" class="loader">⏳ Submitting your payment...</div>
-    <div id="successMsg" class="success">✅ Payment confirmation submitted successfully!</div>
+    <div id="successMsg" class="success">🎉 Confirmation submitted successfully!</div>
 
     <div class="wa-notice">
-      <p>📲 After submitting, you may also notify us via WhatsApp:</p>
+      <p>📲 You can also notify us via WhatsApp:</p>
       <a class="wa-btn" href="https://wa.me/2348169045105?text=Hello%20DavintoWeb!%20I%20just%20paid%20for%20a%20service%20and%20submitted%20my%20confirmation." target="_blank">📩 Notify on WhatsApp</a>
     </div>
   </main>
