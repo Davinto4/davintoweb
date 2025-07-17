@@ -139,3 +139,38 @@ footer {
   background-color: #dbe8ff;
   transform: translateX(5px);
 }
+
+.whatsapp-btn {
+  display: inline-block;
+  background-color: #25D366;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin-top: 20px;
+}
+.whatsapp-btn:hover {
+  background-color: #1ebe5d;
+  transform: scale(1.05);
+}
+
+.fb-menu-vertical a {
+  display: block;
+  padding: 12px 20px;
+  margin: 8px 0;
+  background: #f1f1f1;
+  color: #333;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.fb-menu-vertical a:hover {
+  background: #dceeff;
+  color: #004aad;
+  transform: translateX(5px);
+}
