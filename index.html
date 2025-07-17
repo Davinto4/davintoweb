@@ -3,71 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb | Home</title>
+  <title>DavintoWeb — Web Development Services</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
-  <!-- NAVIGATION -->
+
+  <!-- ✅ Navigation Menu -->
   <nav class="menu">
     <div class="logo">DavintoWeb</div>
-    <ul class="desktop-nav">
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
+    <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Pricing</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="contact.html">Contacts</a></li>
-      <li><a href="chat.html">Chats</a></li>
+      <li><a href="#">Contacts</a></li>
+      <li><a href="#">Chats</a></li>
     </ul>
-    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
   </nav>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-links" id="mobileMenu">
+  <!-- ✅ Mobile Nav -->
+  <div class="mobile-links" id="mobileLinks">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="#">About</a>
+    <a href="#">Pricing</a>
     <a href="projects.html">Projects</a>
-    <a href="contact.html">Contacts</a>
-    <a href="chat.html">Chats</a>
+    <a href="#">Contacts</a>
+    <a href="#">Chats</a>
   </div>
 
-  <!-- MAIN SECTION -->
-  <main style="margin-top: 80px; padding: 2rem;">
+  <!-- ✅ Main Content -->
+  <main>
     <h1 data-aos="fade-up">Welcome to DavintoWeb</h1>
-    <p data-aos="fade-up" data-aos-delay="200">
-      We design and develop modern, responsive, and stunning websites that work across devices. Whether it’s for business, portfolio, or eCommerce — DavintoWeb delivers.
+    <p data-aos="fade-up" data-aos-delay="100">
+      I build beautiful, fast, and responsive websites for individuals, brands, and businesses. Whether it's a portfolio, e-commerce store, blog, or dynamic admin dashboard, I’ve got you covered.
     </p>
-    <a href="https://wa.me/2348169045105" target="_blank" class="whatsapp-btn" data-aos="fade-up" data-aos-delay="300">
+    <a href="https://wa.me/2348169045105" target="_blank" class="whatsapp-btn" data-aos="fade-up" data-aos-delay="200">
       Chat on WhatsApp
     </a>
 
-    <!-- REVIEW SECTION -->
-    <section class="reviews" data-aos="fade-up" data-aos-delay="400">
-      <h2>What Our Clients Say</h2>
+    <div class="reviews" data-aos="fade-up" data-aos-delay="300">
+      <h2>What Clients Say</h2>
       <div class="review-boxes">
-        <div class="review">
-          “DavintoWeb built our brand's website in under a week. Excellent!”
-        </div>
-        <div class="review">
-          “Sleek designs and fast delivery. Highly recommended!”
-        </div>
-        <div class="review">
-          “Their support and update speed is unmatched. Love the service.”
-        </div>
+        <div class="review">“Professional and fast. My brand website looks amazing!”</div>
+        <div class="review">“Highly recommend DavintoWeb. Great design and affordable.”</div>
+        <div class="review">“He helped me launch my portfolio in just 3 days.”</div>
       </div>
-    </section>
+    </div>
 
-    <!-- MENU PROMPT -->
-    <p class="menu-prompt" data-aos="fade-up" data-aos-delay="600">
-      👉 Tap the menu above to explore DavintoWeb's services.
-    </p>
+    <div class="menu-prompt" data-aos="fade-up" data-aos-delay="400">
+      👉 Explore more by clicking the menu above ☝️
+    </div>
   </main>
 
-  <!-- SMARTSUPP LIVE CHAT -->
+  <!-- ✅ SmartSupp AI Chat Script -->
   <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
@@ -75,18 +65,18 @@
       var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
       s=d.getElementsByTagName('script')[0];c=d.createElement('script');
       c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';
-      s.parentNode.insertBefore(c,s);
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
     })(document);
   </script>
 
-  <!-- AOS Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- ✅ AOS Scroll Animation -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init();
+
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      const links = document.getElementById('mobileLinks');
+      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
     }
   </script>
 </body>
