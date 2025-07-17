@@ -3,39 +3,180 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb - Home</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>DavintoWeb - We Build Modern Websites</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #001f3f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background: #003366;
+      padding: 15px 0;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00d9ff;
+    }
+
+    .hero {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(to right, #003366, #005599);
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .services {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #003366;
+    }
+
+    .service-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .service {
+      background: white;
+      padding: 30px;
+      width: 280px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    .service h3 {
+      color: #001f3f;
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background: #001f3f;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* WhatsApp Floating Button */
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-decoration: none;
+    }
+
+    .whatsapp-button:hover {
+      background: #1ebe5d;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 🔷 Professional Navbar -->
-  <header class="navbar">
-    <div class="container">
-      <div class="brand">DavintoWeb</div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="chat.html">Chat</a>
-        <a href="contact.html">Contact</a>
-        <a href="admin.html">Admin</a>
-      </nav>
-    </div>
+  <header>
+    <h1>Welcome to DavintoWeb</h1>
+    <p>Your Go-To Web Developer for Creative & Responsive Websites</p>
   </header>
 
-  <!-- 🔷 Main Content -->
-  <main class="main-content">
-    <section>
-      <h1>Welcome to DavintoWeb</h1>
-      <p>Your all-in-one platform for AI chat, games, learning, and more.</p>
-    </section>
-  </main>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="chat.html">Chat</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-  <!-- 🔷 Optional Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
+  <section class="hero">
+    <h1>We Build Stunning Websites</h1>
+    <p>From landing pages to full web platforms — we bring your ideas to life online.</p>
+  </section>
+
+  <section class="services">
+    <h2>What We Offer</h2>
+    <div class="service-boxes">
+      <div class="service">
+        <h3>Website Design</h3>
+        <p>Clean, modern and fully responsive websites tailored to your brand and goals.</p>
+      </div>
+      <div class="service">
+        <h3>Frontend Development</h3>
+        <p>Using HTML, CSS, JavaScript & React to build sleek and functional interfaces.</p>
+      </div>
+      <div class="service">
+        <h3>Backend Integration</h3>
+        <p>Dynamic systems powered by Node.js, Firebase, MongoDB, and more.</p>
+      </div>
+      <div class="service">
+        <h3>Chatbots & AI</h3>
+        <p>Integrate smart chat experiences with OpenAI, Botpress, and live chat tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DavintoWeb. All rights reserved.</p>
   </footer>
+
+  <a href="https://wa.me/2348169045105" class="whatsapp-button" target="_blank" title="Chat with me on WhatsApp">
+    💬
+  </a>
 
 </body>
 </html>
