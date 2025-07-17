@@ -1,14 +1,183 @@
-import { useState } from "react"; import { getDatabase, ref, push, serverTimestamp } from "firebase/database"; import { initializeApp } from "firebase/app"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import Loader from "@/components/ui/loader"; import successSound from "@/assets/success.mp3";
+Perfect! Since you've decided not to use React or Vite, and instead want a fully dynamic confirm.html with vanilla HTML, CSS, and JS, I’ll now update your confirm.html to include:
 
-const firebaseConfig = { apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8", authDomain: "davintoweb-payments.firebaseapp.com", databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com", projectId: "davintoweb-payments", storageBucket: "davintoweb-payments.appspot.com", messagingSenderId: "667742200333", appId: "1:667742200333:web:cf75f6cef6798eed432b44" };
+✅ Features:
 
-const app = initializeApp(firebaseConfig); const db = getDatabase(app);
+🔄 Loader animation while submitting
 
-export default function ConfirmForm() { const [form, setForm] = useState({ accountName: '', bankName: '', accountNumber: '', phone: '', email: '', message: '' }); const [loading, setLoading] = useState(false); const [success, setSuccess] = useState(false);
+✅ Success sound after submission
 
-const handleChange = (e) => { setForm({ ...form, [e.target.name]: e.target.value }); };
+📡 Firebase Realtime Database integration
 
-const handleSubmit = async (e) => { e.preventDefault(); setLoading(true); const formRef = ref(db, 'confirmations'); await push(formRef, { ...form, timestamp: serverTimestamp() }); setLoading(false); setSuccess(true); new Audio(successSound).play(); setForm({ accountName: '', bankName: '', accountNumber: '', phone: '', email: '', message: '' }); setTimeout(() => setSuccess(false), 4000); };
+🔁 Auto-sync to admin.html
 
-return ( <div className="flex justify-center items-center min-h-screen p-4"> <Card className="w-full max-w-md bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-6"> <CardContent> <h2 className="text-2xl font-bold text-center mb-6">Confirm Your Payment</h2> {loading ? ( <Loader /> ) : success ? ( <div className="text-center text-green-600 font-medium animate-pulse"> ✅ Payment confirmation submitted! </div> ) : ( <form onSubmit={handleSubmit} className="space-y-4"> <input name="accountName" value={form.accountName} onChange={handleChange} placeholder="Account Name" required className="w-full p-2 border rounded" /> <input name="bankName" value={form.bankName} onChange={handleChange} placeholder="Bank Name" required className="w-full p-2 border rounded" /> <input name="accountNumber" value={form.accountNumber} onChange={handleChange} placeholder="Account Number" required className="w-full p-2 border rounded" /> <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number" required className="w-full p-2 border rounded" /> <input name="email" value={form.email} onChange={handleChange} placeholder="Email" required className="w-full p-2 border rounded" /> <textarea name="message" value={form.message} onChange={handleChange} placeholder="Message" rows="3" className="w-full p-2 border rounded"></textarea> <Button type="submit" className="w-full">Submit</Button> </form> )} </CardContent> </Card> </div> ); }
+📱 Mobile-friendly responsive form
+
+🎨 Dark/Light mode toggle
+
+
+
+---
+
+✅ Here is your updated confirm.html:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Confirmation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f5f5f5;
+      transition: background 0.3s;
+    }
+
+    .dark-mode {
+      background-color: #121212;
+      color: #eee;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #0066ff;
+      color: white;
+      padding: 0.75rem;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #loader {
+      display: none;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="toggle">
+    <button onclick="toggleTheme()">🌗 Toggle Mode</button>
+  </div>
+
+  <div class="container">
+    <h2>Confirm Your Payment</h2>
+    <form id="confirmForm">
+      <input type="text" name="accountName" placeholder="Account Name" required />
+      <input type="text" name="bankName" placeholder="Bank Name" required />
+      <input type="text" name="accountNumber" placeholder="Account Number" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <textarea name="message" placeholder="Additional Message" rows="3"></textarea>
+      <button type="submit" id="submitBtn">Submit</button>
+      <div id="loader">⏳ Submitting...</div>
+    </form>
+  </div>
+
+  <audio id="successSound" src="https://www.soundjay.com/buttons/sounds/button-4.mp3"></audio>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "667742200333",
+      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const form = document.getElementById('confirmForm');
+    const loader = document.getElementById('loader');
+    const btn = document.getElementById('submitBtn');
+    const successSound = document.getElementById('successSound');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      loader.style.display = 'block';
+      btn.disabled = true;
+
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((val, key) => data[key] = val);
+      data.timestamp = new Date().toISOString();
+
+      try {
+        await db.ref('confirmations').push(data);
+        loader.innerHTML = '✅ Submitted!';
+        successSound.play();
+        form.reset();
+        setTimeout(() => {
+          loader.innerHTML = '';
+          loader.style.display = 'none';
+          btn.disabled = false;
+        }, 2000);
+      } catch (error) {
+        loader.innerHTML = '❌ Failed. Try Again.';
+        btn.disabled = false;
+      }
+    });
+
+    // Dark/Light toggle
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
+
+
+---
+
+✅ What Next?
+
+✅ This version works directly in your browser
+
+✅ Automatically writes data to Firebase Realtime DB
+
+✅ Will sync with admin.html once that file listens to Firebase
+
+
+
+---
+
+Would you like me to now update your admin.html to read all this Firebase data in real-time?
 
