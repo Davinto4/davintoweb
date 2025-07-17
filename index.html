@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DavintoWeb | Home</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- Navigation -->
+
+  <!-- Navigation Menu -->
   <nav class="menu">
     <div class="logo">DavintoWeb</div>
     <ul class="desktop-links">
@@ -25,7 +25,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Nav -->
   <div class="mobile-links" id="mobileMenu">
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About</a>
@@ -35,44 +35,18 @@
     <a href="chat.html">Chats</a>
   </div>
 
-  <!-- Hero Section -->
-  <header class="hero-section" data-aos="fade-down">
-    <h1>Welcome to DavintoWeb</h1>
-    <p>Your one-stop hub for stunning, modern, and responsive websites.</p>
-    <a href="https://wa.me/2348169045105" class="btn">Chat on WhatsApp</a>
-  </header>
+  <main>
+    <h1 class="page-title">Welcome to DavintoWeb</h1>
+    <p>Your gateway to powerful, beautiful websites built with passion and precision.</p>
+  </main>
 
-  <!-- Website Review Section -->
-  <section class="review-section" data-aos="fade-up">
-    <h2>What We Build</h2>
-    <p>From elegant portfolios to powerful dashboards and AI-integrated platforms — all designed and developed by DavintoWeb.</p>
-  </section>
-
-  <!-- Prompt for Menu -->
-  <div class="menu-prompt" data-aos="zoom-in">
-    <p>Explore our pages using the menu <i class="fas fa-arrow-up"></i></p>
-  </div>
-
-  <!-- Smartsupp Chat Button -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-    })(document);
-  </script>
-
-  <!-- AOS Animation Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Script -->
   <script>
-    AOS.init();
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
   </script>
+
 </body>
 </html>
