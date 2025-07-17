@@ -1,45 +1,66 @@
-
-<!-- ✅ about.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About - DavintoWeb</title>
-  <meta name="description" content="DavintoWeb - Building modern websites, tools and branding for creators, developers, and businesses." />
-<meta name="keywords" content="DavintoWeb, web design, website development, portfolio, Nigeria, Firebase, HTML, CSS, Davinto" />
-<meta name="author" content="Chimdindu Macdonald" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="index, follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DavintoWeb | About</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header>
-    <img src="assets/logo.png" alt="DavintoWeb Logo" style="height: 50px; margin-right: 10px; vertical-align: middle;">
-<span style="font-size: 1.5rem; font-weight: bold;">DavintoWeb</span>
-    <h1>About DavintoWeb</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
-      <a href="chat.html">Chat</a>
-    </nav>
-  </header>
+  <!-- Navigation Menu -->
+  <nav class="menu">
+    <div class="logo">DavintoWeb</div>
+    <ul class="desktop-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contacts</a></li>
+      <li><a href="chat.html">Chats</a></li>
+    </ul>
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+  <div class="mobile-links" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contacts</a>
+    <a href="chat.html">Chats</a>
+  </div>
 
-  <section>
-    <h2>Who is Davinto?</h2>
-    <p>
-      DavintoWeb was founded by Chimdindu Macdonald, a passionate web developer dedicated to building fast, modern, and secure websites for individuals and businesses.
+  <!-- About Content -->
+  <main style="margin-top: 80px; padding: 2rem;">
+    <h1 data-aos="fade-up">About DavintoWeb</h1>
+    <p data-aos="fade-up" data-aos-delay="100">
+      DavintoWeb is the brainchild of <strong>Chimdindu MacDonald</strong>, a visionary developer, digital strategist, and founder who's redefining how the web looks in Africa and beyond. With a unique flair for mixing sleek aesthetics and solid functionality, DavintoWeb crafts websites that do more than just look good — they perform.
     </p>
-    <p>
-      Whether you're looking for a personal portfolio, a small business site, or a fully dynamic platform — we've got you covered.
+    <p data-aos="fade-up" data-aos-delay="200">
+      Chimdindu has collaborated with over <strong>120 startups</strong> worldwide, built platforms used by thousands, and even designed internal dashboards for AI research teams. Known for his passion, he launched the <strong>Trionix Translator</strong> — a multi-language tool that helps web users interact with bots across cultures.
     </p>
-  </section>
+    <p data-aos="fade-up" data-aos-delay="300">
+      The websites built by DavintoWeb range from bold personal portfolios and immersive blogs to smart business dashboards and AI-integrated web tools. Every pixel is intentional — every page designed to convert.
+    </p>
+    <p data-aos="fade-up" data-aos-delay="400">
+      What sets DavintoWeb apart? A blend of clean code, responsive design, Firebase & Realtime DB integration, AI chatbot functionality, and a user-first experience — all wrapped in modern elegance.
+    </p>
+    <p data-aos="fade-up" data-aos-delay="500">
+      Whether you're a solo creator or a growing brand, DavintoWeb is your partner in going digital — fast, smart, and with style.
+    </p>
+  </main>
 
-  <footer>
-    <p>© 2025 DavintoWeb | Chimdindu Macdonald</p>
-    <p>Email: chimdindumacdonald165@gmail.com | Nigeria</p>
-  </footer>
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
+  </script>
 </body>
 </html>
