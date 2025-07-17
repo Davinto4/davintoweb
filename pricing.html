@@ -1,132 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing - DavintoWeb</title>
-  <meta name="description" content="DavintoWeb - Building modern websites, tools and branding for creators, developers, and businesses." />
-<meta name="keywords" content="DavintoWeb, web design, website development, portfolio, Nigeria, Firebase, HTML, CSS, Davinto" />
-<meta name="author" content="Chimdindu Macdonald" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="index, follow" />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .pricing-section {
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .plans {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .plan {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-      animation: fadeInUp 1s ease;
-    }
-
-    .plan:hover {
-      transform: translateY(-10px);
-    }
-
-    .plan h2 {
-      color: #007BFF;
-      margin-bottom: 0.5rem;
-    }
-
-    .price {
-      font-size: 2rem;
-      margin: 0.5rem 0;
-      color: #222;
-    }
-
-    .features {
-      list-style: none;
-      padding: 0;
-      margin: 1rem 0;
-      text-align: left;
-    }
-
-    .features li {
-      margin: 0.5rem 0;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papmFzYXKzNq7+1p6MoU1r6F0tFfWVmDbShwKiLNOQ+1JXLU3vv8V0T+1b8j7R0gJ7M5kHv4y7vFQ8Db2RXVQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+  <nav class="collapsible-navbar">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html"><i class="fas fa-book"></i> About</a>
+    <a href="pricing.html" class="active"><i class="fas fa-money-bill-wave"></i> Pricing</a>
+    <a href="portfolio.html"><i class="fas fa-image"></i> Portfolio</a>
+    <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
+    <a href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Chat</a>
+  </nav>  <main class="main-content">
+    <section class="pricing-hero">
+      <h1>💸 Website Pricing by DavintoWeb</h1>
+      <p>Affordable, flexible, and high-quality websites — from ₦5,000 to over ₦100,000 depending on features. Choose what suits your vision!</p>
+    </section><section class="pricing-section">
+  <div class="price-list">
+    <div class="price-box">
+      <h3>🌐 Starter Website</h3>
+      <p>From ₦5,000</p>
+      <ul>
+        <li>1–2 Pages</li>
+        <li>Mobile Responsive</li>
+        <li>Basic Contact Form</li>
+        <li>Delivery: 1–2 Days</li>
+      </ul>
+    </div>
 
-  <header>
-    <h1>DavintoWeb Pricing Plans</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
-      <a href="chat.html">Chat</a>
-      <a href="admin.html">Admin</a>
-    </nav>
-  </header>
+    <div class="price-box">
+      <h3>🖼️ Portfolio / Blog</h3>
+      <p>From ₦15,000</p>
+      <ul>
+        <li>CMS for Posts</li>
+        <li>SEO Setup</li>
+        <li>Admin Access</li>
+        <li>Stylish Layout</li>
+      </ul>
+    </div>
 
-  <section class="pricing-section">
-    <h1>Choose a Plan That Works for You</h1>
-    <div class="plans">
+    <div class="price-box">
+      <h3>🏢 Business Site</h3>
+      <p>From ₦30,000</p>
+      <ul>
+        <li>About, Team, Services Pages</li>
+        <li>Request Quote or Book Form</li>
+        <li>WhatsApp Integration</li>
+        <li>Professional Theme</li>
+      </ul>
+    </div>
 
-      <div class="plan">
-        <h2>Starter</h2>
-        <p class="price">₦3,000</p>
-        <ul class="features">
-          <li>1 Static Page</li>
-          <li>Responsive Design</li>
-          <li>Email Support</li>
-        </ul>
-        <a class="btn" href="mailto:chimdindumacdonald165@gmail.com?subject=Starter Plan Purchase">Get Starter</a>
-      </div>
+    <div class="price-box">
+      <h3>🛒 E-commerce</h3>
+      <p>From ₦60,000</p>
+      <ul>
+        <li>Online Store</li>
+        <li>Checkout & Payments</li>
+        <li>Product Management</li>
+        <li>Inventory System</li>
+      </ul>
+    </div>
 
-      <div class="plan">
-        <h2>Standard</h2>
-        <p class="price">₦5,000</p>
-        <ul class="features">
-          <li>Up to 3 Pages</li>
-          <li>Modern UI Design</li>
-          <li>Live Chat Integration</li>
-        </ul>
-        <a class="btn" href="mailto:chimdindumacdonald165@gmail.com?subject=Standard Plan Purchase">Get Standard</a>
-      </div>
+    <div class="price-box">
+      <h3>⚙️ Full Web App</h3>
+      <p>From ₦100,000+</p>
+      <ul>
+        <li>User Login</li>
+        <li>Database with Firebase</li>
+        <li>AI Bot Integration</li>
+        <li>Admin Dashboard</li>
+      </ul>
+    </div>
 
-      <div class="plan">
-        <h2>Premium</h2>
-        <p class="price">₦10,000</p>
-        <ul class="features">
-          <li>Multi-Page Website</li>
-          <li>Dynamic Content (Firebase)</li>
-          <li>Admin Access</li>
-          <li>SEO Optimized</li>
-        </ul>
-        <a class="btn" href="mailto:chimdindumacdonald165@gmail.com?subject=Premium Plan Purchase">Get Premium</a>
-      </div>
+    <div class="price-box">
+      <h3>🎨 Custom Projects</h3>
+      <p>Custom Quote</p>
+      <ul>
+        <li>Educational Portals</li>
+        <li>Family Sites</li>
+        <li>NGO, Churches, Clubs</li>
+        <li>Translations, AI Bots & More</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-      <div class="plan">
-        <h2>Master Plan</h2>
-        <p class="price">₦15,000+</p>
-        <ul class="features">
-          <li>Custom Dynamic Platform</li>
-          <li
+<section class="extras-section">
+  <h2>💡 Extras & Add-ons</h2>
+  <ul>
+    <li>🌐 Custom Domain Setup: ₦6,000/year</li>
+    <li>🔐 Free SSL (HTTPS)</li>
+    <li>📊 Google Analytics</li>
+    <li>🎨 UI Design Upgrade</li>
+    <li>📥 Hosting Support</li>
+  </ul>
+</section>
+
+<section class="cta-section">
+  <a class="whatsapp-button" href="https://wa.me/2348169045105"><i class="fab fa-whatsapp"></i> Contact Davinto Now</a>
+</section>
+
+  </main>
+</body>
+</html>
