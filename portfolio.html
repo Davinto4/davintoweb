@@ -3,47 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolio - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Portfolio | DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav class="nav-container">
-      <div class="logo">DavintoWeb</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html" class="active">Portfolio</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="chat.html">Chat</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="DavintoWeb Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html" class="active">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
-  <main class="main-content">
-    <section class="portfolio">
-      <h1>My Portfolio</h1>
-      <p>Here are some of the projects I've created to showcase my web development skills:</p>
+  <!-- Main Content -->
+  <main class="container">
+    <h1 class="page-title">My Portfolio</h1>
+    <p class="intro-text">Explore some of the websites and web applications I've built — from elegant static sites to full dynamic platforms.</p>
 
-      <div class="project-grid">
-        <div class="project-card">
-          <h2>Modern Business Website</h2>
-          <p>A responsive and fast-loading website designed for small businesses and startups.</p>
-        </div>
-        <div class="project-card">
-          <h2>Blog Platform</h2>
-          <p>A clean, minimal blog site powered by a dynamic CMS and Realtime Database.</p>
-        </div>
-        <div class="project-card">
-          <h2>Admin Dashboard</h2>
-          <p>An interactive admin panel with authentication and data analytics features.</p>
-        </div>
-        <!-- Add more project cards here -->
+    <div class="projects-grid">
+      <div class="project-card">
+        <h2>Personal Blog Site</h2>
+        <p>A clean, responsive blog with categories and markdown support.</p>
+        <p><strong>Tech:</strong> HTML, CSS, JavaScript</p>
+        <a href="#" class="btn">View Live</a>
       </div>
-    </section>
+
+      <div class="project-card">
+        <h2>E-commerce Store</h2>
+        <p>Modern online shop with cart system, product filters, and checkout.</p>
+        <p><strong>Tech:</strong> HTML, Tailwind, Firebase</p>
+        <a href="#" class="btn">View Live</a>
+      </div>
+
+      <div class="project-card">
+        <h2>AI Chat Platform</h2>
+        <p>A chatbot powered by OpenAI for customer support and engagement.</p>
+        <p><strong>Tech:</strong> HTML, CSS, Node.js, OpenAI API</p>
+        <a href="chat.html" class="btn">Try Chat</a>
+      </div>
+    </div>
   </main>
 
-  <footer>
+  <!-- Footer -->
+  <footer class="footer">
     <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
   </footer>
 </body>
