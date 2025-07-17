@@ -1,191 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb | Homepage</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f2f5;
-      color: #333;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 200px;
-      background: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 30px;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 10px 0;
-      padding: 12px 20px;
-      background: #333;
-      border-radius: 10px;
-      width: 80%;
-      text-align: center;
-      transition: background 0.3s;
-    }
-    nav a:hover {
-      background: #555;
-    }
-    main {
-      margin-left: 220px;
-      padding: 30px;
-    }
-    .hero {
-      text-align: center;
-      padding: 50px 20px;
-      background: white;
-      border-radius: 15px;
-      margin-bottom: 40px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    }
-    .section {
-      background: #fff;
-      margin-bottom: 30px;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-    }
-    .section h2 {
-      margin-bottom: 15px;
-      color: #0077cc;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .feature-card {
-      background: #f9f9f9;
-      padding: 15px;
-      border-radius: 10px;
-      border-left: 5px solid #0077cc;
-    }
-    footer {
-      text-align: center;
-      padding: 30px 10px;
-      font-size: 14px;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
+import { useEffect, useState } from "react"; import { Card } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { initializeApp } from "firebase/app"; import { getDatabase } from "firebase/database"; import "./App.css";
 
-  <!-- Vertical Navigation -->
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="about.html">🙋 About</a>
-    <a href="pricing.html">💰 Pricing</a>
-    <a href="confirm.html">✅ Confirm</a>
-    <a href="admin.html">🔐 Admin</a>
-  </nav>
+const firebaseConfig = { apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8", authDomain: "davintoweb-payments.firebaseapp.com", databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com", projectId: "davintoweb-payments", storageBucket: "davintoweb-payments.appspot.com", messagingSenderId: "667742200333", appId: "1:667742200333:web:cf75f6cef6798eed432b44" };
 
-  <!-- Main Content -->
-  <main>
-    <section class="hero">
-      <h1>Welcome to DavintoWeb</h1>
-      <p>Your one-stop solution for modern, powerful and creative web development.</p>
-    </section>
+initializeApp(firebaseConfig); getDatabase();
 
-    <section class="section">
-      <h2>🚀 What We Do</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3>🖥️ Websites</h3>
-          <p>Custom professional websites for businesses, brands and personal use.</p>
+const musicList = [ "https://example.com/song1.mp3", "https://example.com/song2.mp3", "https://example.com/song3.mp3" ];
+
+export default function HomePage() { const [song, setSong] = useState("");
+
+useEffect(() => { const random = Math.floor(Math.random() * musicList.length); setSong(musicList[random]);
+
+const script = document.createElement("script");
+script.src = "https://www.smartupp.io/widget/0d074f1a6588d3c0562657b1e5a3dd332cf9af81.js";
+script.async = true;
+document.body.appendChild(script);
+
+}, []);
+
+return ( <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen"> <audio src={song} autoPlay loop hidden /> <div className="flex"> <nav className="w-48 bg-gray-800 text-white p-4 flex flex-col space-y-4"> <Button variant="outline">🌞/🌙</Button> <Button variant="outline">Home</Button> <Button variant="outline">About</Button> <Button variant="outline">Pricing</Button> <Button variant="outline">Portfolio</Button> <Button variant="outline">Contact</Button> <Button variant="outline">Chat</Button> </nav>
+
+<main className="flex-1 p-6 space-y-10">
+      <section className="text-center">
+        <h1 className="text-4xl font-bold">🚀 Build Any Website You Imagine</h1>
+        <p className="text-lg mt-4 max-w-xl mx-auto">
+          Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.
+        </p>
+        <Button className="mt-4">📄 Download Portfolio</Button>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold">🌟 Why Choose DavintoWeb?</h2>
+        <ul className="list-disc pl-6 mt-2">
+          <li>Fast and mobile-optimized websites</li>
+          <li>Free HTTPS Security</li>
+          <li>Firebase-powered dashboards</li>
+          <li>AI Chatbot & Translator Integration</li>
+          <li>Ongoing support</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold">🧩 What We Build</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+          <Card>Personal Websites</Card>
+          <Card>Blogs & Portfolios</Card>
+          <Card>Business Sites</Card>
+          <Card>E-commerce</Card>
+          <Card>Educational Platforms</Card>
+          <Card>Community Portals</Card>
+          <Card>AI Bots & Tools</Card>
+          <Card>Family & Event Sites</Card>
         </div>
-        <div class="feature-card">
-          <h3>📲 Mobile-ready Design</h3>
-          <p>All sites are fully responsive and mobile-friendly by default.</p>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold">💰 Pricing Packages</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+          <Card className="p-4">
+            <h3 className="font-bold">🌐 Starter Site</h3>
+            <p>From ₦5,000</p>
+            <ul className="text-sm list-disc pl-4">
+              <li>1–2 Pages</li>
+              <li>Responsive Design</li>
+              <li>Contact Form</li>
+            </ul>
+          </Card>
+          <Card className="p-4">
+            <h3 className="font-bold">📝 Blog / Portfolio</h3>
+            <p>From ₦15,000</p>
+            <ul className="text-sm list-disc pl-4">
+              <li>CMS Admin Panel</li>
+              <li>SEO + Social Sharing</li>
+            </ul>
+          </Card>
+          <Card className="p-4">
+            <h3 className="font-bold">🏢 Business Site</h3>
+            <p>From ₦30,000</p>
+            <ul className="text-sm list-disc pl-4">
+              <li>Multi-Page Design</li>
+              <li>WhatsApp Booking</li>
+            </ul>
+          </Card>
+          <Card className="p-4">
+            <h3 className="font-bold">🛒 E-commerce</h3>
+            <p>From ₦60,000</p>
+            <ul className="text-sm list-disc pl-4">
+              <li>Payment Integration</li>
+              <li>Product Dashboard</li>
+            </ul>
+          </Card>
+          <Card className="p-4">
+            <h3 className="font-bold">⚙️ Web App + AI</h3>
+            <p>From ₦100,000+</p>
+            <ul className="text-sm list-disc pl-4">
+              <li>Custom Dashboards</li>
+              <li>Realtime DB & Auth</li>
+            </ul>
+          </Card>
+          <Card className="p-4">
+            <h3 className="font-bold">🧠 Custom Projects</h3>
+            <p>Let’s Discuss</p>
+            <ul className="text-sm list-disc pl-4">
+              <li>Translators, Bots, Platforms</li>
+              <li>Chat with Davinto Now</li>
+            </ul>
+          </Card>
         </div>
-        <div class="feature-card">
-          <h3>🛒 E-commerce</h3>
-          <p>Build full online stores with payment, shipping, and cart support.</p>
-        </div>
-        <div class="feature-card">
-          <h3>📡 Firebase Apps</h3>
-          <p>Real-time features like chat, login, admin dashboard using Firebase.</p>
-        </div>
-        <div class="feature-card">
-          <h3>💬 Live Chat</h3>
-          <p>Integrated with SmartUpp to support your customers instantly.</p>
-        </div>
-        <div class="feature-card">
-          <h3>🎨 Branding</h3>
-          <p>Help you with logos, colors and digital identity that matches your vibe.</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
+</div>
 
-    <section class="section">
-      <h2>🌟 Why Choose DavintoWeb?</h2>
-      <ul>
-        <li>✅ Speedy delivery – we don't waste your time</li>
-        <li>✅ Modern, sleek, responsive websites</li>
-        <li>✅ Powerful backend with Firebase</li>
-        <li>✅ Direct support via WhatsApp and live chat</li>
-        <li>✅ Affordable packages with no compromise</li>
-      </ul>
-    </section>
+); }
 
-    <footer>
-      © 2025 DavintoWeb. All rights reserved.
-    </footer>
-  </main>
-
-  <!-- Firebase -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
-
-  <!-- SmartUpp Live Chat -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-    })(document);
-  </script>
-
-  <!-- Random Music -->
-  <script>
-    const songs = [
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // hip-hop
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", // rap
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", // gospel
-    ];
-    const random = Math.floor(Math.random() * songs.length);
-    const audio = new Audio(songs[random]);
-    audio.volume = 0.4;
-    audio.loop = true;
-    audio.autoplay = true;
-    audio.play();
-  </script>
-
-</body>
-</html>
