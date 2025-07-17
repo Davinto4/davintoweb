@@ -1,3 +1,39 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #111;
+  --nav-bg: #f0f0f0;
+  --btn-bg: #007bff;
+  --btn-hover: #0056b3;
+  --box-shadow: rgba(0,0,0,0.1);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+nav {
+  background-color: var(--nav-bg);
+}
+
+.collapsible-navbar a {
+  background-color: var(--btn-bg);
+}
+.collapsible-navbar a:hover {
+  background-color: var(--btn-hover);
+}
+
+/* Dark mode overrides */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+  --nav-bg: #1e1e1e;
+  --btn-bg: #333;
+  --btn-hover: #444;
+  --box-shadow: rgba(255, 255, 255, 0.1);
+}
+
 /* Reset */
 
 { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
