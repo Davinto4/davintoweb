@@ -1,112 +1,142 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb - Professional Website Builder</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
-  <script>
-    const songs = [
-      'music/xxxtentacion.mp3',
-      'music/juicewrld.mp3',
-      'music/popsmoke.mp3',
-      'music/kirkfranklin.mp3',
-      'music/maverickcity.mp3'
-    ];
-    const randomSong = songs[Math.floor(Math.random() * songs.length)];
-    const audio = new Audio(randomSong);
-    audio.volume = 0.5;
-    audio.autoplay = true;
-    window.addEventListener('load', () => audio.play());
-  </script>
-  <script async src="https://app.smartupp.com/widget.js"></script>
-</head><body style="margin: 0; font-family: 'Outfit', sans-serif; display: flex; min-height: 100vh;">
-  <nav style="width: 200px; background: #0d0d0d; color: white; display: flex; flex-direction: column; align-items: center; padding: 1rem 0; gap: 1rem; box-shadow: 2px 0 10px rgba(0,0,0,0.3);">
-    <button class="nav-btn">🌞/🌙</button>
-    <button class="nav-btn">Home</button>
-    <button class="nav-btn">About</button>
-    <button class="nav-btn">Pricing</button>
-    <button class="nav-btn">Portfolio</button>
-    <button class="nav-btn">Contact</button>
-    <button class="nav-btn">Chat</button>
-  </nav>
-  <main style="flex: 1; padding: 2rem; background: #f8f9fa;">
-    <section style="padding-bottom: 2rem;">
-      <h1 style="font-size: 2.5rem; font-weight: 800;">🚀 Build Any Website You Imagine</h1>
-      <p style="font-size: 1.2rem; max-width: 700px;">Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
-      <a href="/portfolio.pdf" download style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: #111; color: white; border-radius: 5px;">Download Portfolio</a>
-    </section><section>
-  <h2>🌟 Why Choose DavintoWeb?</h2>
-  <ul>
-    <li>Fast and mobile-optimized websites</li>
-    <li>Free HTTPS Security</li>
-    <li>Firebase-powered dashboards</li>
-    <li>AI Chatbot & Translator Integration</li>
-    <li>Ongoing support</li>
-  </ul>
-</section>
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DavintoWeb — Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#1D4ED8',
+              secondary: '#FACC15',
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="icon" href="favicon.ico" />
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white shadow-xl p-4 flex flex-col justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-primary mb-6">DavintoWeb</h1>
+          <nav class="space-y-4">
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
+              <span class="material-icons mr-3">home</span>
+              Home
+            </a>
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
+              <span class="material-icons mr-3">info</span>
+              About
+            </a>
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
+              <span class="material-icons mr-3">attach_money</span>
+              Pricing
+            </a>
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
+              <span class="material-icons mr-3">folder</span>
+              Portfolio
+            </a>
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
+              <span class="material-icons mr-3">contact_mail</span>
+              Contact
+            </a>
+            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded-md transition">
+              <span class="material-icons mr-3">chat</span>
+              Chat
+            </a>
+          </nav>
+        </div>
+        <button class="mt-10 p-2 w-full bg-primary text-white rounded hover:bg-blue-700 transition">
+          Download Portfolio
+        </button>
+      </aside><!-- Main Content -->
+  <main class="flex-1 overflow-y-auto p-8">
+    <section class="mb-12">
+      <h2 class="text-4xl font-bold mb-2">🚀 Build Any Website You Imagine</h2>
+      <p class="text-lg text-gray-700">
+        Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.
+      </p>
+    </section>
 
-<section>
-  <h2>🧩 What We Build</h2>
-  <ul>
-    <li>Personal Websites, Blogs & Portfolios</li>
-    <li>Business Sites, E-commerce</li>
-    <li>Educational Platforms, Community Portals</li>
-    <li>AI Bots & Tools, Family & Event Sites</li>
-  </ul>
-</section>
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4">🌟 Why Choose DavintoWeb?</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Fast and mobile-optimized websites</li>
+        <li>Free HTTPS Security</li>
+        <li>Firebase-powered dashboards</li>
+        <li>AI Chatbot & Translator Integration</li>
+        <li>Ongoing support</li>
+      </ul>
+    </section>
 
-<section>
-  <h2>💰 Pricing Packages</h2>
-  <ul>
-    <li><strong>🌐 Starter Site</strong> — From ₦5,000: 1–2 Pages, Responsive Design, Contact Form</li>
-    <li><strong>📝 Blog / Portfolio</strong> — From ₦15,000: CMS Admin Panel, SEO + Social Sharing</li>
-    <li><strong>🏢 Business Site</strong> — From ₦30,000: Multi-Page, WhatsApp Booking</li>
-    <li><strong>🛒 E-commerce</strong> — From ₦60,000: Payments, Product Dashboard</li>
-    <li><strong>⚙️ Web App + AI</strong> — From ₦100,000+: Custom Dashboards, Realtime DB</li>
-    <li><strong>🧠 Custom Projects</strong> — Let’s Discuss!</li>
-  </ul>
-</section>
+    <section class="mb-12">
+      <h3 class="text-2xl font-bold mb-4">🧩 What We Build</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded shadow">Personal Websites</div>
+        <div class="bg-white p-4 rounded shadow">Blogs & Portfolios</div>
+        <div class="bg-white p-4 rounded shadow">Business Sites</div>
+        <div class="bg-white p-4 rounded shadow">E-commerce</div>
+        <div class="bg-white p-4 rounded shadow">Educational Platforms</div>
+        <div class="bg-white p-4 rounded shadow">Community Portals</div>
+        <div class="bg-white p-4 rounded shadow">AI Bots & Tools</div>
+        <div class="bg-white p-4 rounded shadow">Family & Event Sites</div>
+      </div>
+    </section>
 
-<section>
-  <h2>🖥️ Website Showcases</h2>
-  <ul>
-    <li><strong>DavintoReads</strong> — Novel reading platform with Firebase and Admin Panel</li>
-    <li><strong>DavintoCore</strong> — Bot dashboard and chat interface for WhatsApp automation</li>
-    <li><strong>BusinessBooking</strong> — Appointment booking for businesses with WhatsApp + email</li>
-  </ul>
-</section>
-
+    <section>
+      <h3 class="text-2xl font-bold mb-4">💰 Pricing Packages</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded shadow">
+          <h4 class="text-xl font-semibold mb-2">🌐 Starter Site</h4>
+          <p>From ₦5,000</p>
+          <ul class="list-disc list-inside mt-2">
+            <li>1–2 Pages</li>
+            <li>Responsive Design</li>
+            <li>Contact Form</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h4 class="text-xl font-semibold mb-2">📝 Blog / Portfolio</h4>
+          <p>From ₦15,000</p>
+          <ul class="list-disc list-inside mt-2">
+            <li>CMS Admin Panel</li>
+            <li>SEO + Social Sharing</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h4 class="text-xl font-semibold mb-2">🏢 Business Site</h4>
+          <p>From ₦30,000</p>
+          <ul class="list-disc list-inside mt-2">
+            <li>Multi-Page Design</li>
+            <li>WhatsApp Booking</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
-</body><style>
-  .nav-btn {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    padding: 0.75rem;
-    width: 100%;
-    text-align: center;
-    transition: background 0.3s, transform 0.2s;
-    cursor: pointer;
-  }
-  .nav-btn:hover {
-    background: #333;
-    transform: translateY(-2px);
-  }
-</style></html>
+</div>
+
+<!-- SmartUpp Live Chat -->
+<script type="text/javascript">
+  var _smartsupp = _smartsupp || {};
+  _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+  window.smartsupp || (function(d) {
+    var s, c, o = smartsupp = function() { o._.push(arguments) };
+    o._ = [];
+    s = d.getElementsByTagName('script')[0];
+    c = d.createElement('script');
+    c.type = 'text/javascript';
+    c.charset = 'utf-8';
+    c.async = true;
+    c.src = 'https://www.smartsuppchat.com/loader.js?';
+    s.parentNode.insertBefore(c, s);
+  })(document);
+</script>
+
+  </body>
+</html>
