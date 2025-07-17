@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb</title>
+  <title>DavintoWeb - Home</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Vertical Nav Menu -->
-  <header class="fb-nav vertical">
+  <!-- Facebook-Style Vertical Navigation -->
+  <nav class="fb-nav vertical">
     <div class="fb-logo">DavintoWeb</div>
-    <nav class="fb-menu-vertical">
-      <a href="index.html">🏠 Home</a>
-      <a href="about.html">ℹ️ About</a>
-      <a href="pricing.html">💰 Pricing</a>
-      <a href="portfolio.html">🗂️ Portfolio</a>
-      <a href="contact.html">📞 Contact</a>
-      <a href="chat.html">💬 Chat</a>
-      <a href="admin.html">🔧 Admin</a>
-    </nav>
-  </header>
+    <div class="fb-menu-vertical">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="projects.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+      <a href="chat.html">Chat</a>
+    </div>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -29,12 +27,13 @@
     <a href="https://wa.me/2348169045105" class="whatsapp-btn">💬 Chat on WhatsApp</a>
   </section>
 
-  <!-- Support Button -->
+  <!-- Support Section -->
   <section class="support">
     <h2>Support My Work</h2>
-    <p>If you love what I build, you can support me directly.</p>
-    <button onclick="alert('Bank Account: 1719816647\nChima Chimdindu MacDonald\nAccess Bank')">💸 Send Support</button>
+    <p>If you enjoy my work, you can support me directly:</p>
+    <button onclick="window.open('https://banking.example.com/support/1719816647', '_blank')">
+      💰 Send Support to: Access Bank - 1719816647 (Chima Chimdindu Macdonald)
+    </button>
   </section>
-
 </body>
 </html>
