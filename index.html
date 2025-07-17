@@ -1,197 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb - Creative Web Development</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DavintoWeb | Home</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
+      background: #f2f2f2;
       color: #333;
     }
-
     header {
-      background: #001f3f;
-      color: white;
-      padding: 20px;
-      text-align: center;
+      background-color: #222;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
     }
-
     .logo {
-      width: 80px;
-      height: auto;
-      margin-bottom: 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
     }
-
     nav {
       display: flex;
-      justify-content: center;
-      gap: 30px;
-      background: #003366;
-      padding: 15px 0;
+      gap: 1rem;
     }
-
     nav a {
       color: #fff;
       text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      transition: 0.3s ease;
+      padding: 0.5rem;
+      transition: background 0.3s;
     }
-
     nav a:hover {
-      color: #00d9ff;
+      background: #444;
+      border-radius: 5px;
     }
-
-    .hero {
-      padding: 80px 20px;
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      background: #fff;
+      height: 3px;
+      width: 25px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: #222;
+      width: 100%;
+      animation: slideDown 0.3s ease forwards;
+    }
+    .mobile-menu a {
+      padding: 1rem;
       text-align: center;
-      background: linear-gradient(to right, #003366, #005599);
-      color: white;
+      border-bottom: 1px solid #444;
     }
-
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .mobile-menu.show {
+        display: flex;
+      }
+    }
+    main {
+      margin-top: 100px;
+      padding: 2rem;
+    }
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
     .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
-
     .hero p {
       font-size: 1.2rem;
-      margin-bottom: 20px;
+      color: #666;
     }
-
-    .services {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .services h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #003366;
-    }
-
-    .service-boxes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .service {
-      background: white;
-      padding: 30px;
-      width: 280px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: left;
-    }
-
-    .service h3 {
-      color: #001f3f;
-      margin-bottom: 10px;
-    }
-
-    .service p {
-      font-size: 0.95rem;
-    }
-
-    footer {
-      background: #001f3f;
+    .cta-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background: #0077ff;
       color: white;
-      text-align: center;
-      padding: 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
     }
-
-    /* Optional: Style the floating button visually larger (for Smartsupp overlay) */
-    .custom-chat-launcher {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 80px;
-      height: 80px;
-      background-color: #0077cc;
-      color: white;
-      border-radius: 50%;
-      font-size: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 10000;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .custom-chat-launcher:hover {
-      background-color: #005fa3;
+    .cta-btn:hover {
+      background: #005fd1;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <img src="logo.png" alt="DavintoWeb Logo" class="logo" />
-    <h1>Welcome to DavintoWeb</h1>
-    <p>Creative Websites & Modern Web Development</p>
-  </header>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-    <a href="admin.html">Admin</a>
-  </nav>
-
-  <section class="hero">
-    <h1>Let’s Build Your Dream Website</h1>
-    <p>We specialize in sleek, responsive websites — from landing pages to full platforms.</p>
-  </section>
-
-  <section class="services">
-    <h2>What We Offer</h2>
-    <div class="service-boxes">
-      <div class="service">
-        <h3>Web Design</h3>
-        <p>Elegant, fast-loading websites built for mobile and desktop.</p>
-      </div>
-      <div class="service">
-        <h3>Frontend Development</h3>
-        <p>HTML, CSS, JavaScript, React — built with precision and style.</p>
-      </div>
-      <div class="service">
-        <h3>Backend & APIs</h3>
-        <p>Node.js, Firebase, MongoDB — we connect it all smoothly.</p>
-      </div>
-      <div class="service">
-        <h3>AI Chatbots</h3>
-        <p>Integrate AI assistants for live support and automation.</p>
-      </div>
+    <div class="logo">DavintoWeb</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-  </section>
-
-  <footer>
-    <p>© 2025 DavintoWeb | Designed by Davinto. All rights reserved.</p>
-  </footer>
-
-  <!-- Smartsupp Live Chat script -->
-  <script type="text/javascript">
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+  <main>
+    <section class="hero" data-aos="fade-up">
+      <h1>Welcome to DavintoWeb</h1>
+      <p>We create modern, professional, and fully responsive websites for businesses, individuals, and brands.</p>
+      <a class="cta-btn" href="https://wa.me/234XXXXXXXXXX" target="_blank">Chat on WhatsApp</a>
+    </section>
+  </main>  <!-- Smartsupp Live Chat script -->  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
     window.smartsupp || (function (d) {
       var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
       s = d.getElementsByTagName('script')[0]; c = d.createElement('script');
       c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
-      c.src = 'https://www.smartsuppchat.com/loader.js?'; s.parentNode.insertBefore(c, s);
+      c.src = 'https://www.smartsuppchat.com/loader.js?';
+      s.parentNode.insertBefore(c, s);
     })(document);
-  </script>
+  </script>  <script>
+    AOS.init();
 
-</body>
+    const toggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    toggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('show');
+    });
+  </script></body>
 </html>
