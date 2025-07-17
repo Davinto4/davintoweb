@@ -8,8 +8,8 @@
 </head>
 <body>
   <div class="layout">
-    <!-- Vertical Nav Menu -->
-    <aside class="sidebar">
+    <!-- Sidebar / Navigation -->
+    <aside class="sidebar" id="sidebar">
       <div class="logo">🚀 DavintoWeb</div>
       <nav>
         <ul class="nav-vertical">
@@ -23,7 +23,10 @@
       </nav>
     </aside>
 
-    <!-- Main Page Content -->
+    <!-- Mobile Toggle Button -->
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- Main Content -->
     <main class="main-content">
       <section class="hero-section">
         <h1>Welcome to DavintoWeb</h1>
@@ -36,5 +39,12 @@
       </footer>
     </main>
   </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('collapsed');
+    }
+  </script>
 </body>
 </html>
