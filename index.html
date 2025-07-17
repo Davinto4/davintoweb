@@ -3,130 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in {
-      animation: fade-in 0.8s ease-in-out;
-    }
-  </style>
+  <title>DavintoWeb | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-<body class="bg-gray-100 text-gray-900 flex">
-
-  <!-- Sidebar Nav -->
-  <aside class="w-64 h-screen fixed bg-white shadow-lg p-6 space-y-6">
-    <h1 class="text-2xl font-bold text-blue-600">DavintoWeb</h1>
-    <nav class="space-y-3">
-      <a href="index.html" class="block bg-blue-100 text-blue-800 font-medium rounded-lg px-4 py-2 hover:bg-blue-200">🏠 Home</a>
-      <a href="about.html" class="block bg-blue-100 text-blue-800 font-medium rounded-lg px-4 py-2 hover:bg-blue-200">👨‍💻 About</a>
-      <a href="projects.html" class="block bg-blue-100 text-blue-800 font-medium rounded-lg px-4 py-2 hover:bg-blue-200">📁 Projects</a>
-      <a href="pricing.html" class="block bg-blue-100 text-blue-800 font-medium rounded-lg px-4 py-2 hover:bg-blue-200">💰 Pricing</a>
-      <a href="contact.html" class="block bg-green-100 text-green-700 font-semibold rounded-lg px-4 py-2 hover:bg-green-200">📞 WhatsApp</a>
-    </nav>
-  </aside>
+<body class="bg-white text-gray-900 transition-colors duration-300" id="body">
+  <!-- Vertical Navbar -->
+  <header class="fixed top-0 left-0 h-full w-16 bg-gray-900 text-white flex flex-col items-center py-4 z-50 space-y-6 shadow-lg">
+    <a href="index.html" class="nav-btn text-center"><i class="fas fa-home text-xl"></i><span class="sr-only">Home</span></a>
+    <a href="about.html" class="nav-btn text-center"><i class="fas fa-user text-xl"></i><span class="sr-only">About</span></a>
+    <a href="pricing.html" class="nav-btn text-center"><i class="fas fa-money-bill text-xl"></i><span class="sr-only">Pricing</span></a>
+    <a href="portfolio.html" class="nav-btn text-center"><i class="fas fa-image text-xl"></i><span class="sr-only">Portfolio</span></a>
+    <a href="contact.html" class="nav-btn text-center"><i class="fas fa-envelope text-xl"></i><span class="sr-only">Contact</span></a>
+    <a href="chat.html" class="nav-btn text-center"><i class="fas fa-comments text-xl"></i><span class="sr-only">Chat</span></a>
+    <a href="https://wa.me/2348169045105" class="nav-btn text-center" target="_blank"><i class="fab fa-whatsapp text-xl"></i><span class="sr-only">WhatsApp</span></a>
+    <button id="themeToggle" class="nav-btn text-center focus:outline-none">
+      <i class="fas fa-adjust text-xl"></i><span class="sr-only">Toggle Theme</span>
+    </button>
+  </header>
 
   <!-- Main Content -->
-  <main class="ml-64 flex-1 p-8">
-    <section class="mb-8">
-      <h2 class="text-3xl font-bold mb-2">Welcome to DavintoWeb</h2>
-      <p class="text-lg text-gray-700">We build fast, responsive, modern websites tailored to your goals. Dynamic and static websites, Firebase integration, and more.</p>
+  <main class="ml-20 p-6 space-y-12">
+    <!-- Hero Section -->
+    <section class="text-center mt-10">
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">Welcome to DavintoWeb</h1>
+      <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300">We create modern, powerful, and beautiful websites – combining static and dynamic tools with smart Firebase backend.</p>
     </section>
 
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white rounded-xl shadow p-6">
-        <h3 class="text-xl font-semibold">Dynamic Web Apps</h3>
-        <p>We build full-stack dynamic sites powered by Firebase, Node.js, and more.</p>
-      </div>
-      <div class="bg-white rounded-xl shadow p-6">
-        <h3 class="text-xl font-semibold">Static Landing Pages</h3>
-        <p>Fast, SEO-optimized landing pages using modern HTML/CSS.</p>
+    <!-- Showcase Section -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">🔍 Website Showcase</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
+          <h3 class="font-semibold text-lg mb-2">🔥 Portfolio Website</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Built with HTML, Tailwind, Firebase Auth + Realtime DB.</p>
+          <a href="https://davinto.vercel.app" class="text-blue-500 mt-2 inline-block" target="_blank">View Site</a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
+          <h3 class="font-semibold text-lg mb-2">🎮 Game Dashboard</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Includes XP, levels, community, and Trionix dictionary.</p>
+          <a href="#" class="text-blue-500 mt-2 inline-block">Coming Soon</a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
+          <h3 class="font-semibold text-lg mb-2">💬 AI Chat System</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">OpenAI-powered assistant with Firebase chat logs.</p>
+          <a href="chat.html" class="text-blue-500 mt-2 inline-block">Try it</a>
+        </div>
       </div>
     </section>
 
-    <section class="mt-10">
-      <a href="https://wa.me/2348169045105" class="inline-block bg-green-600 text-white font-semibold px-6 py-3 rounded-full hover:bg-green-700 transition">
-        💬 Chat with us on WhatsApp
-      </a>
+    <!-- Portfolio CTA -->
+    <section class="text-center">
+      <a href="portfolio.html" class="px-6 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">📂 Download Full Portfolio</a>
     </section>
   </main>
 
-  <!-- Music Player -->
-  <div class="fixed bottom-4 right-4 bg-white/80 backdrop-blur-md shadow-lg rounded-lg flex items-center gap-3 p-3 z-50 animate-fade-in">
-    <button id="toggleBtn" class="text-blue-600 hover:text-blue-800 text-xl">⏸️</button>
-    <span id="trackName" class="text-xs font-semibold"></span>
-    <audio id="musicPlayer" autoplay></audio>
-  </div>
+  <!-- Sticky Music Player -->
+  <footer class="fixed bottom-4 right-4 bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full flex items-center gap-4 shadow-lg animate-pulse transition-all">
+    <audio id="audioPlayer" controls autoplay loop class="w-48">
+      <source src="https://vercel-music-files.vercel.app/tracks/xxxtentacion.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <span class="text-sm">🎧 Now Playing: Random Rap/Gospel</span>
+  </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <!-- Theme Toggle Script -->
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.firebasestorage.app",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
-
-  <!-- Music Logic -->
-  <script>
-    const musicList = [
-      "https://cdn.pixabay.com/audio/2023/03/25/audio_7fc59ee1e1.mp3", // Sad Rap
-      "https://cdn.pixabay.com/audio/2023/07/03/audio_c5f171e321.mp3", // Hip-Hop
-      "https://cdn.pixabay.com/audio/2023/05/27/audio_6dd232812a.mp3", // Drill
-      "https://cdn.pixabay.com/audio/2023/01/20/audio_eb9326c177.mp3", // Gospel Trap
-      "https://cdn.pixabay.com/audio/2022/03/04/audio_c1ef19a4a5.mp3", // Lo-Fi
-    ];
-    const randomTrack = musicList[Math.floor(Math.random() * musicList.length)];
-    const musicPlayer = document.getElementById('musicPlayer');
-    const toggleBtn = document.getElementById('toggleBtn');
-    const trackName = document.getElementById('trackName');
-    musicPlayer.src = randomTrack;
-    trackName.textContent = randomTrack.split('/').pop().replace('.mp3', '');
-    musicPlayer.volume = 0;
-    musicPlayer.play();
-    let vol = 0;
-    const fade = setInterval(() => {
-      if (vol < 0.4) {
-        vol += 0.01;
-        musicPlayer.volume = vol;
-      } else {
-        clearInterval(fade);
-      }
-    }, 100);
-    let isPlaying = true;
-    toggleBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        musicPlayer.pause();
-        toggleBtn.textContent = "▶️";
-      } else {
-        musicPlayer.play();
-        toggleBtn.textContent = "⏸️";
-      }
-      isPlaying = !isPlaying;
+    const toggle = document.getElementById('themeToggle');
+    const body = document.getElementById('body');
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
     });
   </script>
-
-  <!-- SmartUpp Live Chat -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = 'c8e0e5a5e7a659bc0ec50f13ef6f5f379cd7c5e6';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-    })(document);
-  </script>
-
 </body>
 </html>
