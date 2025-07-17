@@ -1,65 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | About</title>
+  <title>About Davinto | Web Developer & Designer</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- NAVIGATION -->
-  <nav class="menu">
-    <div class="logo">DavintoWeb</div>
-    <ul class="desktop-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html" class="active">About</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="contact.html">Contacts</a></li>
-      <li><a href="chat.html">Chats</a></li>
-    </ul>
-    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
-  </nav>
-
-  <!-- MOBILE MENU -->
-  <div class="mobile-links" id="mobileMenu">
-    <a href="index.html">Home</a>
-    <a href="about.html" class="active">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contacts</a>
-    <a href="chat.html">Chats</a>
+  <div class="theme-toggle">
+    <button onclick="toggleTheme()">🌗 Toggle Theme</button>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <main style="padding: 2rem;">
-    <h1 class="page-title">About Davinto</h1>
-    <p style="max-width: 700px; margin: auto; font-size: 1.2rem;">
-      My name is <strong>Chimdindu MacDonald</strong>, known online as <strong>Davinto</strong>. I’m a self-taught web developer who began this journey in September last year out of sheer curiosity. I started from scratch — no mentor, no classes — just passion, internet, and persistence.
-    </p>
+  <nav class="collapsible-navbar">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="active"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html"><i class="fas fa-tags"></i> Pricing</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+  </nav>
 
-    <p style="max-width: 700px; margin: 1rem auto; font-size: 1.1rem;">
-      I failed many times while trying to build websites that worked. But I didn’t give up. I kept learning, experimenting, and practicing daily. Over time, I grew in skill and confidence. Today, I build complete, responsive, and fast websites. That's how <strong>DavintoWeb</strong> was born — built from nothing but raw dedication.
-    </p>
+  <section class="hero">
+    <h1>About Davinto</h1>
+    <p>Empowering businesses, brands & creatives through professional websites</p>
+  </section>
 
-    <p style="max-width: 700px; margin: 1rem auto; font-size: 1rem;">
-      <em>“Everything great starts with a spark of curiosity.”</em><br/>
-      <strong>— Davinto</strong>
+  <section class="features">
+    <h2>Who Is Davinto?</h2>
+    <p>
+      I'm a passionate web developer, designer, and creator based in Nigeria. I specialize in building high-quality websites for clients from all walks of life — individuals, families, businesses, blogs, and startups. Whether you're looking for a professional landing page, e-commerce shop, online portfolio, or community forum, I've got you covered.
     </p>
+    <br />
+    <p>
+      My mission is to make web development affordable and accessible, starting from as low as ₦5,000. With every project, I focus on speed, responsiveness, usability, security, and modern design.
+    </p>
+  </section>
 
-    <p style="max-width: 700px; margin: 1rem auto; font-size: 1rem;">
-      🧠 Credit to <strong>Heirzmax</strong> for his helpful contribution and suggestion that improved the navigation menu experience on this website.
-    </p>
-  </main>
+  <section class="services">
+    <h2>What I Can Build</h2>
+    <div class="grid">
+      <div><i class="fas fa-globe"></i><br>Business Websites</div>
+      <div><i class="fas fa-store"></i><br>E-commerce Shops</div>
+      <div><i class="fas fa-blog"></i><br>Blogs & News Sites</div>
+      <div><i class="fas fa-users"></i><br>Community Platforms</div>
+      <div><i class="fas fa-heart"></i><br>Family Sites</div>
+      <div><i class="fas fa-briefcase"></i><br>Portfolio Pages</div>
+      <div><i class="fas fa-bolt"></i><br>Landing Pages</div>
+      <div><i class="fas fa-lock"></i><br>Secure Logins</div>
+    </div>
+  </section>
+
+  <section class="contact-cta">
+    <h2>Want to Build Your Website?</h2>
+    <a class="whatsapp-button" href="https://wa.me/2348169045105" target="_blank">
+      <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+    </a>
+  </section>
 
   <script>
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('show');
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute("data-theme", html.dataset.theme === "light" ? "dark" : "light");
     }
   </script>
 </body>
