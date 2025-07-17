@@ -1,95 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payment Confirmation - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .loader { display: none; }
-    .success { display: none; color: green; font-weight: bold; font-size: 18px; margin-top: 20px; }
-  </style>
-</head>
-<body class="dark:bg-black dark:text-white bg-white text-black transition duration-300">
+import React, { useState } from 'react'; import { initializeApp } from 'firebase/app'; import { getDatabase, ref, push, serverTimestamp } from 'firebase/database'; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button";
 
-  <!-- Navbar -->
-  <nav class="p-4 shadow flex justify-between items-center bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
-    <h1 class="text-xl font-bold">DavintoWeb</h1>
-    <button onclick="toggleMode()" class="bg-white text-black px-3 py-1 rounded">🌓</button>
-  </nav>
+const firebaseConfig = { apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8", authDomain: "davintoweb-payments.firebaseapp.com", databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com", projectId: "davintoweb-payments", storageBucket: "davintoweb-payments.appspot.com", messagingSenderId: "667742200333", appId: "1:667742200333:web:cf75f6cef6798eed432b44" };
 
-  <!-- Main Form -->
-  <section class="max-w-xl mx-auto p-6 mt-10 bg-gray-100 dark:bg-gray-800 rounded shadow">
-    <h2 class="text-2xl font-bold mb-4">Confirm Your Payment</h2>
-    <form id="confirmForm">
-      <label>Full Name:</label>
-      <input type="text" name="name" required class="w-full p-2 mb-3 rounded"/>
+const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 
-      <label>Email:</label>
-      <input type="email" name="email" required class="w-full p-2 mb-3 rounded"/>
+export default function ConfirmForm() { const [form, setForm] = useState({ accountName: '', bankName: '', accountNumber: '', phone: '', email: '', message: '' });
 
-      <label>Account Used:</label>
-      <input type="text" name="account" required class="w-full p-2 mb-3 rounded"/>
+const handleChange = (e) => { setForm({ ...form, [e.target.name]: e.target.value }); };
 
-      <label>Message:</label>
-      <textarea name="message" class="w-full p-2 mb-3 rounded"></textarea>
+const handleSubmit = async (e) => { e.preventDefault(); const formRef = ref(db, 'confirmations'); await push(formRef, { ...form, timestamp: serverTimestamp() }); alert('✅ Payment confirmation submitted!'); setForm({ accountName: '', bankName: '', accountNumber: '', phone: '', email: '', message: '' }); };
 
-      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Submit</button>
-    </form>
+return ( <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-6"> <Card className="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl dark:bg-gray-900"> <CardContent> <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">Payment Confirmation</h2> <form onSubmit={handleSubmit} className="space-y-4"> <input type="text" name="accountName" placeholder="Account Name" value={form.accountName} onChange={handleChange} required className="w-full p-2 border rounded" /> <input type="text" name="bankName" placeholder="Bank Name" value={form.bankName} onChange={handleChange} required className="w-full p-2 border rounded" /> <input type="text" name="accountNumber" placeholder="Account Number" value={form.accountNumber} onChange={handleChange} required className="w-full p-2 border rounded" /> <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} required className="w-full p-2 border rounded" /> <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required className="w-full p-2 border rounded" /> <textarea name="message" placeholder="Message" value={form.message} onChange={handleChange} className="w-full p-2 border rounded"></textarea> <Button type="submit" className="w-full bg-blue-600 text-white">Submit</Button> </form> </CardContent> </Card> </div> ); }
 
-    <div class="loader mt-4">⏳ Processing...</div>
-    <div class="success mt-4">✅ Payment Confirmation Sent!</div>
-  </section>
-
-  <audio id="successSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-
-  <script>
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    // Form submission
-    document.getElementById('confirmForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.querySelector('.loader').style.display = 'block';
-
-      const name = this.name.value;
-      const email = this.email.value;
-      const account = this.account.value;
-      const message = this.message.value;
-
-      db.ref('confirmations').push({
-        name, email, account, message, timestamp: new Date().toISOString()
-      }).then(() => {
-        document.querySelector('.loader').style.display = 'none';
-        document.querySelector('.success').style.display = 'block';
-        document.getElementById('successSound').play();
-        this.reset();
-      }).catch(err => {
-        alert("Failed to submit: " + err);
-        document.querySelector('.loader').style.display = 'none';
-      });
-    });
-
-    // Light/Dark toggle
-    function toggleMode() {
-      document.body.classList.toggle('dark');
-    }
-  </script>
-</body>
-</html>
