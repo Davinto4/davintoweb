@@ -1,69 +1,54 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DavintoWeb - Homepage</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">DavintoWeb</div>
-      <div class="nav-buttons">
-        <button onclick="location.href='index.html'">🏠 Home</button>
-        <button onclick="location.href='about.html'">👤 About</button>
-        <button onclick="location.href='pricing.html'">💰 Pricing</button>
-        <button onclick="location.href='projects.html'">📁 Projects</button>
-        <button onclick="location.href='contact.html'">📞 Contact</button>
-        <button onclick="location.href='chat.html'">💬 Chat</button>
-      </div>
+  <header class="navbar">
+    <nav>
+      <ul class="nav-buttons">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="about.html">👤 About</a></li>
+        <li><a href="#">💸 Pricing</a></li>
+        <li><a href="#">🛠️ Projects</a></li>
+        <li><a href="#">📞 Contact</a></li>
+        <li><a href="#">💬 Chat</a></li>
+      </ul>
     </nav>
-  </header>  <section class="hero">
-    <h1>Welcome to DavintoWeb</h1>
-    <p>Crafting stunning modern websites. Built from scratch. Self-taught. Pure passion. — By Chimdindu MacDonald (aka Davinto)</p>
-    <button class="whatsapp-btn" onclick="window.location.href='https://wa.me/2348169045105'">💬 Chat on WhatsApp</button>
-  </section>  <section class="features">
-    <h2>What We Do</h2>
-    <div class="cards">
-      <div class="card">🌐 Web Design</div>
-      <div class="card">🛠 Full-Stack Development</div>
-      <div class="card">📲 Responsive Mobile Design</div>
-      <div class="card">⚙ Custom Apps & Tools</div>
-    </div>
-  </section>  <section class="music-player">
-    <h2>🎧 Listen to Music</h2>
-    <p>Explore songs by genre. Play freely while browsing.</p>
-    <audio id="player" controls>
-      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <div class="music-controls">
-      <button onclick="changeTrack(1)">▶ Next</button>
-      <button onclick="changeTrack(-1)">⏮ Prev</button>
-    </div>
-  </section>  <section class="portfolio">
-    <h2>🚀 Projects</h2>
-    <p>See some of the websites and tools created.</p>
-    <!-- Add project boxes -->
-    <div class="project">DavintoReads – Online Book Reader</div>
-    <div class="project">DavintoCore – AI Assistant Web</div>
-  </section>  <footer>
-    <p>&copy; 2025 DavintoWeb | Built with ❤️ by Chimdindu MacDonald (Davinto)</p>
-  </footer>  <script>
-    const tracks = [
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-    ];
-    let current = 0;
-    const player = document.getElementById('player');
+  </header>
 
-    function changeTrack(dir) {
-      current = (current + dir + tracks.length) % tracks.length;
-      player.src = tracks[current];
-      player.play();
-    }
-  </script></body>
+  <main class="main-content">
+    <section class="hero">
+      <h1>Welcome to <span class="highlight">DavintoWeb</span></h1>
+      <p>Crafting beautiful and modern websites, self-taught by <strong>Chimdindu MacDonald</strong>.</p>
+      <a href="https://wa.me/2348169045105" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+    </section>
+
+    <section class="features">
+      <h2>Why Choose DavintoWeb?</h2>
+      <ul>
+        <li>🚀 Fast and responsive design</li>
+        <li>🎨 Stunning animations and visuals</li>
+        <li>🧠 Built with skill, creativity, and passion</li>
+        <li>💻 Latest web technologies</li>
+      </ul>
+    </section>
+
+    <section class="portfolio">
+      <h2>Featured Projects</h2>
+      <div class="project-grid">
+        <div class="project-card">🌐 Project 1</div>
+        <div class="project-card">📱 Project 2</div>
+        <div class="project-card">🖥️ Project 3</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 DavintoWeb. All Rights Reserved.</p>
+  </footer>
+</body>
 </html>
