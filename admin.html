@@ -1,128 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel - Protected</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Admin Panel – Payment Confirmations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; margin: 0; }
-    .hidden { display: none; }
-    .entry { border-bottom: 1px solid #ccc; padding: 10px; }
-    .entry:nth-child(even) { background: #f9f9f9; }
-    .admin-header { background: linear-gradient(to right, #4f46e5, #7c3aed); color: white; padding: 1rem; text-align: center; }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f0f0f0;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark-mode {
+      background: #121212;
+      color: white;
+    }
+
+    .login-screen, .admin-panel {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    input[type="password"] {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 250px;
+    }
+
+    button {
+      padding: 0.7rem 1.2rem;
+      margin-top: 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+
+    table {
+      margin-top: 2rem;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background: #007bff;
+      color: white;
+    }
+
+    .logout {
+      float: right;
+      margin-top: -40px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
 
     .fade-in {
-      animation: fadeIn 0.6s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      animation: fadeIn 0.8s ease-in;
     }
   </style>
 </head>
-<body class="dark:bg-black dark:text-white bg-white text-black transition duration-300">
+<body>
 
-  <!-- Password Prompt -->
-  <div id="passwordPrompt" class="flex flex-col items-center justify-center min-h-screen fade-in">
-    <h2 class="text-xl font-semibold mb-2">🔒 Admin Access</h2>
-    <input type="password" id="adminPassword" placeholder="Enter admin password"
-      class="px-4 py-2 border rounded w-64 mb-2 dark:bg-gray-800 dark:text-white" />
-    <button onclick="checkPassword()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Login</button>
-    <p id="error" class="text-red-500 text-sm mt-2 hidden">❌ Wrong password!</p>
-  </div>
+<div class="toggle-btn">
+  <button onclick="toggleDark()">🌗</button>
+</div>
 
-  <!-- Admin Panel -->
-  <div id="adminPanel" class="hidden fade-in">
-    <div class="admin-header flex justify-between items-center px-6">
-      <div>
-        <h1 class="text-2xl font-bold">DavintoWeb Admin Panel</h1>
-        <p class="text-sm">Payment Confirmations</p>
-      </div>
-      <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white text-sm">Logout</button>
-    </div>
+<div class="login-screen fade-in visible" id="loginScreen">
+  <h2>🔐 Enter Admin Password</h2>
+  <input type="password" id="adminPass" placeholder="Enter password..." />
+  <br/>
+  <button onclick="checkLogin()">Unlock</button>
+</div>
 
-    <div id="entries" class="max-w-3xl mx-auto p-4 mt-6 bg-gray-100 dark:bg-gray-900 rounded shadow-md">
-      <p>Loading entries...</p>
-    </div>
-  </div>
+<div class="admin-panel fade-in" id="adminPanel">
+  <h2>✅ Confirmations Dashboard</h2>
+  <button class="logout" onclick="logout()">Logout</button>
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>Account Name</th>
+        <th>Bank</th>
+        <th>Account #</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
-  <!-- SHA-256 for Password Obfuscation -->
-  <script>
-    async function sha256(text) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(text);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      return Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, '0')).join('');
+<script>
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+    authDomain: "davintoweb-payments.firebaseapp.com",
+    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+    projectId: "davintoweb-payments",
+    storageBucket: "davintoweb-payments.appspot.com",
+    messagingSenderId: "667742200333",
+    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database().ref("confirmations");
+
+  const password = "08022664487@Mac";
+
+  function checkLogin() {
+    const input = document.getElementById("adminPass").value;
+    if (input === password) {
+      document.getElementById("loginScreen").classList.remove("visible");
+      document.getElementById("adminPanel").classList.add("visible");
+      loadData();
+    } else {
+      alert("❌ Incorrect password!");
     }
-  </script>
+  }
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+  function logout() {
+    document.getElementById("adminPanel").classList.remove("visible");
+    document.getElementById("loginScreen").classList.add("visible");
+    document.getElementById("adminPass").value = "";
+  }
 
-    // 🔐 SHA-256 of "08022664487@Mac"
-    const correctHash = "4b3596cfd08f1f478cb40ab4bcdfd6129aa7462730c99f87dbd6d8ad7a9675d6";
-
-    async function checkPassword() {
-      const input = document.getElementById('adminPassword').value;
-      const inputHash = await sha256(input);
-
-      if (inputHash === correctHash) {
-        document.getElementById('passwordPrompt').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'block';
-        loadAdminData();
-      } else {
-        document.getElementById('error').classList.remove('hidden');
-      }
-    }
-
-    function logout() {
-      document.getElementById('adminPanel').style.display = 'none';
-      document.getElementById('passwordPrompt').style.display = 'flex';
-      document.getElementById('adminPassword').value = '';
-      document.getElementById('error').classList.add('hidden');
-    }
-
-    function loadAdminData() {
-      const entriesDiv = document.getElementById('entries');
-      entriesDiv.innerHTML = '';
-      db.ref('confirmations').on('value', snapshot => {
-        entriesDiv.innerHTML = '';
-        const data = snapshot.val();
-        if (!data) {
-          entriesDiv.innerHTML = '<p>No confirmations yet.</p>';
-          return;
-        }
-
-        Object.entries(data).reverse().forEach(([key, val]) => {
-          const div = document.createElement('div');
-          div.className = 'entry';
-          div.innerHTML = `
-            <h3 class="font-semibold text-lg">${val.name}</h3>
-            <p><strong>Email:</strong> ${val.email}</p>
-            <p><strong>Account:</strong> ${val.account}</p>
-            <p><strong>Message:</strong> ${val.message || '—'}</p>
-            <p class="text-xs text-gray-600">📅 ${new Date(val.timestamp).toLocaleString()}</p>
-          `;
-          entriesDiv.appendChild(div);
-        });
+  function loadData() {
+    const table = document.querySelector("#dataTable tbody");
+    db.on("value", snapshot => {
+      table.innerHTML = "";
+      snapshot.forEach(child => {
+        const data = child.val();
+        const row = `<tr>
+          <td>${data.accountName || ""}</td>
+          <td>${data.bankName || ""}</td>
+          <td>${data.accountNumber || ""}</td>
+          <td>${data.phone || ""}</td>
+          <td>${data.email || ""}</td>
+          <td>${data.message || ""}</td>
+          <td>${new Date(data.timestamp || Date.now()).toLocaleString()}</td>
+        </tr>`;
+        table.innerHTML += row;
       });
-    }
-  </script>
+    });
+  }
+
+  function toggleDark() {
+    document.body.classList.toggle("dark-mode");
+  }
+</script>
 </body>
 </html>
