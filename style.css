@@ -1,218 +1,156 @@
-/* Reset and global styles */
+/* Reset and Base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #0f0f0f, #1c1c2d);
-  color: #ffffff;
-  line-height: 1.6;
+  background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  height: 100vh;
   overflow-x: hidden;
 }
 
-/* Navigation Button Menu */
-.button-nav {
+.layout {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  background: linear-gradient(to right, #001f3f, #0074D9);
-  padding: 1rem 2rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  position: sticky;
+  flex-direction: row;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #111;
+  width: 240px;
+  height: 100vh;
+  padding: 20px 15px;
+  transition: all 0.4s ease-in-out;
+  border-right: 2px solid #0ff;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  left: 0;
+  z-index: 10;
 }
 
-.nav-btn {
-  background-color: #ffffff;
-  color: #0074D9;
-  text-decoration: none;
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+/* Logo */
+.logo {
+  font-size: 22px;
   font-weight: bold;
-  padding: 0.7rem 1.4rem;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-  font-size: 1rem;
-}
-
-.nav-btn:hover {
-  background-color: #0074D9;
-  color: #fff;
-  transform: scale(1.08);
-}
-
-/* Heading */
-h1, h2 {
+  color: #0ff;
+  margin-bottom: 30px;
   text-align: center;
-  margin-top: 2rem;
+  width: 100%;
+}
+
+/* Nav Menu */
+.nav-vertical {
+  list-style: none;
+}
+
+.nav-vertical li {
+  margin-bottom: 15px;
+}
+
+.nav-vertical a {
+  display: block;
+  background: #222;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #0ff;
   font-weight: bold;
-  color: #00bfff;
-  text-shadow: 0 0 10px rgba(0,191,255,0.4);
+  text-decoration: none;
+  border: 2px solid #0ff;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
 }
 
-/* Sections */
-section {
-  max-width: 960px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: rgba(255,255,255,0.05);
-  border-radius: 16px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-  backdrop-filter: blur(4px);
-}
-
-/* Button Styling */
-.button {
-  background-color: #00bcd4;
-  color: #fff;
-  border: none;
-  padding: 0.8rem 1.6rem;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.button:hover {
-  background-color: #0097a7;
+.nav-vertical a:hover {
+  background: #0ff;
+  color: #111;
   transform: scale(1.05);
 }
 
-/* Video section */
-.video-container {
-  display: flex;
-  justify-content: center;
-  margin: 3rem 0;
+/* Toggle Button */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #0ff;
+  color: #111;
+  border: none;
+  padding: 10px 15px;
+  font-size: 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 20;
+  display: none;
+  transition: background 0.3s;
 }
 
-video, iframe {
+.toggle-btn:hover {
+  background: #00f0ff;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 240px;
+  padding: 60px 30px;
+  transition: margin-left 0.4s;
   width: 100%;
-  max-width: 720px;
-  height: 400px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.hero-section h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.whatsapp-button {
+  display: inline-block;
+  background: #25D366;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  background: #128C7E;
 }
 
 /* Footer */
 footer {
+  margin-top: 100px;
+  font-size: 14px;
   text-align: center;
-  padding: 1.5rem;
-  margin-top: 3rem;
-  color: #aaa;
-  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
-/* Vertical Nav Menu Styling */
-.fb-nav.vertical {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: #ffffff;
-  padding: 20px;
-  border-bottom: 2px solid #ddd;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    height: 100%;
+  }
 
-.fb-menu-vertical {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-  width: 100%;
-}
+  .sidebar.collapsed {
+    transform: translateX(0);
+  }
 
-.fb-menu-vertical a {
-  padding: 12px 20px;
-  margin: 4px 0;
-  background-color: #f0f2f5;
-  color: #1877f2;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
+  .toggle-btn {
+    display: block;
+  }
 
-.fb-menu-vertical a:hover {
-  background-color: #dbe8ff;
-  transform: translateX(5px);
-}
-
-.whatsapp-btn {
-  display: inline-block;
-  background-color: #25D366;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 30px;
-  font-weight: bold;
-  font-size: 16px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  margin-top: 20px;
-}
-.whatsapp-btn:hover {
-  background-color: #1ebe5d;
-  transform: scale(1.05);
-}
-
-.fb-menu-vertical a {
-  display: block;
-  padding: 12px 20px;
-  margin: 8px 0;
-  background: #f1f1f1;
-  color: #333;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-.fb-menu-vertical a:hover {
-  background: #dceeff;
-  color: #004aad;
-  transform: translateX(5px);
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0d1117;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.navbar .logo {
-  color: #00bfff;
-  font-size: 24px;
-  font-weight: bold;
-  text-shadow: 0 0 5px #00bfff;
-}
-
-.nav-menu {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-}
-
-.nav-btn {
-  background: linear-gradient(135deg, #1e90ff, #00bfff);
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 191, 255, 0.4);
-}
-
-.nav-btn:hover {
-  background: linear-gradient(135deg, #00bfff, #1e90ff);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 191, 255, 0.6);
-}
+  .main-content {
+    margin-left:
