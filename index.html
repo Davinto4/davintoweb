@@ -1,155 +1,74 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DavintoWeb | Home</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f4f4;
-      color: #333;
-    }
-    /* Facebook-style sliding menu */
-    .menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #0e0e0e;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      z-index: 999;
-    }
-    .menu .logo {
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .menu ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    .menu ul li a {
-      color: white;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .menu ul li a:hover {
-      color: #00ffd0;
-    }
-    .hamburger {
-      display: none;
-      font-size: 24px;
-      color: white;
-      cursor: pointer;
-    }
-    .mobile-links {
-      display: none;
-      flex-direction: column;
-      background-color: #1b1b1b;
-      width: 100%;
-      text-align: center;
-      padding: 10px 0;
-    }
-    .mobile-links a {
-      padding: 10px;
-      text-decoration: none;
-      color: white;
-    }
-    .mobile-links a:hover {
-      background: #222;
-      color: #00ffd0;
-    }
-    @media (max-width: 768px) {
-      .menu ul {
-        display: none;
-      }
-      .hamburger {
-        display: block;
-      }
-    }
-    .whatsapp-btn {
-      background: #25d366;
-      color: white;
-      padding: 10px 20px;
-      display: inline-block;
-      text-decoration: none;
-      border-radius: 4px;
-      margin-top: 20px;
-    }
-    .review-section {
-      background: white;
-      margin-top: 2rem;
-      padding: 2rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .review-card {
-      background: #fafafa;
-      padding: 1rem;
-      margin: 1rem 0;
-      border-left: 5px solid #00ffd0;
-      animation: fadeInUp 1s ease-in-out;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .menu-prompt {
-      background: #e8f5e9;
-      padding: 1rem;
-      text-align: center;
-      font-weight: bold;
-      animation: fadeIn 2s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
 </head>
 <body>
+  <!-- NAVIGATION -->
   <nav class="menu">
     <div class="logo">DavintoWeb</div>
-    <ul>
+    <ul class="desktop-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="pricing.html">Pricing</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="contact.html">Contacts</a></li>
-      <li><a href="chat.html">Chat</a></li>
+      <li><a href="chat.html">Chats</a></li>
     </ul>
-    <div class="hamburger" onclick="toggleMenu()">
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
       <i class="fas fa-bars"></i>
     </div>
   </nav>
-  <div class="mobile-links" id="mobileLinks">
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-links" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="pricing.html">Pricing</a>
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contacts</a>
-    <a href="chat.html">Chat</a>
-  </div>  <main style="margin-top: 100px; padding: 2rem;">
-    <div class="menu-prompt" data-aos="fade-in">👉 Tap the menu ☰ above to explore our services</div><h1 data-aos="fade-up">Welcome to DavintoWeb</h1>
-<p data-aos="fade-up" data-aos-delay="200">
-  We design and develop modern, functional, and professional websites tailored to your vision. Whether it's a business site, personal portfolio, or e-commerce platform — DavintoWeb has you covered.
-</p>
-<a href="https://wa.me/2348169045105" target="_blank" class="whatsapp-btn" data-aos="fade-up" data-aos-delay="400">Chat on WhatsApp</a>
+    <a href="chat.html">Chats</a>
+  </div>
 
-<section class="review-section" data-aos="fade-up" data-aos-delay="600">
-  <h2>What Clients Say</h2>
-  <div class="review-card">“DavintoWeb created a stunning website for my business – fast, responsive, and elegant!”</div>
-  <div class="review-card">“I was amazed at how quickly my project was delivered. Highly recommend!”</div>
-</section>
+  <!-- MAIN SECTION -->
+  <main style="margin-top: 80px; padding: 2rem;">
+    <h1 data-aos="fade-up">Welcome to DavintoWeb</h1>
+    <p data-aos="fade-up" data-aos-delay="200">
+      We design and develop modern, responsive, and stunning websites that work across devices. Whether it’s for business, portfolio, or eCommerce — DavintoWeb delivers.
+    </p>
+    <a href="https://wa.me/2348169045105" target="_blank" class="whatsapp-btn" data-aos="fade-up" data-aos-delay="300">
+      Chat on WhatsApp
+    </a>
 
-  </main>  <!-- Smartsupp Live Chat -->  <script type="text/javascript">
+    <!-- REVIEW SECTION -->
+    <section class="reviews" data-aos="fade-up" data-aos-delay="400">
+      <h2>What Our Clients Say</h2>
+      <div class="review-boxes">
+        <div class="review">
+          “DavintoWeb built our brand's website in under a week. Excellent!”
+        </div>
+        <div class="review">
+          “Sleek designs and fast delivery. Highly recommended!”
+        </div>
+        <div class="review">
+          “Their support and update speed is unmatched. Love the service.”
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU PROMPT -->
+    <p class="menu-prompt" data-aos="fade-up" data-aos-delay="600">
+      👉 Tap the menu above to explore DavintoWeb's services.
+    </p>
+  </main>
+
+  <!-- SMARTSUPP LIVE CHAT -->
+  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
     window.smartsupp||(function(d) {
@@ -159,12 +78,16 @@
       c.src='https://www.smartsuppchat.com/loader.js?';
       s.parentNode.insertBefore(c,s);
     })(document);
-  </script>  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
+  </script>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
     AOS.init();
-    function toggleMenu() {
-      const links = document.getElementById('mobileLinks');
-      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-      links.style.flexDirection = 'column';
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
-  </script></body>
+  </script>
+</body>
 </html>
