@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Confirmation - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="collapsible-navbar">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html"><i class="fas fa-book"></i> About</a>
+    <a href="pricing.html"><i class="fas fa-money-bill-wave"></i> Pricing</a>
+    <a href="portfolio.html"><i class="fas fa-image"></i> Portfolio</a>
+    <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
+  </nav>
+
+  <main class="main-content" data-aos="fade-up">
+    <h1>💵 Payment Confirmation</h1>
+    <p>Please complete payment to:</p>
+    <ul>
+      <li><strong>Bank:</strong> Access Bank</li>
+      <li><strong>Account Name:</strong> Chima Chimdindu Macdonald</li>
+      <li><strong>Account Number:</strong> 1719816647</li>
+    </ul>
+    <p>After payment, fill the form below to confirm:</p>
+
+    <form id="paymentForm" data-aos="fade-up">
+      <label>Full Name:</label>
+      <input type="text" name="name" required />
+      
+      <label>Account Used to Pay:</label>
+      <input type="text" name="payer" required />
+
+      <label>Plan Selected:</label>
+      <input type="text" name="plan" id="planInput" readonly />
+
+      <button type="submit">✅ Confirm Payment</button>
+    </form>
+
+    <p id="confirmationMsg" style="display:none; color:green; font-weight:bold; margin-top:15px;">
+      ✅ Confirmation submitted. Awaiting approval!
+    </p>
+  </main>
+
+  <!-- SmartUpp Chat -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
+  </script>
+
+  <script>
+    AOS.init();
+
+    // Autofill plan from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const plan = urlParams.get('plan') || 'Custom Plan';
+    document.getElementById('planInput').value = plan;
+
+    document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        timestamp: new Date().toLocaleString(),
+        name: form.name.value,
+        payer: form.payer.value,
+        plan: form.plan.value
+      };
+
+      // Google Sheets API (via Apps Script endpoint)
+      fetch("https://script.google.com/macros/s/AKfycbxxF1iM9K-EXAMPLE-ENDPOINT/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      });
+
+      // Optional WhatsApp Alert
+      window.open(`https://wa.me/2348169045105?text=Payment%20confirmed%20for%20${data.plan}%0AName:%20${data.name}%0AFrom:%20${data.payer}`);
+
+      // Local admin.html sync
+      localStorage.setItem("lastPayment", JSON.stringify(data));
+      document.getElementById("confirmationMsg").style.display = "block";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
