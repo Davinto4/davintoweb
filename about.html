@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +6,31 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
+  <style>
+    .about-section {
+      background: linear-gradient(to right, #4a00e0, #8e2de2);
+      color: #fff;
+      padding: 3rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+    }
+    .timeline {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #f9f9f9;
+      border-left: 5px solid #8e2de2;
+      color: #333;
+    }
+    .timeline p {
+      margin: 1rem 0;
+    }
+    blockquote {
+      font-style: italic;
+      border-left: 4px solid #fff;
+      margin: 1.5rem 0;
+      padding-left: 1rem;
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation Menu -->
@@ -31,35 +55,43 @@
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contacts</a>
     <a href="chat.html">Chats</a>
-  </div>
+  </div>  <main style="margin-top: 80px; padding: 2rem;">
+    <section class="about-section" data-aos="fade-up">
+      <h1>Meet Davinto – Chimdindu Macdonald</h1>
+      <p>
+        I’m Chimdindu Macdonald, known in the tech world as <strong>Davinto</strong> — a digital architect, creative technologist, and full-stack innovator. My mission is to empower ideas and turn concepts into functional, breathtaking websites.
+      </p>
+      <blockquote>“A website isn’t just a tool — it’s a gateway to possibility.” – Davinto</blockquote>
+      <p>
+        My work spans everything from high-performance dashboards to AI-integrated chat interfaces. With every build, I challenge the limits of frontend design and backend engineering.
+      </p>
+    </section><section class="timeline" data-aos="fade-up" data-aos-delay="200">
+  <h2>📆 Milestones</h2>
+  <p><strong>2022:</strong> Built first freelance website for a local brand.</p>
+  <p><strong>2023:</strong> Launched DavintoWeb — a web development service for digital visionaries.</p>
+  <p><strong>2024:</strong> Deployed an AI-powered WhatsApp bot platform using Node.js & Baileys.</p>
+  <p><strong>2025:</strong> Created DavintoCore and integrated live chat with OpenAI GPT-4o.</p>
+</section>
 
-  <main style="margin-top: 80px; padding: 2rem;">
-    <h1 data-aos="fade-up">Meet Davinto – Chimdindu Macdonald</h1>
-    <p data-aos="fade-up" data-aos-delay="200">
-      I’m Chimdindu Macdonald, popularly known online as <strong>Davinto</strong> — a tech visionary, creative web developer, and the founder of <strong>DavintoWeb</strong>. What started as a hobby turned into a passion to build digital empires for individuals and businesses alike.
-    </p>
-    <p data-aos="fade-up" data-aos-delay="300">
-      At DavintoWeb, I’ve architected a platform where beautiful design meets powerful functionality. From sleek portfolios to dynamic dashboards, my creations combine clean code with modern user experience principles.
-    </p>
-    <p data-aos="fade-up" data-aos-delay="400">
-      I specialize in full-stack development, AI integration, real-time systems, and translating complex ideas into intuitive web interfaces. Every line of code I write brings someone’s vision closer to reality.
-    </p>
-    <p data-aos="fade-up" data-aos-delay="500">
-      Whether you're a business looking to launch a product, or a creative looking to showcase your work, DavintoWeb is where your ideas come to life. Built with precision, powered by imagination.
-    </p>
-    <p data-aos="fade-up" data-aos-delay="600" style="margin-top: 2rem; font-style: italic;">
-      💡 Credit to <strong>Heirzmax</strong> for the brilliant navigation menu suggestion — your contribution helped improve the site’s UX!
-    </p>
-  </main>
+<section class="about-section" data-aos="fade-up" data-aos-delay="300">
+  <h2>🏆 Achievements</h2>
+  <ul>
+    <li>💡 Built over 50+ responsive websites for startups and influencers.</li>
+    <li>🚀 Created an AI chatbot system for real-time customer engagement.</li>
+    <li>🛠️ Developed full admin dashboards with Firebase Realtime DB.</li>
+    <li>🎓 Self-taught expert in HTML, CSS, JavaScript, Firebase, and React.</li>
+  </ul>
+</section>
 
-  <!-- AOS Animation Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
+<p data-aos="fade-up" data-aos-delay="400" style="margin-top: 2rem; font-style: italic;">
+  💡 Credit to <strong>Heirzmax</strong> for the brilliant navigation menu suggestion — your contribution helped improve the site’s UX!
+</p>
+
+  </main>  <!-- AOS Animation Script -->  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
     AOS.init();
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
-  </script>
-</body>
+  </script></body>
 </html>
