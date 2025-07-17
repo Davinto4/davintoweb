@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DavintoWeb - Build Any Website</title>
   <style>
     * {
@@ -10,158 +9,130 @@
       margin: 0;
       padding: 0;
     }
-
-    body {
+    html, body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
+      color: #f1f1f1;
+      min-height: 100vh;
       display: flex;
-      min-height: 100vh;
     }
-
     nav {
-      background: #111;
-      width: 180px;
-      min-height: 100vh;
-      padding: 1rem;
+      width: 220px;
+      background-color: #111;
+      padding: 2rem 1rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+      align-items: center;
       position: fixed;
-      left: 0;
-      top: 0;
+      top: 0; bottom: 0; left: 0;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
     }
-
     nav button {
-      padding: 0.8rem;
-      font-size: 1rem;
+      background: none;
+      border: 1px solid #555;
       color: #fff;
-      background: transparent;
-      border: 1px solid #444;
-      border-radius: 6px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      font-size: 1rem;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
     }
-
     nav button:hover {
-      background: #444;
-      transform: translateX(5px);
+      background-color: #444;
     }
-
     main {
-      margin-left: 200px;
+      margin-left: 220px;
       padding: 2rem;
-      flex: 1;
+      width: calc(100% - 220px);
     }
-
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       color: #ffcc00;
       margin-bottom: 1rem;
     }
-
     h2 {
+      font-size: 2rem;
       color: #ffcc00;
-      margin: 1.5rem 0 1rem;
-      font-size: 1.6rem;
+      margin-top: 2rem;
     }
-
-    ul {
-      list-style: square inside;
-      padding-left: 1rem;
-    }
-
-    p {
-      font-size: 1.1rem;
+    p, li {
+      font-size: 1.125rem;
       line-height: 1.6;
     }
-
-    .section {
-      margin-bottom: 2rem;
-    }
-
-    .cta-btn {
+    button.cta {
       margin-top: 1rem;
       padding: 1rem 2rem;
-      font-size: 1rem;
       background: #ffcc00;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
       color: #000;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 5px;
     }
-
+    .section {
+      margin-bottom: 2.5rem;
+    }
     @media (max-width: 768px) {
       nav {
-        position: relative;
         flex-direction: row;
         width: 100%;
         height: auto;
-        overflow-x: scroll;
+        justify-content: center;
+        padding: 1rem 0;
+        position: static;
       }
-
       nav button {
-        flex: 1;
+        margin: 0.3rem;
         font-size: 0.9rem;
-        padding: 0.6rem;
+        padding: 0.5rem;
+        width: auto;
       }
-
       main {
         margin-left: 0;
+        width: 100%;
         padding: 1rem;
       }
     }
   </style>
 </head>
-<body>
-
-<nav>
-  <button>🌞 / 🌙</button>
+<body><nav>
+  <button>🌞/🌙</button>
   <button>Home</button>
   <button>About</button>
   <button>Pricing</button>
   <button>Portfolio</button>
   <button>Contact</button>
   <button>Chat</button>
-</nav>
-
-<main>
+</nav><main>
   <h1>🚀 Build Any Website You Imagine</h1>
-  <p>Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
-  <button class="cta-btn">📥 Download Portfolio</button>
-
-  <div class="section">
+  <p>We build professional, responsive, and feature-rich websites for businesses, individuals, and creatives — including blogs, AI tools, ecommerce, and more.</p>
+  <button class="cta">Download Portfolio</button>  <div class="section">
     <h2>🌟 Why Choose DavintoWeb?</h2>
     <ul>
-      <li>Fast, mobile-optimized websites</li>
+      <li>Fast and Mobile-Optimized</li>
       <li>Free HTTPS Security</li>
-      <li>Firebase-powered dashboards</li>
-      <li>AI Chatbot & Translator Integration</li>
-      <li>Ongoing support</li>
+      <li>Firebase Integration</li>
+      <li>AI Features (Chatbot, Translator)</li>
+      <li>Reliable Support & Maintenance</li>
     </ul>
-  </div>
-
-  <div class="section">
+  </div>  <div class="section">
     <h2>🧩 What We Build</h2>
-    <p>Personal Websites, Blogs & Portfolios, Business Sites, E-commerce, Educational Platforms, Community Portals, AI Bots & Tools, Family & Event Sites</p>
-  </div>
-
-  <div class="section">
+    <p>From personal blogs to full-fledged dashboards: Portfolios, Ecommerce, Business Sites, Web Apps, Educational Portals, and Custom AI Tools.</p>
+  </div>  <div class="section">
     <h2>💰 Pricing Packages</h2>
     <ul>
-      <li><strong>🌐 Starter Site</strong> – ₦5,000 (1–2 Pages)</li>
-      <li><strong>📝 Blog / Portfolio</strong> – ₦15,000</li>
-      <li><strong>🏢 Business Site</strong> – ₦30,000</li>
-      <li><strong>🛒 E-commerce</strong> – ₦60,000</li>
-      <li><strong>⚙️ Web App + AI</strong> – ₦100,000+</li>
-      <li><strong>🧠 Custom Projects</strong> – Let’s Discuss</li>
+      <li><strong>Starter Site:</strong> ₦5,000+ (1-2 Pages, Contact Form)</li>
+      <li><strong>Blog/Portfolio:</strong> ₦15,000+ (CMS, SEO, Social Links)</li>
+      <li><strong>Business Site:</strong> ₦30,000+ (Multi-page, WhatsApp Booking)</li>
+      <li><strong>E-commerce:</strong> ₦60,000+ (Cart, Payments, Admin Dashboard)</li>
+      <li><strong>AI / Web App:</strong> ₦100,000+ (Realtime DB, Auth, AI Bots)</li>
+      <li><strong>Custom:</strong> Let's Talk — Translators, Platforms, Games</li>
     </ul>
   </div>
-</main>
-
-<!-- Firebase + Random Music -->
-<script type="module">
+</main><script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -171,7 +142,7 @@
     authDomain: "davintoweb-payments.firebaseapp.com",
     databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
     projectId: "davintoweb-payments",
-    storageBucket: "davintoweb-payments.firebasestorage.app",
+    storageBucket: "davintoweb-payments.appspot.com",
     messagingSenderId: "667742200333",
     appId: "1:667742200333:web:cf75f6cef6798eed432b44"
   };
@@ -179,19 +150,5 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const auth = getAuth(app);
-  console.log("✅ Firebase Connected");
-
-  const songs = [
-    "https://docs.google.com/uc?export=open&id=1wuwm6PZrZFtKnF8kS9LxuKfAHFvYQbn9",
-    "https://docs.google.com/uc?export=open&id=1tsR-RFjG7hUTweKsxayxv_mDkQx-sSEN",
-    "https://docs.google.com/uc?export=open&id=1TVaPoD4Kh1ODZG_5_gAuvuslkkEC4i5q",
-    "https://docs.google.com/uc?export=open&id=1uWALf-8TZuLKLv4DYkVkFozgOHyR2Ke4"
-  ];
-  const audio = new Audio(songs[Math.floor(Math.random() * songs.length)]);
-  audio.volume = 0.5;
-  audio.loop = true;
-  audio.play();
-</script>
-
-</body>
+</script></body>
 </html>
