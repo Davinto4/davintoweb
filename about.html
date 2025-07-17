@@ -1,11 +1,37 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | About</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background: linear-gradient(120deg, #000000, #0d47a1);
+      color: white;
+    }
+
+    .about-story {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      line-height: 1.8;
+    }
+
+    .quote {
+      font-style: italic;
+      margin: 2rem 0;
+      color: #90caf9;
+    }
+
+    .credit {
+      margin-top: 2rem;
+      font-weight: bold;
+      color: #bbdefb;
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation Menu -->
@@ -30,34 +56,48 @@
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contacts</a>
     <a href="chat.html">Chats</a>
-  </div>  <main style="margin-top: 80px; padding: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
-    <h1 data-aos="fade-up">About Chimdindu Macdonald (a.k.a Davinto)</h1>
+  </div>
+
+  <!-- About Story Section -->
+  <main class="about-story" data-aos="fade-up">
+    <h1>About Chimdindu Macdonald (aka Davinto)</h1>
+    <p>
+      It all started in <strong>September 2024</strong>, when a spark of curiosity lit a path toward the digital world.
+      I had no formal background — just a desire to create, a laptop, and a search bar full of questions.
+    </p>
+
+    <p data-aos="fade-up" data-aos-delay="100">
+      Every day, I taught myself web development from scratch. I failed many times trying to build my first website.
+      Broken layouts, confusing bugs, endless frustration. But I didn’t stop.
+    </p>
+
     <p data-aos="fade-up" data-aos-delay="200">
-      It all began in September 2024. Driven by an insatiable curiosity about how websites work, Chimdindu Macdonald — known online as <strong>Davinto</strong> — started his journey into the world of web development. With no teacher or formal guide, he chose the path of self-learning.
+      Slowly, piece by piece, I understood the core of HTML, CSS, and JavaScript. I built, destroyed, and rebuilt —
+      learning something new each time. I was grooming myself not just to code, but to <strong>create experiences</strong>.
     </p>
+
     <p data-aos="fade-up" data-aos-delay="300">
-      Late nights, broken code, and endless debugging sessions marked the start of this incredible journey. At first, he failed to create even the simplest website. But he never gave up. Failure only made him more determined. Through consistent practice and relentless pursuit of knowledge, Chimdindu transformed from a beginner into a confident full-stack web developer.
+      Today, I'm proud to have developed <strong>DavintoWeb</strong> — a digital hub where I offer powerful, clean, and professional websites.
+      From personal portfolios to business platforms, I build to solve problems and tell stories.
     </p>
-    <p data-aos="fade-up" data-aos-delay="400">
-      Now, he proudly presents <strong>DavintoWeb</strong> — a hub where creativity meets functionality. From simple landing pages to full web platforms, DavintoWeb is a testament to the power of perseverance, vision, and self-taught skills.
+
+    <div class="quote" data-aos="fade-in" data-aos-delay="400">
+      "You don’t need a classroom to learn greatness — just passion, persistence, and purpose."
+    </div>
+
+    <p class="credit" data-aos="zoom-in" data-aos-delay="500">
+      🔹 Credit to Heirzmax for suggesting the navigation menu that shaped this site’s modern look.
     </p>
-    <p data-aos="fade-up" data-aos-delay="500">
-      Every project he delivers is polished with precision, animated with passion, and built for performance.
-    </p>
-    <blockquote data-aos="fade-up" data-aos-delay="600">
-      "The web isn't just lines of code — it's a canvas of expression." – Davinto
-    </blockquote>
-    <blockquote data-aos="fade-up" data-aos-delay="700">
-      "From scratch to screen, every success story has a messy beginning." – Davinto
-    </blockquote>
-    <p data-aos="fade-up" data-aos-delay="800">
-      <em>Special credit to <strong>Heirzmax</strong> for his valuable suggestion that improved the website's navigation menu design.</em>
-    </p>
-  </main>  <!-- AOS Animation Script -->  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
+  </main>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
     AOS.init();
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
     }
-  </script></body>
+  </script>
+</body>
 </html>
