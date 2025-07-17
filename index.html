@@ -7,45 +7,37 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<nav class="vertical-navbar">
-  <a href="index.html">🏠 Home</a>
-  <a href="#about">📘 About</a>
-  <a href="#pricing">💰 Pricing</a>
-  <a href="#portfolio">🖼️ Portfolio</a>
-  <a href="#contact">📞 Contact</a>
-  <a href="chat.html">💬 Chat</a>
-</nav>
-  </header>
 
+  <!-- Collapsible Navbar Toggle Button -->
+  <button id="menu-toggle" class="menu-btn">☰ Menu</button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="collapsible-navbar" id="sidebar">
+    <a href="#">🏠 Home</a>
+    <a href="#">📘 About</a>
+    <a href="#">💰 Pricing</a>
+    <a href="#">🖼️ Portfolio</a>
+    <a href="#">📞 Contact</a>
+    <a href="#">💬 Chat</a>
+  </nav>
+
+  <!-- Main Content -->
   <main class="main-content">
-    <section class="hero">
-      <h1>Welcome to <span class="highlight">DavintoWeb</span></h1>
-      <p>Crafting beautiful and modern websites, self-taught by <strong>Chimdindu MacDonald</strong>.</p>
-      <a href="https://wa.me/2348169045105" class="whatsapp-btn">💬 Chat on WhatsApp</a>
-    </section>
+    <h1>Welcome to <span class="highlight">DavintoWeb</span></h1>
+    <p>Crafting beautiful and modern websites, self-taught by Chimdindu MacDonald.</p>
 
-    <section class="features">
-      <h2>Why Choose DavintoWeb?</h2>
-      <ul>
-        <li>🚀 Fast and responsive design</li>
-        <li>🎨 Stunning animations and visuals</li>
-        <li>🧠 Built with skill, creativity, and passion</li>
-        <li>💻 Latest web technologies</li>
-      </ul>
-    </section>
-
-    <section class="portfolio">
-      <h2>Featured Projects</h2>
-      <div class="project-grid">
-        <div class="project-card">🌐 Project 1</div>
-        <div class="project-card">📱 Project 2</div>
-        <div class="project-card">🖥️ Project 3</div>
-      </div>
-    </section>
+    <a href="https://wa.me/2348169045105" class="whatsapp-button">💬 Chat on WhatsApp</a>
   </main>
 
-  <footer>
-    <p>© 2025 DavintoWeb. All Rights Reserved.</p>
-  </footer>
+  <!-- Script to Toggle Nav -->
+  <script>
+    const toggleBtn = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  </script>
+
 </body>
 </html>
