@@ -2,38 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About | DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
-  <style>
-    body {
-      background: linear-gradient(120deg, #000000, #0d47a1);
-      color: white;
-    }
-
-    .about-story {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem;
-      line-height: 1.8;
-    }
-
-    .quote {
-      font-style: italic;
-      margin: 2rem 0;
-      color: #90caf9;
-    }
-
-    .credit {
-      margin-top: 2rem;
-      font-weight: bold;
-      color: #bbdefb;
-    }
-  </style>
 </head>
 <body>
+
   <!-- Navigation Menu -->
   <nav class="menu">
     <div class="logo">DavintoWeb</div>
@@ -49,6 +25,8 @@
       <i class="fas fa-bars"></i>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
   <div class="mobile-links" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="about.html" class="active">About</a>
@@ -58,45 +36,49 @@
     <a href="chat.html">Chats</a>
   </div>
 
-  <!-- About Story Section -->
-  <main class="about-story" data-aos="fade-up">
-    <h1>About Chimdindu Macdonald (aka Davinto)</h1>
+  <!-- About Section -->
+  <main data-aos="fade-up">
+    <h1>About DavintoWeb</h1>
     <p>
-      It all started in <strong>September 2024</strong>, when a spark of curiosity lit a path toward the digital world.
-      I had no formal background — just a desire to create, a laptop, and a search bar full of questions.
+      My name is <strong>Chimdindu Macdonald</strong>, widely known online by my pseudonym <strong>Davinto</strong>.
+      My journey into the tech world began in September last year, fueled by curiosity and a burning desire to understand how websites are built and work.
     </p>
 
-    <p data-aos="fade-up" data-aos-delay="100">
-      Every day, I taught myself web development from scratch. I failed many times trying to build my first website.
-      Broken layouts, confusing bugs, endless frustration. But I didn’t stop.
+    <p>
+      I started with nothing but determination and self-teaching. I scoured YouTube videos, read tech blogs, and practiced building websites from scratch.
+      In the beginning, I failed countless times — my code broke, my layouts were terrible, and my ideas often didn’t translate into real functioning sites.
     </p>
 
-    <p data-aos="fade-up" data-aos-delay="200">
-      Slowly, piece by piece, I understood the core of HTML, CSS, and JavaScript. I built, destroyed, and rebuilt —
-      learning something new each time. I was grooming myself not just to code, but to <strong>create experiences</strong>.
+    <p>
+      But I didn’t quit. I stayed up late, experimenting and debugging for hours. Over time, things started to click.
+      I became well-grounded and confident in web development — HTML, CSS, JavaScript, hosting, and more.
     </p>
 
-    <p data-aos="fade-up" data-aos-delay="300">
-      Today, I'm proud to have developed <strong>DavintoWeb</strong> — a digital hub where I offer powerful, clean, and professional websites.
-      From personal portfolios to business platforms, I build to solve problems and tell stories.
+    <p>
+      Eventually, all that hard work and sleepless nights led to the creation of <strong>DavintoWeb</strong> — a full-service platform to build clean, modern websites for clients, friends, and anyone with a vision.
     </p>
 
-    <div class="quote" data-aos="fade-in" data-aos-delay="400">
-      "You don’t need a classroom to learn greatness — just passion, persistence, and purpose."
-    </div>
+    <p class="quote">
+      “I didn’t wait for the perfect time. I built my skills during the imperfect ones.”
+    </p>
 
-    <p class="credit" data-aos="zoom-in" data-aos-delay="500">
-      🔹 Credit to Heirzmax for suggesting the navigation menu that shaped this site’s modern look.
+    <p>
+      From total beginner to creator of a real web service — the journey wasn’t smooth, but it was worth it.
+      And it’s just the beginning.
+    </p>
+
+    <p class="credit">
+      🙏 Credit to <strong>Heirzmax</strong> for the Nav menu suggestion.
     </p>
   </main>
 
-  <!-- AOS Script -->
+  <!-- AOS Animation Script -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
     function toggleMobileMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+      const menu = document.getElementById('mobileMenu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
   </script>
 </body>
