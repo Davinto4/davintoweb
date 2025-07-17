@@ -1,141 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb | Homepage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DavintoWeb - Website Design & Development</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-<body class="bg-white text-gray-900 font-sans">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">  <!-- Dark/Light Mode Toggle -->  <div class="fixed top-4 right-4 z-50">
+    <button onclick="toggleTheme()" class="bg-gray-200 dark:bg-gray-700 text-lg px-4 py-2 rounded-full shadow hover:scale-105 transition">🌞 / 🌙</button>
+  </div>  <!-- Navigation Bar -->  <nav class="fixed top-0 left-0 h-full w-16 bg-white dark:bg-gray-800 border-r border-gray-300 dark:border-gray-700 flex flex-col items-center py-4 space-y-6 z-40">
+    <a href="index.html" class="text-blue-500 hover:text-blue-600" title="Home"><i class="fas fa-home text-xl"></i></a>
+    <a href="about.html" class="hover:text-blue-500" title="About"><i class="fas fa-info-circle text-xl"></i></a>
+    <a href="pricing.html" class="hover:text-blue-500" title="Pricing"><i class="fas fa-tags text-xl"></i></a>
+    <a href="portfolio.html" class="hover:text-blue-500" title="Portfolio"><i class="fas fa-briefcase text-xl"></i></a>
+    <a href="contact.html" class="hover:text-blue-500" title="Contact"><i class="fas fa-envelope text-xl"></i></a>
+    <a href="https://wa.me/2348169045105" class="text-green-500 hover:text-green-600" title="Chat"><i class="fab fa-whatsapp text-xl"></i></a>
+  </nav>  <!-- Content Wrapper -->  <main class="pl-20 pt-16 space-y-16 px-4 max-w-7xl mx-auto"><!-- Hero Section -->
+<header class="text-center space-y-4 mt-4">
+  <h1 class="text-4xl md:text-5xl font-bold">🚀 Build Any Website You Imagine</h1>
+  <p class="text-lg md:text-xl">Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
+  <a href="portfolio.pdf" download class="inline-block mt-4 bg-blue-600 text-white px-6 py-2 rounded-full shadow hover:bg-blue-700 transition"><i class="fas fa-download mr-2"></i>Download Portfolio</a>
+</header>
 
-  <div class="flex h-screen overflow-hidden">
-    <!-- Sidebar Nav -->
-    <aside class="w-64 bg-gray-100 border-r border-gray-300 p-4 fixed h-full">
-      <div class="mb-8 text-2xl font-bold text-blue-600">DavintoWeb</div>
-      <nav class="flex flex-col space-y-4">
-        <a href="index.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">🏠 Home</a>
-        <a href="about.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">ℹ️ About</a>
-        <a href="pricing.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">💰 Pricing</a>
-        <a href="portfolio.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">🖼️ Portfolio</a>
-        <a href="contact.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">📞 Contact</a>
-        <a href="chat.html" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">💬 Chat</a>
-      </nav>
-
-      <!-- WhatsApp Button -->
-      <div class="mt-10">
-        <a href="https://wa.me/2348169045105" target="_blank"
-           class="block px-4 py-3 text-center bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
-          📱 Chat on WhatsApp
-        </a>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="ml-64 p-6 w-full overflow-y-auto">
-      <!-- Hero -->
-      <section class="mb-12">
-        <h1 class="text-4xl font-extrabold mb-4">🚀 Build Any Website You Imagine</h1>
-        <p class="text-lg text-gray-700">Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
-        <a href="portfolio.pdf" download class="mt-4 inline-block bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition">📄 Download Portfolio</a>
-      </section>
-
-      <!-- Why Choose -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold mb-4">🌟 Why Choose DavintoWeb?</h2>
-        <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li>Fast and mobile-optimized websites</li>
-          <li>Free HTTPS Security</li>
-          <li>Firebase-powered dashboards</li>
-          <li>AI Chatbot & Translator Integration</li>
-          <li>Ongoing support</li>
-        </ul>
-      </section>
-
-      <!-- What We Build -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold mb-4">🧩 What We Build</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-800">
-          <div class="p-4 bg-gray-100 rounded shadow">Personal Websites</div>
-          <div class="p-4 bg-gray-100 rounded shadow">Blogs & Portfolios</div>
-          <div class="p-4 bg-gray-100 rounded shadow">Business Sites</div>
-          <div class="p-4 bg-gray-100 rounded shadow">E-commerce</div>
-          <div class="p-4 bg-gray-100 rounded shadow">Educational Platforms</div>
-          <div class="p-4 bg-gray-100 rounded shadow">Community Portals</div>
-          <div class="p-4 bg-gray-100 rounded shadow">AI Bots & Tools</div>
-          <div class="p-4 bg-gray-100 rounded shadow">Family & Event Sites</div>
-        </div>
-      </section>
-
-      <!-- Pricing -->
-      <section>
-        <h2 class="text-2xl font-bold mb-4">💰 Pricing Packages</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="p-6 bg-white border rounded-lg shadow">
-            <h3 class="text-xl font-semibold">🌐 Starter Site</h3>
-            <p class="text-gray-600">From ₦5,000</p>
-            <ul class="mt-2 text-gray-700 list-disc list-inside">
-              <li>1–2 Pages</li>
-              <li>Responsive Design</li>
-              <li>Contact Form</li>
-            </ul>
-          </div>
-          <div class="p-6 bg-white border rounded-lg shadow">
-            <h3 class="text-xl font-semibold">📝 Blog / Portfolio</h3>
-            <p class="text-gray-600">From ₦15,000</p>
-            <ul class="mt-2 text-gray-700 list-disc list-inside">
-              <li>CMS Admin Panel</li>
-              <li>SEO + Social Sharing</li>
-            </ul>
-          </div>
-          <div class="p-6 bg-white border rounded-lg shadow">
-            <h3 class="text-xl font-semibold">🏢 Business Site</h3>
-            <p class="text-gray-600">From ₦30,000</p>
-            <ul class="mt-2 text-gray-700 list-disc list-inside">
-              <li>Multi-Page Design</li>
-              <li>WhatsApp Booking</li>
-            </ul>
-          </div>
-          <div class="p-6 bg-white border rounded-lg shadow">
-            <h3 class="text-xl font-semibold">🛒 E-commerce</h3>
-            <p class="text-gray-600">From ₦60,000</p>
-            <ul class="mt-2 text-gray-700 list-disc list-inside">
-              <li>Payment Integration</li>
-              <li>Product Dashboard</li>
-            </ul>
-          </div>
-          <div class="p-6 bg-white border rounded-lg shadow">
-            <h3 class="text-xl font-semibold">⚙️ Web App + AI</h3>
-            <p class="text-gray-600">From ₦100,000+</p>
-            <ul class="mt-2 text-gray-700 list-disc list-inside">
-              <li>Custom Dashboards</li>
-              <li>Realtime DB & Auth</li>
-            </ul>
-          </div>
-          <div class="p-6 bg-white border rounded-lg shadow">
-            <h3 class="text-xl font-semibold">🧠 Custom Projects</h3>
-            <p class="text-gray-600">Let’s Discuss</p>
-            <ul class="mt-2 text-gray-700 list-disc list-inside">
-              <li>Translators, Bots, Platforms</li>
-              <li>Chat with Davinto Now</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </main>
+<!-- Features -->
+<section class="text-center">
+  <h2 class="text-3xl font-semibold mb-6">🌟 Why Choose DavintoWeb?</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <div><i class="fas fa-bolt text-yellow-500 text-2xl"></i><p>Fast & mobile-optimized</p></div>
+    <div><i class="fas fa-lock text-blue-500 text-2xl"></i><p>Free HTTPS Security</p></div>
+    <div><i class="fas fa-cogs text-purple-500 text-2xl"></i><p>Firebase Dashboards</p></div>
+    <div><i class="fas fa-brain text-pink-500 text-2xl"></i><p>AI Chat & Translator</p></div>
+    <div><i class="fas fa-headset text-green-500 text-2xl"></i><p>Ongoing Support</p></div>
   </div>
+</section>
 
-  <!-- SmartUpp -->
-  <script type="text/javascript">
+<!-- Services Grid -->
+<section class="text-center">
+  <h2 class="text-3xl font-semibold mb-6">🧩 What We Build</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div><i class="fas fa-user text-xl"></i><p>Personal Sites</p></div>
+    <div><i class="fas fa-blog text-xl"></i><p>Blogs</p></div>
+    <div><i class="fas fa-building text-xl"></i><p>Business</p></div>
+    <div><i class="fas fa-shopping-cart text-xl"></i><p>E-commerce</p></div>
+    <div><i class="fas fa-graduation-cap text-xl"></i><p>Education</p></div>
+    <div><i class="fas fa-users text-xl"></i><p>Community</p></div>
+    <div><i class="fas fa-robot text-xl"></i><p>AI Tools</p></div>
+    <div><i class="fas fa-heart text-xl"></i><p>Events</p></div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="text-center">
+  <h2 class="text-3xl font-semibold mb-6">💰 Pricing Packages</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white dark:bg-gray-800 border rounded-xl p-6 shadow">
+      <h3 class="text-xl font-bold mb-2">🌐 Starter</h3>
+      <p class="text-blue-500 font-bold">From ₦5,000</p>
+      <ul class="mt-2 text-sm space-y-1">
+        <li>1–2 Pages</li><li>Responsive Design</li><li>Contact Form</li>
+      </ul>
+    </div>
+    <div class="bg-white dark:bg-gray-800 border rounded-xl p-6 shadow">
+      <h3 class="text-xl font-bold mb-2">📝 Blog</h3>
+      <p class="text-blue-500 font-bold">From ₦15,000</p>
+      <ul class="mt-2 text-sm space-y-1">
+        <li>CMS Panel</li><li>SEO + Social</li>
+      </ul>
+    </div>
+    <div class="bg-white dark:bg-gray-800 border rounded-xl p-6 shadow">
+      <h3 class="text-xl font-bold mb-2">🏢 Business</h3>
+      <p class="text-blue-500 font-bold">From ₦30,000</p>
+      <ul class="mt-2 text-sm space-y-1">
+        <li>Multi-Page</li><li>WhatsApp Booking</li>
+      </ul>
+    </div>
+    <div class="bg-white dark:bg-gray-800 border rounded-xl p-6 shadow">
+      <h3 class="text-xl font-bold mb-2">🛒 E-commerce</h3>
+      <p class="text-blue-500 font-bold">From ₦60,000</p>
+      <ul class="mt-2 text-sm space-y-1">
+        <li>Payments</li><li>Product Panel</li>
+      </ul>
+    </div>
+    <div class="bg-white dark:bg-gray-800 border rounded-xl p-6 shadow">
+      <h3 class="text-xl font-bold mb-2">⚙️ Web App</h3>
+      <p class="text-blue-500 font-bold">From ₦100,000+</p>
+      <ul class="mt-2 text-sm space-y-1">
+        <li>Custom Dashboards</li><li>Realtime DB</li>
+      </ul>
+    </div>
+    <div class="bg-white dark:bg-gray-800 border rounded-xl p-6 shadow">
+      <h3 class="text-xl font-bold mb-2">🧠 Custom</h3>
+      <p class="text-blue-500 font-bold">Let’s Discuss</p>
+      <ul class="mt-2 text-sm space-y-1">
+        <li>Bots, Translators, Tools</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp CTA -->
+<section class="text-center">
+  <a href="https://wa.me/2348169045105" class="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-600 text-lg transition">
+    <i class="fab fa-whatsapp"></i> Chat with Davinto Now
+  </a>
+</section>
+
+  </main>  <!-- Smartupp Live Chat -->  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = "0d074f1a6588d3c0562657b1e5a3dd332cf9af81";
-    window.smartsupp||(function(d) {
+    window.smartsupp || (function(d) {
       var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+      s=d.getElementsByTagName("script")[0];c=d.createElement("script");
+      c.type="text/javascript";c.charset="utf-8";c.async=true;
+      c.src="https://www.smartsuppchat.com/loader.js?";s.parentNode.insertBefore(c,s);
     })(document);
-  </script>
-
-</body>
+  </script>  <!-- Theme Script -->  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
+    }
+  </script></body>
 </html>
