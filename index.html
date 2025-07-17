@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb - We Build Modern Websites</title>
+  <title>DavintoWeb - Creative Web Development</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     * {
@@ -16,7 +16,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
       color: #333;
-      line-height: 1.6;
     }
 
     header {
@@ -24,6 +23,12 @@
       color: white;
       padding: 20px;
       text-align: center;
+    }
+
+    .logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 10px;
     }
 
     nav {
@@ -38,6 +43,7 @@
       color: #fff;
       text-decoration: none;
       font-weight: bold;
+      font-size: 16px;
       transition: 0.3s ease;
     }
 
@@ -105,78 +111,87 @@
       padding: 20px;
     }
 
-    /* WhatsApp Floating Button */
-    .whatsapp-button {
+    /* Optional: Style the floating button visually larger (for Smartsupp overlay) */
+    .custom-chat-launcher {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25d366;
+      bottom: 30px;
+      right: 30px;
+      width: 80px;
+      height: 80px;
+      background-color: #0077cc;
       color: white;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      font-size: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      text-decoration: none;
+      cursor: pointer;
+      z-index: 10000;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-    .whatsapp-button:hover {
-      background: #1ebe5d;
+    .custom-chat-launcher:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
 <body>
 
   <header>
+    <img src="logo.png" alt="DavintoWeb Logo" class="logo" />
     <h1>Welcome to DavintoWeb</h1>
-    <p>Your Go-To Web Developer for Creative & Responsive Websites</p>
+    <p>Creative Websites & Modern Web Development</p>
   </header>
 
   <nav>
     <a href="index.html">Home</a>
-    <a href="chat.html">Chat</a>
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
+    <a href="admin.html">Admin</a>
   </nav>
 
   <section class="hero">
-    <h1>We Build Stunning Websites</h1>
-    <p>From landing pages to full web platforms — we bring your ideas to life online.</p>
+    <h1>Let’s Build Your Dream Website</h1>
+    <p>We specialize in sleek, responsive websites — from landing pages to full platforms.</p>
   </section>
 
   <section class="services">
     <h2>What We Offer</h2>
     <div class="service-boxes">
       <div class="service">
-        <h3>Website Design</h3>
-        <p>Clean, modern and fully responsive websites tailored to your brand and goals.</p>
+        <h3>Web Design</h3>
+        <p>Elegant, fast-loading websites built for mobile and desktop.</p>
       </div>
       <div class="service">
         <h3>Frontend Development</h3>
-        <p>Using HTML, CSS, JavaScript & React to build sleek and functional interfaces.</p>
+        <p>HTML, CSS, JavaScript, React — built with precision and style.</p>
       </div>
       <div class="service">
-        <h3>Backend Integration</h3>
-        <p>Dynamic systems powered by Node.js, Firebase, MongoDB, and more.</p>
+        <h3>Backend & APIs</h3>
+        <p>Node.js, Firebase, MongoDB — we connect it all smoothly.</p>
       </div>
       <div class="service">
-        <h3>Chatbots & AI</h3>
-        <p>Integrate smart chat experiences with OpenAI, Botpress, and live chat tools.</p>
+        <h3>AI Chatbots</h3>
+        <p>Integrate AI assistants for live support and automation.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 DavintoWeb. All rights reserved.</p>
+    <p>© 2025 DavintoWeb | Designed by Davinto. All rights reserved.</p>
   </footer>
 
-  <a href="https://wa.me/2348169045105" class="whatsapp-button" target="_blank" title="Chat with me on WhatsApp">
-    💬
-  </a>
+  <!-- Smartsupp Live Chat script -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp || (function (d) {
+      var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
+      s = d.getElementsByTagName('script')[0]; c = d.createElement('script');
+      c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js?'; s.parentNode.insertBefore(c, s);
+    })(document);
+  </script>
 
 </body>
 </html>
