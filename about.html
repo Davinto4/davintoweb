@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About | DavintoWeb</title>
+  <title>DavintoWeb | About</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -26,7 +25,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Nav -->
   <div class="mobile-links" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="about.html" class="active">About</a>
@@ -36,43 +35,28 @@
     <a href="chat.html">Chats</a>
   </div>
 
-  <!-- About Content -->
-  <main class="about-section" data-aos="fade-up">
+  <!-- Main Content -->
+  <main>
     <h1 class="page-title">About DavintoWeb</h1>
 
-    <p>
-      My name is <strong>Chimdindu Macdonald</strong>, known by my tech alias <strong>Davinto</strong>.
-      My journey began in <strong>September 2024</strong> out of pure curiosity for the world of web development.
-    </p>
+    <section class="about-section">
+      <p>It all began in <strong>September 2024</strong>, a month that would mark the start of an extraordinary self-taught journey.</p>
+      <p><strong>Chimdindu Macdonald</strong>, known online as <strong>Davinto</strong>, became deeply curious about the world of web development. With no formal training, no mentor, and no paid course — just pure curiosity and determination — he began learning from scratch.</p>
 
-    <p>
-      With no formal training, I started teaching myself how to build websites. It was tough — full of bugs, failed layouts, and moments of deep frustration.
-      But I stayed relentless.
-    </p>
+      <p>He watched tutorials, studied code snippets, built mini-projects, and most importantly — failed a lot. But he didn’t stop. Every failure fueled him, and every bug fixed was a new lesson learned.</p>
 
-    <p>
-      Slowly, I became confident in HTML, CSS, JavaScript, hosting, deployment, and more.
-      I began building real websites and experimenting with full projects.
-      That persistence gave birth to <strong>DavintoWeb</strong> — a platform to help others with beautiful, fast, and modern websites.
-    </p>
+      <p>Despite the early setbacks, his passion for building websites and digital experiences only grew stronger. From broken HTML pages to responsive and interactive websites, Chimdindu's skills evolved rapidly. What began as a humble experiment soon transformed into a powerful digital brand — <strong>DavintoWeb</strong>.</p>
 
-    <p class="quote">
-      “It all started from scratch. Self-taught. Self-built. Self-belief.”
-    </p>
+      <p>Today, DavintoWeb stands as a testament to resilience, creativity, and the power of self-learning. It’s a digital platform where ideas become beautiful, responsive, functional websites — serving businesses, creators, and dreamers.</p>
 
-    <p>
-      Today, DavintoWeb serves as proof that passion and persistence can build something great from nothing.
-    </p>
+      <div class="quote">"I didn’t wait to be taught. I chose to teach myself — and that made all the difference."</div>
 
-    <p class="credit">
-      🙏 Credit to <strong>Heirzmax</strong> for the navigation menu suggestion.
-    </p>
+      <p class="credit">Credit to Heirzmax for the navigation suggestion and contribution.</p>
+    </section>
   </main>
 
-  <!-- AOS Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Script -->
   <script>
-    AOS.init();
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
