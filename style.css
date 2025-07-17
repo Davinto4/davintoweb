@@ -105,3 +105,37 @@ footer {
   color: #aaa;
   font-size: 0.9rem;
 }
+
+/* Vertical Nav Menu Styling */
+.fb-nav.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ffffff;
+  padding: 20px;
+  border-bottom: 2px solid #ddd;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.fb-menu-vertical {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.fb-menu-vertical a {
+  padding: 12px 20px;
+  margin: 4px 0;
+  background-color: #f0f2f5;
+  color: #1877f2;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.fb-menu-vertical a:hover {
+  background-color: #dbe8ff;
+  transform: translateX(5px);
+}
