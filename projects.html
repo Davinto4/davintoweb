@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     :root {
-      --primary: #007bff;
+      --primary: #0066ff;
+      --secondary: #00c6ff;
       --dark: #111;
       --light: #f9f9f9;
+      --radius: 12px;
     }
 
     body {
@@ -81,70 +83,52 @@
     }
 
     .project-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: white;
+      border-radius: var(--radius);
       padding: 2rem;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
       cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
       position: relative;
       overflow: hidden;
     }
 
-    .project-card::before {
-      content: "";
-      position: absolute;
-      top: -100%;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,123,255,0.05);
-      transition: top 0.3s ease;
-      z-index: 0;
-    }
-
     .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .project-card:hover::before {
-      top: 0;
+      transform: translateY(-10px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
     }
 
     .project-card h3 {
       margin: 0;
-      font-size: 1.4rem;
-      font-weight: 600;
+      font-size: 1.5rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
-      position: relative;
-      z-index: 1;
     }
 
     .project-card p {
       margin: 0;
       font-size: 1rem;
       line-height: 1.6;
-      position: relative;
-      z-index: 1;
     }
 
     .btn {
       margin-top: 1rem;
       display: inline-block;
       padding: 0.5rem 1.2rem;
-      background: var(--primary);
-      color: #fff;
+      background: #fff;
+      color: #0072ff;
       border-radius: 6px;
       text-decoration: none;
       font-size: 0.95rem;
-      transition: background 0.3s ease;
-      position: relative;
-      z-index: 1;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
 
     .btn:hover {
-      background: #0056b3;
+      background: #0072ff;
+      color: white;
     }
 
     .footer {
@@ -172,24 +156,24 @@
 
   <!-- Main Projects Section -->
   <section class="projects-section">
-    <h1 class="section-title">Web Projects</h1>
+    <h1 class="section-title">Awesome Projects</h1>
 
     <div class="projects-grid">
       <div class="project-card">
         <h3>Personal Portfolio</h3>
-        <p>A clean and professional portfolio layout that showcases your brand and skills online.</p>
-        <a href="#" class="btn" onclick="event.preventDefault(); alert('This is a demo project, not linked yet.');">View Demo</a>
+        <p>Professional online portfolio to showcase your work and personal brand with style.</p>
+        <a href="#" class="btn" onclick="event.preventDefault(); alert('Demo not linked yet.');">View Demo</a>
       </div>
 
       <div class="project-card">
         <h3>Business Website</h3>
-        <p>Perfect for businesses and agencies. Responsive design with service listings and contact form.</p>
+        <p>Responsive business site perfect for agencies, startups, or personal brands.</p>
         <a href="https://davintoweb-davinto.vercel.app/" class="btn" target="_blank">Visit Site</a>
       </div>
 
       <div class="project-card">
         <h3>E-commerce Store</h3>
-        <p>Stylish layout for an online store, includes categories, shopping cart UI, and product showcase.</p>
+        <p>Complete UI for a shop: products, categories, and cart interface all included.</p>
         <a href="https://davintoweb-davinto.vercel.app/" class="btn" target="_blank">Explore Demo</a>
       </div>
     </div>
