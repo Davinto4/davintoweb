@@ -2,57 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pricing | DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo">DavintoWeb</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="confirm.html">Confirm Payment</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <h1 class="logo">DavintoWeb</h1>
+      <div class="nav-buttons">
+        <a href="index.html" class="nav-btn">Home</a>
+        <a href="about.html" class="nav-btn">About</a>
+        <a href="pricing.html" class="nav-btn active">Pricing</a>
+        <a href="confirm.html" class="nav-btn">Confirm</a>
+        <a href="contact.html" class="nav-btn">Contact</a>
+      </div>
+    </div>
   </nav>
 
-  <section class="section">
-    <h1>💸 Our Pricing</h1>
-    <p>Select a package and proceed to payment confirmation.</p>
-
+  <!-- Pricing Section -->
+  <section class="pricing-section">
+    <h2>Choose Your Package</h2>
     <div class="pricing-grid">
       <div class="card">
-        <h3>Basic Website</h3>
-        <p>₦20,000</p>
-        <a href="confirm.html?service=Basic Website" class="btn">Confirm Payment</a>
+        <h3>Starter Website</h3>
+        <p>Simple and responsive website</p>
+        <a href="confirm.html?service=Starter Website" class="btn">Select</a>
       </div>
+
       <div class="card">
-        <h3>Business Website</h3>
-        <p>₦50,000</p>
-        <a href="confirm.html?service=Business Website" class="btn">Confirm Payment</a>
+        <h3>Portfolio / Blog</h3>
+        <p>Showcase your works or blog posts</p>
+        <a href="confirm.html?service=Portfolio" class="btn">Select</a>
       </div>
+
       <div class="card">
-        <h3>E-Commerce</h3>
-        <p>₦80,000</p>
-        <a href="confirm.html?service=E-Commerce" class="btn">Confirm Payment</a>
+        <h3>Business Site</h3>
+        <p>For brands, companies, and businesses</p>
+        <a href="confirm.html?service=Business Site" class="btn">Select</a>
+      </div>
+
+      <div class="card">
+        <h3>E-commerce</h3>
+        <p>Sell online with cart and payment system</p>
+        <a href="confirm.html?service=E-commerce" class="btn">Select</a>
+      </div>
+
+      <div class="card">
+        <h3>Full Web App</h3>
+        <p>Complex, interactive web applications</p>
+        <a href="confirm.html?service=Web App" class="btn">Select</a>
+      </div>
+
+      <div class="card">
+        <h3>Custom Projects</h3>
+        <p>Tailored to your unique needs</p>
+        <a href="confirm.html?service=Custom Project" class="btn">Select</a>
       </div>
     </div>
   </section>
 
-  <footer class="footer">© 2025 DavintoWeb. All rights reserved.</footer>
-
   <!-- SmartUpp Chat -->
-  <script>
+  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = "0d074f1a6588d3c0562657b1e5a3dd332cf9af81";
-    window.smartsupp || (function (d) {
-      var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
-      s = d.getElementsByTagName("script")[0]; c = d.createElement("script");
-      c.type = "text/javascript"; c.charset = "utf-8"; c.async = true;
-      c.src = "https://www.smartsuppchat.com/loader.js?"; s.parentNode.insertBefore(c, s);
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+      s=d.getElementsByTagName("script")[0];c=d.createElement("script");
+      c.type="text/javascript";c.charset="utf-8";c.async=true;
+      c.src="https://www.smartsuppchat.com/loader.js?";s.parentNode.insertBefore(c,s);
     })(document);
   </script>
 </body>
