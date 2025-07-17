@@ -1,191 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #f0f0f0;
-      transition: background 0.3s, color 0.3s;
-    }
+  <link rel="stylesheet" href="style.css">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    .dark-mode {
-      background: #121212;
-      color: white;
-    }
+    const firebaseConfig = {
+      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "667742200333",
+      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    };
 
-    .login-screen, .admin-panel {
-      display: none;
-      padding: 2rem;
-      text-align: center;
-    }
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const confirmRef = ref(db, "confirmations");
 
-    .visible {
-      display: block;
-    }
+    const tableBody = document.getElementById("confirmation-table-body");
 
-    input[type="password"] {
-      padding: 0.75rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      width: 250px;
-    }
-
-    button {
-      padding: 0.7rem 1.2rem;
-      margin: 0.5rem;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .toggle-btn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-    }
-
-    table {
-      margin-top: 2rem;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-    }
-
-    th {
-      background: #007bff;
-      color: white;
-    }
-
-    .logout {
-      float: right;
-    }
-
-    .top-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: -40px;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    .fade-in {
-      animation: fadeIn 0.8s ease-in;
-    }
-  </style>
+    onChildAdded(confirmRef, (snapshot) => {
+      const data = snapshot.val();
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${data.accountName}</td>
+        <td>${data.bankName}</td>
+        <td>${data.accountNumber}</td>
+        <td>${data.phone}</td>
+        <td>${data.email}</td>
+        <td>${data.message}</td>
+        <td>${new Date(data.timestamp).toLocaleString() || ''}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  </script>
 </head>
 <body>
-
-<div class="toggle-btn">
-  <button onclick="toggleDark()">🌗</button>
-</div>
-
-<div class="login-screen fade-in visible" id="loginScreen">
-  <h2>🔐 Enter Admin Password</h2>
-  <input type="password" id="adminPass" placeholder="Enter password..." />
-  <br/>
-  <button onclick="checkLogin()">Unlock</button>
-</div>
-
-<div class="admin-panel fade-in" id="adminPanel">
-  <div class="top-controls">
-    <h2>✅ Admin Page</h2>
-    <button class="logout" onclick="logout()">Logout</button>
+  <div id="loginScreen">
+    <h2>🔐 Admin Login</h2>
+    <input type="password" id="adminPass" placeholder="Enter password" />
+    <button onclick="unlock()">Unlock</button>
   </div>
 
-  <button onclick="window.location.href='confirm.html'">📋 View Confirmation Dashboard</button>
+  <div id="adminPanel" style="display:none">
+    <header>
+      <h1>Admin Page</h1>
+      <button onclick="logout()">Logout</button>
+      <a href="confirm.html" class="btn">Go to Confirmation Form</a>
+    </header>
 
-  <table id="dataTable">
-    <thead>
-      <tr>
-        <th>Account Name</th>
-        <th>Bank</th>
-        <th>Account #</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Message</th>
-        <th>Time</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
+    <section>
+      <h2>✅ Payment Confirmations</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Account Name</th>
+              <th>Bank Name</th>
+              <th>Account Number</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="confirmation-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <!-- SmartUpp Live Chat -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
+  </script>
 
-<script>
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-    authDomain: "davintoweb-payments.firebaseapp.com",
-    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-    projectId: "davintoweb-payments",
-    storageBucket: "davintoweb-payments.appspot.com",
-    messagingSenderId: "667742200333",
-    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database().ref("confirmations");
-
-  const password = "08022664487@Mac";
-
-  function checkLogin() {
-    const input = document.getElementById("adminPass").value;
-    if (input === password) {
-      document.getElementById("loginScreen").classList.remove("visible");
-      document.getElementById("adminPanel").classList.add("visible");
-      loadData();
-    } else {
-      alert("❌ Incorrect password!");
+  <script>
+    const PASSWORD = "08022664487@Mac";
+    function unlock() {
+      const input = document.getElementById("adminPass").value;
+      if (input === PASSWORD) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("adminPanel").style.display = "block";
+      } else {
+        alert("Incorrect password.");
+      }
     }
-  }
-
-  function logout() {
-    document.getElementById("adminPanel").classList.remove("visible");
-    document.getElementById("loginScreen").classList.add("visible");
-    document.getElementById("adminPass").value = "";
-  }
-
-  function loadData() {
-    const table = document.querySelector("#dataTable tbody");
-    db.on("value", snapshot => {
-      table.innerHTML = "";
-      snapshot.forEach(child => {
-        const data = child.val();
-        const row = `<tr>
-          <td>${data.accountName || ""}</td>
-          <td>${data.bankName || ""}</td>
-          <td>${data.accountNumber || ""}</td>
-          <td>${data.phone || ""}</td>
-          <td>${data.email || ""}</td>
-          <td>${data.message || ""}</td>
-          <td>${new Date(data.timestamp || Date.now()).toLocaleString()}</td>
-        </tr>`;
-        table.innerHTML += row;
-      });
-    });
-  }
-
-  function toggleDark() {
-    document.body.classList.toggle("dark-mode");
-  }
-</script>
+    function logout() {
+      document.getElementById("adminPanel").style.display = "none";
+      document.getElementById("loginScreen").style.display = "block";
+      document.getElementById("adminPass").value = "";
+    }
+  </script>
 </body>
 </html>
