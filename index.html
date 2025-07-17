@@ -3,61 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb — Web Development Services</title>
+  <title>DavintoWeb | Home</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <script src="https://kit.fontawesome.com/a2d9d5a458.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-  <!-- ✅ Navigation Menu -->
+  <!-- Navigation -->
   <nav class="menu">
     <div class="logo">DavintoWeb</div>
-    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Pricing</a></li>
+    <ul class="desktop-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="#">Contacts</a></li>
-      <li><a href="#">Chats</a></li>
+      <li><a href="contact.html">Contacts</a></li>
+      <li><a href="chat.html">Chats</a></li>
     </ul>
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
   </nav>
 
-  <!-- ✅ Mobile Nav -->
-  <div class="mobile-links" id="mobileLinks">
-    <a href="index.html">Home</a>
-    <a href="#">About</a>
-    <a href="#">Pricing</a>
+  <!-- Mobile Menu -->
+  <div class="mobile-links" id="mobileMenu">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
     <a href="projects.html">Projects</a>
-    <a href="#">Contacts</a>
-    <a href="#">Chats</a>
+    <a href="contact.html">Contacts</a>
+    <a href="chat.html">Chats</a>
   </div>
 
-  <!-- ✅ Main Content -->
-  <main>
-    <h1 data-aos="fade-up">Welcome to DavintoWeb</h1>
-    <p data-aos="fade-up" data-aos-delay="100">
-      I build beautiful, fast, and responsive websites for individuals, brands, and businesses. Whether it's a portfolio, e-commerce store, blog, or dynamic admin dashboard, I’ve got you covered.
-    </p>
-    <a href="https://wa.me/2348169045105" target="_blank" class="whatsapp-btn" data-aos="fade-up" data-aos-delay="200">
-      Chat on WhatsApp
-    </a>
+  <!-- Hero Section -->
+  <header class="hero-section" data-aos="fade-down">
+    <h1>Welcome to DavintoWeb</h1>
+    <p>Your one-stop hub for stunning, modern, and responsive websites.</p>
+    <a href="https://wa.me/2348169045105" class="btn">Chat on WhatsApp</a>
+  </header>
 
-    <div class="reviews" data-aos="fade-up" data-aos-delay="300">
-      <h2>What Clients Say</h2>
-      <div class="review-boxes">
-        <div class="review">“Professional and fast. My brand website looks amazing!”</div>
-        <div class="review">“Highly recommend DavintoWeb. Great design and affordable.”</div>
-        <div class="review">“He helped me launch my portfolio in just 3 days.”</div>
-      </div>
-    </div>
+  <!-- Website Review Section -->
+  <section class="review-section" data-aos="fade-up">
+    <h2>What We Build</h2>
+    <p>From elegant portfolios to powerful dashboards and AI-integrated platforms — all designed and developed by DavintoWeb.</p>
+  </section>
 
-    <div class="menu-prompt" data-aos="fade-up" data-aos-delay="400">
-      👉 Explore more by clicking the menu above ☝️
-    </div>
-  </main>
+  <!-- Prompt for Menu -->
+  <div class="menu-prompt" data-aos="zoom-in">
+    <p>Explore our pages using the menu <i class="fas fa-arrow-up"></i></p>
+  </div>
 
-  <!-- ✅ SmartSupp AI Chat Script -->
+  <!-- Smartsupp Chat Button -->
   <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
@@ -69,14 +65,13 @@
     })(document);
   </script>
 
-  <!-- ✅ AOS Scroll Animation -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
-
     function toggleMobileMenu() {
-      const links = document.getElementById('mobileLinks');
-      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+      const menu = document.getElementById('mobileMenu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
   </script>
 </body>
