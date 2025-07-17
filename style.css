@@ -347,3 +347,6 @@ body.dark-mode {
   max-width: 600px;
   font-style: italic;
 }
+
+<link rel="stylesheet" href="css/style.css" />
+<script src="js/script.js" defer></script>
