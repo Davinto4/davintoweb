@@ -1,47 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin - DavintoWeb</title>
-
-  <!-- Prevent indexing -->
-  <meta name="robots" content="noindex, nofollow" />
-
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - Confirmed Payments</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+    .loader {
+      text-align: center;
+      margin-top: 2rem;
+      font-weight: bold;
+    }
+  </style>
   <script>
-    const PASSWORD = "08022664487@Mac";
-    window.onload = function () {
-      const entered = prompt("Enter admin password:");
-      if (entered !== PASSWORD) {
-        document.body.innerHTML = "<h2 style='text-align:center;margin-top:3rem;color:red;'>Access Denied</h2>";
+    async function fetchSheetData() {
+      const loader = document.getElementById("loader");
+      const tableBody = document.getElementById("tableBody");
+
+      try {
+        const res = await fetch("https://opensheet.elk.sh/1w3DmP8HBLz1PNgQd7ZZKfVRVfJ9YFeeu5P6aUuxMM2w/Sheet1");
+        const data = await res.json();
+        loader.style.display = "none";
+
+        data.reverse().forEach((entry, index) => {
+          const row = `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${entry.Service || "-"}</td>
+              <td>${entry.Name || "-"}</td>
+              <td>${entry.Email || "-"}</td>
+              <td>${entry.Account || "-"}</td>
+              <td>${entry.Message || "-"}</td>
+              <td>${entry.Timestamp || "-"}</td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
+        });
+      } catch (err) {
+        loader.innerText = "❌ Failed to load data.";
+        console.error(err);
       }
-    };
+    }
+
+    window.onload = fetchSheetData;
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const theme = root.getAttribute("data-theme");
+      root.setAttribute("data-theme", theme === "light" ? "dark" : "light");
+    }
   </script>
 </head>
 <body>
-
-  <header>
-    <h1>Admin Panel</h1>
+  <header class="nav">
+    <h1>📋 Admin Panel</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="portfolio.html">Portfolio</a>
       <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
+      <a href="confirm.html">Confirm</a>
+      <button onclick="toggleTheme()">🌓</button>
     </nav>
   </header>
 
-  <section class="section">
-    <h2>Welcome, Admin!</h2>
-    <p>This page is protected and not visible to search engines.</p>
-    <p>You can manage the backend from here (future dynamic controls can be added).</p>
-  </section>
+  <main class="container">
+    <h2>🧾 Confirmed Payments</h2>
+    <p>Below are all submissions from the payment confirmation form (live from Google Sheets):</p>
 
-  <footer>
-    <p>© 2025 DavintoWeb | Chimdindu Macdonald (Davinto)</p>
-    <p>Email: chimdindumacdonald165@gmail.com | WhatsApp: +2348169045105 | Nigeria</p>
-  </footer>
+    <div id="loader" class="loader">⏳ Loading data from sheet...</div>
 
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Service</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Account</th>
+          <th>Message</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+  </main>
 </body>
 </html>
