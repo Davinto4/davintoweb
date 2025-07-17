@@ -25,4 +25,95 @@ body {
   border: none;
   border-radius: 8px;
   z-index: 1001;
-  cursor
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* Sidebar Styles */
+.collapsible-navbar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 220px;
+  height: 100%;
+  background-color: #001f3f;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  gap: 1rem;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.collapsible-navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem;
+  background-color: #0074D9;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+
+.collapsible-navbar a:hover {
+  background-color: #0051a2;
+}
+
+/* Show Sidebar when Active */
+.collapsible-navbar.active {
+  left: 0;
+}
+
+/* Main content */
+.main-content {
+  padding: 4rem 2rem;
+  margin-left: 1rem;
+}
+
+.main-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.main-content .highlight {
+  color: #0074D9;
+}
+
+.main-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* WhatsApp button */
+.whatsapp-button {
+  display: inline-block;
+  background-color: #25D366;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  background-color: #1ebe5d;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .main-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .menu-btn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .whatsapp-button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
