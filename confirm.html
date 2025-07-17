@@ -1,71 +1,82 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Confirmation - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm Payment - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
   <script>
     function toggleTheme() {
       const root = document.documentElement;
-      const currentTheme = root.getAttribute('data-theme');
-      root.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+      const theme = root.getAttribute("data-theme");
+      root.setAttribute("data-theme", theme === "light" ? "dark" : "light");
     }
+
+    function fillServiceFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      const service = params.get("service");
+      if (service) {
+        document.getElementById("service").value = service;
+        document.getElementById("selectedService").textContent = service;
+      }
+    }
+
+    window.onload = fillServiceFromURL;
   </script>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">DavintoWeb</div>
-    <ul class="nav-links">
-      <li><a href="index.html" class="nav-btn">Home</a></li>
-      <li><a href="about.html" class="nav-btn">About</a></li>
-      <li><a href="pricing.html" class="nav-btn">Pricing</a></li>
-      <li><a href="confirm.html" class="nav-btn active">Confirm Payment</a></li>
-      <li><button onclick="toggleTheme()" class="nav-btn">🌓</button></li>
-    </ul>
-  </nav>
+  <header class="nav">
+    <h1>✅ Confirm Payment</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="admin.html">Admin</a>
+      <button onclick="toggleTheme()">🌓</button>
+    </nav>
+  </header>
 
-  <section class="hero">
-    <h1>Confirm Your Payment</h1>
-    <p>Please fill the form below to confirm your payment for the service you selected.</p>
-  </section>
+  <main class="container">
+    <section class="intro">
+      <h2>Confirm Your Payment</h2>
+      <p>You're confirming payment for: <strong id="selectedService">...</strong></p>
+      <p>After submitting, your entry is logged automatically, and you'll get a WhatsApp confirmation link.</p>
+    </section>
 
-  <section class="form-section">
-    <form action="https://www.appsheet.com/start/1GsTTWYRRYQv9wap2iN9XZ14JJV-11VlpYLus0fBEURo" method="get" target="_blank">
-      <label>Full Name</label>
-      <input type="text" name="Name" required placeholder="Your full name">
+    <form method="POST" action="https://www.appsheet.com/template/appform?appName=DAVINTOWEBPAYMENTCONFIRMATION-839843014&tableName=Sheet1">
+      <input type="hidden" id="service" name="Service" value=""/>
 
-      <label>Email</label>
-      <input type="email" name="Email" required placeholder="you@example.com">
+      <label for="Name">Your Name:</label>
+      <input type="text" name="Name" required placeholder="Enter your full name"/>
 
-      <label>Account Used for Transfer</label>
-      <input type="text" name="Account" required placeholder="Bank & Account Name">
+      <label for="Email">Email:</label>
+      <input type="email" name="Email" required placeholder="you@example.com"/>
 
-      <label>Service Paid For</label>
-      <select name="Service" required>
-        <option value="">--Select Service--</option>
-        <option value="Business Website">Business Website</option>
-        <option value="E-Commerce Site">E-Commerce Site</option>
-        <option value="Blog">Blog</option>
-        <option value="Portfolio Site">Portfolio Site</option>
-        <option value="School Portal">School Portal</option>
-        <option value="Hospital Website">Hospital Website</option>
-        <option value="Custom Website">Custom Website</option>
-      </select>
+      <label for="Account">Account Used to Pay:</label>
+      <input type="text" name="Account" required placeholder="e.g. 0123456789 / GTB"/>
 
-      <label>Additional Message</label>
-      <textarea name="Message" rows="4" placeholder="Any extra note..."></textarea>
+      <label for="Message">Message (optional):</label>
+      <textarea name="Message" placeholder="Anything else to add?"></textarea>
 
-      <button type="submit" class="submit-btn">✅ Confirm Payment</button>
+      <button type="submit">✅ Submit Confirmation</button>
     </form>
 
-    <div class="whatsapp-alert">
-      <p><strong>Note:</strong> You’ll also receive a WhatsApp alert once your confirmation is received. Ensure your contact details are accurate.</p>
+    <div class="wa-notice">
+      <p>📲 After submitting, you may also notify us via WhatsApp:</p>
+      <a class="wa-btn" href="https://wa.me/2348169045105?text=Hello%20DavintoWeb!%20I%20just%20paid%20for%20a%20service%20and%20submitted%20my%20confirmation." target="_blank">📩 Notify on WhatsApp</a>
     </div>
-  </section>
+  </main>
 
-  <footer>
-    <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
-  </footer>
+  <!-- SmartUpp Chat Widget -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
+  </script>
 </body>
 </html>
