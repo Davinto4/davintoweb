@@ -1,67 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Davinto | Web Developer & Designer</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — DavintoWeb</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
 
+  <!-- Theme Toggle -->
   <div class="theme-toggle">
-    <button onclick="toggleTheme()">🌗 Toggle Theme</button>
+    <button onclick="toggleTheme()">Toggle Mode</button>
   </div>
 
+  <!-- Navigation -->
   <nav class="collapsible-navbar">
-    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="about.html" class="active"><i class="fas fa-user"></i> About</a>
-    <a href="pricing.html"><i class="fas fa-tags"></i> Pricing</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="about.html" class="active">📖 About</a>
+    <a href="services.html">🛠 Services</a>
+    <a href="pricing.html">💰 Pricing</a>
+    <a href="contact.html">📞 Contact</a>
   </nav>
 
-  <section class="hero">
-    <h1>About Davinto</h1>
-    <p>Empowering businesses, brands & creatives through professional websites</p>
-  </section>
-
+  <!-- About Section -->
   <section class="features">
-    <h2>Who Is Davinto?</h2>
+    <h2>About DavintoWeb</h2>
     <p>
-      I'm a passionate web developer, designer, and creator based in Nigeria. I specialize in building high-quality websites for clients from all walks of life — individuals, families, businesses, blogs, and startups. Whether you're looking for a professional landing page, e-commerce shop, online portfolio, or community forum, I've got you covered.
+      Welcome to <strong>DavintoWeb</strong> — your trusted web developer, designer, and digital creator. I specialize in crafting professional websites tailored for all walks of life: personal brands, businesses, communities, blogs, schools, family portfolios, health systems, and more.
     </p>
-    <br />
     <p>
-      My mission is to make web development affordable and accessible, starting from as low as ₦5,000. With every project, I focus on speed, responsiveness, usability, security, and modern design.
+      Every line of code is crafted by me — <strong>Davinto</strong> — to bring your digital vision to life. Whether you need a static site or a dynamic web app, I bring your ideas to the web using modern technology, responsive design, clean interfaces, and powerful features.
+    </p>
+    <p>
+      From concept to creation, DavintoWeb is here to deliver results that speak for themselves.
     </p>
   </section>
 
-  <section class="services">
-    <h2>What I Can Build</h2>
-    <div class="grid">
-      <div><i class="fas fa-globe"></i><br>Business Websites</div>
-      <div><i class="fas fa-store"></i><br>E-commerce Shops</div>
-      <div><i class="fas fa-blog"></i><br>Blogs & News Sites</div>
-      <div><i class="fas fa-users"></i><br>Community Platforms</div>
-      <div><i class="fas fa-heart"></i><br>Family Sites</div>
-      <div><i class="fas fa-briefcase"></i><br>Portfolio Pages</div>
-      <div><i class="fas fa-bolt"></i><br>Landing Pages</div>
-      <div><i class="fas fa-lock"></i><br>Secure Logins</div>
-    </div>
-  </section>
-
-  <section class="contact-cta">
-    <h2>Want to Build Your Website?</h2>
-    <a class="whatsapp-button" href="https://wa.me/2348169045105" target="_blank">
-      <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+  <!-- Contact CTA -->
+  <div class="contact-cta">
+    <a href="https://wa.me/2348169045105" class="whatsapp-button" target="_blank">
+      💬 Chat on WhatsApp
     </a>
-  </section>
+  </div>
 
+  <!-- SmartUpp Live Chat -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
+  </script>
+
+  <!-- Theme Toggle Script -->
   <script>
     function toggleTheme() {
       const html = document.documentElement;
-      html.setAttribute("data-theme", html.dataset.theme === "light" ? "dark" : "light");
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
     }
   </script>
+
 </body>
 </html>
