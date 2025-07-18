@@ -1,174 +1,173 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DavintoWeb | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DavintoWeb - Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0f172a;
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-    }header {
-  background-color: #1e293b;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+      background: #f2f2f2;
+      color: #111;
+    }
 
-nav {
-  display: flex;
-  gap: 1rem;
-}
+    .navbar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #111;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-nav a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  background-color: #334155;
-  border-radius: 0.5rem;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
+    .nav-btn {
+      color: white;
+      margin: 8px;
+      padding: 10px 15px;
+      border: none;
+      background: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
 
-nav a:hover {
-  background-color: #4f46e5;
-  transform: scale(1.05);
-}
+    .nav-btn:hover, .nav-btn.active {
+      background: #00b894;
+      transform: translateY(-3px);
+    }
 
-.container {
-  padding: 2rem;
-}
+    header h1 {
+      text-align: center;
+      margin-top: 30px;
+      color: #222;
+    }
 
-.portfolio-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #60a5fa;
-}
+    .portfolio-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
+    .portfolio-item {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
 
-.card {
-  background-color: #1e293b;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
-}
+    .portfolio-item:hover {
+      transform: scale(1.03);
+    }
 
-.card:hover {
-  transform: translateY(-5px);
-}
+    .portfolio-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
 
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
+    .portfolio-item .info {
+      padding: 15px;
+    }
 
-.card-body {
-  padding: 1rem;
-}
+    .portfolio-item .info h3 {
+      margin: 0;
+      color: #333;
+    }
 
-.card-body h3 {
-  margin: 0 0 0.5rem;
-  color: #93c5fd;
-}
-
-.card-body p {
-  font-size: 0.9rem;
-  color: #cbd5e1;
-}
-
-footer {
-  background-color: #1e293b;
-  padding: 1rem;
-  text-align: center;
-  color: #94a3b8;
-}
-
+    .portfolio-item .info p {
+      font-size: 14px;
+      color: #555;
+    }
   </style>
-</head><body>
-  <header>
-    <h1>DavintoWeb</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="confirm.html">Confirm</a>
-      <a href="admin.html">Admin</a>
-    </nav>
-  </header>  <div class="container portfolio-section">
-    <h2>Web Projects</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="images/personal-site.jpg" alt="Personal Site">
-        <div class="card-body">
-          <h3>Personal Website</h3>
-          <p>Clean, responsive one-page portfolio site with bio and contact form.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/blog-portfolio.jpg" alt="Blog & Portfolio">
-        <div class="card-body">
-          <h3>Blog & Portfolio</h3>
-          <p>Dynamic CMS with blog posts, image gallery, and social links.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/business.jpg" alt="Business Website">
-        <div class="card-body">
-          <h3>Business Website</h3>
-          <p>Multi-page design with booking forms and service pages.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/ecommerce.jpg" alt="E-commerce">
-        <div class="card-body">
-          <h3>E-commerce</h3>
-          <p>Product dashboard, cart system, and payment integration.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/education.jpg" alt="Educational Platform">
-        <div class="card-body">
-          <h3>Educational Platform</h3>
-          <p>Course listings, quizzes, and student progress tracking.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/community.jpg" alt="Community Portal">
-        <div class="card-body">
-          <h3>Community Portal</h3>
-          <p>Forum, member directory, real-time chat, and admin tools.</p>
-        </div>
-      </div>
-    </div>
-  </div>  <footer>
-    &copy; 2025 DavintoWeb. All rights reserved.
-  </footer>  <!-- SmartUpp Chat -->  <script type="text/javascript">
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html" class="nav-btn"><i class="fas fa-money-bill"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn active"><i class="fas fa-image"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+    <button id="themeToggle" class="nav-btn toggle-btn"><i class="fas fa-adjust"></i></button>
+  </header>
+
+  <h1>Our Portfolio</h1>
+  <div class="portfolio-container" id="portfolioList">
+    <!-- Projects will load here -->
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function loadPortfolio() {
+      const portfolioRef = db.ref("portfolio");
+      portfolioRef.on("value", snapshot => {
+        const data = snapshot.val();
+        const container = document.getElementById("portfolioList");
+        container.innerHTML = "";
+        if (data) {
+          Object.values(data).forEach(project => {
+            const div = document.createElement("div");
+            div.className = "portfolio-item";
+            div.innerHTML = `
+              <img src="${project.image}" alt="${project.title}">
+              <div class="info">
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+              </div>
+            `;
+            container.appendChild(div);
+          });
+        } else {
+          container.innerHTML = "<p style='text-align:center;'>No portfolio items found.</p>";
+        }
+      });
+    }
+
+    loadPortfolio();
+  </script>
+
+  <!-- Theme Toggle -->
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
+
+  <!-- SmartUpp Chat -->
+  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp || (function (d) {
-      var s, c, o = smartsupp = function () {
-        o._.push(arguments)
-      };
-      o._ = [];
-      s = d.getElementsByTagName('script')[0];
-      c = d.createElement('script');
-      c.type = 'text/javascript';
-      c.charset = 'utf-8';
-      c.async = true;
-      c.src = 'https://www.smartsuppchat.com/loader.js?';
-      s.parentNode.insertBefore(c, s);
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
     })(document);
-  </script></body></html>
+  </script>
+</body>
+</html>
