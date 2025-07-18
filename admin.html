@@ -1,85 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin | DavintoWeb</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard – DavintoWeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background: #f9f9f9;
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      padding: 0; margin: 0;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
     }
+
     header {
       background: #111;
-      color: #fff;
       padding: 1rem;
       text-align: center;
     }
+
     nav {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 1rem;
-      padding: 1rem;
-      background: #222;
+      background: #1a1a1a;
+      padding: 10px;
     }
+
     nav button {
-      background: #444;
+      background: #333;
       color: #fff;
+      padding: 10px 16px;
       border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 10px;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    nav button:hover {
-      background: #00bcd4;
-    }
-    .container {
-      padding: 2rem;
-    }
-    .hidden { display: none; }
-    .card {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
-    }
-    .card h3 {
-      margin-top: 0;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
       border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button.submit-btn {
-      background: #00bcd4;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      color: white;
-      border-radius: 10px;
       cursor: pointer;
       transition: 0.3s;
     }
-    button.submit-btn:hover {
-      background: #008c9e;
+
+    nav button:hover {
+      background: #555;
     }
-    .logout-btn {
-      background: red;
+
+    .container {
+      padding: 2rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .form-box, .card {
+      background: #222;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .card {
+      border-left: 5px solid limegreen;
+    }
+
+    .portfolio-item {
+      background: #333;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    button.submit-btn {
+      background: #007bff;
       color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    .entry {
-      border-bottom: 1px solid #ddd;
-      padding: 1rem 0;
+
+    button.submit-btn:hover {
+      background: #0056b3;
     }
   </style>
 </head>
@@ -88,146 +95,159 @@
     <h1>DavintoWeb Admin Dashboard</h1>
   </header>
 
-  <nav id="navbar" class="hidden">
-    <button onclick="showTab('payments')">Payment Confirmations</button>
-    <button onclick="showTab('portfolio')">Portfolio Manager</button>
-    <button class="logout-btn" onclick="logout()">Logout</button>
+  <nav>
+    <button onclick="showSection('payments')">Payment Confirmations</button>
+    <button onclick="showSection('portfolio')">Portfolio Management</button>
+    <button onclick="logout()">Logout</button>
   </nav>
 
   <div class="container">
-
-    <!-- Login Form -->
-    <div id="loginSection" class="card">
-      <h3>Admin Login</h3>
-      <input type="email" id="loginEmail" placeholder="Email" value="macdinodavinto@gmail.com"/>
-      <input type="password" id="loginPassword" placeholder="Password" value="08022664487@Mac"/>
-      <button class="submit-btn" onclick="login()">Login</button>
+    <div id="login-section">
+      <h2>Admin Login</h2>
+      <div class="form-box">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button class="submit-btn" onclick="login()">Login</button>
+        <p id="login-error" style="color: red;"></p>
+      </div>
     </div>
 
-    <!-- Tabs -->
-    <div id="dashboard" class="hidden">
-      <!-- Payment Tab -->
-      <div id="payments" class="card">
-        <h3>💸 Payment Confirmations</h3>
-        <div id="paymentList"></div>
+    <div id="dashboard-section" class="hidden">
+      <!-- Payment Confirmations -->
+      <div id="payments">
+        <h2>Payment Confirmations</h2>
+        <div id="payments-list"></div>
       </div>
 
-      <!-- Portfolio Tab -->
-      <div id="portfolio" class="card hidden">
-        <h3>🖼️ Manage Portfolio</h3>
-        <form onsubmit="addPortfolio(event)">
-          <input type="text" id="title" placeholder="Project Title" required />
-          <input type="text" id="image" placeholder="Image URL" required />
-          <textarea id="desc" placeholder="Short Description" required></textarea>
-          <button class="submit-btn" type="submit">Add to Portfolio</button>
-        </form>
-        <hr/>
-        <div id="portfolioItems"></div>
+      <!-- Portfolio Management -->
+      <div id="portfolio" class="hidden">
+        <h2>Upload New Portfolio</h2>
+        <div class="form-box">
+          <input type="text" id="title" placeholder="Project Title">
+          <input type="text" id="image" placeholder="Image URL">
+          <textarea id="desc" placeholder="Short Description"></textarea>
+          <button class="submit-btn" onclick="postPortfolio()">Upload</button>
+        </div>
+
+        <h2>All Portfolio Items</h2>
+        <div id="portfolio-list"></div>
       </div>
     </div>
   </div>
 
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
   <script>
-    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.firebasestorage.app",
+      storageBucket: "davintoweb-payments.appspot.com",
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
+
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
     const auth = firebase.auth();
+    const db = firebase.database();
 
-    function showTab(tab) {
-      document.getElementById('payments').classList.add('hidden');
-      document.getElementById('portfolio').classList.add('hidden');
-      document.getElementById(tab).classList.remove('hidden');
-    }
-
-    function login() {
-      const email = document.getElementById('loginEmail').value;
-      const pass = document.getElementById('loginPassword').value;
-      auth.signInWithEmailAndPassword(email, pass)
-        .then(() => {
-          document.getElementById('loginSection').classList.add('hidden');
-          document.getElementById('dashboard').classList.remove('hidden');
-          document.getElementById('navbar').classList.remove('hidden');
-          fetchPayments();
-          fetchPortfolio();
-        })
-        .catch(err => alert("Login Failed: " + err.message));
-    }
-
-    function logout() {
-      auth.signOut().then(() => location.reload());
-    }
+    const loginSection = document.getElementById('login-section');
+    const dashboardSection = document.getElementById('dashboard-section');
 
     auth.onAuthStateChanged(user => {
       if (user) {
-        document.getElementById('loginSection').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-        document.getElementById('navbar').classList.remove('hidden');
+        loginSection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
         fetchPayments();
         fetchPortfolio();
+      } else {
+        loginSection.classList.remove('hidden');
+        dashboardSection.classList.add('hidden');
       }
     });
 
-    // Fetch payment confirmations
+    function login() {
+      const email = document.getElementById('email').value;
+      const pass = document.getElementById('password').value;
+      firebase.auth().signInWithEmailAndPassword(email, pass)
+        .catch(err => {
+          document.getElementById('login-error').textContent = err.message;
+        });
+    }
+
+    function logout() {
+      firebase.auth().signOut();
+    }
+
+    function showSection(id) {
+      document.getElementById('payments').classList.add('hidden');
+      document.getElementById('portfolio').classList.add('hidden');
+      document.getElementById(id).classList.remove('hidden');
+    }
+
     function fetchPayments() {
-      const list = document.getElementById('paymentList');
-      list.innerHTML = "Loading...";
-      db.ref("payments").on("value", snap => {
-        list.innerHTML = "";
-        snap.forEach(child => {
-          const data = child.val();
-          list.innerHTML += `
-            <div class="entry">
-              <strong>${data.accountName}</strong><br/>
-              Bank: ${data.bankName} | Acc No: ${data.accountNumber}<br/>
-              Email: ${data.email} | Phone: ${data.phone}<br/>
-              Message: ${data.message}
-            </div>
-          `;
-        });
+      db.ref('confirmations').on('value', snapshot => {
+        const data = snapshot.val();
+        const list = document.getElementById('payments-list');
+        list.innerHTML = '';
+        if (data) {
+          Object.entries(data).forEach(([id, val]) => {
+            const item = document.createElement('div');
+            item.className = 'card';
+            item.innerHTML = `
+              <strong>Account:</strong> ${val.accountName}<br>
+              <strong>Bank:</strong> ${val.bankName}<br>
+              <strong>Account Number:</strong> ${val.accountNumber}<br>
+              <strong>Phone:</strong> ${val.phone}<br>
+              <strong>Email:</strong> ${val.email}<br>
+              <strong>Message:</strong> ${val.message}<br>
+              <strong>Package:</strong> ${val.package}
+            `;
+            list.appendChild(item);
+          });
+        } else {
+          list.innerHTML = '<p>No payment confirmations yet.</p>';
+        }
       });
     }
 
-    // Portfolio Functions
+    function postPortfolio() {
+      const title = document.getElementById('title').value;
+      const image = document.getElementById('image').value;
+      const desc = document.getElementById('desc').value;
+
+      db.ref('portfolio').push({ title, image, desc }).then(() => {
+        alert('Portfolio uploaded!');
+        document.getElementById('title').value = '';
+        document.getElementById('image').value = '';
+        document.getElementById('desc').value = '';
+      });
+    }
+
     function fetchPortfolio() {
-      const box = document.getElementById("portfolioItems");
-      box.innerHTML = "Loading...";
-      db.ref("portfolio").on("value", snap => {
-        box.innerHTML = "";
-        snap.forEach(child => {
-          const item = child.val();
-          box.innerHTML += `
-            <div class="entry">
-              <h4>${item.title}</h4>
-              <img src="${item.image}" width="100%" style="border-radius:8px; max-height:200px; object-fit:cover"/>
+      db.ref('portfolio').on('value', snapshot => {
+        const data = snapshot.val();
+        const container = document.getElementById('portfolio-list');
+        container.innerHTML = '';
+        if (data) {
+          Object.values(data).forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'portfolio-item';
+            card.innerHTML = `
+              <img src="${item.image}" alt="${item.title}" style="width: 100%; border-radius: 8px;">
+              <h3>${item.title}</h3>
               <p>${item.desc}</p>
-            </div>
-          `;
-        });
+            `;
+            container.appendChild(card);
+          });
+        } else {
+          container.innerHTML = '<p>No portfolio items uploaded yet.</p>';
+        }
       });
-    }
-
-    function addPortfolio(e) {
-      e.preventDefault();
-      const title = document.getElementById("title").value;
-      const image = document.getElementById("image").value;
-      const desc = document.getElementById("desc").value;
-      db.ref("portfolio").push({ title, image, desc })
-        .then(() => {
-          alert("Portfolio item added");
-          document.getElementById("title").value = "";
-          document.getElementById("image").value = "";
-          document.getElementById("desc").value = "";
-        })
-        .catch(err => alert("Error: " + err.message));
     }
   </script>
 </body>
