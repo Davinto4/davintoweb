@@ -1,103 +1,183 @@
-<body class="confirm-page">
-  <div class="container">
-    <h1>Confirm Your Payment</h1>
-    <form id="confirmForm">
-      <label>Account Name</label>
-      <input type="text" id="accountName" required />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm Payment – DavintoWeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 
-      <label>Account Number</label>
-      <input type="number" id="accountNumber" required />
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      background: #0f172a;
+      color: white;
+    }
 
-      <label>Bank Name</label>
-      <input type="text" id="bankName" required />
+    header {
+      background: #1e293b;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      border-bottom: 2px solid #334155;
+    }
 
-      <label>Phone Number</label>
-      <input type="tel" id="phone" required />
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
 
-      <label>Email Address</label>
-      <input type="email" id="email" required />
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background: #334155;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
 
-      <label>Message</label>
-      <textarea id="message" rows="3"></textarea>
+    nav a:hover {
+      background: #475569;
+    }
 
-      <label>Package Selected</label>
-      <input type="text" id="package" readonly />
+    .container {
+      max-width: 500px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    }
 
-      <button type="submit">Submit</button>
-      <div id="loader" style="display: none;">Submitting...</div>
-    </form>
+    .container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
 
-    <br />
-    <a href="pricing.html" class="back-button">← Back to Pricing</a>
-  </div>
+    input, textarea, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
 
-  <!-- Success Sound -->
-  <audio id="successSound" src="success.mp3"></audio>
+    input, textarea {
+      background: #334155;
+      color: white;
+    }
 
-  <!-- SmartUpp Live Chat -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = "YOUR_SMARTUPP_KEY_HERE";
-    window.smartsupp || (function(d) {
-      var s, c, o = smartsupp = function() {
-        o._.push(arguments)
-      };
-      o._ = [];
-      s = d.getElementsByTagName("script")[0];
-      c = d.createElement("script");
-      c.type = "text/javascript";
-      c.charset = "utf-8";
-      c.async = true;
-      c.src = "https://www.smartsuppchat.com/loader.js?";
-      s.parentNode.insertBefore(c, s);
-    })(document);
-  </script>
+    button {
+      background: #22c55e;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    button:hover {
+      background: #16a34a;
+    }
+
+    .loader {
+      display: none;
+      text-align: center;
+    }
+
+    .success {
+      text-align: center;
+      color: #22c55e;
+      font-weight: bold;
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h2>Confirm Your Payment</h2>
+
+  <form id="confirmForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <input type="text" id="account" placeholder="Account Used for Payment" required>
+    <textarea id="service" placeholder="What service did you pay for?" required></textarea>
+    <textarea id="message" placeholder="Any message (optional)"></textarea>
+    <button type="submit">Submit Confirmation</button>
+  </form>
+
+  <div class="loader" id="loader">Submitting...</div>
+  <div class="success" id="success">✅ Confirmation Submitted!</div>
+</div>
+
+<audio id="successSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_43bd86d57d.mp3"></audio>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+    authDomain: "davintoweb-payments.firebaseapp.com",
+    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+    projectId: "davintoweb-payments",
+    storageBucket: "davintoweb-payments.appspot.com",
+    messagingSenderId: "667742200333",
+    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const form = document.getElementById('confirmForm');
+  const loader = document.getElementById('loader');
+  const successMsg = document.getElementById('success');
+  const successSound = document.getElementById('successSound');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    loader.style.display = "block";
+    successMsg.style.display = "none";
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const account = document.getElementById("account").value.trim();
+    const service = document.getElementById("service").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    const data = {
+      name,
+      email,
+      account,
+      service,
+      message,
+      date: new Date().toLocaleString()
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    const params = new URLSearchParams(window.location.search);
-    const selectedPackage = params.get('package');
-    document.getElementById('package').value = selectedPackage || 'Not specified';
-
-    document.getElementById('confirmForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const loader = document.getElementById('loader');
-      loader.style.display = 'block';
-
-      const data = {
-        accountName: document.getElementById('accountName').value,
-        accountNumber: document.getElementById('accountNumber').value,
-        bankName: document.getElementById('bankName').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value,
-        package: document.getElementById('package').value,
-        timestamp: Date.now()
-      };
-
-      db.ref('payments').push(data).then(() => {
-        loader.style.display = 'none';
-        document.getElementById('successSound').play();
-        alert('Payment confirmed successfully!');
-        document.getElementById('confirmForm').reset();
-        document.getElementById('package').value = selectedPackage;
-      }).catch((error) => {
-        loader.style.display = 'none';
-        alert('Error submitting: ' + error.message);
+    push(ref(db, "confirmations"), data)
+      .then(() => {
+        loader.style.display = "none";
+        successMsg.style.display = "block";
+        successSound.play();
+        form.reset();
+      })
+      .catch((err) => {
+        loader.textContent = "Failed: " + err.message;
       });
-    });
-  </script>
+  });
+</script>
+
 </body>
+</html>
