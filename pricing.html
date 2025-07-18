@@ -1,139 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pricing - DavintoWeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing – DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .nav-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      transform: scale(1.05);
-      transition: all 0.3s ease;
-    }
-    .active {
-      background-color: #1f2937;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #111827, #1f2937);
       color: #fff;
     }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #1f2937;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0.8rem 0;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .nav-btn {
+      color: #fff;
+      background: #374151;
+      padding: 0.6rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-in-out;
+      text-decoration: none;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .nav-btn:hover {
+      background-color: #2563eb;
+      transform: scale(1.05);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 6rem auto 2rem;
+      padding: 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #facc15;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .btn-card {
+      background: #1f2937;
+      border: 2px solid #374151;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .btn-card:hover {
+      border-color: #3b82f6;
+      background: #111827;
+      transform: scale(1.03);
+    }
+
+    .btn-card h3 {
+      color: #3b82f6;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-card p {
+      margin: 0.3rem 0;
+      color: #d1d5db;
+    }
+
+    .btn-card strong {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #fbbf24;
+    }
+
+    .btn-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #fbbf24;
+    }
   </style>
+  <script>
+    function goToConfirm(service) {
+      window.location.href = `confirm.html?service=${encodeURIComponent(service)}`;
+    }
+
+    function openWhatsApp() {
+      window.location.href = "https://wa.me/2348169045105?text=Hello%20DavintoWeb,%20I'm%20interested%20in%20a%20custom%20project.";
+    }
+  </script>
 </head>
-<body class="bg-gray-950 text-white font-sans">
 
+<body>
   <!-- Navbar -->
-  <nav class="fixed top-0 left-0 h-full w-56 bg-gray-900 shadow-lg z-50 flex flex-col p-4 space-y-4">
-    <h1 class="text-xl font-bold mb-6">DavintoWeb</h1>
-    <a href="index.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-home mr-2"></i> Home</a>
-    <a href="about.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-user mr-2"></i> About</a>
-    <a href="pricing.html" class="nav-btn active px-4 py-2 rounded"><i class="fas fa-money-bill mr-2"></i> Pricing</a>
-    <a href="portfolio.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-image mr-2"></i> Portfolio</a>
-    <a href="contact.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-envelope mr-2"></i> Contact</a>
-  </nav>
+  <header class="navbar">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn"><i class="fas fa-users"></i> About</a>
+    <a href="pricing.html" class="nav-btn"><i class="fas fa-tags"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn"><i class="fas fa-briefcase"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+  </header>
 
-  <!-- Main Content -->
-  <main class="ml-60 px-6 py-12 space-y-12">
-    <section class="text-center">
-      <h2 class="text-3xl font-bold mb-2">What We Build</h2>
-      <div class="grid md:grid-cols-3 gap-4 mt-6">
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-user-circle mr-2"></i> Personal Websites
-        </button>
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-pen-nib mr-2"></i> Blogs & Portfolios
-        </button>
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-briefcase mr-2"></i> Business Sites
-        </button>
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-store mr-2"></i> E-commerce
-        </button>
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-school mr-2"></i> Educational Platforms
-        </button>
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-users mr-2"></i> Community Portals
-        </button>
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-robot mr-2"></i> AI Bots & Tools
-        </button>
-        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
-          <i class="fas fa-heart mr-2"></i> Family & Event Sites
-        </button>
-      </div>
-    </section>
+  <!-- Content -->
+  <section class="container">
+    <h2 class="section-title">🔧 What We Build</h2>
+    <div class="button-grid">
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-user"></i></div><h3>Personal Websites</h3></div>
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-pen"></i></div><h3>Blogs & Portfolios</h3></div>
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-building"></i></div><h3>Business Sites</h3></div>
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-store"></i></div><h3>E-commerce</h3></div>
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-graduation-cap"></i></div><h3>Educational Platforms</h3></div>
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-users"></i></div><h3>Community Portals</h3></div>
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-robot"></i></div><h3>AI Bots & Tools</h3></div>
+      <div class="btn-card"><div class="btn-icon"><i class="fas fa-heart"></i></div><h3>Family & Event Sites</h3></div>
+    </div>
 
-    <section class="text-center">
-      <h2 class="text-3xl font-bold mb-4">💰 Pricing Packages</h2>
-      <p class="text-gray-400 mb-4">Click a package to purchase it instantly</p>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <button onclick="location.href='confirm.html?plan=starter'" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
-          <h3 class="text-xl font-bold">🌐 Starter Site</h3>
-          <p class="text-gray-300">From ₦5,000</p>
-          <ul class="mt-2 text-sm text-gray-200 space-y-1">
-            <li>1–2 Pages</li>
-            <li>Responsive Design</li>
-            <li>Contact Form</li>
-          </ul>
-        </button>
+    <h2 class="section-title">💰 Pricing Packages</h2>
+    <div class="button-grid">
+      <button class="btn-card" onclick="goToConfirm('Starter Site')">
+        <h3>🌐 Starter Site</h3>
+        <strong>From ₦5,000</strong>
+        <p>1–2 Pages</p>
+        <p>Responsive Design</p>
+        <p>Contact Form</p>
+      </button>
 
-        <button onclick="location.href='confirm.html?plan=blog'" class="bg-green-600 hover:bg-green-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
-          <h3 class="text-xl font-bold">📝 Blog / Portfolio</h3>
-          <p class="text-gray-300">From ₦15,000</p>
-          <ul class="mt-2 text-sm text-gray-200 space-y-1">
-            <li>CMS Admin Panel</li>
-            <li>SEO + Social Sharing</li>
-          </ul>
-        </button>
+      <button class="btn-card" onclick="goToConfirm('Blog / Portfolio')">
+        <h3>📝 Blog / Portfolio</h3>
+        <strong>From ₦15,000</strong>
+        <p>CMS Admin Panel</p>
+        <p>SEO + Social Sharing</p>
+      </button>
 
-        <button onclick="location.href='confirm.html?plan=business'" class="bg-yellow-600 hover:bg-yellow-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
-          <h3 class="text-xl font-bold">🏢 Business Site</h3>
-          <p class="text-gray-300">From ₦30,000</p>
-          <ul class="mt-2 text-sm text-gray-200 space-y-1">
-            <li>Multi-Page Design</li>
-            <li>WhatsApp Booking</li>
-          </ul>
-        </button>
+      <button class="btn-card" onclick="goToConfirm('Business Site')">
+        <h3>🏢 Business Site</h3>
+        <strong>From ₦30,000</strong>
+        <p>Multi-Page Design</p>
+        <p>WhatsApp Booking</p>
+      </button>
 
-        <button onclick="location.href='confirm.html?plan=ecommerce'" class="bg-red-600 hover:bg-red-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
-          <h3 class="text-xl font-bold">🛒 E-commerce</h3>
-          <p class="text-gray-300">From ₦60,000</p>
-          <ul class="mt-2 text-sm text-gray-200 space-y-1">
-            <li>Payment Integration</li>
-            <li>Product Dashboard</li>
-          </ul>
-        </button>
+      <button class="btn-card" onclick="goToConfirm('E-commerce')">
+        <h3>🛒 E-commerce</h3>
+        <strong>From ₦60,000</strong>
+        <p>Payment Integration</p>
+        <p>Product Dashboard</p>
+      </button>
 
-        <button onclick="location.href='confirm.html?plan=webapp'" class="bg-purple-600 hover:bg-purple-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
-          <h3 class="text-xl font-bold">⚙️ Web App + AI</h3>
-          <p class="text-gray-300">From ₦100,000+</p>
-          <ul class="mt-2 text-sm text-gray-200 space-y-1">
-            <li>Custom Dashboards</li>
-            <li>Realtime DB & Auth</li>
-          </ul>
-        </button>
+      <button class="btn-card" onclick="goToConfirm('Web App + AI')">
+        <h3>⚙️ Web App + AI</h3>
+        <strong>From ₦100,000+</strong>
+        <p>Custom Dashboards</p>
+        <p>Realtime DB & Auth</p>
+      </button>
 
-        <button onclick="window.open('https://wa.me/2348169045105','_blank')" class="bg-gray-700 hover:bg-gray-800 px-6 py-6 rounded-lg shadow-md text-left w-full">
-          <h3 class="text-xl font-bold">🧠 Custom Projects</h3>
-          <p class="text-gray-300">Let’s Discuss</p>
-          <ul class="mt-2 text-sm text-gray-200 space-y-1">
-            <li>Translators, Bots, Platforms</li>
-            <li>Special Integrations</li>
-          </ul>
-        </button>
-      </div>
-    </section>
-  </main>
+      <button class="btn-card" onclick="openWhatsApp()">
+        <h3>🧠 Custom Projects</h3>
+        <strong>Let’s Discuss</strong>
+        <p>Translators, Bots, Platforms</p>
+      </button>
+    </div>
+  </section>
 
   <!-- SmartUpp Live Chat -->
   <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    window.smartsupp || (function (d) {
+      var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
+      s = d.getElementsByTagName('script')[0]; c = d.createElement('script');
+      c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js?'; s.parentNode.insertBefore(c, s);
     })(document);
   </script>
 </body>
+
 </html>
