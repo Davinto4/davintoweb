@@ -2,106 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | Pricing</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <script>
-    // SmartUpp live chat
-    window._smartsupp || (function(d) {
-      var s, c, o = smartsupp = function() {
-        o._.push(arguments)
-      };
-      o._ = [];
-      s = d.getElementsByTagName('script')[0];
-      c = d.createElement('script');
-      c.type = 'text/javascript';
-      c.charset = 'utf-8';
-      c.async = true;
-      c.src = 'https://www.smartsuppchat.com/loader.js?';
-      c.onload = () => {
-        smartsupp('key', '0d074f1a6588d3c0562657b1e5a3dd332cf9af81');
-      };
-      s.parentNode.insertBefore(c, s);
-    })(document);
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing | DavintoWeb</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f172a, #1e293b);
+      color: white;
+      overflow-x: hidden;
+    }
+    .nav-btn {
+      display: block;
+      padding: 12px;
+      margin: 5px;
+      background: #1f2937;
+      color: #fff;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+    .nav-btn:hover {
+      background: #3b82f6;
+      transform: translateX(5px);
+    }
+    .toggle-btn {
+      background: #475569;
+    }
+    .pricing-card {
+      background: #1e40af;
+      padding: 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .pricing-card:hover {
+      background: #3b82f6;
+      transform: scale(1.05);
+    }
+  </style>
 </head>
-<body class="light-mode">
+<body class="relative">
 
-  <!-- Vertical Navbar -->
-  <header class="navbar">
+  <!-- Sidebar -->
+  <aside id="navbar" class="fixed top-0 left-0 h-full w-56 bg-gray-900 p-4 z-50">
     <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
     <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
-    <a href="pricing.html" class="nav-btn active"><i class="fas fa-money-bill-wave"></i> Pricing</a>
+    <a href="pricing.html" class="nav-btn active"><i class="fas fa-money-bill"></i> Pricing</a>
     <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
     <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
-    <button id="themeToggle" class="nav-btn toggle-btn"><i class="fas fa-adjust"></i></button>
-  </header>
+    <button onclick="toggleTheme()" class="nav-btn toggle-btn"><i class="fas fa-adjust"></i> Theme</button>
+  </aside>
 
   <!-- Main Content -->
-  <main class="main-content">
-    <section class="section">
-      <h1 class="section-title">Pricing Packages</h1>
-      <div class="pricing-grid">
-        <div class="price-card">
-          <i class="fas fa-rocket fa-2x"></i>
-          <h2>Basic Plan</h2>
-          <p>₦20,000</p>
-          <ul>
-            <li>1-page Website</li>
-            <li>Mobile Responsive</li>
-            <li>1 Revision</li>
-          </ul>
-          <a href="confirm.html?plan=basic" class="btn">Choose Basic</a>
-        </div>
-        <div class="price-card featured">
-          <i class="fas fa-star fa-2x"></i>
-          <h2>Standard Plan</h2>
-          <p>₦35,000</p>
-          <ul>
-            <li>Multi-page Website</li>
-            <li>SEO Optimization</li>
-            <li>3 Revisions</li>
-          </ul>
-          <a href="confirm.html?plan=standard" class="btn">Choose Standard</a>
-        </div>
-        <div class="price-card">
-          <i class="fas fa-gem fa-2x"></i>
-          <h2>Premium Plan</h2>
-          <p>₦70,000+</p>
-          <ul>
-            <li>Custom Web App</li>
-            <li>Backend Integration</li>
-            <li>Unlimited Revisions</li>
-          </ul>
-          <a href="confirm.html?plan=premium" class="btn">Choose Premium</a>
-        </div>
+  <main class="pl-60 pr-4 pt-6">
+    <section class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">Our Pricing Packages</h1>
+      <p class="text-gray-300">Choose a plan that works best for your web project.</p>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-8">
+      <!-- Basic Plan -->
+      <div class="pricing-card text-center">
+        <i class="fas fa-rocket text-3xl mb-4"></i>
+        <h2 class="text-2xl font-bold mb-2">Basic</h2>
+        <p class="text-gray-100 mb-2">Simple static site</p>
+        <p class="text-2xl font-bold mb-4">₦10,000</p>
+        <a href="confirm.html?package=Basic" class="inline-block mt-2 bg-white text-blue-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-200">Get Started</a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="pricing-card text-center">
+        <i class="fas fa-briefcase text-3xl mb-4"></i>
+        <h2 class="text-2xl font-bold mb-2">Professional</h2>
+        <p class="text-gray-100 mb-2">Interactive dynamic website</p>
+        <p class="text-2xl font-bold mb-4">₦25,000</p>
+        <a href="confirm.html?package=Pro" class="inline-block mt-2 bg-white text-blue-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-200">Get Started</a>
+      </div>
+
+      <!-- Ultimate Plan -->
+      <div class="pricing-card text-center">
+        <i class="fas fa-crown text-3xl mb-4"></i>
+        <h2 class="text-2xl font-bold mb-2">Ultimate</h2>
+        <p class="text-gray-100 mb-2">Full-stack system with database</p>
+        <p class="text-2xl font-bold mb-4">₦50,000</p>
+        <a href="confirm.html?package=Ultimate" class="inline-block mt-2 bg-white text-blue-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-200">Get Started</a>
       </div>
     </section>
 
-    <section class="section alt">
-      <h2 class="section-title">Why Choose DavintoWeb?</h2>
-      <div class="feature-grid">
-        <button class="feature-btn"><i class="fas fa-code"></i> Clean Coding</button>
-        <button class="feature-btn"><i class="fas fa-bolt"></i> Fast Delivery</button>
-        <button class="feature-btn"><i class="fas fa-lock"></i> Secure Design</button>
-        <button class="feature-btn"><i class="fas fa-tablet-alt"></i> Mobile Friendly</button>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">Need a Custom Plan?</h2>
-      <p class="section-desc">Let’s build your dream site! <a href="contact.html" class="text-link">Contact Us</a></p>
-    </section>
+    <footer class="text-center mt-16 text-sm text-gray-400">
+      &copy; 2025 DavintoWeb. All rights reserved. WhatsApp: <a href="https://wa.me/2348169045105" class="text-blue-400 underline">+2348169045105</a>
+    </footer>
   </main>
 
+  <!-- SmartUpp Chat -->
   <script>
-    // Toggle light/dark mode
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      document.body.classList.toggle('light-mode');
-    });
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp || (function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
   </script>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+    }
+  </script>
+
 </body>
 </html>
