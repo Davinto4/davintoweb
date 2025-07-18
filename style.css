@@ -351,3 +351,64 @@ body.dark-mode {
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/script.js" defer></script>
 
+/* Force text color to be readable */
+body, h1, h2, h3, h4, p, li, span, a {
+  color: #111 !important;
+}
+
+/* Dark mode override */
+[data-theme="dark"] body,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] p,
+[data-theme="dark"] li {
+  color: #f1f1f1 !important;
+}
+
+/* Adjust service box text */
+.services .grid div {
+  padding: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+  min-height: 180px;
+}
+.services .grid div i {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #2563eb;
+}
+.services .grid div:hover {
+  background: #e5f3ff;
+}
+
+/* Ensure features and pricing sections show text properly */
+.features ul li,
+.pricing-section .price-box {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #1f2937;
+}
+.features ul li i,
+.pricing-section .price-box h3 i {
+  font-size: 1.2rem;
+}
+
+/* Fix grid spacing */
+.services .grid,
+.price-list {
+  gap: 1.5rem;
+}
+
+/* Improve visibility in mobile */
+@media (max-width: 768px) {
+  .services .grid div {
+    font-size: 1.1rem;
+    padding: 1.25rem;
+  }
+  .features ul li {
+    font-size: 1rem;
+  }
+}
