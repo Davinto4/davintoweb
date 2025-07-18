@@ -1,160 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pricing - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
-    .nav-btn {
-      @apply flex items-center gap-2 py-2 px-4 text-white hover:bg-blue-600 transition rounded-md;
+    .nav-btn:hover {
+      background-color: #1e40af;
+      color: #fff;
     }
-    .pricing-card {
-      @apply bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 border hover:scale-105 transition transform duration-300 cursor-pointer text-center;
+    .pricing-btn:hover {
+      transform: scale(1.02);
+      background-color: #1d4ed8;
     }
-    .pricing-card:hover {
-      @apply bg-blue-100 dark:bg-gray-700;
-    }
-    .section-title {
-      @apply text-2xl font-bold mb-4;
+    .transition-btn {
+      transition: all 0.3s ease;
     }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
-
+<body class="bg-gray-900 text-white">
   <!-- Navbar -->
-  <header class="fixed top-0 left-0 w-full bg-blue-900 text-white z-50 shadow-md">
-    <div class="flex justify-between items-center px-4 py-3">
-      <div class="font-bold text-lg">DavintoWeb</div>
-      <button id="navToggle" class="text-xl"><i class="fas fa-bars"></i></button>
-    </div>
-    <nav id="navMenu" class="hidden flex-col md:flex md:flex-row md:justify-center md:items-center bg-blue-900 px-4 md:px-0">
-      <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
-      <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
-      <a href="pricing.html" class="nav-btn active"><i class="fas fa-money-bill"></i> Pricing</a>
-      <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
-      <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
-      <button id="themeToggle" class="nav-btn"><i class="fas fa-adjust"></i></button>
+  <header class="fixed top-0 left-0 w-64 h-full bg-gray-800 p-4 shadow-lg z-50 transition-transform transform -translate-x-full lg:translate-x-0" id="sidebar">
+    <nav class="flex flex-col space-y-4">
+      <a href="index.html" class="nav-btn text-left py-2 px-4 rounded-lg bg-gray-700 transition-btn"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="nav-btn text-left py-2 px-4 rounded-lg bg-gray-700 transition-btn"><i class="fas fa-user"></i> About</a>
+      <a href="pricing.html" class="nav-btn text-left py-2 px-4 rounded-lg bg-blue-600 transition-btn"><i class="fas fa-money-bill"></i> Pricing</a>
+      <a href="portfolio.html" class="nav-btn text-left py-2 px-4 rounded-lg bg-gray-700 transition-btn"><i class="fas fa-image"></i> Portfolio</a>
+      <a href="contact.html" class="nav-btn text-left py-2 px-4 rounded-lg bg-gray-700 transition-btn"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
+    <button id="toggleSidebar" class="mt-6 text-sm bg-gray-600 hover:bg-gray-500 px-3 py-1 rounded">Toggle Menu</button>
   </header>
 
-  <main class="pt-24 px-4 max-w-6xl mx-auto space-y-12">
+  <!-- Main Content -->
+  <main class="ml-0 lg:ml-64 p-6 pt-10">
+    <section class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold mb-4">💰 Pricing Packages</h1>
+      <p class="mb-6 text-lg text-gray-300">Click a package below to purchase:</p>
 
-    <!-- Instructions -->
-    <section>
-      <h2 class="section-title text-center">💡 Click on any package below to purchase it instantly!</h2>
-    </section>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-    <!-- What We Build -->
-    <section>
-      <h2 class="section-title">🛠️ What We Build</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-        <button class="pricing-card"><i class="fas fa-globe"></i><div>Personal Websites</div></button>
-        <button class="pricing-card"><i class="fas fa-pen"></i><div>Blogs & Portfolios</div></button>
-        <button class="pricing-card"><i class="fas fa-briefcase"></i><div>Business Sites</div></button>
-        <button class="pricing-card"><i class="fas fa-shopping-cart"></i><div>E-commerce</div></button>
-        <button class="pricing-card"><i class="fas fa-graduation-cap"></i><div>Educational Platforms</div></button>
-        <button class="pricing-card"><i class="fas fa-users"></i><div>Community Portals</div></button>
-        <button class="pricing-card"><i class="fas fa-robot"></i><div>AI Bots & Tools</div></button>
-        <button class="pricing-card"><i class="fas fa-heart"></i><div>Family & Event Sites</div></button>
-      </div>
-    </section>
-
-    <!-- Pricing Packages -->
-    <section>
-      <h2 class="section-title">💰 Pricing Packages</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-        <a href="confirm.html?package=Starter" class="pricing-card">
-          <h3 class="text-xl font-bold">🌐 Starter Site</h3>
-          <p class="text-sm mb-2">From ₦5,000</p>
-          <ul class="text-left text-sm space-y-1">
-            <li>✔️ 1–2 Pages</li>
-            <li>✔️ Responsive Design</li>
-            <li>✔️ Contact Form</li>
+        <!-- Starter Site -->
+        <a href="confirm.html?package=starter" class="bg-gray-700 pricing-btn transition-btn p-6 rounded-xl shadow hover:shadow-xl block text-white">
+          <h2 class="text-xl font-bold mb-2">🌐 Starter Site – ₦5,000</h2>
+          <ul class="text-sm text-gray-300 space-y-1">
+            <li>✔ 1–2 Pages</li>
+            <li>✔ Responsive Design</li>
+            <li>✔ Contact Form</li>
           </ul>
-          <div class="mt-3 font-semibold text-blue-700">Click to Purchase</div>
         </a>
 
-        <a href="confirm.html?package=Blog" class="pricing-card">
-          <h3 class="text-xl font-bold">📝 Blog / Portfolio</h3>
-          <p class="text-sm mb-2">From ₦15,000</p>
-          <ul class="text-left text-sm space-y-1">
-            <li>✔️ CMS Admin Panel</li>
-            <li>✔️ SEO + Social Sharing</li>
+        <!-- Blog / Portfolio -->
+        <a href="confirm.html?package=blog" class="bg-gray-700 pricing-btn transition-btn p-6 rounded-xl shadow hover:shadow-xl block text-white">
+          <h2 class="text-xl font-bold mb-2">📝 Blog / Portfolio – ₦15,000</h2>
+          <ul class="text-sm text-gray-300 space-y-1">
+            <li>✔ CMS Admin Panel</li>
+            <li>✔ SEO + Social Sharing</li>
           </ul>
-          <div class="mt-3 font-semibold text-blue-700">Click to Purchase</div>
         </a>
 
-        <a href="confirm.html?package=Business" class="pricing-card">
-          <h3 class="text-xl font-bold">🏢 Business Site</h3>
-          <p class="text-sm mb-2">From ₦30,000</p>
-          <ul class="text-left text-sm space-y-1">
-            <li>✔️ Multi-Page Design</li>
-            <li>✔️ WhatsApp Booking</li>
+        <!-- Business Site -->
+        <a href="confirm.html?package=business" class="bg-gray-700 pricing-btn transition-btn p-6 rounded-xl shadow hover:shadow-xl block text-white">
+          <h2 class="text-xl font-bold mb-2">🏢 Business Site – ₦30,000</h2>
+          <ul class="text-sm text-gray-300 space-y-1">
+            <li>✔ Multi-Page Design</li>
+            <li>✔ WhatsApp Booking</li>
           </ul>
-          <div class="mt-3 font-semibold text-blue-700">Click to Purchase</div>
         </a>
 
-        <a href="confirm.html?package=Ecommerce" class="pricing-card">
-          <h3 class="text-xl font-bold">🛒 E-commerce</h3>
-          <p class="text-sm mb-2">From ₦60,000</p>
-          <ul class="text-left text-sm space-y-1">
-            <li>✔️ Payment Integration</li>
-            <li>✔️ Product Dashboard</li>
+        <!-- E-commerce -->
+        <a href="confirm.html?package=ecommerce" class="bg-gray-700 pricing-btn transition-btn p-6 rounded-xl shadow hover:shadow-xl block text-white">
+          <h2 class="text-xl font-bold mb-2">🛒 E-commerce – ₦60,000</h2>
+          <ul class="text-sm text-gray-300 space-y-1">
+            <li>✔ Payment Integration</li>
+            <li>✔ Product Dashboard</li>
           </ul>
-          <div class="mt-3 font-semibold text-blue-700">Click to Purchase</div>
         </a>
 
-        <a href="confirm.html?package=WebApp" class="pricing-card">
-          <h3 class="text-xl font-bold">⚙️ Web App + AI</h3>
-          <p class="text-sm mb-2">From ₦100,000+</p>
-          <ul class="text-left text-sm space-y-1">
-            <li>✔️ Custom Dashboards</li>
-            <li>✔️ Realtime DB & Auth</li>
+        <!-- Web App + AI -->
+        <a href="confirm.html?package=webapp" class="bg-gray-700 pricing-btn transition-btn p-6 rounded-xl shadow hover:shadow-xl block text-white">
+          <h2 class="text-xl font-bold mb-2">⚙️ Web App + AI – ₦100,000+</h2>
+          <ul class="text-sm text-gray-300 space-y-1">
+            <li>✔ Custom Dashboards</li>
+            <li>✔ Realtime DB & Auth</li>
           </ul>
-          <div class="mt-3 font-semibold text-blue-700">Click to Purchase</div>
         </a>
 
-        <a href="https://wa.me/2348169045105?text=I%20want%20a%20Custom%20Project%20on%20DavintoWeb" class="pricing-card">
-          <h3 class="text-xl font-bold">🧠 Custom Projects</h3>
-          <p class="text-sm mb-2">Let’s Discuss</p>
-          <ul class="text-left text-sm space-y-1">
-            <li>✔️ Translators, Bots, Platforms</li>
+        <!-- Custom Projects -->
+        <a href="https://wa.me/2348169045105?text=Hello%20DavintoWeb%2C%20I%27d%20like%20to%20discuss%20a%20custom%20project." class="bg-green-700 pricing-btn transition-btn p-6 rounded-xl shadow hover:shadow-xl block text-white">
+          <h2 class="text-xl font-bold mb-2">🧠 Custom Projects – Let’s Discuss</h2>
+          <ul class="text-sm text-gray-300 space-y-1">
+            <li>✔ Translators, Bots, Platforms</li>
+            <li>✔ Tailored Web Tools</li>
           </ul>
-          <div class="mt-3 font-semibold text-green-600">Click to Chat on WhatsApp</div>
         </a>
-
       </div>
     </section>
   </main>
 
-  <!-- SmartUpp -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };
-      o._=[];
-      s=d.getElementsByTagName('script')[0];
-      c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';
-      s.parentNode.insertBefore(c,s);
-    })(document);
-  </script>
-
-  <!-- JS: Navbar Toggle -->
+  <!-- JS Toggle Sidebar -->
   <script>
-    document.getElementById('navToggle').onclick = () => {
-      document.getElementById('navMenu').classList.toggle('hidden');
-    };
-
-    // Theme Toggle
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      document.body.classList.toggle('dark');
+    const toggleSidebar = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+    toggleSidebar.addEventListener("click", () => {
+      sidebar.classList.toggle("-translate-x-full");
     });
   </script>
 </body>
