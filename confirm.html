@@ -1,153 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirm Payment - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>Confirm Payment | DavintoWeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    .fade-in { animation: fadeIn 1s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .menu-btn {
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      background: #444;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      animation: slideIn 0.7s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      background: #111;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    #otherBankInput {
+      display: none;
+    }
+
+    #loader {
+      display: none;
+      text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      form {
+        margin: 20px;
+      }
     }
   </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+<body>
 
-  <!-- Navbar -->
-  <header class="bg-gray-800 text-white flex justify-between items-center p-4 shadow-lg">
-    <h1 class="text-xl font-bold">DavintoWeb</h1>
-    <a href="pricing.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">← Back to Pricing</a>
-  </header>
+<header>
+  <button class="menu-btn" onclick="location.href='pricing.html'">← Menu</button>
+  <h1>Confirm Payment</h1>
+</header>
 
-  <!-- Form Container -->
-  <main class="flex-grow flex items-center justify-center px-4 py-10">
-    <form id="confirmForm" class="bg-white text-black p-6 rounded-xl w-full max-w-xl shadow-2xl fade-in space-y-4">
-      <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Payment Confirmation</h2>
+<form id="confirmForm">
+  <h2>Fill Your Payment Details</h2>
+  <input type="text" id="fullName" placeholder="Full Name" required />
+  <input type="text" id="accountName" placeholder="Account Name" required />
+  <input type="text" id="accountNumber" placeholder="Account Number" required />
+  
+  <select id="bank" onchange="toggleOtherBank()">
+    <option value="">Select Bank</option>
+    <option>Access Bank</option>
+    <option>First Bank</option>
+    <option>UBA</option>
+    <option>GTBank</option>
+    <option>Zenith Bank</option>
+    <option>Union Bank</option>
+    <option>Stanbic IBTC</option>
+    <option>Fidelity Bank</option>
+    <option>Ecobank</option>
+    <option>FCMB</option>
+    <option>Polaris Bank</option>
+    <option>Wema Bank</option>
+    <option>Keystone Bank</option>
+    <option>Kuda Bank</option>
+    <option>Opay</option>
+    <option>Palmpay</option>
+    <option>Moniepoint</option>
+    <option>Jaiz Bank</option>
+    <option>Unity Bank</option>
+    <option>Standard Chartered</option>
+    <option>Providus Bank</option>
+    <option>Heritage Bank</option>
+    <option>Titan Trust</option>
+    <option>Others</option>
+  </select>
+  
+  <input type="text" id="otherBankInput" placeholder="Enter Bank Name" />
 
-      <input type="text" id="fullName" placeholder="Full Name" required class="w-full p-3 border rounded"/>
-      <input type="email" id="email" placeholder="Email" required class="w-full p-3 border rounded"/>
-      <input type="tel" id="phone" placeholder="Phone Number" required class="w-full p-3 border rounded"/>
-      <input type="text" id="accountName" placeholder="Account Name" required class="w-full p-3 border rounded"/>
-      <input type="text" id="accountNumber" placeholder="Account Number" required class="w-full p-3 border rounded"/>
+  <input type="tel" id="phone" placeholder="Phone Number" required />
+  <input type="email" id="email" placeholder="Email Address" required />
+  <textarea id="message" placeholder="Optional Message..."></textarea>
+  <input type="text" id="service" placeholder="Service" readonly />
 
-      <select id="bank" required class="w-full p-3 border rounded">
-        <option value="">-- Select Your Bank --</option>
-        <option>Access Bank</option>
-        <option>UBA</option>
-        <option>GTBank</option>
-        <option>Zenith Bank</option>
-        <option>First Bank</option>
-        <option>Fidelity Bank</option>
-        <option>Union Bank</option>
-        <option>Stanbic IBTC</option>
-        <option>FCMB</option>
-        <option>Polaris Bank</option>
-        <option>Jaiz Bank</option>
-        <option>EcoBank</option>
-        <option>Wema Bank</option>
-        <option>Keystone Bank</option>
-        <option>Heritage Bank</option>
-        <option>SunTrust Bank</option>
-        <option>Unity Bank</option>
-        <option>Standard Chartered</option>
-        <option>Providus Bank</option>
-        <option>Globus Bank</option>
-        <option>Kuda Bank</option>
-        <option>Opay</option>
-        <option>Moniepoint</option>
-        <option>Paga</option>
-        <option>VFD Microfinance Bank</option>
-        <option>Others (type below)</option>
-      </select>
+  <div id="loader">⏳ Submitting...</div>
+  <button type="submit">Submit Confirmation</button>
+</form>
 
-      <input type="text" id="customBank" placeholder="If 'Others', enter bank name" class="w-full p-3 border rounded"/>
-      <input type="text" id="message" placeholder="Message (Optional)" class="w-full p-3 border rounded"/>
-      <input type="text" id="service" readonly class="w-full p-3 border rounded bg-gray-100" />
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 w-full rounded mt-4 transition">Submit</button>
-    </form>
-  </main>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+    authDomain: "davintoweb-payments.firebaseapp.com",
+    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+    projectId: "davintoweb-payments",
+    storageBucket: "davintoweb-payments.appspot.com",
+    messagingSenderId: "667742200333",
+    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+  };
 
-  <!-- Loader -->
-  <div id="loader" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
-    <div class="text-white text-center">
-      <div class="loader border-4 border-white border-t-transparent rounded-full w-16 h-16 animate-spin mx-auto mb-4"></div>
-      <p>Submitting...</p>
-    </div>
-  </div>
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3"></audio>
-
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    // Autofill service
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedService = urlParams.get("service") || "";
+  // Set service from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedService = urlParams.get('service');
+  if (selectedService) {
     document.getElementById("service").value = selectedService;
+  }
 
-    document.getElementById("confirmForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+  function toggleOtherBank() {
+    const bankSelect = document.getElementById("bank");
+    const otherInput = document.getElementById("otherBankInput");
+    if (bankSelect.value === "Others") {
+      otherInput.style.display = "block";
+    } else {
+      otherInput.style.display = "none";
+    }
+  }
 
-      const loader = document.getElementById("loader");
-      loader.classList.remove("hidden");
+  const confirmForm = document.getElementById("confirmForm");
+  confirmForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      const data = {
-        fullName: document.getElementById("fullName").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        accountName: document.getElementById("accountName").value,
-        accountNumber: document.getElementById("accountNumber").value,
-        bank: document.getElementById("bank").value === "Others (type below)"
-          ? document.getElementById("customBank").value
-          : document.getElementById("bank").value,
-        message: document.getElementById("message").value,
-        service: document.getElementById("service").value,
-        timestamp: new Date().toISOString()
-      };
+    const fullName = document.getElementById("fullName").value;
+    const accountName = document.getElementById("accountName").value;
+    const accountNumber = document.getElementById("accountNumber").value;
+    const bank = document.getElementById("bank").value === "Others" ? document.getElementById("otherBankInput").value : document.getElementById("bank").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+    const service = document.getElementById("service").value;
 
-      // Push to Firebase
-      db.ref("confirmations").push(data)
-        .then(() => {
-          loader.classList.add("hidden");
-          document.getElementById("successSound").play();
-          alert("Submission successful!");
-          location.href = "pricing.html";
-        })
-        .catch(error => {
-          loader.classList.add("hidden");
-          alert("Error submitting: " + error.message);
-        });
+    document.getElementById("loader").style.display = "block";
 
-      // WhatsApp Alert
-      const whatsappMsg = `New Payment Confirmation:
-Name: ${data.fullName}
-Email: ${data.email}
-Phone: ${data.phone}
-Account: ${data.accountName} (${data.accountNumber})
-Bank: ${data.bank}
-Service: ${data.service}
-Message: ${data.message}`;
+    try {
+      await push(ref(db, 'paymentConfirmations'), {
+        fullName, accountName, accountNumber, bank, phone, email, message, service, timestamp: Date.now()
+      });
+      alert("✅ Payment confirmation submitted!");
+      confirmForm.reset();
+      document.getElementById("service").value = selectedService || "";
+      document.getElementById("loader").style.display = "none";
+    } catch (err) {
+      alert("❌ Error: " + err.message);
+      document.getElementById("loader").style.display = "none";
+    }
+  });
+</script>
 
-      window.open(`https://wa.me/2348169045105?text=${encodeURIComponent(whatsappMsg)}`);
-    });
-  </script>
 </body>
 </html>
