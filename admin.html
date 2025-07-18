@@ -3,80 +3,175 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Page</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Admin Panel - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #121212, #1e1e1e);
+      color: #fff;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 220px;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 1rem;
+      z-index: 1000;
+    }
+
+    .nav-btn {
+      background: #222;
+      color: #fff;
+      border: none;
+      width: 90%;
+      margin: 0.4rem 0;
+      padding: 0.7rem;
+      font-size: 1rem;
+      text-align: left;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: #333;
+      transform: scale(1.05);
+    }
+
+    .main-content {
+      margin-left: 230px;
+      padding: 2rem;
+      transition: margin-left 0.3s;
+    }
+
+    .admin-box {
+      background: #1a1a1a;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(255,255,255,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .admin-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .admin-box button {
+      background: #00c853;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .admin-box button:hover {
+      background: #00e676;
+    }
+
+    #themeToggle {
+      margin-top: auto;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        position: static;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body class="light-mode">
+  <header class="navbar">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html" class="nav-btn"><i class="fas fa-money-bill"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+    <button id="themeToggle" class="nav-btn"><i class="fas fa-adjust"></i> Theme</button>
+  </header>
+
+  <main class="main-content">
+    <h1>Payment Confirmations</h1>
+    <div id="confirmations"></div>
+  </main>
+
+  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
+      storageBucket: "davintoweb-payments.firebasestorage.app",
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const confirmRef = ref(db, "confirmations");
+    const confirmationsRef = ref(db, "confirmations");
 
-    const tableBody = document.getElementById("confirmation-table-body");
+    const container = document.getElementById("confirmations");
 
-    onChildAdded(confirmRef, (snapshot) => {
+    onValue(confirmationsRef, (snapshot) => {
+      container.innerHTML = "";
       const data = snapshot.val();
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${data.accountName}</td>
-        <td>${data.bankName}</td>
-        <td>${data.accountNumber}</td>
-        <td>${data.phone}</td>
-        <td>${data.email}</td>
-        <td>${data.message}</td>
-        <td>${new Date(data.timestamp).toLocaleString() || ''}</td>
-      `;
-      tableBody.appendChild(row);
+      if (data) {
+        Object.entries(data).reverse().forEach(([key, entry]) => {
+          const div = document.createElement("div");
+          div.className = "admin-box";
+          div.innerHTML = `
+            <strong>Account Name:</strong> ${entry.accountName}<br/>
+            <strong>Bank Name:</strong> ${entry.bankName}<br/>
+            <strong>Account Number:</strong> ${entry.accountNumber}<br/>
+            <strong>Phone:</strong> ${entry.phone}<br/>
+            <strong>Email:</strong> ${entry.email}<br/>
+            <strong>Message:</strong> ${entry.message}<br/>
+            <strong>Service:</strong> ${entry.service}<br/>
+            <button onclick="alert('Marked as Reviewed')">Mark Reviewed</button>
+          `;
+          container.appendChild(div);
+        });
+      } else {
+        container.innerHTML = "<p>No confirmations yet.</p>";
+      }
     });
   </script>
-</head>
-<body>
-  <div id="loginScreen">
-    <h2>🔐 Admin Login</h2>
-    <input type="password" id="adminPass" placeholder="Enter password" />
-    <button onclick="unlock()">Unlock</button>
-  </div>
 
-  <div id="adminPanel" style="display:none">
-    <header>
-      <h1>Admin Page</h1>
-      <button onclick="logout()">Logout</button>
-      <a href="confirm.html" class="btn">Go to Confirmation Form</a>
-    </header>
+  <!-- Theme Toggle -->
+  <script>
+    const themeBtn = document.getElementById("themeToggle");
+    themeBtn.onclick = () => {
+      document.body.classList.toggle("dark-mode");
+      document.body.classList.toggle("light-mode");
+    };
+  </script>
 
-    <section>
-      <h2>✅ Payment Confirmations</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Account Name</th>
-              <th>Bank Name</th>
-              <th>Account Number</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Message</th>
-              <th>Timestamp</th>
-            </tr>
-          </thead>
-          <tbody id="confirmation-table-body"></tbody>
-        </table>
-      </div>
-    </section>
-  </div>
-
-  <!-- SmartUpp Live Chat -->
+  <!-- SmartUpp Chat -->
   <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
@@ -86,24 +181,6 @@
       c.type='text/javascript';c.charset='utf-8';c.async=true;
       c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
     })(document);
-  </script>
-
-  <script>
-    const PASSWORD = "08022664487@Mac";
-    function unlock() {
-      const input = document.getElementById("adminPass").value;
-      if (input === PASSWORD) {
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("adminPanel").style.display = "block";
-      } else {
-        alert("Incorrect password.");
-      }
-    }
-    function logout() {
-      document.getElementById("adminPanel").style.display = "none";
-      document.getElementById("loginScreen").style.display = "block";
-      document.getElementById("adminPass").value = "";
-    }
   </script>
 </body>
 </html>
