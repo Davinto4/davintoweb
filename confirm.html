@@ -2,150 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Confirm Payment – DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm Payment - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
+      background: linear-gradient(135deg, #1a1a1a, #121212);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: white;
     }
 
     .navbar {
-      display: flex;
-      background: #000000c2;
+      background: #222;
       padding: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      gap: 10px;
     }
 
     .nav-btn {
-      margin: 0 10px;
-      padding: 10px 15px;
-      color: white;
+      background: #333;
       border: none;
-      background: transparent;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s;
-      font-size: 16px;
+      transition: background 0.3s ease, transform 0.2s;
     }
 
     .nav-btn:hover {
-      background: #ffffff20;
-      border-radius: 8px;
+      background: #555;
+      transform: scale(1.05);
     }
 
     .container {
       max-width: 600px;
       margin: 40px auto;
-      padding: 20px;
-      background: #ffffff12;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #00000055;
-      animation: fadeIn 0.7s ease;
+      background: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease-in-out;
     }
 
-    h2 {
+    .container h2 {
       text-align: center;
       margin-bottom: 20px;
     }
 
-    form label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 500;
-    }
-
-    input, textarea {
+    form input, form textarea {
       width: 100%;
       padding: 12px;
-      border: none;
+      margin: 10px 0;
       border-radius: 6px;
-      margin-top: 5px;
-      font-size: 16px;
+      border: none;
+      background: #333;
+      color: #fff;
     }
 
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      font-size: 16px;
-      background: #4caf50;
+    form button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s ease;
     }
 
-    button:hover {
-      background: #45a049;
+    form button:hover {
+      background: #0056b3;
     }
 
     #loader {
       display: none;
-      margin: 10px auto;
-      border: 4px solid #ccc;
-      border-top: 4px solid #4caf50;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      animation: spin 0.8s linear infinite;
+      text-align: center;
     }
 
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes spin {
-      to {transform: rotate(360deg);}
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <header class="navbar">
-    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
-    <a href="pricing.html" class="nav-btn"><i class="fas fa-tags"></i> Pricing</a>
-    <a href="portfolio.html" class="nav-btn"><i class="fas fa-briefcase"></i> Portfolio</a>
-    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
-  </header>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div><a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a></div>
+    <div class="nav-links">
+      <a href="about.html" class="nav-btn">About</a>
+      <a href="pricing.html" class="nav-btn">Pricing</a>
+      <a href="portfolio.html" class="nav-btn">Portfolio</a>
+      <a href="contact.html" class="nav-btn">Contact</a>
+    </div>
+  </div>
 
-  <main class="container">
+  <!-- FORM SECTION -->
+  <div class="container">
     <h2>Confirm Your Payment</h2>
     <form id="confirmForm">
-      <label for="accountName">Account Name</label>
-      <input type="text" id="accountName" required />
-
-      <label for="bankName">Bank Name</label>
-      <input type="text" id="bankName" required />
-
-      <label for="accountNumber">Account Number</label>
-      <input type="text" id="accountNumber" required />
-
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" required />
-
-      <label for="email">Email Address</label>
-      <input type="email" id="email" required />
-
-      <label for="message">Message</label>
-      <textarea id="message" rows="3" placeholder="Additional Info..."></textarea>
-
-      <div id="loader"></div>
-      <button type="submit">Submit</button>
+      <input type="text" id="accountName" placeholder="Account Name" required />
+      <input type="text" id="bankName" placeholder="Bank Name" required />
+      <input type="text" id="accountNumber" placeholder="Account Number" required />
+      <input type="text" id="phone" placeholder="Phone Number" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <textarea id="message" placeholder="Additional Message"></textarea>
+      <div id="loader"><i class="fas fa-spinner fa-spin"></i> Submitting...</div>
+      <button type="submit">Submit Confirmation</button>
     </form>
-  </main>
+  </div>
 
-  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" preload="auto"></audio>
+  <!-- Sound Effect -->
+  <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_295566b98f.mp3?filename=success-1-6297.mp3"></audio>
 
+  <!-- Firebase -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
@@ -159,34 +146,34 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+    const confirmForm = document.getElementById("confirmForm");
+    const loader = document.getElementById("loader");
+    const sound = document.getElementById("successSound");
 
-    const form = document.getElementById('confirmForm');
-    const loader = document.getElementById('loader');
-    const successSound = document.getElementById('successSound');
-
-    form.addEventListener('submit', async (e) => {
+    confirmForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      loader.style.display = 'block';
+
+      loader.style.display = "block";
 
       const data = {
-        accountName: form.accountName.value.trim(),
-        bankName: form.bankName.value.trim(),
-        accountNumber: form.accountNumber.value.trim(),
-        phone: form.phone.value.trim(),
-        email: form.email.value.trim(),
-        message: form.message.value.trim(),
+        accountName: document.getElementById("accountName").value,
+        bankName: document.getElementById("bankName").value,
+        accountNumber: document.getElementById("accountNumber").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value,
         timestamp: new Date().toISOString()
       };
 
       try {
-        await push(ref(db, 'confirmations'), data);
-        loader.style.display = 'none';
-        successSound.play();
-        alert("✅ Payment confirmed!");
-        form.reset();
-      } catch (error) {
-        loader.style.display = 'none';
-        alert("❌ Error: " + error.message);
+        await push(ref(db, "confirmations"), data);
+        loader.style.display = "none";
+        sound.play();
+        alert("✅ Payment confirmation submitted successfully!");
+        confirmForm.reset();
+      } catch (err) {
+        loader.style.display = "none";
+        alert("❌ Failed to submit. Please try again.");
       }
     });
   </script>
