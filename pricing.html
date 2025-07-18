@@ -3,122 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | Pricing</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/6cda397c35.js" crossorigin="anonymous"></script>
+  <title>Pricing - DavintoWeb</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    body {
-      background: linear-gradient(to bottom right, #0f172a, #1e293b);
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .nav-btn:hover {
-      background-color: #1e40af;
-      transform: scale(1.05);
-      transition: all 0.3s ease-in-out;
-    }
-    .pricing-card:hover {
-      transform: scale(1.05);
-      transition: 0.3s ease;
-    }
+    .sidebar { transition: transform 0.3s ease-in-out; }
+    .sidebar.hidden { transform: translateX(-100%); }
+    .btn-card:hover { transform: scale(1.03); }
   </style>
 </head>
-<body class="relative">
+<body class="bg-gray-100 text-gray-800 relative">
 
-  <!-- Navbar -->
-  <div class="fixed top-0 left-0 w-56 h-full bg-gray-900 shadow-lg z-50">
-    <div class="flex flex-col items-start p-4 space-y-3">
-      <a href="index.html" class="nav-btn flex items-center gap-2 p-3 text-white rounded hover:bg-blue-600 w-full">
-        <i class="fas fa-home"></i> Home
-      </a>
-      <a href="about.html" class="nav-btn flex items-center gap-2 p-3 text-white rounded hover:bg-blue-600 w-full">
-        <i class="fas fa-user"></i> About
-      </a>
-      <a href="pricing.html" class="nav-btn flex items-center gap-2 p-3 text-white rounded bg-blue-700 w-full">
-        <i class="fas fa-money-bill-wave"></i> Pricing
-      </a>
-      <a href="portfolio.html" class="nav-btn flex items-center gap-2 p-3 text-white rounded hover:bg-blue-600 w-full">
-        <i class="fas fa-image"></i> Portfolio
-      </a>
-      <a href="contact.html" class="nav-btn flex items-center gap-2 p-3 text-white rounded hover:bg-blue-600 w-full">
-        <i class="fas fa-envelope"></i> Contact
-      </a>
-    </div>
+  <!-- Collapsible Sidebar -->
+  <div id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-gray-900 text-white flex flex-col p-4 sidebar z-50">
+    <button onclick="toggleSidebar()" class="text-white text-xl self-end mb-4"><i class="fas fa-times"></i></button>
+    <a href="index.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-home mr-2"></i> Home</a>
+    <a href="about.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-user mr-2"></i> About</a>
+    <a href="pricing.html" class="mb-3 bg-blue-700 hover:bg-blue-600 p-3 rounded-lg flex items-center"><i class="fas fa-tags mr-2"></i> Pricing</a>
+    <a href="portfolio.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-image mr-2"></i> Portfolio</a>
+    <a href="contact.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-envelope mr-2"></i> Contact</a>
   </div>
+
+  <!-- Toggle Button -->
+  <button onclick="toggleSidebar()" class="fixed top-4 left-4 z-50 text-white bg-gray-800 p-2 rounded-md shadow-md"><i class="fas fa-bars"></i></button>
 
   <!-- Main Content -->
-  <div class="ml-60 p-6">
-    <h1 class="text-4xl font-bold mb-6 text-white">💰 Pricing Packages</h1>
-    <p class="mb-6 text-blue-300">Click on any of the packages below to proceed with purchase</p>
+  <main class="pl-0 md:pl-60 p-6 transition-all duration-300">
+    <h1 class="text-4xl font-bold mb-8 text-center">💰 Pricing Packages</h1>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Starter Site -->
+      <button onclick="redirectTo('Starter Site')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
+        <h2 class="text-xl font-bold mb-2">🌐 Starter Site</h2>
+        <p class="text-lg font-semibold mb-2">From ₦5,000</p>
+        <ul class="mb-2 list-disc list-inside text-left">
+          <li>1–2 Pages</li>
+          <li>Responsive Design</li>
+          <li>Contact Form</li>
+        </ul>
+        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
+      </button>
 
-    <!-- Starter Site -->
-    <button onclick="window.location.href='confirm.html?package=starter'" class="pricing-card bg-gray-800 rounded-xl p-6 mb-4 w-full text-left shadow-lg hover:bg-gray-700">
-      <h2 class="text-xl font-bold text-blue-400 mb-2">🌐 Starter Site — From ₦5,000</h2>
-      <ul class="list-disc ml-5 text-sm text-white">
-        <li>1–2 Pages</li>
-        <li>Responsive Design</li>
-        <li>Contact Form</li>
-      </ul>
-    </button>
+      <!-- Blog/Portfolio -->
+      <button onclick="redirectTo('Blog Portfolio')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
+        <h2 class="text-xl font-bold mb-2">📝 Blog / Portfolio</h2>
+        <p class="text-lg font-semibold mb-2">From ₦15,000</p>
+        <ul class="mb-2 list-disc list-inside text-left">
+          <li>CMS Admin Panel</li>
+          <li>SEO + Social Sharing</li>
+        </ul>
+        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
+      </button>
 
-    <!-- Blog / Portfolio -->
-    <button onclick="window.location.href='confirm.html?package=blog'" class="pricing-card bg-gray-800 rounded-xl p-6 mb-4 w-full text-left shadow-lg hover:bg-gray-700">
-      <h2 class="text-xl font-bold text-blue-400 mb-2">📝 Blog / Portfolio — From ₦15,000</h2>
-      <ul class="list-disc ml-5 text-sm text-white">
-        <li>CMS Admin Panel</li>
-        <li>SEO + Social Sharing</li>
-      </ul>
-    </button>
+      <!-- Business Site -->
+      <button onclick="redirectTo('Business Site')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
+        <h2 class="text-xl font-bold mb-2">🏢 Business Site</h2>
+        <p class="text-lg font-semibold mb-2">From ₦30,000</p>
+        <ul class="mb-2 list-disc list-inside text-left">
+          <li>Multi-Page Design</li>
+          <li>WhatsApp Booking</li>
+        </ul>
+        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
+      </button>
 
-    <!-- Business Site -->
-    <button onclick="window.location.href='confirm.html?package=business'" class="pricing-card bg-gray-800 rounded-xl p-6 mb-4 w-full text-left shadow-lg hover:bg-gray-700">
-      <h2 class="text-xl font-bold text-blue-400 mb-2">🏢 Business Site — From ₦30,000</h2>
-      <ul class="list-disc ml-5 text-sm text-white">
-        <li>Multi-Page Design</li>
-        <li>WhatsApp Booking</li>
-      </ul>
-    </button>
+      <!-- E-commerce -->
+      <button onclick="redirectTo('E-commerce')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
+        <h2 class="text-xl font-bold mb-2">🛒 E-commerce</h2>
+        <p class="text-lg font-semibold mb-2">From ₦60,000</p>
+        <ul class="mb-2 list-disc list-inside text-left">
+          <li>Payment Integration</li>
+          <li>Product Dashboard</li>
+        </ul>
+        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
+      </button>
 
-    <!-- E-commerce -->
-    <button onclick="window.location.href='confirm.html?package=ecommerce'" class="pricing-card bg-gray-800 rounded-xl p-6 mb-4 w-full text-left shadow-lg hover:bg-gray-700">
-      <h2 class="text-xl font-bold text-blue-400 mb-2">🛒 E-commerce — From ₦60,000</h2>
-      <ul class="list-disc ml-5 text-sm text-white">
-        <li>Payment Integration</li>
-        <li>Product Dashboard</li>
-      </ul>
-    </button>
+      <!-- Web App + AI -->
+      <button onclick="redirectTo('Web App + AI')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
+        <h2 class="text-xl font-bold mb-2">⚙️ Web App + AI</h2>
+        <p class="text-lg font-semibold mb-2">From ₦100,000+</p>
+        <ul class="mb-2 list-disc list-inside text-left">
+          <li>Custom Dashboards</li>
+          <li>Realtime DB & Auth</li>
+        </ul>
+        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
+      </button>
 
-    <!-- Web App + AI -->
-    <button onclick="window.location.href='confirm.html?package=webapp'" class="pricing-card bg-gray-800 rounded-xl p-6 mb-4 w-full text-left shadow-lg hover:bg-gray-700">
-      <h2 class="text-xl font-bold text-blue-400 mb-2">⚙️ Web App + AI — From ₦100,000+</h2>
-      <ul class="list-disc ml-5 text-sm text-white">
-        <li>Custom Dashboards</li>
-        <li>Realtime DB & Auth</li>
-      </ul>
-    </button>
+      <!-- Custom Projects -->
+      <a href="https://wa.me/2348169045105?text=Hello%20DavintoWeb,%20I%20want%20a%20custom%20project" target="_blank"
+        class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-green-100 text-left">
+        <h2 class="text-xl font-bold mb-2">🧠 Custom Projects</h2>
+        <p class="text-lg font-semibold mb-2">Let’s Discuss</p>
+        <p class="text-sm text-green-700 font-semibold">Click here to chat with us on WhatsApp</p>
+      </a>
+    </div>
+  </main>
 
-    <!-- Custom Projects -->
-    <button onclick="window.location.href='https://wa.me/2348169045105?text=Hello%2C%20I%27m%20interested%20in%20a%20custom%20project'" class="pricing-card bg-yellow-800 rounded-xl p-6 mb-4 w-full text-left shadow-lg hover:bg-yellow-700">
-      <h2 class="text-xl font-bold text-white mb-2">🧠 Custom Projects — Let’s Discuss</h2>
-      <ul class="list-disc ml-5 text-sm text-white">
-        <li>Translators, Bots, Platforms</li>
-        <li>Family & Event Sites</li>
-        <li>Any Custom Build</li>
-      </ul>
-    </button>
-  </div>
+  <!-- Scripts -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("hidden");
+    }
 
-  <!-- SmartUpp Chat -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-    })(document);
+    function redirectTo(service) {
+      const url = `confirm.html?service=${encodeURIComponent(service)}`;
+      window.location.href = url;
+    }
   </script>
-
 </body>
 </html>
