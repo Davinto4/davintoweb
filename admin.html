@@ -3,118 +3,228 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb Admin</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Admin Panel | DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #000000, #111111);
-      color: #fff;
-      padding: 1rem;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+      color: #333;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #111;
+      color: white;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
     .nav-btn {
-      background-color: #222;
-      color: #fff;
+      background: #222;
+      color: white;
       border: none;
-      padding: 12px 16px;
-      margin: 5px;
-      border-radius: 8px;
-      transition: 0.3s;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background 0.3s;
       text-decoration: none;
-      display: inline-block;
     }
+
     .nav-btn:hover {
-      background-color: #444;
-      transform: scale(1.05);
+      background: #444;
     }
-    .admin-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+
+    .section {
+      padding: 40px 20px;
     }
-    .admin-card {
-      background: #1a1a1a;
-      padding: 1rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-      transition: transform 0.3s ease;
+
+    h2 {
+      margin-bottom: 20px;
+      color: #111;
     }
-    .admin-card:hover {
-      transform: translateY(-5px);
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      transition: transform 0.2s ease;
     }
-    .admin-card h3 {
-      margin-top: 0;
-      color: #00ffcc;
+
+    .card:hover {
+      transform: scale(1.01);
     }
-    .admin-card p {
-      margin: 6px 0;
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #222;
+      color: white;
+    }
+
+    @media screen and (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <header style="text-align: center; margin-bottom: 1rem;">
-    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="confirm.html" class="nav-btn"><i class="fas fa-plus-circle"></i> Confirm Payment</a>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+      <a href="admin.html" class="nav-btn active"><i class="fas fa-cogs"></i> Admin</a>
+    </div>
+    <div class="nav-links">
+      <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> View Portfolio</a>
+    </div>
   </header>
 
-  <h1><i class="fas fa-database"></i> Payment Confirmations</h1>
-  <div class="admin-container" id="adminData">
-    <!-- Firebase data appears here -->
-  </div>
+  <!-- Payment Confirmation Section -->
+  <section class="section" id="payment-section">
+    <h2>💸 Payment Confirmations</h2>
+    <div class="card">
+      <table id="confirmationTable">
+        <thead>
+          <tr>
+            <th>Account Name</th>
+            <th>Bank</th>
+            <th>Account No</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody id="confirmationData">
+          <tr><td colspan="7">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-  <script>
+  <!-- Portfolio Posting Form -->
+  <section class="section" id="portfolio-section">
+    <h2>🧠 Post Portfolio Project</h2>
+    <div class="card">
+      <form id="portfolioForm">
+        <input type="text" id="title" placeholder="Project Title" required />
+        <input type="text" id="description" placeholder="Description" required />
+        <input type="url" id="imageUrl" placeholder="Image URL (hosted)" required />
+        <input type="url" id="projectLink" placeholder="Project Link" required />
+        <button type="submit">Post Project</button>
+        <p id="portfolioStatus"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
     const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      apiKey: "AIzaSyDPCPN7W_gVEn8OPwP3EvysJqzlhjNGe-M",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.firebasestorage.app",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "561478448299",
+      appId: "1:561478448299:web:08fa59e1b4dd5ea37d1515"
     };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
 
-    const adminData = document.getElementById("adminData");
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    function displayConfirmation(data) {
-      adminData.innerHTML = ''; // Clear previous
+    // Load payment confirmations
+    const confRef = ref(db, 'confirmations/');
+    const tbody = document.getElementById("confirmationData");
 
-      data.forEach((item) => {
-        const entry = item.val();
-        const div = document.createElement("div");
-        div.className = "admin-card";
-        div.innerHTML = `
-          <h3>${entry.accountName || 'No Name Provided'}</h3>
-          <p><strong>Bank:</strong> ${entry.bankName || 'N/A'}</p>
-          <p><strong>Account Number:</strong> ${entry.accountNumber || 'N/A'}</p>
-          <p><strong>Phone:</strong> ${entry.phone || 'N/A'}</p>
-          <p><strong>Email:</strong> ${entry.email || 'N/A'}</p>
-          <p><strong>Message:</strong> ${entry.message || ''}</p>
-          <p><em>${new Date(entry.timestamp).toLocaleString()}</em></p>
-        `;
-        adminData.appendChild(div);
-      });
-    }
-
-    db.ref("confirmations").on("value", (snapshot) => {
-      if (snapshot.exists()) {
-        const entries = [];
-        snapshot.forEach((child) => entries.push(child));
-        entries.reverse(); // Show latest first
-        displayConfirmation(entries);
+    onValue(confRef, (snapshot) => {
+      tbody.innerHTML = "";
+      const data = snapshot.val();
+      if (data) {
+        Object.values(data).reverse().forEach(entry => {
+          const row = `
+            <tr>
+              <td>${entry.accountName || '-'}</td>
+              <td>${entry.bankName || '-'}</td>
+              <td>${entry.accountNumber || '-'}</td>
+              <td>${entry.phone || '-'}</td>
+              <td>${entry.email || '-'}</td>
+              <td>${entry.message || '-'}</td>
+              <td>${entry.timestamp || '-'}</td>
+            </tr>`;
+          tbody.innerHTML += row;
+        });
       } else {
-        adminData.innerHTML = "<p>No confirmations yet.</p>";
+        tbody.innerHTML = "<tr><td colspan='7'>No data yet.</td></tr>";
       }
+    });
+
+    // Portfolio form submit
+    const portfolioForm = document.getElementById("portfolioForm");
+    portfolioForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const imageUrl = document.getElementById("imageUrl").value;
+      const projectLink = document.getElementById("projectLink").value;
+      const status = document.getElementById("portfolioStatus");
+
+      const newRef = push(ref(db, "portfolio/"));
+      await set(newRef, {
+        title, description, imageUrl, projectLink,
+        timestamp: new Date().toLocaleString()
+      });
+
+      status.textContent = "✅ Project Posted!";
+      portfolioForm.reset();
+      setTimeout(() => (status.textContent = ""), 3000);
     });
   </script>
 </body>
