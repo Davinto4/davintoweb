@@ -2,74 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Admin Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Davinto Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-    }
-    .container {
-      padding: 20px;
-    }
-    #loginSection, #verifySection, #adminSection {
-      display: none;
-    }
-    .hidden {
-      display: none;
-    }
-    .btn {
-      padding: 10px 20px;
-      margin: 5px;
-      background: #007bff;
-      color: white;
+    body { font-family: Arial, sans-serif; background: #0e0e0e; color: white; margin: 0; padding: 2rem; }
+    .hidden { display: none; }
+    button, input, select, textarea {
+      padding: 8px;
+      border-radius: 5px;
       border: none;
-      cursor: pointer;
+      margin: 5px;
     }
-    .btn:disabled {
-      background: #999;
-    }
+    .section { background: #1e1e1e; padding: 1rem; margin-bottom: 2rem; border-radius: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 10px; border: 1px solid #555; text-align: left; }
+    th { background: #2a2a2a; }
+    .btn { background: #00c853; color: white; cursor: pointer; }
+    .danger { background: #d32f2f; }
+    .warning { background: #fbc02d; }
+    .success { background: #388e3c; }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- 🔐 LOGIN SECTION -->
-  <div id="loginSection">
-    <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email" required /><br />
-    <input type="password" id="password" placeholder="Password" required /><br />
-    <button class="btn" onclick="login()">Login</button>
-    <p id="loginMsg"></p>
+<div id="loginForm">
+  <h2>Admin Login</h2>
+  <input type="email" id="email" placeholder="Email (e.g. macdinodavinto@gmail.com)" required><br>
+  <input type="password" id="password" placeholder="Password" required><br>
+  <button onclick="login()" class="btn">Login</button>
+  <button onclick="register()" class="btn warning">Register</button><br>
+  <p id="message" style="color: red;"></p>
+</div>
+
+<div id="emailVerification" class="hidden">
+  <h3>Email not verified</h3>
+  <p>Please check your email to verify your account.</p>
+  <button onclick="sendVerification()" class="btn">Resend Verification Email</button>
+</div>
+
+<div id="dashboard" class="hidden">
+  <h1>📊 Admin Dashboard</h1>
+
+  <button onclick="logout()" class="btn danger">Logout</button>
+
+  <div class="section">
+    <h2>📥 Payment Confirmations</h2>
+    <table id="paymentTable">
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Time</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button onclick="exportCSV('payment')" class="btn success">Export CSV</button>
   </div>
 
-  <!-- ✉️ VERIFY EMAIL SECTION -->
-  <div id="verifySection">
-    <h2>Please Verify Your Email</h2>
-    <p>A verification link was sent to your email. Click the link and come back here.</p>
-    <button class="btn" onclick="resendVerification()">Resend Verification Email</button>
-    <button class="btn" onclick="checkVerification()">I've Verified</button>
-    <p id="verifyMsg"></p>
-  </div>
-
-  <!-- ✅ ADMIN SECTION -->
-  <div id="adminSection">
-    <h2>Welcome, Admin</h2>
-    <button class="btn" onclick="logout()">Logout</button>
-
-    <!-- Add your admin dashboard content here -->
-    <p>This is your admin dashboard.</p>
-    <!-- You can include the payment table, portfolio manager, etc -->
+  <div class="section">
+    <h2>🖼️ Portfolio Manager</h2>
+    <form id="portfolioForm">
+      <input type="text" id="title" placeholder="Project Title" required>
+      <input type="text" id="image" placeholder="Image URL" required>
+      <input type="text" id="link" placeholder="Website Link" required>
+      <button type="submit" class="btn">Add Project</button>
+    </form>
+    <table id="portfolioTable">
+      <thead>
+        <tr><th>Title</th><th>Image</th><th>Link</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button onclick="exportCSV('portfolio')" class="btn success">Export CSV</button>
   </div>
 </div>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<!-- Firebase Scripts -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+    onAuthStateChanged, signOut, sendEmailVerification
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getDatabase, ref, onValue, push, remove, set
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-<script>
   const firebaseConfig = {
     apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
     authDomain: "davintoweb-payments.firebaseapp.com",
@@ -79,85 +95,137 @@
     messagingSenderId: "667742200333",
     appId: "1:667742200333:web:cf75f6cef6798eed432b44"
   };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
 
-  const loginSection = document.getElementById("loginSection");
-  const verifySection = document.getElementById("verifySection");
-  const adminSection = document.getElementById("adminSection");
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db = getDatabase();
 
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      if (user.emailVerified) {
-        showAdmin();
-      } else {
-        showVerify();
-      }
-    } else {
-      showLogin();
-    }
-  });
+  const loginForm = document.getElementById('loginForm');
+  const dashboard = document.getElementById('dashboard');
+  const emailVerification = document.getElementById('emailVerification');
+  const message = document.getElementById('message');
 
   function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    auth.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (!user.emailVerified) {
-          showVerify();
-        }
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+    signInWithEmailAndPassword(auth, email, pass)
+      .then(() => { message.textContent = ""; })
+      .catch(err => message.textContent = err.message);
+  }
+
+  function register() {
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then(user => {
+        sendEmailVerification(user.user);
+        alert("Verification email sent.");
       })
-      .catch((error) => {
-        document.getElementById("loginMsg").textContent = error.message;
-      });
-  }
-
-  function resendVerification() {
-    const user = auth.currentUser;
-    if (user && !user.emailVerified) {
-      user.sendEmailVerification()
-        .then(() => {
-          document.getElementById("verifyMsg").textContent = "Verification email sent.";
-        })
-        .catch((error) => {
-          document.getElementById("verifyMsg").textContent = error.message;
-        });
-    }
-  }
-
-  function checkVerification() {
-    auth.currentUser.reload().then(() => {
-      if (auth.currentUser.emailVerified) {
-        showAdmin();
-      } else {
-        document.getElementById("verifyMsg").textContent = "Email not verified yet.";
-      }
-    });
+      .catch(err => message.textContent = err.message);
   }
 
   function logout() {
-    auth.signOut();
+    signOut(auth);
+    dashboard.classList.add('hidden');
+    loginForm.classList.remove('hidden');
   }
 
-  function showLogin() {
-    loginSection.style.display = "block";
-    verifySection.style.display = "none";
-    adminSection.style.display = "none";
+  function sendVerification() {
+    sendEmailVerification(auth.currentUser).then(() => {
+      alert("Verification email sent again.");
+    });
   }
 
-  function showVerify() {
-    loginSection.style.display = "none";
-    verifySection.style.display = "block";
-    adminSection.style.display = "none";
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      if (user.emailVerified) {
+        loginForm.classList.add('hidden');
+        emailVerification.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        loadPayments();
+        loadPortfolio();
+      } else {
+        emailVerification.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+        dashboard.classList.add('hidden');
+      }
+    }
+  });
+
+  function loadPayments() {
+    const table = document.querySelector('#paymentTable tbody');
+    onValue(ref(db, 'payments'), snapshot => {
+      table.innerHTML = '';
+      snapshot.forEach(child => {
+        const data = child.val();
+        const row = `
+          <tr>
+            <td>${data.name}</td>
+            <td>${data.email}</td>
+            <td>${data.account}</td>
+            <td>${data.message}</td>
+            <td>${data.timestamp}</td>
+            <td><button class="btn danger" onclick="deleteEntry('${child.key}', 'payments')">Delete</button></td>
+          </tr>`;
+        table.innerHTML += row;
+      });
+    });
   }
 
-  function showAdmin() {
-    loginSection.style.display = "none";
-    verifySection.style.display = "none";
-    adminSection.style.display = "block";
+  function loadPortfolio() {
+    const table = document.querySelector('#portfolioTable tbody');
+    onValue(ref(db, 'portfolio'), snapshot => {
+      table.innerHTML = '';
+      snapshot.forEach(child => {
+        const data = child.val();
+        const row = `
+          <tr>
+            <td>${data.title}</td>
+            <td><img src="${data.image}" width="80"></td>
+            <td><a href="${data.link}" target="_blank">View</a></td>
+            <td><button class="btn danger" onclick="deleteEntry('${child.key}', 'portfolio')">Delete</button></td>
+          </tr>`;
+        table.innerHTML += row;
+      });
+    });
+  }
+
+  document.getElementById('portfolioForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (user && user.displayName === "Admin") {
+      const data = {
+        title: document.getElementById('title').value,
+        image: document.getElementById('image').value,
+        link: document.getElementById('link').value
+      };
+      push(ref(db, 'portfolio'), data).then(() => {
+        document.getElementById('portfolioForm').reset();
+      });
+    } else {
+      alert("You don’t have permission to post!");
+    }
+  });
+
+  window.deleteEntry = function (id, type) {
+    remove(ref(db, `${type}/${id}`));
+  };
+
+  window.exportCSV = function (type) {
+    const rows = [];
+    const table = document.querySelector(`#${type}Table`);
+    const headers = [...table.querySelectorAll("thead th")].map(th => th.innerText);
+    rows.push(headers.join(","));
+    table.querySelectorAll("tbody tr").forEach(tr => {
+      const cells = [...tr.querySelectorAll("td")].map(td => td.innerText);
+      rows.push(cells.join(","));
+    });
+    const blob = new Blob([rows.join("\n")], { type: "text/csv" });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${type}-data.csv`;
+    a.click();
   }
 </script>
-
 </body>
 </html>
