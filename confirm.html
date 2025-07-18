@@ -1,184 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirm Payment</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background: linear-gradient(to bottom right, #111, #222);
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: #111;
-      border-bottom: 1px solid #333;
-    }
-
-    .menu-toggle {
-      background: #222;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 2rem auto;
-      background: #1e1e1e;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #2a2a2a;
-      color: white;
-      font-size: 16px;
-      transition: 0.3s ease;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      background: #333;
-      outline: none;
-      transform: scale(1.02);
-    }
-
-    button.submit-btn {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background: #00b894;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button.submit-btn:hover {
-      background: #01a57e;
-    }
-
-    #loader {
-      display: none;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    @media screen and (max-width: 600px) {
-      .container {
-        margin: 1rem;
-        padding: 1rem;
-      }
-    }
-
-    #other-bank {
-      display: none;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h2>Confirm Payment</h2>
-    <button class="menu-toggle" onclick="location.href='pricing.html'">🔙 Pricing</button>
-  </header>
-
+<body class="confirm-page">
   <div class="container">
+    <h1>Confirm Your Payment</h1>
     <form id="confirmForm">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" id="fullName" required />
-      </div>
+      <label>Account Name</label>
+      <input type="text" id="accountName" required />
 
-      <div class="form-group">
-        <label>Account Name</label>
-        <input type="text" id="accountName" required />
-      </div>
+      <label>Account Number</label>
+      <input type="number" id="accountNumber" required />
 
-      <div class="form-group">
-        <label>Account Number</label>
-        <input type="text" id="accountNumber" required />
-      </div>
+      <label>Bank Name</label>
+      <input type="text" id="bankName" required />
 
-      <div class="form-group">
-        <label>Bank</label>
-        <select id="bankSelect" onchange="toggleOtherBank()">
-          <option value="">--Select Bank--</option>
-          <option value="Access Bank">Access Bank</option>
-          <option value="GTBank">GTBank</option>
-          <option value="UBA">UBA</option>
-          <option value="Zenith Bank">Zenith Bank</option>
-          <option value="First Bank">First Bank</option>
-          <option value="Fidelity Bank">Fidelity Bank</option>
-          <option value="Stanbic IBTC">Stanbic IBTC</option>
-          <option value="Wema Bank">Wema Bank</option>
-          <option value="Kuda">Kuda</option>
-          <option value="Opay">Opay</option>
-          <option value="Palmpay">Palmpay</option>
-          <option value="Others">Others</option>
-        </select>
-      </div>
+      <label>Phone Number</label>
+      <input type="tel" id="phone" required />
 
-      <div class="form-group" id="other-bank">
-        <label>Enter Bank Name</label>
-        <input type="text" id="customBank" />
-      </div>
+      <label>Email Address</label>
+      <input type="email" id="email" required />
 
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="tel" id="phone" required />
-      </div>
+      <label>Message</label>
+      <textarea id="message" rows="3"></textarea>
 
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="email" required />
-      </div>
+      <label>Package Selected</label>
+      <input type="text" id="package" readonly />
 
-      <div class="form-group">
-        <label>Message</label>
-        <textarea id="message" rows="3"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>Service</label>
-        <input type="text" id="service" readonly />
-      </div>
-
-      <button class="submit-btn" type="submit">Submit Confirmation</button>
+      <button type="submit">Submit</button>
+      <div id="loader" style="display: none;">Submitting...</div>
     </form>
 
-    <div id="loader">Submitting...</div>
+    <br />
+    <a href="pricing.html" class="back-button">← Back to Pricing</a>
   </div>
 
-  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-reward-952.mp3"></audio>
+  <!-- Success Sound -->
+  <audio id="successSound" src="success.mp3"></audio>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <!-- SmartUpp Live Chat -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = "YOUR_SMARTUPP_KEY_HERE";
+    window.smartsupp || (function(d) {
+      var s, c, o = smartsupp = function() {
+        o._.push(arguments)
+      };
+      o._ = [];
+      s = d.getElementsByTagName("script")[0];
+      c = d.createElement("script");
+      c.type = "text/javascript";
+      c.charset = "utf-8";
+      c.async = true;
+      c.src = "https://www.smartsuppchat.com/loader.js?";
+      s.parentNode.insertBefore(c, s);
+    })(document);
+  </script>
 
   <script>
     const firebaseConfig = {
@@ -190,54 +63,41 @@
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
+
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    function toggleOtherBank() {
-      const bankSelect = document.getElementById("bankSelect");
-      const otherBank = document.getElementById("other-bank");
-      if (bankSelect.value === "Others") {
-        otherBank.style.display = "block";
-      } else {
-        otherBank.style.display = "none";
-      }
-    }
+    const params = new URLSearchParams(window.location.search);
+    const selectedPackage = params.get('package');
+    document.getElementById('package').value = selectedPackage || 'Not specified';
 
-    window.onload = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const service = urlParams.get("service");
-      if (service) {
-        document.getElementById("service").value = service;
-      }
-    };
-
-    document.getElementById("confirmForm").addEventListener("submit", function(e) {
+    document.getElementById('confirmForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      const loader = document.getElementById("loader");
-      loader.style.display = "block";
 
-      const formData = {
-        fullName: document.getElementById("fullName").value,
-        accountName: document.getElementById("accountName").value,
-        accountNumber: document.getElementById("accountNumber").value,
-        bank: document.getElementById("bankSelect").value === "Others" ? document.getElementById("customBank").value : document.getElementById("bankSelect").value,
-        phone: document.getElementById("phone").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value,
-        service: document.getElementById("service").value,
-        timestamp: new Date().toISOString()
+      const loader = document.getElementById('loader');
+      loader.style.display = 'block';
+
+      const data = {
+        accountName: document.getElementById('accountName').value,
+        accountNumber: document.getElementById('accountNumber').value,
+        bankName: document.getElementById('bankName').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value,
+        package: document.getElementById('package').value,
+        timestamp: Date.now()
       };
 
-      db.ref("payment_confirmations").push(formData).then(() => {
-        document.getElementById("successSound").play();
-        alert("Payment Confirmation Sent Successfully!");
-        document.getElementById("confirmForm").reset();
-        loader.style.display = "none";
-      }).catch(err => {
-        alert("Error submitting payment: " + err.message);
-        loader.style.display = "none";
+      db.ref('payments').push(data).then(() => {
+        loader.style.display = 'none';
+        document.getElementById('successSound').play();
+        alert('Payment confirmed successfully!');
+        document.getElementById('confirmForm').reset();
+        document.getElementById('package').value = selectedPackage;
+      }).catch((error) => {
+        loader.style.display = 'none';
+        alert('Error submitting: ' + error.message);
       });
     });
   </script>
 </body>
-</html>
