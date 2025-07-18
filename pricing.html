@@ -1,121 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb - Pricing</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Pricing – DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#111827',
-            accent: '#1f2937',
-            brand: '#4f46e5'
-          }
-        }
-      }
-    };
+    function goToConfirm(service) {
+      window.location.href = `confirm.html?service=${encodeURIComponent(service)}`;
+    }
   </script>
-</head>
-<body class="bg-primary text-white font-sans relative">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #111827, #1f2937);
+      color: #fff;
+    }.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.75rem 0;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
 
-  <!-- Sidebar Navigation -->
-  <div class="fixed top-0 left-0 h-screen w-16 md:w-20 bg-accent flex flex-col items-center py-6 shadow-xl z-40">
-    <a href="index.html" class="mb-6 text-white hover:text-brand transition-all duration-300 text-xl"><i class="fas fa-home"></i></a>
-    <a href="about.html" class="mb-6 text-white hover:text-brand transition-all duration-300 text-xl"><i class="fas fa-user"></i></a>
-    <a href="pricing.html" class="mb-6 text-brand font-bold text-xl"><i class="fas fa-money-bill"></i></a>
-    <a href="portfolio.html" class="mb-6 text-white hover:text-brand transition-all duration-300 text-xl"><i class="fas fa-image"></i></a>
-    <a href="contact.html" class="mb-6 text-white hover:text-brand transition-all duration-300 text-xl"><i class="fas fa-envelope"></i></a>
-  </div>
+.nav-btn {
+  color: #fff;
+  background: #374151;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  <!-- Main Content -->
-  <main class="ml-16 md:ml-20 px-6 py-10 max-w-6xl mx-auto">
+.nav-btn:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
 
-    <section class="text-center mb-10">
-      <h1 class="text-4xl font-bold mb-2">💰 Pricing Packages</h1>
-      <p class="text-gray-300">Flexible, professional website plans for every need.</p>
-    </section>
+.container {
+  max-width: 1200px;
+  margin: 6rem auto 2rem;
+  padding: 1rem;
+}
 
-    <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #fbbf24;
+}
 
-      <!-- Starter Site -->
-      <div class="bg-accent p-6 rounded-2xl shadow hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-        <h2 class="text-xl font-bold mb-1"><i class="fas fa-globe text-brand"></i> Starter Site</h2>
-        <p class="text-lg font-semibold text-brand mb-3">From ₦5,000</p>
-        <ul class="space-y-1 text-sm">
-          <li>1–2 Pages</li>
-          <li>Responsive Design</li>
-          <li>Contact Form</li>
-        </ul>
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.pricing-card {
+  background: #1f2937;
+  border: 2px solid #374151;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.pricing-card:hover {
+  border-color: #3b82f6;
+  transform: scale(1.03);
+}
+
+.pricing-card h3 {
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-card p {
+  color: #d1d5db;
+  margin: 0.5rem 0;
+}
+
+.pricing-card strong {
+  color: #facc15;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+  </style>
+</head><body>
+  <header class="navbar">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html" class="nav-btn active"><i class="fas fa-money-bill"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+  </header>  <main class="container">
+    <h2 class="section-title">💰 Pricing Packages</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card" onclick="goToConfirm('Starter Site')">
+        <h3>🌐 Starter Site</h3>
+        <strong>From ₦5,000</strong>
+        <p>1–2 Pages</p>
+        <p>Responsive Design</p>
+        <p>Contact Form</p>
       </div>
-
-      <!-- Blog / Portfolio -->
-      <div class="bg-accent p-6 rounded-2xl shadow hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-        <h2 class="text-xl font-bold mb-1"><i class="fas fa-pen-nib text-brand"></i> Blog / Portfolio</h2>
-        <p class="text-lg font-semibold text-brand mb-3">From ₦15,000</p>
-        <ul class="space-y-1 text-sm">
-          <li>CMS Admin Panel</li>
-          <li>SEO + Social Sharing</li>
-        </ul>
+      <div class="pricing-card" onclick="goToConfirm('Blog / Portfolio')">
+        <h3>📝 Blog / Portfolio</h3>
+        <strong>From ₦15,000</strong>
+        <p>CMS Admin Panel</p>
+        <p>SEO + Social Sharing</p>
       </div>
-
-      <!-- Business Site -->
-      <div class="bg-accent p-6 rounded-2xl shadow hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-        <h2 class="text-xl font-bold mb-1"><i class="fas fa-building text-brand"></i> Business Site</h2>
-        <p class="text-lg font-semibold text-brand mb-3">From ₦30,000</p>
-        <ul class="space-y-1 text-sm">
-          <li>Multi-Page Design</li>
-          <li>WhatsApp Booking</li>
-        </ul>
+      <div class="pricing-card" onclick="goToConfirm('Business Site')">
+        <h3>🏢 Business Site</h3>
+        <strong>From ₦30,000</strong>
+        <p>Multi-Page Design</p>
+        <p>WhatsApp Booking</p>
       </div>
-
-      <!-- E-commerce -->
-      <div class="bg-accent p-6 rounded-2xl shadow hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-        <h2 class="text-xl font-bold mb-1"><i class="fas fa-shopping-cart text-brand"></i> E-commerce</h2>
-        <p class="text-lg font-semibold text-brand mb-3">From ₦60,000</p>
-        <ul class="space-y-1 text-sm">
-          <li>Payment Integration</li>
-          <li>Product Dashboard</li>
-        </ul>
+      <div class="pricing-card" onclick="goToConfirm('E-commerce')">
+        <h3>🛒 E-commerce</h3>
+        <strong>From ₦60,000</strong>
+        <p>Payment Integration</p>
+        <p>Product Dashboard</p>
       </div>
-
-      <!-- Web App + AI -->
-      <div class="bg-accent p-6 rounded-2xl shadow hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-        <h2 class="text-xl font-bold mb-1"><i class="fas fa-cogs text-brand"></i> Web App + AI</h2>
-        <p class="text-lg font-semibold text-brand mb-3">From ₦100,000+</p>
-        <ul class="space-y-1 text-sm">
-          <li>Custom Dashboards</li>
-          <li>Realtime DB & Auth</li>
-        </ul>
+      <div class="pricing-card" onclick="goToConfirm('Web App + AI')">
+        <h3>⚙️ Web App + AI</h3>
+        <strong>From ₦100,000+</strong>
+        <p>Custom Dashboards</p>
+        <p>Realtime DB & Auth</p>
       </div>
-
-      <!-- Custom Projects -->
-      <div class="bg-accent p-6 rounded-2xl shadow hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-        <h2 class="text-xl font-bold mb-1"><i class="fas fa-brain text-brand"></i> Custom Projects</h2>
-        <p class="text-lg font-semibold text-brand mb-3">Let’s Discuss</p>
-        <ul class="space-y-1 text-sm">
-          <li>Translators, Bots, Platforms</li>
-          <li>Tailored for Your Idea</li>
-        </ul>
+      <div class="pricing-card" onclick="goToConfirm('Custom Project')">
+        <h3>🧠 Custom Projects</h3>
+        <strong>Let’s Discuss</strong>
+        <p>Translators, Bots, Platforms</p>
       </div>
-
-    </section>
-  </main>
-
-  <!-- SmartUpp -->
-  <script type="text/javascript">
+    </div>
+  </main>  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    window.smartsupp || (function (d) {
+      var s, c, o = smartsupp = function () { o._.push(arguments) };
+      o._ = [];
+      s = d.getElementsByTagName('script')[0];
+      c = d.createElement('script');
+      c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js?';
+      s.parentNode.insertBefore(c, s);
     })(document);
-  </script>
-
-</body>
-</html>
+  </script></body></html>
