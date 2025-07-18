@@ -2,117 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing | DavintoWeb</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0f172a, #1e293b);
-      color: white;
-      overflow-x: hidden;
-    }
-    .nav-btn {
-      display: block;
-      padding: 12px;
-      margin: 5px;
-      background: #1f2937;
-      color: #fff;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      text-align: left;
-    }
-    .nav-btn:hover {
-      background: #3b82f6;
-      transform: translateX(5px);
-    }
-    .toggle-btn {
-      background: #475569;
-    }
-    .pricing-card {
-      background: #1e40af;
-      padding: 20px;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .pricing-card:hover {
-      background: #3b82f6;
-      transform: scale(1.05);
-    }
-  </style>
 </head>
-<body class="relative">
+<body class="bg-gray-950 text-white font-sans">
+  <header class="w-full p-4 bg-gray-900 text-white flex justify-between items-center shadow-md">
+    <h1 class="text-xl font-bold">DavintoWeb</h1>
+    <nav class="space-x-3">
+      <a href="index.html" class="hover:text-blue-400"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="hover:text-blue-400"><i class="fas fa-user"></i> About</a>
+      <a href="portfolio.html" class="hover:text-blue-400"><i class="fas fa-image"></i> Portfolio</a>
+      <a href="contact.html" class="hover:text-blue-400"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+  </header>
 
-  <!-- Sidebar -->
-  <aside id="navbar" class="fixed top-0 left-0 h-full w-56 bg-gray-900 p-4 z-50">
-    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
-    <a href="pricing.html" class="nav-btn active"><i class="fas fa-money-bill"></i> Pricing</a>
-    <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
-    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
-    <button onclick="toggleTheme()" class="nav-btn toggle-btn"><i class="fas fa-adjust"></i> Theme</button>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="pl-60 pr-4 pt-6">
-    <section class="text-center mb-12">
-      <h1 class="text-4xl font-bold mb-4">Our Pricing Packages</h1>
-      <p class="text-gray-300">Choose a plan that works best for your web project.</p>
+  <main class="px-6 py-10 max-w-6xl mx-auto">
+    <!-- What We Build Section -->
+    <section class="mb-10">
+      <h2 class="text-3xl font-bold mb-4">🔧 What We Build</h2>
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-user text-blue-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">Personal Websites</h3>
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-pen-nib text-pink-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">Blogs & Portfolios</h3>
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-building text-yellow-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">Business Sites</h3>
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-shopping-cart text-green-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">E-commerce</h3>
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-graduation-cap text-purple-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">Educational Platforms</h3>
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-users text-orange-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">Community Portals</h3>
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-robot text-cyan-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">AI Bots & Tools</h3>
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition hover:scale-105">
+          <i class="fas fa-heart text-red-400 text-2xl mb-2"></i>
+          <h3 class="text-lg font-semibold">Family & Event Sites</h3>
+        </button>
+      </div>
     </section>
 
-    <section class="grid md:grid-cols-3 gap-8">
-      <!-- Basic Plan -->
-      <div class="pricing-card text-center">
-        <i class="fas fa-rocket text-3xl mb-4"></i>
-        <h2 class="text-2xl font-bold mb-2">Basic</h2>
-        <p class="text-gray-100 mb-2">Simple static site</p>
-        <p class="text-2xl font-bold mb-4">₦10,000</p>
-        <a href="confirm.html?package=Basic" class="inline-block mt-2 bg-white text-blue-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-200">Get Started</a>
-      </div>
-
-      <!-- Pro Plan -->
-      <div class="pricing-card text-center">
-        <i class="fas fa-briefcase text-3xl mb-4"></i>
-        <h2 class="text-2xl font-bold mb-2">Professional</h2>
-        <p class="text-gray-100 mb-2">Interactive dynamic website</p>
-        <p class="text-2xl font-bold mb-4">₦25,000</p>
-        <a href="confirm.html?package=Pro" class="inline-block mt-2 bg-white text-blue-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-200">Get Started</a>
-      </div>
-
-      <!-- Ultimate Plan -->
-      <div class="pricing-card text-center">
-        <i class="fas fa-crown text-3xl mb-4"></i>
-        <h2 class="text-2xl font-bold mb-2">Ultimate</h2>
-        <p class="text-gray-100 mb-2">Full-stack system with database</p>
-        <p class="text-2xl font-bold mb-4">₦50,000</p>
-        <a href="confirm.html?package=Ultimate" class="inline-block mt-2 bg-white text-blue-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-200">Get Started</a>
+    <!-- Pricing Packages Section -->
+    <section>
+      <h2 class="text-3xl font-bold mb-4">💰 Pricing Packages</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <button class="bg-blue-900 hover:bg-blue-800 text-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <h3 class="text-xl font-bold mb-2">🌐 Starter Site</h3>
+          <p class="mb-1">From ₦5,000</p>
+          <ul class="text-sm list-disc list-inside">
+            <li>1–2 Pages</li>
+            <li>Responsive Design</li>
+            <li>Contact Form</li>
+          </ul>
+        </button>
+        <button class="bg-indigo-900 hover:bg-indigo-800 text-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <h3 class="text-xl font-bold mb-2">📝 Blog / Portfolio</h3>
+          <p class="mb-1">From ₦15,000</p>
+          <ul class="text-sm list-disc list-inside">
+            <li>CMS Admin Panel</li>
+            <li>SEO + Social Sharing</li>
+          </ul>
+        </button>
+        <button class="bg-green-900 hover:bg-green-800 text-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <h3 class="text-xl font-bold mb-2">🏢 Business Site</h3>
+          <p class="mb-1">From ₦30,000</p>
+          <ul class="text-sm list-disc list-inside">
+            <li>Multi-Page Design</li>
+            <li>WhatsApp Booking</li>
+          </ul>
+        </button>
+        <button class="bg-yellow-900 hover:bg-yellow-800 text-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <h3 class="text-xl font-bold mb-2">🛒 E-commerce</h3>
+          <p class="mb-1">From ₦60,000</p>
+          <ul class="text-sm list-disc list-inside">
+            <li>Payment Integration</li>
+            <li>Product Dashboard</li>
+          </ul>
+        </button>
+        <button class="bg-purple-900 hover:bg-purple-800 text-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <h3 class="text-xl font-bold mb-2">⚙️ Web App + AI</h3>
+          <p class="mb-1">From ₦100,000+</p>
+          <ul class="text-sm list-disc list-inside">
+            <li>Custom Dashboards</li>
+            <li>Realtime DB & Auth</li>
+          </ul>
+        </button>
+        <button class="bg-red-900 hover:bg-red-800 text-white p-6 rounded-xl shadow-lg transition hover:scale-105">
+          <h3 class="text-xl font-bold mb-2">🧠 Custom Projects</h3>
+          <p class="mb-1">Let’s Discuss</p>
+          <ul class="text-sm list-disc list-inside">
+            <li>Translators</li>
+            <li>Bots</li>
+            <li>Platforms</li>
+          </ul>
+        </button>
       </div>
     </section>
-
-    <footer class="text-center mt-16 text-sm text-gray-400">
-      &copy; 2025 DavintoWeb. All rights reserved. WhatsApp: <a href="https://wa.me/2348169045105" class="text-blue-400 underline">+2348169045105</a>
-    </footer>
   </main>
 
-  <!-- SmartUpp Chat -->
-  <script>
+  <!-- SmartUpp -->
+  <script type="text/javascript">
     var _smartsupp = _smartsupp || {};
     _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp || (function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
       s=d.getElementsByTagName('script')[0];c=d.createElement('script');
       c.type='text/javascript';c.charset='utf-8';c.async=true;
       c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
     })(document);
   </script>
-
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-    }
-  </script>
-
 </body>
 </html>
