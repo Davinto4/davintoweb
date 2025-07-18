@@ -7,83 +7,106 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: #f0f2f5;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    input, select, textarea {
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-    button {
-      width: 100%;
-      padding: 0.9rem;
-      font-size: 1rem;
       background: #111;
       color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 1rem;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #444;
+    }
+    .form-container input,
+    .form-container select,
+    .form-container textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #2c2c2c;
+      border: 1px solid #555;
+      color: white;
+      border-radius: 8px;
+    }
+    .form-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #00c77b;
+      color: black;
       border: none;
-      border-radius: 6px;
+      font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
     }
-    button:disabled {
-      background: #999;
-    }
-    .loader {
+    #loader {
       display: none;
       text-align: center;
-      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>Confirm Payment</h2>
-    <div class="loader" id="loader">Submitting...</div>
-
+  <div class="form-container">
+    <h2>Confirm Your Payment</h2>
     <form id="paymentForm">
       <input type="text" id="fullName" placeholder="Full Name" required />
-      <input type="text" id="accountName" placeholder="Account Name" required />
+      <input type="text" id="accountName" placeholder="Account Name Used to Pay" required />
       <input type="text" id="accountNumber" placeholder="Account Number" required />
-      <select id="bank" required>
-        <option value="">Select Bank</option>
-        <option value="Access Bank">Access Bank</option>
-        <option value="UBA">UBA</option>
-        <option value="First Bank">First Bank</option>
-        <option value="GTBank">GTBank</option>
-        <option value="Zenith Bank">Zenith Bank</option>
-        <option value="Kuda">Kuda</option>
-        <option value="Opay">Opay</option>
-        <option value="PalmPay">PalmPay</option>
-        <option value="Moniepoint">Moniepoint</option>
-        <option value="Others">Others</option>
+      <select id="bank" required onchange="toggleOtherBank(this.value)">
+        <option value="">-- Select Your Bank --</option>
+        <option>Access Bank</option>
+        <option>Fidelity Bank</option>
+        <option>First Bank</option>
+        <option>UBA</option>
+        <option>GTBank</option>
+        <option>Zenith Bank</option>
+        <option>Union Bank</option>
+        <option>Polaris Bank</option>
+        <option>Wema Bank</option>
+        <option>Sterling Bank</option>
+        <option>Stanbic IBTC</option>
+        <option>Heritage Bank</option>
+        <option>Keystone Bank</option>
+        <option>Unity Bank</option>
+        <option>Jaiz Bank</option>
+        <option>Suntrust Bank</option>
+        <option>Titan Trust Bank</option>
+        <option>Providus Bank</option>
+        <option>Opay</option>
+        <option>Palmpay</option>
+        <option>Kuda</option>
+        <option>Rubies Bank</option>
+        <option>Globus Bank</option>
+        <option>VFD Microfinance</option>
+        <option>EcoBank</option>
+        <option>Citibank</option>
+        <option>FBNQuest</option>
+        <option>Coronation Merchant Bank</option>
+        <option>Rand Merchant Bank</option>
+        <option>Others</option>
       </select>
+      <input type="text" id="otherBank" placeholder="Enter Your Bank Name" style="display:none;"/>
+
       <input type="tel" id="phone" placeholder="Phone Number" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <textarea id="message" placeholder="Message or Service Paid For" required></textarea>
-      <button type="submit" id="submitBtn">Submit Confirmation</button>
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Message / Description (Optional)"></textarea>
+      <input type="text" id="service" readonly />
+
+      <div id="loader">Submitting...</div>
+      <button type="submit">Submit Confirmation</button>
     </form>
   </div>
 
-  <audio id="successSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.wav"></audio>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
@@ -94,45 +117,64 @@
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
     const form = document.getElementById("paymentForm");
     const loader = document.getElementById("loader");
-    const submitBtn = document.getElementById("submitBtn");
-    const sound = document.getElementById("successSound");
+    const successSound = document.getElementById("successSound");
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       loader.style.display = "block";
-      submitBtn.disabled = true;
+
+      const fullName = document.getElementById("fullName").value;
+      const accountName = document.getElementById("accountName").value;
+      const accountNumber = document.getElementById("accountNumber").value;
+      const bank = document.getElementById("bank").value === "Others" ? document.getElementById("otherBank").value : document.getElementById("bank").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+      const service = document.getElementById("service").value;
 
       const data = {
-        fullName: document.getElementById("fullName").value.trim(),
-        accountName: document.getElementById("accountName").value.trim(),
-        accountNumber: document.getElementById("accountNumber").value.trim(),
-        bank: document.getElementById("bank").value,
-        phone: document.getElementById("phone").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        message: document.getElementById("message").value.trim(),
-        date: new Date().toLocaleString(),
-        status: "Pending"
+        fullName,
+        accountName,
+        accountNumber,
+        bank,
+        phone,
+        email,
+        message,
+        service,
+        timestamp: new Date().toISOString()
       };
 
-      db.ref("payments").push(data)
-        .then(() => {
-          loader.style.display = "none";
-          sound.play();
-          alert("✅ Payment confirmation submitted successfully!");
-          form.reset();
-          submitBtn.disabled = false;
-        })
-        .catch((error) => {
-          loader.style.display = "none";
-          alert("❌ Error: " + error.message);
-          submitBtn.disabled = false;
-        });
+      try {
+        await push(ref(db, "payments"), data);
+        loader.style.display = "none";
+        successSound.play();
+        alert("✅ Payment confirmation submitted successfully!");
+        form.reset();
+        document.getElementById("service").value = service;
+      } catch (error) {
+        console.error(error);
+        alert("❌ Error submitting confirmation.");
+        loader.style.display = "none";
+      }
     });
+
+    function toggleOtherBank(value) {
+      document.getElementById("otherBank").style.display = (value === "Others") ? "block" : "none";
+    }
+
+    // Auto-fill service from URL
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const service = params.get("service");
+      if (service) {
+        document.getElementById("service").value = service;
+      }
+    };
   </script>
 </body>
 </html>
