@@ -1,90 +1,139 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb | Home</title>
+  <title>DavintoWeb - Build Any Website</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    .nav-link {
-      @apply flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:scale-105;
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
     }
-    .nav-link i {
-      @apply text-xl;
+    #sidebar {
+      transition: transform 0.3s ease;
+    }
+    .nav-btn:hover {
+      background-color: #3b82f6;
+      color: white;
+      transform: scale(1.05);
+    }
+    .hidden-player {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .visible-player {
+      opacity: 1;
     }
   </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-all duration-300" id="body">
-  <!-- Navigation Sidebar -->
-  <aside class="fixed top-0 left-0 h-screen w-48 bg-gray-900 text-white p-4 space-y-4 z-50 shadow-lg">
-    <h2 class="text-2xl font-bold mb-6 text-center">DavintoWeb</h2>
-    <nav class="space-y-2">
-      <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
-      <a href="about.html" class="nav-link"><i class="fas fa-user"></i><span>About</span></a>
-      <a href="pricing.html" class="nav-link"><i class="fas fa-tags"></i><span>Pricing</span></a>
-      <a href="portfolio.html" class="nav-link"><i class="fas fa-image"></i><span>Portfolio</span></a>
-      <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a>
-      <a href="chat.html" class="nav-link"><i class="fas fa-comments"></i><span>Chat</span></a>
-      <a href="https://wa.me/2348169045105" class="nav-link" target="_blank"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
-      <button id="themeToggle" class="nav-link focus:outline-none w-full"><i class="fas fa-adjust"></i><span>Toggle Theme</span></button>
-    </nav>
-  </aside>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Navbar -->
+  <div class="fixed top-0 left-0 h-full w-56 bg-white border-r shadow-md z-50 transform -translate-x-full" id="sidebar">
+    <div class="p-4 flex flex-col gap-3">
+      <a href="index.html" class="nav-btn flex items-center gap-2"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="nav-btn flex items-center gap-2"><i class="fas fa-user"></i> About</a>
+      <a href="pricing.html" class="nav-btn flex items-center gap-2"><i class="fas fa-money-bill"></i> Pricing</a>
+      <a href="portfolio.html" class="nav-btn flex items-center gap-2"><i class="fas fa-image"></i> Portfolio</a>
+      <a href="contact.html" class="nav-btn flex items-center gap-2"><i class="fas fa-envelope"></i> Contact</a>
+      <a href="https://wa.me/2348169045105" target="_blank" class="nav-btn flex items-center gap-2"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>  <!-- Toggle Button -->  <button id="toggleSidebar" class="fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-full shadow-md">
+    <i class="fas fa-bars"></i>
+  </button>  <!-- Main Content -->  <main class="p-8 pt-20 max-w-5xl mx-auto">
+    <section class="mb-10">
+      <h1 class="text-4xl font-bold mb-2">🚀 Build Any Website You Imagine</h1>
+      <p class="text-lg text-gray-700">Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
+      <a href="portfolio.pdf" download class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Download Portfolio</a>
+    </section><section class="mb-10">
+  <h2 class="text-2xl font-semibold mb-4">🌟 Why Choose DavintoWeb?</h2>
+  <ul class="grid grid-cols-2 gap-3 text-gray-700">
+    <li>✅ Fast and mobile-optimized websites</li>
+    <li>✅ Free HTTPS Security</li>
+    <li>✅ Firebase-powered dashboards</li>
+    <li>✅ AI Chatbot & Translator Integration</li>
+    <li>✅ Ongoing support</li>
+  </ul>
+</section>
 
-  <!-- Main Content -->
-  <main class="ml-52 p-6 space-y-12">
-    <!-- Hero -->
-    <section class="mt-10">
-      <h1 class="text-4xl font-extrabold">Welcome to DavintoWeb</h1>
-      <p class="mt-2 text-gray-700 dark:text-gray-300 text-lg">We build creative and modern websites using the latest tech — Firebase, Tailwind, and AI integration.</p>
-    </section>
+<section class="mb-10">
+  <h2 class="text-2xl font-semibold mb-4">🧩 What We Build</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div class="p-4 bg-white rounded shadow">Personal Websites</div>
+    <div class="p-4 bg-white rounded shadow">Blogs & Portfolios</div>
+    <div class="p-4 bg-white rounded shadow">Business Sites</div>
+    <div class="p-4 bg-white rounded shadow">E-commerce</div>
+    <div class="p-4 bg-white rounded shadow">Educational Platforms</div>
+    <div class="p-4 bg-white rounded shadow">Community Portals</div>
+    <div class="p-4 bg-white rounded shadow">AI Bots & Tools</div>
+    <div class="p-4 bg-white rounded shadow">Family & Event Sites</div>
+  </div>
+</section>
 
-    <!-- Showcase -->
-    <section>
-      <h2 class="text-2xl font-bold mb-4">🚀 Website Showcase</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 hover:scale-105 transition">
-          <h3 class="font-semibold text-lg mb-1">💼 Portfolio Website</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Firebase + TailwindCSS + clean layout</p>
-          <a href="https://davinto.vercel.app" class="text-blue-500 inline-block mt-2" target="_blank">View Site</a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 hover:scale-105 transition">
-          <h3 class="font-semibold text-lg mb-1">🎮 Game Dashboard</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Quests, XP levels, ranks, and Trionix system</p>
-          <a href="#" class="text-blue-500 inline-block mt-2">Coming Soon</a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 hover:scale-105 transition">
-          <h3 class="font-semibold text-lg mb-1">🤖 AI Chat Bot</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">OpenAI integrated chatbot with Firebase backend</p>
-          <a href="chat.html" class="text-blue-500 inline-block mt-2">Try it</a>
-        </div>
-      </div>
-    </section>
+<section class="mb-10">
+  <h2 class="text-2xl font-semibold mb-4">💰 Pricing Packages</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-bold">🌐 Starter Site</h3>
+      <p>From ₦5,000 — 1–2 Pages, Responsive Design, Contact Form</p>
+    </div>
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-bold">📝 Blog / Portfolio</h3>
+      <p>From ₦15,000 — CMS Admin Panel, SEO + Social Sharing</p>
+    </div>
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-bold">🏢 Business Site</h3>
+      <p>From ₦30,000 — Multi-Page Design, WhatsApp Booking</p>
+    </div>
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-bold">🛒 E-commerce</h3>
+      <p>From ₦60,000 — Payment Integration, Product Dashboard</p>
+    </div>
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-bold">⚙️ Web App + AI</h3>
+      <p>From ₦100,000+ — Custom Dashboards, Realtime DB & Auth</p>
+    </div>
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-bold">🧠 Custom Projects</h3>
+      <p>Let’s Discuss — Translators, Bots, Platforms</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Portfolio Download -->
-    <section class="text-center">
-      <a href="portfolio.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
-        📁 Download Portfolio
-      </a>
-    </section>
-  </main>
+  </main>  <!-- Sticky Music Player -->  <div class="fixed bottom-4 right-4 bg-white shadow-lg rounded-full p-2 px-4 flex items-center gap-2">
+    <i class="fas fa-music text-blue-600"></i>
+    <span id="currentTrack" class="font-medium">Loading music...</span>
+    <audio id="musicPlayer" autoplay controls class="hidden-player"></audio>
+  </div>  <script>
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
 
-  <!-- Music Player -->
-  <footer class="fixed bottom-4 right-4 bg-black/90 text-white px-4 py-2 rounded-xl flex items-center gap-3 shadow-lg z-40 backdrop-blur-md">
-    <audio id="audioPlayer" autoplay loop class="w-48 rounded-md">
-      <source src="https://vercel-music-files.vercel.app/tracks/xxxtentacion.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-    <span class="text-sm font-semibold">🎵 Now Playing: Royalty-Free Rap</span>
-  </footer>
-
-  <!-- Theme Toggle Script -->
-  <script>
-    const toggle = document.getElementById('themeToggle');
-    const body = document.getElementById('body');
-    toggle.addEventListener('click', () => {
-      body.classList.toggle('dark');
+    toggleSidebar.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
     });
-  </script>
-</body>
+
+    // Music Player with rotation
+    const tracks = [
+      { name: "XXXTentacion - Changes", url: "https://davintoweb.vercel.app/music/xxxtentacion-changes.mp3" },
+      { name: "Juice WRLD - Lucid Dreams", url: "https://davintoweb.vercel.app/music/lucid-dreams.mp3" },
+      { name: "Pop Smoke - Dior", url: "https://davintoweb.vercel.app/music/dior.mp3" },
+      { name: "NF - Hope", url: "https://davintoweb.vercel.app/music/nf-hope.mp3" },
+      { name: "Lecrae - Blessings", url: "https://davintoweb.vercel.app/music/blessings.mp3" }
+    ];
+
+    const player = document.getElementById('musicPlayer');
+    const currentTrack = document.getElementById('currentTrack');
+
+    function playRandomTrack() {
+      const track = tracks[Math.floor(Math.random() * tracks.length)];
+      currentTrack.textContent = track.name;
+      player.src = track.url;
+      player.classList.add('visible-player');
+      player.classList.remove('hidden-player');
+      player.play();
+    }
+
+    window.addEventListener('load', playRandomTrack);
+  </script></body>
 </html>
