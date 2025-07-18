@@ -3,124 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel - DavintoWeb</title>
+  <title>DavintoWeb Admin</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #121212, #1e1e1e);
+      background: linear-gradient(to bottom, #000000, #111111);
       color: #fff;
+      padding: 1rem;
     }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 220px;
-      background: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 1rem;
-      z-index: 1000;
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
     }
-
     .nav-btn {
-      background: #222;
+      background-color: #222;
       color: #fff;
       border: none;
-      width: 90%;
-      margin: 0.4rem 0;
-      padding: 0.7rem;
-      font-size: 1rem;
-      text-align: left;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      padding: 12px 16px;
+      margin: 5px;
+      border-radius: 8px;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
     }
-
-    .nav-btn:hover, .nav-btn.active {
-      background: #333;
+    .nav-btn:hover {
+      background-color: #444;
       transform: scale(1.05);
     }
-
-    .main-content {
-      margin-left: 230px;
-      padding: 2rem;
-      transition: margin-left 0.3s;
+    .admin-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
     }
-
-    .admin-box {
+    .admin-card {
       background: #1a1a1a;
-      margin: 1rem 0;
       padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(255,255,255,0.05);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
       transition: transform 0.3s ease;
     }
-
-    .admin-box:hover {
+    .admin-card:hover {
       transform: translateY(-5px);
     }
-
-    .admin-box button {
-      background: #00c853;
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1rem;
-      margin-top: 0.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+    .admin-card h3 {
+      margin-top: 0;
+      color: #00ffcc;
     }
-
-    .admin-box button:hover {
-      background: #00e676;
-    }
-
-    #themeToggle {
-      margin-top: auto;
-      margin-bottom: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .navbar {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        flex-wrap: wrap;
-        position: static;
-      }
-
-      .main-content {
-        margin-left: 0;
-      }
+    .admin-card p {
+      margin: 6px 0;
     }
   </style>
 </head>
-<body class="light-mode">
-  <header class="navbar">
+<body>
+  <header style="text-align: center; margin-bottom: 1rem;">
     <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
-    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
-    <a href="pricing.html" class="nav-btn"><i class="fas fa-money-bill"></i> Pricing</a>
-    <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
-    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
-    <button id="themeToggle" class="nav-btn"><i class="fas fa-adjust"></i> Theme</button>
+    <a href="confirm.html" class="nav-btn"><i class="fas fa-plus-circle"></i> Confirm Payment</a>
   </header>
 
-  <main class="main-content">
-    <h1>Payment Confirmations</h1>
-    <div id="confirmations"></div>
-  </main>
+  <h1><i class="fas fa-database"></i> Payment Confirmations</h1>
+  <div class="admin-container" id="adminData">
+    <!-- Firebase data appears here -->
+  </div>
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
@@ -130,57 +81,41 @@
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const confirmationsRef = ref(db, "confirmations");
+    const adminData = document.getElementById("adminData");
 
-    const container = document.getElementById("confirmations");
+    function displayConfirmation(data) {
+      adminData.innerHTML = ''; // Clear previous
 
-    onValue(confirmationsRef, (snapshot) => {
-      container.innerHTML = "";
-      const data = snapshot.val();
-      if (data) {
-        Object.entries(data).reverse().forEach(([key, entry]) => {
-          const div = document.createElement("div");
-          div.className = "admin-box";
-          div.innerHTML = `
-            <strong>Account Name:</strong> ${entry.accountName}<br/>
-            <strong>Bank Name:</strong> ${entry.bankName}<br/>
-            <strong>Account Number:</strong> ${entry.accountNumber}<br/>
-            <strong>Phone:</strong> ${entry.phone}<br/>
-            <strong>Email:</strong> ${entry.email}<br/>
-            <strong>Message:</strong> ${entry.message}<br/>
-            <strong>Service:</strong> ${entry.service}<br/>
-            <button onclick="alert('Marked as Reviewed')">Mark Reviewed</button>
-          `;
-          container.appendChild(div);
-        });
+      data.forEach((item) => {
+        const entry = item.val();
+        const div = document.createElement("div");
+        div.className = "admin-card";
+        div.innerHTML = `
+          <h3>${entry.accountName || 'No Name Provided'}</h3>
+          <p><strong>Bank:</strong> ${entry.bankName || 'N/A'}</p>
+          <p><strong>Account Number:</strong> ${entry.accountNumber || 'N/A'}</p>
+          <p><strong>Phone:</strong> ${entry.phone || 'N/A'}</p>
+          <p><strong>Email:</strong> ${entry.email || 'N/A'}</p>
+          <p><strong>Message:</strong> ${entry.message || ''}</p>
+          <p><em>${new Date(entry.timestamp).toLocaleString()}</em></p>
+        `;
+        adminData.appendChild(div);
+      });
+    }
+
+    db.ref("confirmations").on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        const entries = [];
+        snapshot.forEach((child) => entries.push(child));
+        entries.reverse(); // Show latest first
+        displayConfirmation(entries);
       } else {
-        container.innerHTML = "<p>No confirmations yet.</p>";
+        adminData.innerHTML = "<p>No confirmations yet.</p>";
       }
     });
-  </script>
-
-  <!-- Theme Toggle -->
-  <script>
-    const themeBtn = document.getElementById("themeToggle");
-    themeBtn.onclick = () => {
-      document.body.classList.toggle("dark-mode");
-      document.body.classList.toggle("light-mode");
-    };
-  </script>
-
-  <!-- SmartUpp Chat -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
-      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-      c.type='text/javascript';c.charset='utf-8';c.async=true;
-      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-    })(document);
   </script>
 </body>
 </html>
