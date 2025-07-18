@@ -1,70 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DavintoWeb | Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    .nav-link {
+      @apply flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:scale-105;
+    }
+    .nav-link i {
+      @apply text-xl;
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-900 transition-colors duration-300" id="body">
-  <!-- Vertical Navbar -->
-  <header class="fixed top-0 left-0 h-full w-16 bg-gray-900 text-white flex flex-col items-center py-4 z-50 space-y-6 shadow-lg">
-    <a href="index.html" class="nav-btn text-center"><i class="fas fa-home text-xl"></i><span class="sr-only">Home</span></a>
-    <a href="about.html" class="nav-btn text-center"><i class="fas fa-user text-xl"></i><span class="sr-only">About</span></a>
-    <a href="pricing.html" class="nav-btn text-center"><i class="fas fa-money-bill text-xl"></i><span class="sr-only">Pricing</span></a>
-    <a href="portfolio.html" class="nav-btn text-center"><i class="fas fa-image text-xl"></i><span class="sr-only">Portfolio</span></a>
-    <a href="contact.html" class="nav-btn text-center"><i class="fas fa-envelope text-xl"></i><span class="sr-only">Contact</span></a>
-    <a href="chat.html" class="nav-btn text-center"><i class="fas fa-comments text-xl"></i><span class="sr-only">Chat</span></a>
-    <a href="https://wa.me/2348169045105" class="nav-btn text-center" target="_blank"><i class="fab fa-whatsapp text-xl"></i><span class="sr-only">WhatsApp</span></a>
-    <button id="themeToggle" class="nav-btn text-center focus:outline-none">
-      <i class="fas fa-adjust text-xl"></i><span class="sr-only">Toggle Theme</span>
-    </button>
-  </header>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-all duration-300" id="body">
+  <!-- Navigation Sidebar -->
+  <aside class="fixed top-0 left-0 h-screen w-48 bg-gray-900 text-white p-4 space-y-4 z-50 shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-center">DavintoWeb</h2>
+    <nav class="space-y-2">
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="about.html" class="nav-link"><i class="fas fa-user"></i><span>About</span></a>
+      <a href="pricing.html" class="nav-link"><i class="fas fa-tags"></i><span>Pricing</span></a>
+      <a href="portfolio.html" class="nav-link"><i class="fas fa-image"></i><span>Portfolio</span></a>
+      <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a>
+      <a href="chat.html" class="nav-link"><i class="fas fa-comments"></i><span>Chat</span></a>
+      <a href="https://wa.me/2348169045105" class="nav-link" target="_blank"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+      <button id="themeToggle" class="nav-link focus:outline-none w-full"><i class="fas fa-adjust"></i><span>Toggle Theme</span></button>
+    </nav>
+  </aside>
 
   <!-- Main Content -->
-  <main class="ml-20 p-6 space-y-12">
-    <!-- Hero Section -->
-    <section class="text-center mt-10">
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">Welcome to DavintoWeb</h1>
-      <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300">We create modern, powerful, and beautiful websites – combining static and dynamic tools with smart Firebase backend.</p>
+  <main class="ml-52 p-6 space-y-12">
+    <!-- Hero -->
+    <section class="mt-10">
+      <h1 class="text-4xl font-extrabold">Welcome to DavintoWeb</h1>
+      <p class="mt-2 text-gray-700 dark:text-gray-300 text-lg">We build creative and modern websites using the latest tech — Firebase, Tailwind, and AI integration.</p>
     </section>
 
-    <!-- Showcase Section -->
+    <!-- Showcase -->
     <section>
-      <h2 class="text-2xl font-bold mb-4">🔍 Website Showcase</h2>
+      <h2 class="text-2xl font-bold mb-4">🚀 Website Showcase</h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
-          <h3 class="font-semibold text-lg mb-2">🔥 Portfolio Website</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Built with HTML, Tailwind, Firebase Auth + Realtime DB.</p>
-          <a href="https://davinto.vercel.app" class="text-blue-500 mt-2 inline-block" target="_blank">View Site</a>
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 hover:scale-105 transition">
+          <h3 class="font-semibold text-lg mb-1">💼 Portfolio Website</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Firebase + TailwindCSS + clean layout</p>
+          <a href="https://davinto.vercel.app" class="text-blue-500 inline-block mt-2" target="_blank">View Site</a>
         </div>
-        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
-          <h3 class="font-semibold text-lg mb-2">🎮 Game Dashboard</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Includes XP, levels, community, and Trionix dictionary.</p>
-          <a href="#" class="text-blue-500 mt-2 inline-block">Coming Soon</a>
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 hover:scale-105 transition">
+          <h3 class="font-semibold text-lg mb-1">🎮 Game Dashboard</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Quests, XP levels, ranks, and Trionix system</p>
+          <a href="#" class="text-blue-500 inline-block mt-2">Coming Soon</a>
         </div>
-        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
-          <h3 class="font-semibold text-lg mb-2">💬 AI Chat System</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">OpenAI-powered assistant with Firebase chat logs.</p>
-          <a href="chat.html" class="text-blue-500 mt-2 inline-block">Try it</a>
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 hover:scale-105 transition">
+          <h3 class="font-semibold text-lg mb-1">🤖 AI Chat Bot</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">OpenAI integrated chatbot with Firebase backend</p>
+          <a href="chat.html" class="text-blue-500 inline-block mt-2">Try it</a>
         </div>
       </div>
     </section>
 
-    <!-- Portfolio CTA -->
+    <!-- Portfolio Download -->
     <section class="text-center">
-      <a href="portfolio.html" class="px-6 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">📂 Download Full Portfolio</a>
+      <a href="portfolio.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
+        📁 Download Portfolio
+      </a>
     </section>
   </main>
 
-  <!-- Sticky Music Player -->
-  <footer class="fixed bottom-4 right-4 bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full flex items-center gap-4 shadow-lg animate-pulse transition-all">
-    <audio id="audioPlayer" controls autoplay loop class="w-48">
+  <!-- Music Player -->
+  <footer class="fixed bottom-4 right-4 bg-black/90 text-white px-4 py-2 rounded-xl flex items-center gap-3 shadow-lg z-40 backdrop-blur-md">
+    <audio id="audioPlayer" autoplay loop class="w-48 rounded-md">
       <source src="https://vercel-music-files.vercel.app/tracks/xxxtentacion.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
-    <span class="text-sm">🎧 Now Playing: Random Rap/Gospel</span>
+    <span class="text-sm font-semibold">🎵 Now Playing: Royalty-Free Rap</span>
   </footer>
 
   <!-- Theme Toggle Script -->
