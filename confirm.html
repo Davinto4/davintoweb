@@ -3,53 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirm Payment - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <title>Payment Confirmation - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #101010;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background: #1a1a1a;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 20px;
+      color: #00ffcc;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #00ffcc;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      background: #2c2c2c;
+      color: #fff;
+      border: 1px solid #00ffcc;
+      border-radius: 6px;
+    }
+
+    button {
+      background: #00ffcc;
+      color: #101010;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #00bfa6;
+    }
+
+    #loader {
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    #loader span {
+      color: #00ffcc;
+      font-size: 18px;
+    }
+  </style>
 </head>
-<body class="bg-dark text-light min-h-screen">
-  <header class="top-nav">
-    <h2>DavintoWeb</h2>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="confirm.html">Confirm</a>
-    </nav>
-  </header>
+<body>
 
-  <main class="container py-5">
-    <h1 class="text-xl mb-4">Confirm Your Payment</h1>
-    <form id="confirmForm" class="form-card">
-      <label>Account Name</label>
-      <input type="text" id="accountName" required/>
+  <nav>
+    <h1>DavintoWeb - Payment Confirmation</h1>
+  </nav>
 
-      <label>Account Number</label>
-      <input type="number" id="accountNumber" required/>
-
-      <label>Bank Name</label>
-      <input type="text" id="bankName" required/>
-
-      <label>Phone Number</label>
-      <input type="tel" id="phone" required/>
-
-      <label>Email Address</label>
-      <input type="email" id="email" required/>
-
-      <label>Message</label>
-      <textarea id="message" rows="3"></textarea>
-
-      <label>Package Selected</label>
-      <input type="text" id="package" readonly/>
-
-      <button type="submit" class="btn">Submit</button>
-      <div id="loader" class="loader" style="display: none;">Submitting...</div>
+  <div class="container">
+    <h2>Confirm Your Payment</h2>
+    <form id="confirmForm">
+      <input type="text" id="name" placeholder="Your Full Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="account" placeholder="Account Used (e.g. MacDonald GTB)" required />
+      <textarea id="message" placeholder="Additional Message (Optional)"></textarea>
+      <button type="submit">Submit Confirmation</button>
     </form>
-  </main>
 
-  <audio id="successSound" src="success.mp3"></audio>
+    <div id="loader">
+      <span>Submitting...</span>
+    </div>
+  </div>
+
+  <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c46f3b1c56.mp3?filename=correct-2-46134.mp3"></audio>
 
   <script>
     const firebaseConfig = {
@@ -64,38 +116,46 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
+    const form = document.getElementById("confirmForm");
+    const loader = document.getElementById("loader");
+    const successSound = document.getElementById("successSound");
 
-    const params = new URLSearchParams(window.location.search);
-    const selectedPackage = params.get('package');
-    document.getElementById('package').value = selectedPackage || 'Not specified';
-
-    document.getElementById('confirmForm').addEventListener('submit', (e) => {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
+      loader.style.display = "block";
 
-      const loader = document.getElementById('loader');
-      loader.style.display = 'block';
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const account = document.getElementById("account").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const timestamp = new Date().toISOString();
 
-      const data = {
-        accountName: document.getElementById('accountName').value,
-        accountNumber: document.getElementById('accountNumber').value,
-        bankName: document.getElementById('bankName').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value,
-        package: document.getElementById('package').value,
-        timestamp: Date.now()
+      if (!name || !email || !account) {
+        alert("Please fill in all required fields.");
+        loader.style.display = "none";
+        return;
+      }
+
+      const newEntry = {
+        name,
+        email,
+        account,
+        message,
+        timestamp
       };
 
-      db.ref('payments').push(data).then(() => {
-        loader.style.display = 'none';
-        document.getElementById('successSound').play();
-        alert('Payment confirmed successfully!');
-        document.getElementById('confirmForm').reset();
-        document.getElementById('package').value = selectedPackage;
-      }).catch((error) => {
-        loader.style.display = 'none';
-        alert('Error submitting: ' + error.message);
-      });
+      db.ref("payments").push(newEntry)
+        .then(() => {
+          loader.style.display = "none";
+          successSound.play();
+          alert("Payment confirmation submitted successfully!");
+          form.reset();
+          window.location.href = "admin.html";
+        })
+        .catch((err) => {
+          loader.style.display = "none";
+          alert("Error: " + err.message);
+        });
     });
   </script>
 </body>
