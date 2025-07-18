@@ -1,139 +1,102 @@
-<!DOCTYPE html><html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DavintoWeb - Build Any Website</title>
+  <title>DavintoWeb - Professional Web Solutions</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+    .nav-btn {
+      @apply flex items-center gap-2 p-4 text-white hover:bg-blue-700 transition-all duration-300;
     }
-    #sidebar {
-      transition: transform 0.3s ease;
+    .card {
+      @apply bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg;
     }
-    .nav-btn:hover {
-      background-color: #3b82f6;
-      color: white;
-      transform: scale(1.05);
-    }
-    .hidden-player {
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-    .visible-player {
-      opacity: 1;
+    .card i {
+      @apply text-blue-600 text-xl;
     }
   </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
-  <!-- Navbar -->
-  <div class="fixed top-0 left-0 h-full w-56 bg-white border-r shadow-md z-50 transform -translate-x-full" id="sidebar">
-    <div class="p-4 flex flex-col gap-3">
-      <a href="index.html" class="nav-btn flex items-center gap-2"><i class="fas fa-home"></i> Home</a>
-      <a href="about.html" class="nav-btn flex items-center gap-2"><i class="fas fa-user"></i> About</a>
-      <a href="pricing.html" class="nav-btn flex items-center gap-2"><i class="fas fa-money-bill"></i> Pricing</a>
-      <a href="portfolio.html" class="nav-btn flex items-center gap-2"><i class="fas fa-image"></i> Portfolio</a>
-      <a href="contact.html" class="nav-btn flex items-center gap-2"><i class="fas fa-envelope"></i> Contact</a>
-      <a href="https://wa.me/2348169045105" target="_blank" class="nav-btn flex items-center gap-2"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+</head><body class="flex bg-gray-100 text-gray-900">
+  <!-- Sidebar Navbar -->
+  <nav class="fixed top-0 left-0 h-full w-52 bg-blue-900 text-white p-4 flex flex-col z-50">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html" class="nav-btn"><i class="fas fa-money-bill"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn"><i class="fas fa-briefcase"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+  </nav>  <!-- Main Content -->  <main class="ml-52 p-8 w-full">
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold mb-4">Why Choose DavintoWeb?</h1>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="card">
+          <i class="fas fa-rocket"></i>
+          <h2 class="font-semibold text-lg mt-2">Fast & Optimized</h2>
+          <p>Speedy delivery with performance-focused builds.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-lock"></i>
+          <h2 class="font-semibold text-lg mt-2">Secure by Design</h2>
+          <p>Security-first principles in all projects we develop.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-laptop-code"></i>
+          <h2 class="font-semibold text-lg mt-2">Modern UI/UX</h2>
+          <p>Clean, beautiful interfaces built with best practices.</p>
+        </div>
+      </div>
+    </section><section class="mb-12">
+  <h1 class="text-4xl font-bold mb-4">What We Build</h1>
+  <div class="grid gap-6 md:grid-cols-3">
+    <div class="card">
+      <i class="fas fa-store"></i>
+      <h2 class="font-semibold text-lg mt-2">E-commerce Stores</h2>
+      <p>Scalable, secure online shops with real-time payment systems.</p>
     </div>
-  </div>  <!-- Toggle Button -->  <button id="toggleSidebar" class="fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-full shadow-md">
-    <i class="fas fa-bars"></i>
-  </button>  <!-- Main Content -->  <main class="p-8 pt-20 max-w-5xl mx-auto">
-    <section class="mb-10">
-      <h1 class="text-4xl font-bold mb-2">🚀 Build Any Website You Imagine</h1>
-      <p class="text-lg text-gray-700">Professional, modern, and affordable websites for everyone — from blogs to business portals, AI-powered dashboards, and eCommerce.</p>
-      <a href="portfolio.pdf" download class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Download Portfolio</a>
-    </section><section class="mb-10">
-  <h2 class="text-2xl font-semibold mb-4">🌟 Why Choose DavintoWeb?</h2>
-  <ul class="grid grid-cols-2 gap-3 text-gray-700">
-    <li>✅ Fast and mobile-optimized websites</li>
-    <li>✅ Free HTTPS Security</li>
-    <li>✅ Firebase-powered dashboards</li>
-    <li>✅ AI Chatbot & Translator Integration</li>
-    <li>✅ Ongoing support</li>
-  </ul>
-</section>
-
-<section class="mb-10">
-  <h2 class="text-2xl font-semibold mb-4">🧩 What We Build</h2>
-  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-    <div class="p-4 bg-white rounded shadow">Personal Websites</div>
-    <div class="p-4 bg-white rounded shadow">Blogs & Portfolios</div>
-    <div class="p-4 bg-white rounded shadow">Business Sites</div>
-    <div class="p-4 bg-white rounded shadow">E-commerce</div>
-    <div class="p-4 bg-white rounded shadow">Educational Platforms</div>
-    <div class="p-4 bg-white rounded shadow">Community Portals</div>
-    <div class="p-4 bg-white rounded shadow">AI Bots & Tools</div>
-    <div class="p-4 bg-white rounded shadow">Family & Event Sites</div>
-  </div>
-</section>
-
-<section class="mb-10">
-  <h2 class="text-2xl font-semibold mb-4">💰 Pricing Packages</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-bold">🌐 Starter Site</h3>
-      <p>From ₦5,000 — 1–2 Pages, Responsive Design, Contact Form</p>
+    <div class="card">
+      <i class="fas fa-robot"></i>
+      <h2 class="font-semibold text-lg mt-2">AI Chatbots</h2>
+      <p>Custom bots with smart responses, integrated with WhatsApp and web.</p>
     </div>
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-bold">📝 Blog / Portfolio</h3>
-      <p>From ₦15,000 — CMS Admin Panel, SEO + Social Sharing</p>
-    </div>
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-bold">🏢 Business Site</h3>
-      <p>From ₦30,000 — Multi-Page Design, WhatsApp Booking</p>
-    </div>
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-bold">🛒 E-commerce</h3>
-      <p>From ₦60,000 — Payment Integration, Product Dashboard</p>
-    </div>
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-bold">⚙️ Web App + AI</h3>
-      <p>From ₦100,000+ — Custom Dashboards, Realtime DB & Auth</p>
-    </div>
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-bold">🧠 Custom Projects</h3>
-      <p>Let’s Discuss — Translators, Bots, Platforms</p>
+    <div class="card">
+      <i class="fas fa-blog"></i>
+      <h2 class="font-semibold text-lg mt-2">Blogs & Portfolios</h2>
+      <p>Personalized websites to showcase your work or share stories.</p>
     </div>
   </div>
 </section>
 
-  </main>  <!-- Sticky Music Player -->  <div class="fixed bottom-4 right-4 bg-white shadow-lg rounded-full p-2 px-4 flex items-center gap-2">
-    <i class="fas fa-music text-blue-600"></i>
-    <span id="currentTrack" class="font-medium">Loading music...</span>
-    <audio id="musicPlayer" autoplay controls class="hidden-player"></audio>
-  </div>  <script>
-    const toggleSidebar = document.getElementById('toggleSidebar');
-    const sidebar = document.getElementById('sidebar');
+<section class="mb-12">
+  <h1 class="text-4xl font-bold mb-4">Pricing Packages</h1>
+  <div class="grid gap-6 md:grid-cols-3">
+    <div class="card">
+      <i class="fas fa-paper-plane"></i>
+      <h2 class="font-semibold text-lg mt-2">Starter</h2>
+      <p>Ideal for small businesses and individuals. ₦10,000 - ₦20,000</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-briefcase"></i>
+      <h2 class="font-semibold text-lg mt-2">Professional</h2>
+      <p>Mid-size websites with more features. ₦30,000 - ₦60,000</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-globe"></i>
+      <h2 class="font-semibold text-lg mt-2">Enterprise</h2>
+      <p>Full-stack solutions for growing businesses. ₦80,000+</p>
+    </div>
+  </div>
+</section>
 
-    toggleSidebar.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-    });
-
-    // Music Player with rotation
-    const tracks = [
-      { name: "XXXTentacion - Changes", url: "https://davintoweb.vercel.app/music/xxxtentacion-changes.mp3" },
-      { name: "Juice WRLD - Lucid Dreams", url: "https://davintoweb.vercel.app/music/lucid-dreams.mp3" },
-      { name: "Pop Smoke - Dior", url: "https://davintoweb.vercel.app/music/dior.mp3" },
-      { name: "NF - Hope", url: "https://davintoweb.vercel.app/music/nf-hope.mp3" },
-      { name: "Lecrae - Blessings", url: "https://davintoweb.vercel.app/music/blessings.mp3" }
-    ];
-
-    const player = document.getElementById('musicPlayer');
-    const currentTrack = document.getElementById('currentTrack');
-
-    function playRandomTrack() {
-      const track = tracks[Math.floor(Math.random() * tracks.length)];
-      currentTrack.textContent = track.name;
-      player.src = track.url;
-      player.classList.add('visible-player');
-      player.classList.remove('hidden-player');
-      player.play();
-    }
-
-    window.addEventListener('load', playRandomTrack);
-  </script></body>
-</html>
+  </main>  <!-- SmartUpp Chat Integration -->  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp || (function (d) {
+      var s, c, o = smartsupp = function () { o._.push(arguments) };
+      o._ = [];
+      s = d.getElementsByTagName('script')[0];
+      c = d.createElement('script');
+      c.type = 'text/javascript';
+      c.charset = 'utf-8';
+      c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js?';
+      s.parentNode.insertBefore(c, s);
+    })(document);
+  </script></body></html>
