@@ -2,77 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pricing | DavintoWeb</title>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-container">
-      <h1 class="logo">DavintoWeb</h1>
-      <div class="nav-buttons">
-        <a href="index.html" class="nav-btn">Home</a>
-        <a href="about.html" class="nav-btn">About</a>
-        <a href="pricing.html" class="nav-btn active">Pricing</a>
-        <a href="confirm.html" class="nav-btn">Confirm</a>
-        <a href="contact.html" class="nav-btn">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Pricing Section -->
-  <section class="pricing-section">
-    <h2>Choose Your Package</h2>
-    <div class="pricing-grid">
-      <div class="card">
-        <h3>Starter Website</h3>
-        <p>Simple and responsive website</p>
-        <a href="confirm.html?service=Starter Website" class="btn">Select</a>
-      </div>
-
-      <div class="card">
-        <h3>Portfolio / Blog</h3>
-        <p>Showcase your works or blog posts</p>
-        <a href="confirm.html?service=Portfolio" class="btn">Select</a>
-      </div>
-
-      <div class="card">
-        <h3>Business Site</h3>
-        <p>For brands, companies, and businesses</p>
-        <a href="confirm.html?service=Business Site" class="btn">Select</a>
-      </div>
-
-      <div class="card">
-        <h3>E-commerce</h3>
-        <p>Sell online with cart and payment system</p>
-        <a href="confirm.html?service=E-commerce" class="btn">Select</a>
-      </div>
-
-      <div class="card">
-        <h3>Full Web App</h3>
-        <p>Complex, interactive web applications</p>
-        <a href="confirm.html?service=Web App" class="btn">Select</a>
-      </div>
-
-      <div class="card">
-        <h3>Custom Projects</h3>
-        <p>Tailored to your unique needs</p>
-        <a href="confirm.html?service=Custom Project" class="btn">Select</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SmartUpp Chat -->
-  <script type="text/javascript">
-    var _smartsupp = _smartsupp || {};
-    _smartsupp.key = "0d074f1a6588d3c0562657b1e5a3dd332cf9af81";
-    window.smartsupp||(function(d) {
-      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-      s=d.getElementsByTagName("script")[0];c=d.createElement("script");
-      c.type="text/javascript";c.charset="utf-8";c.async=true;
-      c.src="https://www.smartsuppchat.com/loader.js?";s.parentNode.insertBefore(c,s);
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DavintoWeb | Pricing</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script>
+    // SmartUpp live chat
+    window._smartsupp || (function(d) {
+      var s, c, o = smartsupp = function() {
+        o._.push(arguments)
+      };
+      o._ = [];
+      s = d.getElementsByTagName('script')[0];
+      c = d.createElement('script');
+      c.type = 'text/javascript';
+      c.charset = 'utf-8';
+      c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js?';
+      c.onload = () => {
+        smartsupp('key', '0d074f1a6588d3c0562657b1e5a3dd332cf9af81');
+      };
+      s.parentNode.insertBefore(c, s);
     })(document);
+  </script>
+</head>
+<body class="light-mode">
+
+  <!-- Vertical Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html" class="nav-btn active"><i class="fas fa-money-bill-wave"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn"><i class="fas fa-image"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+    <button id="themeToggle" class="nav-btn toggle-btn"><i class="fas fa-adjust"></i></button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <section class="section">
+      <h1 class="section-title">Pricing Packages</h1>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <i class="fas fa-rocket fa-2x"></i>
+          <h2>Basic Plan</h2>
+          <p>₦20,000</p>
+          <ul>
+            <li>1-page Website</li>
+            <li>Mobile Responsive</li>
+            <li>1 Revision</li>
+          </ul>
+          <a href="confirm.html?plan=basic" class="btn">Choose Basic</a>
+        </div>
+        <div class="price-card featured">
+          <i class="fas fa-star fa-2x"></i>
+          <h2>Standard Plan</h2>
+          <p>₦35,000</p>
+          <ul>
+            <li>Multi-page Website</li>
+            <li>SEO Optimization</li>
+            <li>3 Revisions</li>
+          </ul>
+          <a href="confirm.html?plan=standard" class="btn">Choose Standard</a>
+        </div>
+        <div class="price-card">
+          <i class="fas fa-gem fa-2x"></i>
+          <h2>Premium Plan</h2>
+          <p>₦70,000+</p>
+          <ul>
+            <li>Custom Web App</li>
+            <li>Backend Integration</li>
+            <li>Unlimited Revisions</li>
+          </ul>
+          <a href="confirm.html?plan=premium" class="btn">Choose Premium</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <h2 class="section-title">Why Choose DavintoWeb?</h2>
+      <div class="feature-grid">
+        <button class="feature-btn"><i class="fas fa-code"></i> Clean Coding</button>
+        <button class="feature-btn"><i class="fas fa-bolt"></i> Fast Delivery</button>
+        <button class="feature-btn"><i class="fas fa-lock"></i> Secure Design</button>
+        <button class="feature-btn"><i class="fas fa-tablet-alt"></i> Mobile Friendly</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Need a Custom Plan?</h2>
+      <p class="section-desc">Let’s build your dream site! <a href="contact.html" class="text-link">Contact Us</a></p>
+    </section>
+  </main>
+
+  <script>
+    // Toggle light/dark mode
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle('light-mode');
+    });
   </script>
 </body>
 </html>
