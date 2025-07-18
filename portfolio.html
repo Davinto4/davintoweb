@@ -1,57 +1,174 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolio | DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="DavintoWeb Logo" />
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DavintoWeb | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }header {
+  background-color: #1e293b;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background-color: #334155;
+  border-radius: 0.5rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #4f46e5;
+  transform: scale(1.05);
+}
+
+.container {
+  padding: 2rem;
+}
+
+.portfolio-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #60a5fa;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #1e293b;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-body h3 {
+  margin: 0 0 0.5rem;
+  color: #93c5fd;
+}
+
+.card-body p {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+footer {
+  background-color: #1e293b;
+  padding: 1rem;
+  text-align: center;
+  color: #94a3b8;
+}
+
+  </style>
+</head><body>
+  <header>
+    <h1>DavintoWeb</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="confirm.html">Confirm</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>  <div class="container portfolio-section">
+    <h2>Web Projects</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="images/personal-site.jpg" alt="Personal Site">
+        <div class="card-body">
+          <h3>Personal Website</h3>
+          <p>Clean, responsive one-page portfolio site with bio and contact form.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/blog-portfolio.jpg" alt="Blog & Portfolio">
+        <div class="card-body">
+          <h3>Blog & Portfolio</h3>
+          <p>Dynamic CMS with blog posts, image gallery, and social links.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/business.jpg" alt="Business Website">
+        <div class="card-body">
+          <h3>Business Website</h3>
+          <p>Multi-page design with booking forms and service pages.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/ecommerce.jpg" alt="E-commerce">
+        <div class="card-body">
+          <h3>E-commerce</h3>
+          <p>Product dashboard, cart system, and payment integration.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/education.jpg" alt="Educational Platform">
+        <div class="card-body">
+          <h3>Educational Platform</h3>
+          <p>Course listings, quizzes, and student progress tracking.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/community.jpg" alt="Community Portal">
+        <div class="card-body">
+          <h3>Community Portal</h3>
+          <p>Forum, member directory, real-time chat, and admin tools.</p>
+        </div>
+      </div>
     </div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="projects.html" class="active">Portfolio</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main Content -->
-  <main class="container">
-    <h1 class="page-title">My Portfolio</h1>
-    <p class="intro-text">Explore some of the websites and web applications I've built — from elegant static sites to full dynamic platforms.</p>
-
-    <div class="projects-grid">
-      <div class="project-card">
-        <h2>Personal Blog Site</h2>
-        <p>A clean, responsive blog with categories and markdown support.</p>
-        <p><strong>Tech:</strong> HTML, CSS, JavaScript</p>
-        <a href="#" class="btn">View Live</a>
-      </div>
-
-      <div class="project-card">
-        <h2>E-commerce Store</h2>
-        <p>Modern online shop with cart system, product filters, and checkout.</p>
-        <p><strong>Tech:</strong> HTML, Tailwind, Firebase</p>
-        <a href="#" class="btn">View Live</a>
-      </div>
-
-      <div class="project-card">
-        <h2>AI Chat Platform</h2>
-        <p>A chatbot powered by OpenAI for customer support and engagement.</p>
-        <p><strong>Tech:</strong> HTML, CSS, Node.js, OpenAI API</p>
-        <a href="chat.html" class="btn">Try Chat</a>
-      </div>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 DavintoWeb. All rights reserved.</p>
-  </footer>
-</body>
-</html>
+  </div>  <footer>
+    &copy; 2025 DavintoWeb. All rights reserved.
+  </footer>  <!-- SmartUpp Chat -->  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp || (function (d) {
+      var s, c, o = smartsupp = function () {
+        o._.push(arguments)
+      };
+      o._ = [];
+      s = d.getElementsByTagName('script')[0];
+      c = d.createElement('script');
+      c.type = 'text/javascript';
+      c.charset = 'utf-8';
+      c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js?';
+      s.parentNode.insertBefore(c, s);
+    })(document);
+  </script></body></html>
