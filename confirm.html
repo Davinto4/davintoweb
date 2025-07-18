@@ -1,127 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Confirm Payment - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
-
-    .navbar {
-      background-color: #121212;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-
-    .navbar a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .navbar a:hover {
-      color: #00ffd0;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 5rem auto;
-      background: #1f1f1f;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,255,200,0.2);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    input, textarea, select, button {
-      width: 100%;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-    }
-
-    button {
-      background-color: #00ffd0;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #00c6a0;
-    }
-
-    .loader {
-      display: none;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .success-msg {
-      text-align: center;
-      color: #00ff88;
-      display: none;
-      margin-top: 1rem;
-    }
-
-    audio {
-      display: none;
-    }
-  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
-<body>
-  <!-- Navbar -->
-  <div class="navbar">
-    <div><strong>DavintoWeb</strong></div>
-    <div>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
-
-  <!-- Container -->
+<body class="confirm-page">
   <div class="container">
-    <h2>Confirm Your Payment</h2>
-    <form id="paymentForm">
-      <input type="text" id="name" placeholder="Your Full Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <input type="text" id="account" placeholder="Account Used for Payment" required />
-      <textarea id="message" placeholder="Message (Optional)"></textarea>
-      <button type="submit">Submit</button>
-    </form>
+    <h1>Confirm Your Payment</h1>
+    <form id="confirmForm">
+      <label>Account Name</label>
+      <input type="text" id="accountName" required /><label>Account Number</label>
+  <input type="number" id="accountNumber" required />
 
-    <div class="loader" id="loader">⏳ Submitting...</div>
-    <div class="success-msg" id="successMsg">✅ Payment confirmed successfully!</div>
-    <audio id="successSound" src="success.mp3" preload="auto"></audio>
-  </div>
+  <label>Bank Name</label>
+  <input type="text" id="bankName" required />
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <label>Phone Number</label>
+  <input type="tel" id="phone" required />
+
+  <label>Email Address</label>
+  <input type="email" id="email" required />
+
+  <label>Message</label>
+  <textarea id="message" rows="3"></textarea>
+
+  <label>Package Selected</label>
+  <input type="text" id="package" readonly />
+
+  <button type="submit">Submit</button>
+  <div id="loader" style="display: none;">Submitting...</div>
+</form>
+
+  </div><audio id="successSound" src="success.mp3"></audio>
 
   <script>
     const firebaseConfig = {
@@ -137,45 +51,38 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    const form = document.getElementById("paymentForm");
-    const loader = document.getElementById("loader");
-    const successMsg = document.getElementById("successMsg");
-    const successSound = document.getElementById("successSound");
+    // Get package from URL
+    const params = new URLSearchParams(window.location.search);
+    const selectedPackage = params.get('package');
+    document.getElementById('package').value = selectedPackage || 'Not specified';
 
-    form.addEventListener("submit", function (e) {
+    document.getElementById('confirmForm').addEventListener('submit', (e) => {
       e.preventDefault();
 
-      loader.style.display = "block";
+      const loader = document.getElementById('loader');
+      loader.style.display = 'block';
 
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const account = document.getElementById("account").value.trim();
-      const message = document.getElementById("message").value.trim();
-
-      const confirmationData = {
-        name,
-        email,
-        account,
-        message,
-        timestamp: new Date().toISOString()
+      const data = {
+        accountName: document.getElementById('accountName').value,
+        accountNumber: document.getElementById('accountNumber').value,
+        bankName: document.getElementById('bankName').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value,
+        package: document.getElementById('package').value,
+        timestamp: Date.now()
       };
 
-      db.ref("payments").push(confirmationData)
-        .then(() => {
-          loader.style.display = "none";
-          successMsg.style.display = "block";
-          successSound.play();
-          form.reset();
-
-          setTimeout(() => {
-            successMsg.style.display = "none";
-          }, 5000);
-        })
-        .catch(error => {
-          loader.style.display = "none";
-          alert("❌ Error submitting payment: " + error.message);
-        });
+      db.ref('payments').push(data).then(() => {
+        loader.style.display = 'none';
+        document.getElementById('successSound').play();
+        alert('Payment confirmed successfully!');
+        document.getElementById('confirmForm').reset();
+        document.getElementById('package').value = selectedPackage;
+      }).catch((error) => {
+        loader.style.display = 'none';
+        alert('Error submitting: ' + error.message);
+      });
     });
-  </script>
-</body>
+  </script></body>
 </html>
