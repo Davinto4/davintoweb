@@ -4,111 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing - DavintoWeb</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .sidebar { transition: transform 0.3s ease-in-out; }
-    .sidebar.hidden { transform: translateX(-100%); }
-    .btn-card:hover { transform: scale(1.03); }
+    .nav-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: scale(1.05);
+      transition: all 0.3s ease;
+    }
+    .active {
+      background-color: #1f2937;
+      color: #fff;
+    }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800 relative">
+<body class="bg-gray-950 text-white font-sans">
 
-  <!-- Collapsible Sidebar -->
-  <div id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-gray-900 text-white flex flex-col p-4 sidebar z-50">
-    <button onclick="toggleSidebar()" class="text-white text-xl self-end mb-4"><i class="fas fa-times"></i></button>
-    <a href="index.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-home mr-2"></i> Home</a>
-    <a href="about.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-user mr-2"></i> About</a>
-    <a href="pricing.html" class="mb-3 bg-blue-700 hover:bg-blue-600 p-3 rounded-lg flex items-center"><i class="fas fa-tags mr-2"></i> Pricing</a>
-    <a href="portfolio.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-image mr-2"></i> Portfolio</a>
-    <a href="contact.html" class="mb-3 bg-gray-800 hover:bg-gray-700 p-3 rounded-lg flex items-center"><i class="fas fa-envelope mr-2"></i> Contact</a>
-  </div>
-
-  <!-- Toggle Button -->
-  <button onclick="toggleSidebar()" class="fixed top-4 left-4 z-50 text-white bg-gray-800 p-2 rounded-md shadow-md"><i class="fas fa-bars"></i></button>
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 h-full w-56 bg-gray-900 shadow-lg z-50 flex flex-col p-4 space-y-4">
+    <h1 class="text-xl font-bold mb-6">DavintoWeb</h1>
+    <a href="index.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-home mr-2"></i> Home</a>
+    <a href="about.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-user mr-2"></i> About</a>
+    <a href="pricing.html" class="nav-btn active px-4 py-2 rounded"><i class="fas fa-money-bill mr-2"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-image mr-2"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn px-4 py-2 rounded bg-gray-800 hover:bg-gray-700"><i class="fas fa-envelope mr-2"></i> Contact</a>
+  </nav>
 
   <!-- Main Content -->
-  <main class="pl-0 md:pl-60 p-6 transition-all duration-300">
-    <h1 class="text-4xl font-bold mb-8 text-center">💰 Pricing Packages</h1>
-    
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Starter Site -->
-      <button onclick="redirectTo('Starter Site')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
-        <h2 class="text-xl font-bold mb-2">🌐 Starter Site</h2>
-        <p class="text-lg font-semibold mb-2">From ₦5,000</p>
-        <ul class="mb-2 list-disc list-inside text-left">
-          <li>1–2 Pages</li>
-          <li>Responsive Design</li>
-          <li>Contact Form</li>
-        </ul>
-        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
-      </button>
+  <main class="ml-60 px-6 py-12 space-y-12">
+    <section class="text-center">
+      <h2 class="text-3xl font-bold mb-2">What We Build</h2>
+      <div class="grid md:grid-cols-3 gap-4 mt-6">
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-user-circle mr-2"></i> Personal Websites
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-pen-nib mr-2"></i> Blogs & Portfolios
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-briefcase mr-2"></i> Business Sites
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-store mr-2"></i> E-commerce
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-school mr-2"></i> Educational Platforms
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-users mr-2"></i> Community Portals
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-robot mr-2"></i> AI Bots & Tools
+        </button>
+        <button class="bg-gray-800 hover:bg-gray-700 px-5 py-4 rounded shadow-md w-full">
+          <i class="fas fa-heart mr-2"></i> Family & Event Sites
+        </button>
+      </div>
+    </section>
 
-      <!-- Blog/Portfolio -->
-      <button onclick="redirectTo('Blog Portfolio')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
-        <h2 class="text-xl font-bold mb-2">📝 Blog / Portfolio</h2>
-        <p class="text-lg font-semibold mb-2">From ₦15,000</p>
-        <ul class="mb-2 list-disc list-inside text-left">
-          <li>CMS Admin Panel</li>
-          <li>SEO + Social Sharing</li>
-        </ul>
-        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
-      </button>
+    <section class="text-center">
+      <h2 class="text-3xl font-bold mb-4">💰 Pricing Packages</h2>
+      <p class="text-gray-400 mb-4">Click a package to purchase it instantly</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <button onclick="location.href='confirm.html?plan=starter'" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
+          <h3 class="text-xl font-bold">🌐 Starter Site</h3>
+          <p class="text-gray-300">From ₦5,000</p>
+          <ul class="mt-2 text-sm text-gray-200 space-y-1">
+            <li>1–2 Pages</li>
+            <li>Responsive Design</li>
+            <li>Contact Form</li>
+          </ul>
+        </button>
 
-      <!-- Business Site -->
-      <button onclick="redirectTo('Business Site')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
-        <h2 class="text-xl font-bold mb-2">🏢 Business Site</h2>
-        <p class="text-lg font-semibold mb-2">From ₦30,000</p>
-        <ul class="mb-2 list-disc list-inside text-left">
-          <li>Multi-Page Design</li>
-          <li>WhatsApp Booking</li>
-        </ul>
-        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
-      </button>
+        <button onclick="location.href='confirm.html?plan=blog'" class="bg-green-600 hover:bg-green-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
+          <h3 class="text-xl font-bold">📝 Blog / Portfolio</h3>
+          <p class="text-gray-300">From ₦15,000</p>
+          <ul class="mt-2 text-sm text-gray-200 space-y-1">
+            <li>CMS Admin Panel</li>
+            <li>SEO + Social Sharing</li>
+          </ul>
+        </button>
 
-      <!-- E-commerce -->
-      <button onclick="redirectTo('E-commerce')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
-        <h2 class="text-xl font-bold mb-2">🛒 E-commerce</h2>
-        <p class="text-lg font-semibold mb-2">From ₦60,000</p>
-        <ul class="mb-2 list-disc list-inside text-left">
-          <li>Payment Integration</li>
-          <li>Product Dashboard</li>
-        </ul>
-        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
-      </button>
+        <button onclick="location.href='confirm.html?plan=business'" class="bg-yellow-600 hover:bg-yellow-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
+          <h3 class="text-xl font-bold">🏢 Business Site</h3>
+          <p class="text-gray-300">From ₦30,000</p>
+          <ul class="mt-2 text-sm text-gray-200 space-y-1">
+            <li>Multi-Page Design</li>
+            <li>WhatsApp Booking</li>
+          </ul>
+        </button>
 
-      <!-- Web App + AI -->
-      <button onclick="redirectTo('Web App + AI')" class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-blue-100">
-        <h2 class="text-xl font-bold mb-2">⚙️ Web App + AI</h2>
-        <p class="text-lg font-semibold mb-2">From ₦100,000+</p>
-        <ul class="mb-2 list-disc list-inside text-left">
-          <li>Custom Dashboards</li>
-          <li>Realtime DB & Auth</li>
-        </ul>
-        <p class="text-sm text-blue-600 font-semibold">Click to purchase</p>
-      </button>
+        <button onclick="location.href='confirm.html?plan=ecommerce'" class="bg-red-600 hover:bg-red-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
+          <h3 class="text-xl font-bold">🛒 E-commerce</h3>
+          <p class="text-gray-300">From ₦60,000</p>
+          <ul class="mt-2 text-sm text-gray-200 space-y-1">
+            <li>Payment Integration</li>
+            <li>Product Dashboard</li>
+          </ul>
+        </button>
 
-      <!-- Custom Projects -->
-      <a href="https://wa.me/2348169045105?text=Hello%20DavintoWeb,%20I%20want%20a%20custom%20project" target="_blank"
-        class="btn-card bg-white p-6 rounded-xl shadow hover:shadow-xl transition transform hover:bg-green-100 text-left">
-        <h2 class="text-xl font-bold mb-2">🧠 Custom Projects</h2>
-        <p class="text-lg font-semibold mb-2">Let’s Discuss</p>
-        <p class="text-sm text-green-700 font-semibold">Click here to chat with us on WhatsApp</p>
-      </a>
-    </div>
+        <button onclick="location.href='confirm.html?plan=webapp'" class="bg-purple-600 hover:bg-purple-700 px-6 py-6 rounded-lg shadow-md text-left w-full">
+          <h3 class="text-xl font-bold">⚙️ Web App + AI</h3>
+          <p class="text-gray-300">From ₦100,000+</p>
+          <ul class="mt-2 text-sm text-gray-200 space-y-1">
+            <li>Custom Dashboards</li>
+            <li>Realtime DB & Auth</li>
+          </ul>
+        </button>
+
+        <button onclick="window.open('https://wa.me/2348169045105','_blank')" class="bg-gray-700 hover:bg-gray-800 px-6 py-6 rounded-lg shadow-md text-left w-full">
+          <h3 class="text-xl font-bold">🧠 Custom Projects</h3>
+          <p class="text-gray-300">Let’s Discuss</p>
+          <ul class="mt-2 text-sm text-gray-200 space-y-1">
+            <li>Translators, Bots, Platforms</li>
+            <li>Special Integrations</li>
+          </ul>
+        </button>
+      </div>
+    </section>
   </main>
 
-  <!-- Scripts -->
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("hidden");
-    }
-
-    function redirectTo(service) {
-      const url = `confirm.html?service=${encodeURIComponent(service)}`;
-      window.location.href = url;
-    }
+  <!-- SmartUpp Live Chat -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '0d074f1a6588d3c0562657b1e5a3dd332cf9af81';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments) };o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
   </script>
 </body>
 </html>
