@@ -2,70 +2,194 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Confirm Payment – DavintoWeb</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      background: #000000c2;
+      padding: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      margin: 0 10px;
+      padding: 10px 15px;
+      color: white;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    .nav-btn:hover {
+      background: #ffffff20;
+      border-radius: 8px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #ffffff12;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00000055;
+      animation: fadeIn 0.7s ease;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    #loader {
+      display: none;
+      margin: 10px auto;
+      border: 4px solid #ccc;
+      border-top: 4px solid #4caf50;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes spin {
+      to {transform: rotate(360deg);}
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center">
+<body>
 
-  <div class="w-full max-w-lg bg-white shadow-lg rounded-xl p-6 relative">
-    <h2 class="text-2xl font-bold mb-4 text-center">Confirm Your Payment</h2>
+  <header class="navbar">
+    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html" class="nav-btn"><i class="fas fa-user"></i> About</a>
+    <a href="pricing.html" class="nav-btn"><i class="fas fa-tags"></i> Pricing</a>
+    <a href="portfolio.html" class="nav-btn"><i class="fas fa-briefcase"></i> Portfolio</a>
+    <a href="contact.html" class="nav-btn"><i class="fas fa-envelope"></i> Contact</a>
+  </header>
 
-    <div id="selectedPackage" class="mb-4 text-center font-medium text-blue-600"></div>
+  <main class="container">
+    <h2>Confirm Your Payment</h2>
+    <form id="confirmForm">
+      <label for="accountName">Account Name</label>
+      <input type="text" id="accountName" required />
 
-    <form id="paymentForm" class="space-y-4">
-      <input type="text" placeholder="Full Name" name="name" required
-        class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"/>
-        
-      <input type="email" placeholder="Email" name="email" required
-        class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"/>
-        
-      <input type="text" placeholder="Account Used to Pay" name="account" required
-        class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"/>
-        
-      <textarea name="message" placeholder="Message (Optional)"
-        class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
+      <label for="bankName">Bank Name</label>
+      <input type="text" id="bankName" required />
 
-      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
-        Submit Confirmation
-      </button>
+      <label for="accountNumber">Account Number</label>
+      <input type="text" id="accountNumber" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" rows="3" placeholder="Additional Info..."></textarea>
+
+      <div id="loader"></div>
+      <button type="submit">Submit</button>
     </form>
+  </main>
 
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" class="hidden absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center">
-      <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
+  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" preload="auto"></audio>
 
-    <!-- Success Message -->
-    <div id="successMessage" class="hidden mt-4 text-green-600 text-center font-semibold">
-      ✅ Confirmation sent successfully!
-    </div>
-  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const selected = urlParams.get("package") || "None Selected";
-    document.getElementById("selectedPackage").innerText = `Selected Package: ${selected}`;
+    const firebaseConfig = {
+      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.firebasestorage.app",
+      messagingSenderId: "667742200333",
+      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    };
 
-    const form = document.getElementById("paymentForm");
-    const loadingSpinner = document.getElementById("loadingSpinner");
-    const successMessage = document.getElementById("successMessage");
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    form.addEventListener("submit", (e) => {
+    const form = document.getElementById('confirmForm');
+    const loader = document.getElementById('loader');
+    const successSound = document.getElementById('successSound');
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      loader.style.display = 'block';
 
-      loadingSpinner.classList.remove("hidden");
+      const data = {
+        accountName: form.accountName.value.trim(),
+        bankName: form.bankName.value.trim(),
+        accountNumber: form.accountNumber.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        message: form.message.value.trim(),
+        timestamp: new Date().toISOString()
+      };
 
-      setTimeout(() => {
-        loadingSpinner.classList.add("hidden");
-        successMessage.classList.remove("hidden");
-
-        // You can add your Firebase/WhatsApp trigger logic here
-
+      try {
+        await push(ref(db, 'confirmations'), data);
+        loader.style.display = 'none';
+        successSound.play();
+        alert("✅ Payment confirmed!");
         form.reset();
-      }, 2000); // Simulates 2s loading
+      } catch (error) {
+        loader.style.display = 'none';
+        alert("❌ Error: " + error.message);
+      }
     });
   </script>
+
 </body>
 </html>
