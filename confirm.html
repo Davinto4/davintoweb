@@ -3,105 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payment Confirmation - DavintoWeb</title>
+  <title>Payment Confirmation</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #101010;
-      color: #f0f0f0;
-      margin: 0;
-      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f0f2f5;
+      padding: 2rem;
     }
-
-    nav {
-      background: #1a1a1a;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav h1 {
-      font-size: 20px;
-      color: #00ffcc;
-    }
-
     .container {
-      max-width: 500px;
-      margin: 50px auto;
-      padding: 30px;
-      background: #1e1e1e;
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-
-    h2 {
-      text-align: center;
-      color: #00ffcc;
-    }
-
-    input, textarea {
+    input, select, textarea {
       width: 100%;
-      padding: 12px;
-      margin: 12px 0;
-      background: #2c2c2c;
-      color: #fff;
-      border: 1px solid #00ffcc;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
       border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
     }
-
     button {
-      background: #00ffcc;
-      color: #101010;
-      padding: 12px 20px;
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1rem;
+      background: #111;
+      color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: bold;
     }
-
-    button:hover {
-      background: #00bfa6;
+    button:disabled {
+      background: #999;
     }
-
-    #loader {
+    .loader {
       display: none;
       text-align: center;
-      margin-top: 10px;
-    }
-
-    #loader span {
-      color: #00ffcc;
-      font-size: 18px;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <h1>DavintoWeb - Payment Confirmation</h1>
-  </nav>
-
   <div class="container">
-    <h2>Confirm Your Payment</h2>
-    <form id="confirmForm">
-      <input type="text" id="name" placeholder="Your Full Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <input type="text" id="account" placeholder="Account Used (e.g. MacDonald GTB)" required />
-      <textarea id="message" placeholder="Additional Message (Optional)"></textarea>
-      <button type="submit">Submit Confirmation</button>
-    </form>
+    <h2>Confirm Payment</h2>
+    <div class="loader" id="loader">Submitting...</div>
 
-    <div id="loader">
-      <span>Submitting...</span>
-    </div>
+    <form id="paymentForm">
+      <input type="text" id="fullName" placeholder="Full Name" required />
+      <input type="text" id="accountName" placeholder="Account Name" required />
+      <input type="text" id="accountNumber" placeholder="Account Number" required />
+      <select id="bank" required>
+        <option value="">Select Bank</option>
+        <option value="Access Bank">Access Bank</option>
+        <option value="UBA">UBA</option>
+        <option value="First Bank">First Bank</option>
+        <option value="GTBank">GTBank</option>
+        <option value="Zenith Bank">Zenith Bank</option>
+        <option value="Kuda">Kuda</option>
+        <option value="Opay">Opay</option>
+        <option value="PalmPay">PalmPay</option>
+        <option value="Moniepoint">Moniepoint</option>
+        <option value="Others">Others</option>
+      </select>
+      <input type="tel" id="phone" placeholder="Phone Number" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <textarea id="message" placeholder="Message or Service Paid For" required></textarea>
+      <button type="submit" id="submitBtn">Submit Confirmation</button>
+    </form>
   </div>
 
-  <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c46f3b1c56.mp3?filename=correct-2-46134.mp3"></audio>
+  <audio id="successSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <script>
     const firebaseConfig = {
@@ -116,45 +96,41 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const form = document.getElementById("confirmForm");
-    const loader = document.getElementById("loader");
-    const successSound = document.getElementById("successSound");
 
-    form.addEventListener("submit", function (e) {
+    const form = document.getElementById("paymentForm");
+    const loader = document.getElementById("loader");
+    const submitBtn = document.getElementById("submitBtn");
+    const sound = document.getElementById("successSound");
+
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
       loader.style.display = "block";
+      submitBtn.disabled = true;
 
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const account = document.getElementById("account").value.trim();
-      const message = document.getElementById("message").value.trim();
-      const timestamp = new Date().toISOString();
-
-      if (!name || !email || !account) {
-        alert("Please fill in all required fields.");
-        loader.style.display = "none";
-        return;
-      }
-
-      const newEntry = {
-        name,
-        email,
-        account,
-        message,
-        timestamp
+      const data = {
+        fullName: document.getElementById("fullName").value.trim(),
+        accountName: document.getElementById("accountName").value.trim(),
+        accountNumber: document.getElementById("accountNumber").value.trim(),
+        bank: document.getElementById("bank").value,
+        phone: document.getElementById("phone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        message: document.getElementById("message").value.trim(),
+        date: new Date().toLocaleString(),
+        status: "Pending"
       };
 
-      db.ref("payments").push(newEntry)
+      db.ref("payments").push(data)
         .then(() => {
           loader.style.display = "none";
-          successSound.play();
-          alert("Payment confirmation submitted successfully!");
+          sound.play();
+          alert("✅ Payment confirmation submitted successfully!");
           form.reset();
-          window.location.href = "admin.html";
+          submitBtn.disabled = false;
         })
-        .catch((err) => {
+        .catch((error) => {
           loader.style.display = "none";
-          alert("Error: " + err.message);
+          alert("❌ Error: " + error.message);
+          submitBtn.disabled = false;
         });
     });
   </script>
