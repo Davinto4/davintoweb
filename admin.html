@@ -1,236 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Davinto Admin Panel</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
   <style>
-    body { font-family: sans-serif; background: #121212; color: white; padding: 20px; }
-    #loginForm, #adminPanel { display: none; }
-    .section { margin-bottom: 20px; }
-    input, button, select { margin: 5px; padding: 6px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 10px; background: #1e1e1e; color: white; }
-    th, td { border: 1px solid #555; padding: 8px; text-align: left; }
+    body { font-family: Arial; background: #1e1e1e; color: white; margin: 0; padding: 20px; }
     .hidden { display: none; }
+    .section { margin-top: 20px; padding: 15px; background: #2a2a2a; border-radius: 10px; }
+    input, button, select { padding: 8px; margin: 5px 0; width: 100%; border-radius: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 10px; border: 1px solid #444; }
+    .role-editor select { width: auto; }
+    .super { color: gold; font-weight: bold; }
   </style>
 </head>
 <body>
 
-  <h2>DAVINTOWEB ADMIN PANEL</h2>
-
   <!-- Login Form -->
-  <div id="loginForm">
-    <h3>Login</h3>
-    <input type="email" id="email" placeholder="Email"><br>
-    <input type="password" id="password" placeholder="Password"><br>
+  <div id="login-section" class="section">
+    <h2>Admin Login</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
     <button onclick="login()">Login</button>
-    <button onclick="signup()">Sign Up</button>
+    <button onclick="sendVerification()">Resend Verification Email</button>
+    <p id="login-msg"></p>
   </div>
 
-  <!-- Email Verification -->
-  <div id="verifyEmail" class="hidden">
-    <p>Please verify your email.</p>
-    <button onclick="resendVerification()">Resend Verification Email</button>
-    <button onclick="checkVerification()">I've Verified</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-
-  <!-- Admin Panel -->
-  <div id="adminPanel">
-    <p>Welcome, <span id="currentUserEmail"></span> | Role: <span id="currentUserRole"></span></p>
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden">
+    <h2>Welcome <span id="user-role"></span>: <span id="user-email"></span></h2>
     <button onclick="logout()">Logout</button>
 
+    <!-- Role Management (Only super admin) -->
+    <div id="role-management" class="section hidden">
+      <h3>User Roles Management (Super Admin Only)</h3>
+      <table id="users-table"><thead><tr><th>Email</th><th>Role</th><th>Change Role</th></tr></thead><tbody></tbody></table>
+    </div>
+
+    <!-- Payment Table -->
     <div class="section">
       <h3>Payments</h3>
-      <button onclick="exportCSV('payments')">Export CSV</button>
-      <table id="paymentsTable">
-        <thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Action</th></tr></thead>
-        <tbody></tbody>
-      </table>
+      <table id="payments-table"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      <button onclick="exportCSV('payments')">Export Payments to CSV</button>
     </div>
 
+    <!-- Portfolio Table -->
     <div class="section">
-      <h3>Portfolio</h3>
-      <input type="text" id="projectTitle" placeholder="Project Title">
-      <input type="text" id="projectImage" placeholder="Image URL">
-      <input type="text" id="projectLink" placeholder="Project Link">
-      <button onclick="addProject()">Add Project</button>
-      <button onclick="exportCSV('portfolio')">Export CSV</button>
-      <table id="portfolioTable">
-        <thead><tr><th>Title</th><th>Image</th><th>Link</th><th>Action</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <div class="section" id="manageUsersSection">
-      <h3>User Roles (Super Admin Only)</h3>
-      <table id="userTable">
-        <thead><tr><th>Email</th><th>Role</th><th>Change Role</th></tr></thead>
-        <tbody></tbody>
-      </table>
+      <h3>Portfolio Projects</h3>
+      <form id="portfolio-form">
+        <input type="text" id="project-title" placeholder="Project Title" required />
+        <input type="text" id="project-img" placeholder="Image URL" required />
+        <input type="text" id="project-url" placeholder="Website URL" required />
+        <button type="submit">Add Project</button>
+      </form>
+      <table id="portfolio-table"><thead><tr><th>Title</th><th>Image</th><th>URL</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      <button onclick="exportCSV('portfolio')">Export Portfolio to CSV</button>
     </div>
   </div>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
-    const rolesRef = db.ref("roles");
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+    authDomain: "davintoweb-payments.firebaseapp.com",
+    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+    projectId: "davintoweb-payments",
+    storageBucket: "davintoweb-payments.appspot.com",
+    messagingSenderId: "667742200333",
+    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
 
-    const superAdmin = "macdinodavinto@gmail.com";
+  const loginSection = document.getElementById('login-section');
+  const dashboard = document.getElementById('dashboard');
+  const emailInput = document.getElementById('email');
+  const passInput = document.getElementById('password');
+  const loginMsg = document.getElementById('login-msg');
 
-    function $(id) {
-      return document.getElementById(id);
-    }
-
-    function login() {
-      const email = $("email").value;
-      const password = $("password").value;
-      auth.signInWithEmailAndPassword(email, password).catch(alert);
-    }
-
-    function signup() {
-      const email = $("email").value;
-      const password = $("password").value;
-      auth.createUserWithEmailAndPassword(email, password).then(user => {
-        user.user.sendEmailVerification();
-        rolesRef.child(user.user.uid).set({ role: "viewer" });
-        alert("Verify your email before accessing the dashboard.");
-      }).catch(alert);
-    }
-
-    function logout() {
-      auth.signOut();
-      location.reload();
-    }
-
-    function resendVerification() {
-      auth.currentUser.sendEmailVerification().then(() => {
-        alert("Verification email sent to " + auth.currentUser.email);
-      });
-    }
-
-    function checkVerification() {
-      auth.currentUser.reload().then(() => {
-        if (auth.currentUser.emailVerified) {
-          location.reload();
-        } else {
-          alert("Still not verified.");
-        }
-      });
-    }
-
-    function exportCSV(type) {
-      let table = (type === 'payments') ? $("paymentsTable") : $("portfolioTable");
-      let csv = [];
-      for (let row of table.rows) {
-        let cols = Array.from(row.cells).map(cell => `"${cell.innerText}"`);
-        csv.push(cols.join(","));
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      if (!user.emailVerified) {
+        loginMsg.innerText = "Please verify your email before accessing the dashboard.";
+        sendVerification();
+        return;
       }
-      let blob = new Blob([csv.join("\n")], { type: 'text/csv' });
-      let a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `${type}-data.csv`;
-      a.click();
-    }
-
-    function addProject() {
-      const title = $("projectTitle").value;
-      const image = $("projectImage").value;
-      const link = $("projectLink").value;
-      db.ref("portfolio").push({ title, image, link });
-    }
-
-    function deleteEntry(type, key) {
-      db.ref(type).child(key).remove();
-    }
-
-    function changeRole(uid, role) {
-      rolesRef.child(uid).set({ role });
-    }
-
-    auth.onAuthStateChanged(user => {
-      if (!user) return $("loginForm").style.display = "block";
-      if (!user.emailVerified) return $("verifyEmail").classList.remove("hidden");
-
-      $("currentUserEmail").innerText = user.email;
-
-      rolesRef.child(user.uid).once("value", snap => {
-        const role = snap.val()?.role || "viewer";
-        $("currentUserRole").innerText = role;
-
-        if (user.email === superAdmin) $("manageUsersSection").style.display = "block";
-
-        $("loginForm").style.display = "none";
-        $("verifyEmail").classList.add("hidden");
-        $("adminPanel").style.display = "block";
-
-        db.ref("payments").on("value", snap => {
-          const tbody = $("paymentsTable").querySelector("tbody");
-          tbody.innerHTML = "";
-          snap.forEach(child => {
-            const data = child.val();
-            const row = `<tr>
-              <td>${data.name}</td><td>${data.email}</td><td>${data.account}</td><td>${data.message}</td>
-              <td><button onclick="deleteEntry('payments','${child.key}')">Delete</button></td>
-            </tr>`;
-            tbody.innerHTML += row;
-          });
-        });
-
-        db.ref("portfolio").on("value", snap => {
-          const tbody = $("portfolioTable").querySelector("tbody");
-          tbody.innerHTML = "";
-          snap.forEach(child => {
-            const data = child.val();
-            const row = `<tr>
-              <td>${data.title}</td><td><img src="${data.image}" width="50"></td><td><a href="${data.link}" target="_blank">View</a></td>
-              <td><button onclick="deleteEntry('portfolio','${child.key}')">Delete</button></td>
-            </tr>`;
-            tbody.innerHTML += row;
-          });
-        });
-
-        if (user.email === superAdmin) {
-          rolesRef.on("value", snap => {
-            const tbody = $("userTable").querySelector("tbody");
-            tbody.innerHTML = "";
-            snap.forEach(child => {
-              const userId = child.key;
-              const userRole = child.val().role;
-              firebase.database().ref("users/" + userId + "/email").once("value", emailSnap => {
-                const email = emailSnap.val() || "[unknown]";
-                const row = `<tr>
-                  <td>${email}</td>
-                  <td>${userRole}</td>
-                  <td>
-                    <select onchange="changeRole('${userId}', this.value)">
-                      <option value="viewer" ${userRole === 'viewer' ? 'selected' : ''}>Viewer</option>
-                      <option value="editor" ${userRole === 'editor' ? 'selected' : ''}>Editor</option>
-                      <option value="admin" ${userRole === 'admin' ? 'selected' : ''}>Admin</option>
-                    </select>
-                  </td>
-                </tr>`;
-                tbody.innerHTML += row;
-              });
-            });
-          });
+      const uid = user.uid;
+      db.ref('roles/' + uid).once('value', snap => {
+        let role = snap.val()?.role;
+        if (!role) {
+          const defaultRole = user.email === "macdinodavinto@gmail.com" ? "superadmin" : "viewer";
+          db.ref('roles/' + uid).set({ role: defaultRole });
+          role = defaultRole;
         }
+        loadDashboard(user.email, uid, role);
+      });
+    } else {
+      dashboard.classList.add('hidden');
+      loginSection.classList.remove('hidden');
+    }
+  });
+
+  function login() {
+    auth.signInWithEmailAndPassword(emailInput.value, passInput.value)
+    .catch(err => loginMsg.innerText = err.message);
+  }
+
+  function logout() {
+    auth.signOut();
+  }
+
+  function sendVerification() {
+    const user = auth.currentUser;
+    if (user && !user.emailVerified) {
+      user.sendEmailVerification().then(() => alert("Verification email sent."));
+    }
+  }
+
+  function loadDashboard(email, uid, role) {
+    loginSection.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    document.getElementById('user-email').innerText = email;
+    document.getElementById('user-role').innerText = role.toUpperCase();
+
+    if (role === 'superadmin') {
+      document.getElementById('role-management').classList.remove('hidden');
+      db.ref('roles').once('value', snap => {
+        const tbody = document.querySelector('#users-table tbody');
+        tbody.innerHTML = '';
+        snap.forEach(child => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${child.key}</td>
+            <td>${child.val().role}</td>
+            <td class="role-editor">
+              <select onchange="changeRole('${child.key}', this.value)">
+                <option value="viewer">viewer</option>
+                <option value="editor">editor</option>
+                <option value="admin">admin</option>
+                <option value="superadmin">superadmin</option>
+              </select>
+            </td>`;
+          tbody.appendChild(tr);
+        });
+      });
+    }
+
+    loadPayments(role);
+    loadPortfolio(role);
+
+    document.getElementById('portfolio-form').onsubmit = e => {
+      e.preventDefault();
+      if (['editor', 'admin', 'superadmin'].includes(role)) {
+        const title = document.getElementById('project-title').value;
+        const img = document.getElementById('project-img').value;
+        const url = document.getElementById('project-url').value;
+        const key = db.ref('portfolio').push().key;
+        db.ref('portfolio/' + key).set({ title, img, url });
+        e.target.reset();
+      } else {
+        alert("Insufficient permissions to post project.");
+      }
+    };
+  }
+
+  function changeRole(uid, newRole) {
+    db.ref('roles/' + uid).update({ role: newRole });
+    alert("Role updated.");
+  }
+
+  function loadPayments(role) {
+    db.ref('confirmations').on('value', snap => {
+      const tbody = document.querySelector('#payments-table tbody');
+      tbody.innerHTML = '';
+      snap.forEach(child => {
+        const data = child.val();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${data.name}</td><td>${data.email}</td><td>${data.account}</td><td>${data.message}</td>
+        <td>${['admin', 'superadmin'].includes(role) ? `<button onclick="deleteEntry('confirmations','${child.key}')">Delete</button>` : ''}</td>`;
+        tbody.appendChild(tr);
       });
     });
-  </script>
+  }
 
+  function loadPortfolio(role) {
+    db.ref('portfolio').on('value', snap => {
+      const tbody = document.querySelector('#portfolio-table tbody');
+      tbody.innerHTML = '';
+      snap.forEach(child => {
+        const data = child.val();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${data.title}</td><td><img src="${data.img}" width="100"/></td><td><a href="${data.url}" target="_blank">${data.url}</a></td>
+        <td>${['editor','admin','superadmin'].includes(role) ? `<button onclick="deleteEntry('portfolio','${child.key}')">Delete</button>` : ''}</td>`;
+        tbody.appendChild(tr);
+      });
+    });
+  }
+
+  function deleteEntry(path, key) {
+    if (confirm("Delete this entry?")) {
+      db.ref(`${path}/${key}`).remove();
+    }
+  }
+
+  function exportCSV(type) {
+    const headers = type === 'payments' ? ['Name','Email','Account','Message'] : ['Title','Image','URL'];
+    const rows = [];
+    db.ref(type === 'payments' ? 'confirmations' : 'portfolio').once('value', snap => {
+      snap.forEach(child => {
+        const data = child.val();
+        rows.push(type === 'payments' ? [data.name, data.email, data.account, data.message] : [data.title, data.img, data.url]);
+      });
+      let csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].map(e => e.join(",")).join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", type + "_data.csv");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+  }
+</script>
 </body>
 </html>
