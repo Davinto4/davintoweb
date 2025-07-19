@@ -2,63 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Davinto Admin Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-database-compat.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; }
+    .hidden { display: none; }
+    .container { padding: 20px; }
+    .card { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .btn { padding: 8px 16px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+    .btn.red { background: crimson; }
+    input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    nav { background: #222; color: #fff; padding: 10px; display: flex; justify-content: space-between; }
+  </style>
 </head>
 <body>
-  <div id="auth-section" style="display:none;">
-    <h2>Admin Login</h2>
-    <input type="email" id="loginEmail" placeholder="Email" />
-    <input type="password" id="loginPassword" placeholder="Password" />
-    <button onclick="login()">Login</button>
-    <button onclick="register()">Register</button>
+  <nav>
+    <div>DavintoWeb Admin Panel</div>
+    <button id="logoutBtn" class="btn">Logout</button>
+  </nav>
+
+  <div class="container">
+    <div id="loginSection" class="card">
+      <h2>Admin Login</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn" class="btn">Login</button>
+      <p id="resendVerification" class="hidden"><button class="btn">Resend Verification Email</button></p>
+    </div>
+
+    <div id="dashboard" class="hidden">
+      <div class="card">
+        <h2>Post Portfolio Project</h2>
+        <input id="title" placeholder="Project Title" />
+        <input id="image" placeholder="Image URL" />
+        <textarea id="desc" placeholder="Description"></textarea>
+        <button id="postPortfolioBtn" class="btn">Post Project</button>
+      </div>
+
+      <div class="card">
+        <h2>Portfolio Items</h2>
+        <div id="portfolioItems"></div>
+        <button id="exportPortfolio" class="btn">Export Portfolio to CSV</button>
+      </div>
+
+      <div class="card">
+        <h2>Payment Confirmations</h2>
+        <div id="paymentEntries"></div>
+        <button id="exportPayments" class="btn">Export Payments to CSV</button>
+      </div>
+    </div>
   </div>
 
-  <div id="verify-section" style="display:none;">
-    <h3>Please verify your email before continuing.</h3>
-    <button onclick="resendVerification()">Resend Verification Email</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-
-  <div id="admin-panel" style="display:none;">
-    <h1>Welcome, Admin</h1>
-    <button onclick="logout()">Logout</button>
-
-    <section>
-      <h2>Add Portfolio Project</h2>
-      <input type="text" id="projectTitle" placeholder="Project Title" />
-      <input type="text" id="projectImage" placeholder="Image URL" />
-      <textarea id="projectDesc" placeholder="Project Description"></textarea>
-      <button onclick="addProject()">Post Project</button>
-    </section>
-
-    <section>
-      <h2>Portfolio Items</h2>
-      <table id="portfolioTable" border="1">
-        <thead>
-          <tr><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <button onclick="exportCSV('portfolio')">Export Portfolio CSV</button>
-    </section>
-
-    <section>
-      <h2>Payment Confirmations</h2>
-      <table id="paymentsTable" border="1">
-        <thead>
-          <tr><th>Name</th><th>Email</th><th>Account</th><th>Service</th><th>Message</th><th>Actions</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <button onclick="exportCSV('payments')">Export Payments CSV</button>
-    </section>
-  </div>
-
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
@@ -71,160 +69,125 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
     const db = firebase.database();
+    const auth = firebase.auth();
 
-    const authSection = document.getElementById("auth-section");
-    const verifySection = document.getElementById("verify-section");
-    const adminPanel = document.getElementById("admin-panel");
+    const loginSection = document.getElementById("loginSection");
+    const dashboard = document.getElementById("dashboard");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const resendVerification = document.getElementById("resendVerification");
 
     auth.onAuthStateChanged(user => {
-      if (!user) {
-        authSection.style.display = "block";
-        verifySection.style.display = "none";
-        adminPanel.style.display = "none";
-      } else if (!user.emailVerified) {
-        authSection.style.display = "none";
-        verifySection.style.display = "block";
-        adminPanel.style.display = "none";
-      } else {
-        authSection.style.display = "none";
-        verifySection.style.display = "none";
-        adminPanel.style.display = "block";
+      if (user) {
+        if (!user.emailVerified) {
+          resendVerification.classList.remove("hidden");
+          resendVerification.onclick = () => {
+            user.sendEmailVerification().then(() => {
+              alert("Verification email sent!");
+            });
+          };
+          return;
+        }
+
+        loginSection.classList.add("hidden");
+        dashboard.classList.remove("hidden");
         loadPortfolio();
         loadPayments();
+      } else {
+        loginSection.classList.remove("hidden");
+        dashboard.classList.add("hidden");
       }
     });
 
-    function login() {
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
-      auth.signInWithEmailAndPassword(email, password)
-        .catch(err => alert("Login error: " + err.message));
-    }
+    loginBtn.onclick = () => {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      auth.signInWithEmailAndPassword(email, pass)
+        .catch(err => alert("Login failed: " + err.message));
+    };
 
-    function register() {
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          userCredential.user.sendEmailVerification();
-          alert("Verification email sent. Please check your inbox.");
-        })
-        .catch(err => alert("Registration error: " + err.message));
-    }
+    logoutBtn.onclick = () => auth.signOut();
 
-    function logout() {
-      auth.signOut();
-    }
+    // Post Portfolio
+    document.getElementById("postPortfolioBtn").onclick = () => {
+      const title = document.getElementById("title").value;
+      const image = document.getElementById("image").value;
+      const desc = document.getElementById("desc").value;
+      const key = db.ref("portfolio").push().key;
+      db.ref("portfolio/" + key).set({ title, image, desc });
+    };
 
-    function resendVerification() {
-      auth.currentUser.sendEmailVerification()
-        .then(() => alert("Verification email sent."))
-        .catch(err => alert("Error: " + err.message));
-    }
-
-    function addProject() {
-      const title = document.getElementById("projectTitle").value;
-      const image = document.getElementById("projectImage").value;
-      const desc = document.getElementById("projectDesc").value;
-      const id = Date.now();
-      db.ref("portfolio/" + id).set({ title, image, desc });
-    }
-
+    // Load Portfolio
     function loadPortfolio() {
-      const tbody = document.querySelector("#portfolioTable tbody");
-      tbody.innerHTML = "";
-      db.ref("portfolio").on("value", snapshot => {
-        tbody.innerHTML = "";
-        snapshot.forEach(child => {
-          const item = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${item.title}</td>
-            <td>${item.desc}</td>
-            <td><img src="${item.image}" width="80"/></td>
-            <td>
-              <button onclick="editProject('${child.key}')">Edit</button>
-              <button onclick="deleteProject('${child.key}')">Delete</button>
-            </td>`;
-          tbody.appendChild(row);
-        });
-      });
-    }
-
-    function editProject(key) {
-      const newTitle = prompt("New Title:");
-      const newDesc = prompt("New Description:");
-      const newImage = prompt("New Image URL:");
-      db.ref("portfolio/" + key).update({ title: newTitle, desc: newDesc, image: newImage });
-    }
-
-    function deleteProject(key) {
-      if (confirm("Are you sure?")) {
-        db.ref("portfolio/" + key).remove();
-      }
-    }
-
-    function loadPayments() {
-      const tbody = document.querySelector("#paymentsTable tbody");
-      db.ref("payments").on("value", snapshot => {
-        tbody.innerHTML = "";
-        snapshot.forEach(child => {
-          const data = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${data.name}</td>
-            <td>${data.email}</td>
-            <td>${data.account}</td>
-            <td>${data.service}</td>
-            <td>${data.message}</td>
-            <td><button onclick="deletePayment('${child.key}')">Delete</button></td>
+      const container = document.getElementById("portfolioItems");
+      container.innerHTML = "";
+      db.ref("portfolio").on("value", snap => {
+        container.innerHTML = "";
+        snap.forEach(child => {
+          const { title, image, desc } = child.val();
+          const id = child.key;
+          const div = document.createElement("div");
+          div.innerHTML = `
+            <h3>${title}</h3>
+            <img src="${image}" width="200"/><p>${desc}</p>
+            <button class="btn red" onclick="deletePortfolio('${id}')">Delete</button>
           `;
-          tbody.appendChild(row);
+          container.appendChild(div);
         });
       });
     }
 
-    function deletePayment(key) {
-      if (confirm("Delete this payment?")) {
-        db.ref("payments/" + key).remove();
+    function deletePortfolio(id) {
+      if (confirm("Delete this project?")) {
+        db.ref("portfolio/" + id).remove();
       }
     }
 
-    function exportCSV(type) {
-      let data = [];
-      let headers = [];
-      if (type === "portfolio") {
-        headers = ["Title", "Description", "Image"];
-        db.ref("portfolio").once("value", snapshot => {
-          snapshot.forEach(child => {
-            const item = child.val();
-            data.push([item.title, item.desc, item.image]);
-          });
-          downloadCSV(headers, data, "portfolio.csv");
+    // Load Payments
+    function loadPayments() {
+      const container = document.getElementById("paymentEntries");
+      db.ref("confirmations").on("value", snap => {
+        container.innerHTML = "";
+        snap.forEach(child => {
+          const data = child.val();
+          const id = child.key;
+          const div = document.createElement("div");
+          div.innerHTML = `
+            <p><b>${data.name}</b> - ${data.email}</p>
+            <p>Account: ${data.account}</p>
+            <p>${data.message}</p>
+            <button class="btn red" onclick="deletePayment('${id}')">Delete</button>
+          `;
+          container.appendChild(div);
         });
-      } else {
-        headers = ["Name", "Email", "Account", "Service", "Message"];
-        db.ref("payments").once("value", snapshot => {
-          snapshot.forEach(child => {
-            const item = child.val();
-            data.push([item.name, item.email, item.account, item.service, item.message]);
-          });
-          downloadCSV(headers, data, "payments.csv");
-        });
+      });
+    }
+
+    function deletePayment(id) {
+      if (confirm("Delete this payment entry?")) {
+        db.ref("confirmations/" + id).remove();
       }
     }
 
-    function downloadCSV(headers, rows, filename) {
-      let csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].map(e => e.join(",")).join("\n");
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", filename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    // CSV Export
+    document.getElementById("exportPortfolio").onclick = () => exportCSV("portfolio", ["title", "image", "desc"]);
+    document.getElementById("exportPayments").onclick = () => exportCSV("confirmations", ["name", "email", "account", "message"]);
+
+    function exportCSV(path, keys) {
+      db.ref(path).once("value", snap => {
+        const rows = [keys.join(",")];
+        snap.forEach(child => {
+          const row = keys.map(k => `"${child.val()[k] || ''}"`).join(",");
+          rows.push(row);
+        });
+        const csv = rows.join("\n");
+        const blob = new Blob([csv], { type: "text/csv" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = path + ".csv";
+        a.click();
+      });
     }
   </script>
 </body>
