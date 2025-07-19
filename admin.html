@@ -1,131 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Davinto Admin</title>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | DavintoWeb</title>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f7f7f7; }
+    .hidden { display: none; }
+    .dashboard, .login-form, .verify-message { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+    input, button, select { padding: 10px; margin: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    .danger { background-color: #ffcccc; }
+    .controls { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  </style>
 </head>
 <body>
-  <div id="login-section">
-    <h2>Login to Admin Panel</h2>
-    <input type="email" id="email" placeholder="Email" /><br />
-    <input type="password" id="password" placeholder="Password" /><br />
+  <div class="login-form" id="loginForm">
+    <h2>Admin Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email"><br>
+    <input type="password" id="loginPassword" placeholder="Password"><br>
     <button onclick="login()">Login</button>
-    <button onclick="register()">Register</button><br>
-    <button onclick="resendVerification()">Resend Verification Email</button>
+    <button onclick="register()">Register</button>
   </div>
 
-  <div id="dashboard" style="display:none;">
-    <h2>Welcome to Admin Dashboard</h2>
-    <p id="roleDisplay"></p>
+  <div class="verify-message hidden" id="verifyMessage">
+    <h3>Please verify your email to continue.</h3>
+    <p>We’ve sent a verification email to your inbox.</p>
+    <button onclick="resendVerification()">Resend Email</button>
     <button onclick="logout()">Logout</button>
-    <!-- Add admin dashboard contents here -->
   </div>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-    authDomain: "davintoweb-payments.firebaseapp.com",
-    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-    projectId: "davintoweb-payments",
-    storageBucket: "davintoweb-payments.appspot.com",
-    messagingSenderId: "667742200333",
-    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-  };
+  <div class="dashboard hidden" id="dashboard">
+    <h2>Admin Dashboard</h2>
+    <p id="welcomeUser"></p>
+    <button onclick="logout()">Logout</button>
+    
+    <h3>Payments</h3>
+    <div class="controls">
+      <button onclick="exportPayments()">Export Payments CSV</button>
+    </div>
+    <table id="paymentsTable">
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Service</th><th>Time</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.database();
+    <h3>Portfolio Projects</h3>
+    <div class="controls">
+      <input type="text" id="projectTitle" placeholder="Project Title">
+      <input type="text" id="projectImage" placeholder="Image URL">
+      <input type="text" id="projectLink" placeholder="Project Link">
+      <button onclick="addProject()">Post Project</button>
+      <button onclick="exportPortfolio()">Export Portfolio CSV</button>
+    </div>
+    <table id="portfolioTable">
+      <thead>
+        <tr><th>Title</th><th>Image</th><th>Link</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-  const SUPER_ADMIN_EMAIL = "macdinodavinto@gmail.com";
-
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      if (!user.emailVerified && user.email !== SUPER_ADMIN_EMAIL) {
-        alert("Please verify your email.");
-        auth.signOut();
-        return;
-      }
-
-      const uid = user.uid;
-      const rolesRef = db.ref("roles/" + uid);
-
-      rolesRef.once("value", async (snapshot) => {
-        if (!snapshot.exists()) {
-          const defaultRole = user.email === SUPER_ADMIN_EMAIL ? "superadmin" : "viewer";
-          const autoApproved = user.email === SUPER_ADMIN_EMAIL;
-
-          await rolesRef.set({
-            role: defaultRole,
-            approved: autoApproved
-          });
-
-          if (!autoApproved) {
-            alert("Your account is awaiting approval by the super admin.");
-            auth.signOut();
-            return;
-          }
-        } else {
-          const { role, approved } = snapshot.val();
-
-          if (!approved) {
-            alert("Your account is not yet approved.");
-            auth.signOut();
-            return;
-          }
-
-          document.getElementById("login-section").style.display = "none";
-          document.getElementById("dashboard").style.display = "block";
-          document.getElementById("roleDisplay").innerText = "Logged in as: " + role;
-        }
-      });
-    }
-  });
-
-  function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.signInWithEmailAndPassword(email, password).catch((error) => {
-      alert(error.message);
-    });
-  }
-
-  function register() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        if (email !== SUPER_ADMIN_EMAIL) {
-          userCredential.user.sendEmailVerification();
-          alert("Verification email sent. Please verify before logging in.");
-          auth.signOut();
-        }
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  }
-
-  function resendVerification() {
-    const user = auth.currentUser;
-    if (user && !user.emailVerified) {
-      user.sendEmailVerification().then(() => {
-        alert("Verification email sent to " + user.email);
-      });
-    } else {
-      alert("Login first with an unverified account.");
-    }
-  }
-
-  function logout() {
-    auth.signOut();
-    document.getElementById("login-section").style.display = "block";
-    document.getElementById("dashboard").style.display = "none";
-  }
-</script>
+  <script src="admin.js"></script>
 </body>
 </html>
