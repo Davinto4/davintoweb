@@ -20,11 +20,23 @@
     <input type="email" id="login-email" placeholder="Email" required><br>
     <input type="password" id="login-password" placeholder="Password" required><br>
     <button onclick="login()">Login</button><br>
+    <button onclick="loginWithPhone()">Login with Phone</button><br>
+    <div id="recaptcha-container"></div>
     <small><a href="#" onclick="resendVerificationEmail()">Resend Verification Email</a></small>
   </div>  <div id="dashboard-section" class="hidden">
     <h1>Welcome to Admin Dashboard</h1>
     <p id="user-role"></p>
-    <button onclick="logout()">Logout</button><div class="admin-section">
+    <button onclick="logout()">Logout</button><div class="admin-section" id="role-management-section">
+  <h2>Manage Roles</h2>
+  <table id="roles-table">
+    <thead>
+      <tr><th>Email</th><th>Current Role</th><th>New Role</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div class="admin-section">
   <h2>Payments</h2>
   <button onclick="exportToCSV('payments')">Export Payments CSV</button>
   <table id="payments-table"></table>
