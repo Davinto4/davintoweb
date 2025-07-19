@@ -2,78 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard</title>
+  <title>DavintoWeb Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #111; color: white; }
+    body { font-family: Arial; background: #f5f5f5; padding: 20px; }
     .hidden { display: none; }
-    .card { background: #1e1e1e; border-radius: 10px; padding: 20px; margin: 20px 0; }
-    input, button, select { margin: 5px 0; padding: 10px; border-radius: 5px; border: none; }
-    button { background: #3498db; color: white; cursor: pointer; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    td, th { border: 1px solid #444; padding: 10px; }
+    th, td { padding: 8px; border: 1px solid #ccc; }
+    input, textarea, select, button { padding: 8px; margin: 5px; width: 100%; }
+    .admin-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px #ddd; margin-bottom: 30px; }
   </style>
 </head>
 <body>
-  <div id="loginSection">
-    <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email" /><br />
-    <input type="password" id="password" placeholder="Password" /><br />
+
+  <div id="loginForm" class="admin-section">
+    <h2>Login to Admin</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
     <button onclick="login()">Login</button>
-    <button onclick="signup()">Signup</button><br/>
-    <button onclick="sendVerification()">Resend Verification Email</button>
   </div>
 
-  <div id="dashboard" class="hidden">
-    <h2>Welcome, <span id="userEmail"></span></h2>
-    <p>Your role: <strong id="userRole"></strong></p>
-    <button onclick="logout()">Logout</button>
+  <div id="adminPanel" class="hidden">
 
-    <div class="card">
-      <h3>Post New Project (Admin & Editor Only)</h3>
-      <input type="text" id="projTitle" placeholder="Project Title" />
-      <input type="text" id="projDesc" placeholder="Project Description" />
-      <input type="url" id="projLink" placeholder="Project URL" />
+    <div class="admin-section">
+      <h2>Post New Portfolio Project</h2>
+      <input type="text" id="projectTitle" placeholder="Project Title">
+      <input type="text" id="projectImage" placeholder="Image URL">
+      <textarea id="projectDesc" placeholder="Project Description"></textarea>
       <button onclick="postProject()">Post Project</button>
     </div>
 
-    <div class="card">
-      <h3>Portfolio Projects</h3>
-      <table id="portfolioTable"></table>
-      <button onclick="exportCSV('portfolio')">Export CSV</button>
+    <div class="admin-section">
+      <h2>Portfolio Projects</h2>
+      <table id="portfolioTable"><thead><tr><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></tr></thead><tbody></tbody></table>
     </div>
 
-    <div class="card">
-      <h3>Payment Confirmations</h3>
-      <table id="paymentTable"></table>
-      <button onclick="exportCSV('payments')">Export CSV</button>
+    <div class="admin-section">
+      <h2>Payment Confirmations</h2>
+      <button onclick="exportTableToCSV('payments.csv', 'paymentsTable')">Export Payments CSV</button>
+      <table id="paymentsTable"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
     </div>
 
-    <div class="card" id="adminTools" class="hidden">
-      <h3>Admin Tools</h3>
-      <h4>Manage Users</h4>
-      <table id="usersTable"></table>
-
-      <h4>Assign Role / Send Message</h4>
-      <input type="text" id="targetUID" placeholder="User UID" />
-      <select id="newRole">
-        <option value="viewer">Viewer</option>
-        <option value="editor">Editor</option>
-        <option value="admin">Admin</option>
-      </select>
-      <button onclick="assignRole()">Assign Role</button><br />
-      <textarea id="msgContent" placeholder="Message to User"></textarea>
-      <button onclick="sendMessage()">Send Message</button>
+    <div class="admin-section">
+      <h2>Manage Users & Roles</h2>
+      <table id="rolesTable"><thead><tr><th>UID</th><th>Email</th><th>Role</th><th>Set Role</th></tr></thead><tbody></tbody></table>
     </div>
+
+    <div class="admin-section">
+      <h2>Send Message to Users</h2>
+      <input type="text" id="messageTo" placeholder="User UID">
+      <textarea id="messageBody" placeholder="Your message here"></textarea>
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <button onclick="logout()">Logout</button>
   </div>
 
-  <!-- Firebase App -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getDatabase, ref, set, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
@@ -83,149 +74,140 @@
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
-    firebase.initializeApp(firebaseConfig);
 
-    const auth = firebase.auth();
-    const db = firebase.database();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-    const loginSection = document.getElementById('loginSection');
-    const dashboard = document.getElementById('dashboard');
-    const userEmail = document.getElementById('userEmail');
-    const userRole = document.getElementById('userRole');
-    const adminTools = document.getElementById('adminTools');
-
-    function login() {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => location.reload())
+    // Login
+    window.login = () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      signInWithEmailAndPassword(auth, email, password)
         .catch(err => alert(err.message));
-    }
+    };
 
-    function signup() {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      auth.createUserWithEmailAndPassword(email, password).then(user => {
-        user.user.sendEmailVerification();
-        alert("Verify your email before logging in.");
-      });
-    }
+    // Logout
+    window.logout = () => {
+      signOut(auth);
+    };
 
-    function sendVerification() {
-      if (auth.currentUser)
-        auth.currentUser.sendEmailVerification().then(() =>
-          alert("Verification sent to " + auth.currentUser.email));
-    }
-
-    function logout() {
-      auth.signOut().then(() => location.reload());
-    }
-
-    auth.onAuthStateChanged(async user => {
-      if (user && user.emailVerified) {
-        loginSection.classList.add('hidden');
-        dashboard.classList.remove('hidden');
-        userEmail.innerText = user.email;
-
-        const uid = user.uid;
-        const roleSnap = await db.ref(`roles/${uid}`).once('value');
-        const role = roleSnap.exists() ? roleSnap.val().role : "pending";
-
-        userRole.innerText = role;
-
-        if (role === "admin") adminTools.style.display = 'block';
-
-        if (role === "admin" || role === "editor") loadPortfolio();
+    // Listen to auth state
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+        loadPortfolio();
         loadPayments();
-        if (role === "admin") loadUsers();
+        loadRoles();
       } else {
-        logout();
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('adminPanel').classList.add('hidden');
       }
     });
 
-    function postProject() {
-      const title = projTitle.value;
-      const desc = projDesc.value;
-      const link = projLink.value;
-      db.ref("portfolio").push({ title, desc, link, timestamp: Date.now() });
-    }
+    // Post project
+    window.postProject = () => {
+      const title = document.getElementById('projectTitle').value;
+      const desc = document.getElementById('projectDesc').value;
+      const image = document.getElementById('projectImage').value;
+      const projectRef = push(ref(db, "portfolio/"));
+      set(projectRef, { title, desc, image });
+    };
 
+    // Load portfolio
     function loadPortfolio() {
-      db.ref("portfolio").on("value", snap => {
-        let html = `<tr><th>Title</th><th>Description</th><th>Link</th><th>Delete</th></tr>`;
+      const table = document.querySelector('#portfolioTable tbody');
+      table.innerHTML = "";
+      onValue(ref(db, "portfolio/"), snap => {
+        table.innerHTML = "";
         snap.forEach(child => {
-          const val = child.val();
-          html += `<tr>
-            <td>${val.title}</td>
-            <td>${val.desc}</td>
-            <td><a href="${val.link}" target="_blank">Visit</a></td>
-            <td><button onclick="deleteEntry('portfolio', '${child.key}')">Delete</button></td>
-          </tr>`;
+          const d = child.val();
+          const row = document.createElement("tr");
+          row.innerHTML = `<td>${d.title}</td><td>${d.desc}</td><td><img src="${d.image}" width="80"></td>
+            <td><button onclick="deleteEntry('portfolio','${child.key}')">Delete</button></td>`;
+          table.appendChild(row);
         });
-        portfolioTable.innerHTML = html;
       });
     }
 
+    // Load payments
     function loadPayments() {
-      db.ref("payments").on("value", snap => {
-        let html = `<tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Delete</th></tr>`;
+      const table = document.querySelector('#paymentsTable tbody');
+      table.innerHTML = "";
+      onValue(ref(db, "payments/"), snap => {
+        table.innerHTML = "";
         snap.forEach(child => {
-          const val = child.val();
-          html += `<tr>
-            <td>${val.name}</td>
-            <td>${val.email}</td>
-            <td>${val.account}</td>
-            <td>${val.message}</td>
-            <td><button onclick="deleteEntry('payments', '${child.key}')">Delete</button></td>
-          </tr>`;
+          const d = child.val();
+          const row = document.createElement("tr");
+          row.innerHTML = `<td>${d.name}</td><td>${d.email}</td><td>${d.account}</td><td>${d.message}</td>
+            <td><button onclick="deleteEntry('payments','${child.key}')">Delete</button></td>`;
+          table.appendChild(row);
         });
-        paymentTable.innerHTML = html;
       });
     }
 
-    function deleteEntry(path, key) {
-      db.ref(`${path}/${key}`).remove();
-    }
+    // Delete entry
+    window.deleteEntry = (section, key) => {
+      remove(ref(db, `${section}/${key}`));
+    };
 
-    function loadUsers() {
-      db.ref("roles").on("value", snap => {
-        let html = `<tr><th>UID</th><th>Role</th></tr>`;
+    // Load roles
+    function loadRoles() {
+      const table = document.querySelector('#rolesTable tbody');
+      table.innerHTML = "";
+      onValue(ref(db, "roles/"), snap => {
+        table.innerHTML = "";
         snap.forEach(child => {
-          html += `<tr><td>${child.key}</td><td>${child.val().role}</td></tr>`;
+          const role = child.val().role;
+          const email = child.val().email || "—";
+          const uid = child.key;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${uid}</td>
+            <td>${email}</td>
+            <td>${role}</td>
+            <td>
+              <select onchange="changeRole('${uid}', this.value)">
+                <option value="viewer" ${role === "viewer" ? "selected" : ""}>Viewer</option>
+                <option value="editor" ${role === "editor" ? "selected" : ""}>Editor</option>
+                <option value="admin" ${role === "admin" ? "selected" : ""}>Admin</option>
+              </select>
+            </td>`;
+          table.appendChild(row);
         });
-        usersTable.innerHTML = html;
       });
     }
 
-    function assignRole() {
-      const uid = document.getElementById("targetUID").value;
-      const role = document.getElementById("newRole").value;
-      db.ref(`roles/${uid}`).set({ role });
-      alert("Role updated");
-    }
+    window.changeRole = (uid, role) => {
+      update(ref(db, `roles/${uid}`), { role });
+    };
 
-    function sendMessage() {
-      const uid = document.getElementById("targetUID").value;
-      const msg = document.getElementById("msgContent").value;
-      db.ref(`messages/${uid}`).push({ from: auth.currentUser.email, msg });
-      alert("Message sent");
-    }
+    // Send message
+    window.sendMessage = () => {
+      const uid = document.getElementById("messageTo").value;
+      const message = document.getElementById("messageBody").value;
+      const msgRef = push(ref(db, `messages/${uid}`));
+      set(msgRef, { message, from: auth.currentUser.email, time: Date.now() });
+      alert("Message sent!");
+    };
 
-    function exportCSV(type) {
-      const ref = type === "payments" ? "payments" : "portfolio";
-      db.ref(ref).once("value").then(snap => {
-        let csv = "";
-        snap.forEach(child => {
-          const val = child.val();
-          csv += Object.values(val).join(",") + "\n";
-        });
-        const blob = new Blob([csv], { type: "text/csv" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `${ref}.csv`;
-        link.click();
-      });
-    }
+    // CSV export
+    window.exportTableToCSV = (filename, tableId) => {
+      let csv = [];
+      const rows = document.querySelectorAll(`#${tableId} tr`);
+      for (let row of rows) {
+        let cols = row.querySelectorAll("td, th");
+        let rowData = [...cols].map(col => `"${col.innerText}"`).join(",");
+        csv.push(rowData);
+      }
+      const csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+      const downloadLink = document.createElement("a");
+      downloadLink.download = filename;
+      downloadLink.href = URL.createObjectURL(csvFile);
+      downloadLink.click();
+    };
+
   </script>
 </body>
 </html>
