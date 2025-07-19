@@ -1,67 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard</title>
+  <title>Davinto Admin Dashboard</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: Arial; background: #1e1e1e; color: white; margin: 0; padding: 20px; }
+    body { font-family: Arial; background: #0f172a; color: white; padding: 20px; }
     .hidden { display: none; }
-    .section { margin-top: 20px; padding: 15px; background: #2a2a2a; border-radius: 10px; }
-    input, button, select { padding: 8px; margin: 5px 0; width: 100%; border-radius: 5px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { padding: 10px; border: 1px solid #444; }
-    .role-editor select { width: auto; }
-    .super { color: gold; font-weight: bold; }
+    .card { background: #1e293b; padding: 15px; margin: 10px 0; border-radius: 10px; }
+    button { padding: 8px 15px; margin: 5px; border: none; background: #3b82f6; color: white; border-radius: 5px; }
+    input, select { padding: 6px; margin: 4px; }
   </style>
 </head>
 <body>
+  <h2>Davinto Admin Dashboard</h2>
 
   <!-- Login Form -->
-  <div id="login-section" class="section">
-    <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+  <div id="loginDiv">
+    <h3>Login</h3>
+    <input type="email" id="email" placeholder="Email"><br>
+    <input type="password" id="password" placeholder="Password"><br>
     <button onclick="login()">Login</button>
-    <button onclick="sendVerification()">Resend Verification Email</button>
-    <p id="login-msg"></p>
+    <button onclick="signup()">Signup</button>
   </div>
 
-  <!-- Dashboard -->
+  <!-- Admin Dashboard -->
   <div id="dashboard" class="hidden">
-    <h2>Welcome <span id="user-role"></span>: <span id="user-email"></span></h2>
+    <h3>Welcome <span id="userRole"></span></h3>
     <button onclick="logout()">Logout</button>
 
-    <!-- Role Management (Only super admin) -->
-    <div id="role-management" class="section hidden">
-      <h3>User Roles Management (Super Admin Only)</h3>
-      <table id="users-table"><thead><tr><th>Email</th><th>Role</th><th>Change Role</th></tr></thead><tbody></tbody></table>
+    <!-- Super Admin Only Section -->
+    <div id="roleSection" class="hidden">
+      <h4>User Roles</h4>
+      <div id="usersList"></div>
     </div>
 
-    <!-- Payment Table -->
-    <div class="section">
-      <h3>Payments</h3>
-      <table id="payments-table"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
-      <button onclick="exportCSV('payments')">Export Payments to CSV</button>
-    </div>
+    <hr>
 
-    <!-- Portfolio Table -->
-    <div class="section">
-      <h3>Portfolio Projects</h3>
-      <form id="portfolio-form">
-        <input type="text" id="project-title" placeholder="Project Title" required />
-        <input type="text" id="project-img" placeholder="Image URL" required />
-        <input type="text" id="project-url" placeholder="Website URL" required />
-        <button type="submit">Add Project</button>
-      </form>
-      <table id="portfolio-table"><thead><tr><th>Title</th><th>Image</th><th>URL</th><th>Actions</th></tr></thead><tbody></tbody></table>
-      <button onclick="exportCSV('portfolio')">Export Portfolio to CSV</button>
-    </div>
+    <h4>Post New Portfolio</h4>
+    <input type="text" id="title" placeholder="Project Title">
+    <input type="text" id="image" placeholder="Image URL">
+    <input type="text" id="link" placeholder="Project Link">
+    <button onclick="postPortfolio()">Post Project</button>
+
+    <hr>
+
+    <h4>Portfolio</h4>
+    <div id="portfolioList"></div>
+
+    <hr>
+
+    <h4>Payments</h4>
+    <div id="paymentList"></div>
+    <button onclick="exportCSV('payments')">Export Payments CSV</button>
+    <button onclick="exportCSV('portfolio')">Export Portfolio CSV</button>
   </div>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
 
 <script>
   const firebaseConfig = {
@@ -76,156 +71,158 @@
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.database();
-
-  const loginSection = document.getElementById('login-section');
-  const dashboard = document.getElementById('dashboard');
-  const emailInput = document.getElementById('email');
-  const passInput = document.getElementById('password');
-  const loginMsg = document.getElementById('login-msg');
-
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      if (!user.emailVerified) {
-        loginMsg.innerText = "Please verify your email before accessing the dashboard.";
-        sendVerification();
-        return;
-      }
-      const uid = user.uid;
-      db.ref('roles/' + uid).once('value', snap => {
-        let role = snap.val()?.role;
-        if (!role) {
-          const defaultRole = user.email === "macdinodavinto@gmail.com" ? "superadmin" : "viewer";
-          db.ref('roles/' + uid).set({ role: defaultRole });
-          role = defaultRole;
-        }
-        loadDashboard(user.email, uid, role);
-      });
-    } else {
-      dashboard.classList.add('hidden');
-      loginSection.classList.remove('hidden');
-    }
-  });
+  const superAdmin = "macdinodavinto@gmail.com";
 
   function login() {
-    auth.signInWithEmailAndPassword(emailInput.value, passInput.value)
-    .catch(err => loginMsg.innerText = err.message);
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => checkRole(auth.currentUser))
+      .catch(err => alert("Login failed: " + err.message));
+  }
+
+  function signup() {
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(cred => {
+        const uid = cred.user.uid;
+        db.ref("roles/" + uid).set({
+          email: email,
+          role: "pending",
+          username: email.split("@")[0]
+        });
+        alert("Signup successful. Wait for super admin approval.");
+        auth.signOut();
+      })
+      .catch(err => alert("Signup failed: " + err.message));
   }
 
   function logout() {
-    auth.signOut();
+    auth.signOut().then(() => location.reload());
   }
 
-  function sendVerification() {
-    const user = auth.currentUser;
-    if (user && !user.emailVerified) {
-      user.sendEmailVerification().then(() => alert("Verification email sent."));
-    }
-  }
+  auth.onAuthStateChanged(user => {
+    if (!user) return;
+    checkRole(user);
+  });
 
-  function loadDashboard(email, uid, role) {
-    loginSection.classList.add('hidden');
-    dashboard.classList.remove('hidden');
-    document.getElementById('user-email').innerText = email;
-    document.getElementById('user-role').innerText = role.toUpperCase();
-
-    if (role === 'superadmin') {
-      document.getElementById('role-management').classList.remove('hidden');
-      db.ref('roles').once('value', snap => {
-        const tbody = document.querySelector('#users-table tbody');
-        tbody.innerHTML = '';
-        snap.forEach(child => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${child.key}</td>
-            <td>${child.val().role}</td>
-            <td class="role-editor">
-              <select onchange="changeRole('${child.key}', this.value)">
-                <option value="viewer">viewer</option>
-                <option value="editor">editor</option>
-                <option value="admin">admin</option>
-                <option value="superadmin">superadmin</option>
-              </select>
-            </td>`;
-          tbody.appendChild(tr);
-        });
-      });
-    }
-
-    loadPayments(role);
-    loadPortfolio(role);
-
-    document.getElementById('portfolio-form').onsubmit = e => {
-      e.preventDefault();
-      if (['editor', 'admin', 'superadmin'].includes(role)) {
-        const title = document.getElementById('project-title').value;
-        const img = document.getElementById('project-img').value;
-        const url = document.getElementById('project-url').value;
-        const key = db.ref('portfolio').push().key;
-        db.ref('portfolio/' + key).set({ title, img, url });
-        e.target.reset();
-      } else {
-        alert("Insufficient permissions to post project.");
+  function checkRole(user) {
+    db.ref("roles/" + user.uid).once("value").then(snapshot => {
+      const data = snapshot.val();
+      if (!data || data.role === "pending") {
+        alert("Access denied. Wait for approval.");
+        logout();
+        return;
       }
+
+      dashboard.classList.remove("hidden");
+      loginDiv.classList.add("hidden");
+      userRole.textContent = data.role.toUpperCase();
+
+      loadPayments();
+      loadPortfolio();
+
+      if (user.email === superAdmin) {
+        roleSection.classList.remove("hidden");
+        loadUsers();
+      }
+    });
+  }
+
+  function loadUsers() {
+    db.ref("roles").on("value", snap => {
+      usersList.innerHTML = "";
+      snap.forEach(child => {
+        const uid = child.key;
+        const u = child.val();
+        usersList.innerHTML += `
+          <div class="card">
+            <b>${u.username}</b> (${u.email}) - Role:
+            <select onchange="updateRole('${uid}', this.value)">
+              <option ${u.role === "viewer" ? "selected" : ""}>viewer</option>
+              <option ${u.role === "editor" ? "selected" : ""}>editor</option>
+              <option ${u.role === "admin" ? "selected" : ""}>admin</option>
+            </select>
+          </div>
+        `;
+      });
+    });
+  }
+
+  function updateRole(uid, newRole) {
+    db.ref("roles/" + uid + "/role").set(newRole);
+  }
+
+  function postPortfolio() {
+    const data = {
+      title: title.value,
+      image: image.value,
+      link: link.value,
+      timestamp: Date.now()
     };
+    db.ref("portfolio").push(data).then(() => {
+      alert("Project posted!");
+      title.value = image.value = link.value = "";
+    });
   }
 
-  function changeRole(uid, newRole) {
-    db.ref('roles/' + uid).update({ role: newRole });
-    alert("Role updated.");
-  }
-
-  function loadPayments(role) {
-    db.ref('confirmations').on('value', snap => {
-      const tbody = document.querySelector('#payments-table tbody');
-      tbody.innerHTML = '';
+  function loadPortfolio() {
+    db.ref("portfolio").on("value", snap => {
+      portfolioList.innerHTML = "";
       snap.forEach(child => {
-        const data = child.val();
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${data.name}</td><td>${data.email}</td><td>${data.account}</td><td>${data.message}</td>
-        <td>${['admin', 'superadmin'].includes(role) ? `<button onclick="deleteEntry('confirmations','${child.key}')">Delete</button>` : ''}</td>`;
-        tbody.appendChild(tr);
+        const id = child.key;
+        const p = child.val();
+        portfolioList.innerHTML += `
+          <div class="card">
+            <h4>${p.title}</h4>
+            <img src="${p.image}" width="100"><br>
+            <a href="${p.link}" target="_blank">View Project</a><br>
+            <button onclick="deleteItem('portfolio','${id}')">Delete</button>
+          </div>
+        `;
       });
     });
   }
 
-  function loadPortfolio(role) {
-    db.ref('portfolio').on('value', snap => {
-      const tbody = document.querySelector('#portfolio-table tbody');
-      tbody.innerHTML = '';
+  function loadPayments() {
+    db.ref("payments").on("value", snap => {
+      paymentList.innerHTML = "";
       snap.forEach(child => {
-        const data = child.val();
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${data.title}</td><td><img src="${data.img}" width="100"/></td><td><a href="${data.url}" target="_blank">${data.url}</a></td>
-        <td>${['editor','admin','superadmin'].includes(role) ? `<button onclick="deleteEntry('portfolio','${child.key}')">Delete</button>` : ''}</td>`;
-        tbody.appendChild(tr);
+        const id = child.key;
+        const p = child.val();
+        paymentList.innerHTML += `
+          <div class="card">
+            <b>${p.name}</b> - ${p.email}<br>
+            ${p.message} <br>
+            <button onclick="deleteItem('payments','${id}')">Delete</button>
+          </div>
+        `;
       });
     });
   }
 
-  function deleteEntry(path, key) {
-    if (confirm("Delete this entry?")) {
-      db.ref(`${path}/${key}`).remove();
-    }
+  function deleteItem(section, id) {
+    db.ref(section + "/" + id).remove();
   }
 
   function exportCSV(type) {
-    const headers = type === 'payments' ? ['Name','Email','Account','Message'] : ['Title','Image','URL'];
-    const rows = [];
-    db.ref(type === 'payments' ? 'confirmations' : 'portfolio').once('value', snap => {
-      snap.forEach(child => {
-        const data = child.val();
-        rows.push(type === 'payments' ? [data.name, data.email, data.account, data.message] : [data.title, data.img, data.url]);
+    db.ref(type).once("value").then(snapshot => {
+      let csv = "ID,Title,Email,Message,Image,Link\n";
+      snapshot.forEach(child => {
+        const v = child.val();
+        csv += `${child.key},${v.title || ""},${v.email || ""},${v.message || ""},${v.image || ""},${v.link || ""}\n`;
       });
-      let csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].map(e => e.join(",")).join("\n");
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", type + "_data.csv");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+      const blob = new Blob([csv], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = type + ".csv";
+      a.click();
     });
   }
+
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
 </script>
 </body>
 </html>
