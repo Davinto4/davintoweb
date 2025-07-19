@@ -1,36 +1,56 @@
-<!DOCTYPE html><html lang="en">
+<!-- admin.html --><!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard - DavintoWeb</title>
+  <title>DavintoWeb Admin Dashboard</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <style>
+    .hidden { display: none; }
+    .btn { padding: 8px 16px; cursor: pointer; margin: 4px; }
+    .admin-area { display: none; }
+  </style>
 </head>
 <body>
-  <div id="login-section">
-    <h2>Admin Login</h2>
-    <input type="email" id="login-email" placeholder="Email" required />
-    <input type="password" id="login-password" placeholder="Password" required />
-    <button onclick="login()">Login</button>
-    <p id="login-error" style="color:red"></p>
-  </div>  <div id="dashboard" style="display:none">
-    <h1>Welcome, <span id="user-role"></span></h1>
-    <button onclick="logout()">Logout</button><h2>Post New Project</h2>
-<input type="text" id="projectTitle" placeholder="Project Title" />
-<input type="text" id="projectImage" placeholder="Image URL" />
-<textarea id="projectDesc" placeholder="Description"></textarea>
-<button onclick="postProject()">Post Project</button>
+  <h1>DavintoWeb Admin Dashboard</h1>  <div id="auth-section">
+    <div id="signup-form">
+      <h2>Sign Up</h2>
+      <input id="signup-email" placeholder="Email" /><br />
+      <input id="signup-password" type="password" placeholder="Password" /><br />
+      <button class="btn" onclick="signUp()">Sign Up</button>
+    </div><div id="login-form">
+  <h2>Login</h2>
+  <input id="login-email" placeholder="Email" /><br />
+  <input id="login-password" type="password" placeholder="Password" /><br />
+  <button class="btn" onclick="login()">Login</button>
+</div>
 
-<h2>Portfolio</h2>
-<div id="portfolio-container"></div>
+  </div>  <div id="dashboard" class="admin-area">
+    <h2>Welcome, <span id="user-email"></span></h2>
+    <button class="btn" onclick="logout()">Logout</button><div id="role-manager" class="hidden">
+  <h3>Manage User Roles</h3>
+  <input id="target-email" placeholder="User Email" />
+  <select id="target-role">
+    <option value="viewer">Viewer</option>
+    <option value="editor">Editor</option>
+    <option value="admin">Admin</option>
+  </select>
+  <button onclick="setUserRole()">Set Role</button>
+</div>
 
-<h2>Payments</h2>
-<div id="payments-container"></div>
+<div id="portfolio-manager">
+  <h3>Post New Project</h3>
+  <input id="project-title" placeholder="Project Title" />
+  <input id="project-url" placeholder="Project URL" />
+  <button onclick="postProject()">Post</button>
+</div>
 
-<h2>Users</h2>
-<div id="users-container"></div>
+<div>
+  <h3>Portfolio Projects</h3>
+  <ul id="portfolio-list"></ul>
+</div>
 
   </div>  <script>
     const firebaseConfig = {
@@ -42,120 +62,99 @@
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.database();
 
-    const SUPER_ADMIN = "macdinodavinto@gmail.com";
+    const superAdminEmail = "macdinodavinto@gmail.com";
 
-    function login() {
-      const email = document.getElementById('login-email').value;
-      const password = document.getElementById('login-password').value;
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const email = user.email;
+        document.getElementById("user-email").innerText = email;
+        document.getElementById("auth-section").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then(userCred => {
-          const uid = userCred.user.uid;
-          db.ref(`roles/${uid}`).once('value').then(snapshot => {
-            const role = snapshot.val()?.role;
+        if (email === superAdminEmail) {
+          document.getElementById("role-manager").classList.remove("hidden");
+        }
 
-            if (email === SUPER_ADMIN || ["admin", "editor"].includes(role)) {
-              showDashboard(role);
-            } else if (role === "viewer") {
-              alert("Access denied. Wait for admin approval.");
-              auth.signOut();
-            } else {
-              db.ref(`roles/${uid}`).set({ role: "pending", email });
-              alert("Account pending approval by super admin.");
-              auth.signOut();
-            }
-          });
+        const snapshot = await db.ref("roles/" + user.uid).once("value");
+        const role = snapshot.val();
+
+        if (email === superAdminEmail || role === "admin" || role === "editor") {
+          loadPortfolio();
+        } else {
+          alert("Awaiting super admin approval. Please wait.");
+          logout();
+        }
+      }
+    });
+
+    function signUp() {
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((cred) => {
+          db.ref("roles/" + cred.user.uid).set("pending");
+          alert("Account created. Wait for super admin approval.");
         })
-        .catch(err => {
-          document.getElementById('login-error').innerText = err.message;
-        });
+        .catch((err) => alert(err.message));
     }
 
-    function showDashboard(role) {
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      document.getElementById('user-role').innerText = role;
-      loadPayments();
-      loadPortfolio();
-      if (auth.currentUser.email === SUPER_ADMIN) loadUsers();
+    function login() {
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+      auth.signInWithEmailAndPassword(email, password).catch((err) => alert(err.message));
     }
 
     function logout() {
-      auth.signOut().then(() => location.reload());
-    }
-
-    function loadPayments() {
-      db.ref("payments").on("value", snapshot => {
-        const data = snapshot.val();
-        const container = document.getElementById("payments-container");
-        container.innerHTML = '';
-        for (let id in data) {
-          container.innerHTML += `<div>${data[id].name} - ${data[id].email} <button onclick="deletePayment('${id}')">Delete</button></div>`;
-        }
+      auth.signOut().then(() => {
+        location.reload();
       });
     }
 
-    function deletePayment(id) {
-      db.ref(`payments/${id}`).remove();
+    function setUserRole() {
+      const email = document.getElementById("target-email").value;
+      const role = document.getElementById("target-role").value;
+      firebase.auth().fetchSignInMethodsForEmail(email).then((methods) => {
+        if (methods.length) {
+          firebase.database().ref("roles").once("value", (snapshot) => {
+            snapshot.forEach((child) => {
+              if (child.val() === "pending" || child.val() === "viewer") {
+                firebase.auth().getUserByEmail?.(email).then(userRecord => {
+                  db.ref("roles/" + userRecord.uid).set(role);
+                  alert("Role updated");
+                });
+              }
+            });
+          });
+        } else {
+          alert("User not found.");
+        }
+      });
     }
 
     function postProject() {
-      const title = document.getElementById("projectTitle").value;
-      const image = document.getElementById("projectImage").value;
-      const desc = document.getElementById("projectDesc").value;
-      const id = Date.now();
-      db.ref(`portfolio/${id}`).set({ title, image, desc });
+      const title = document.getElementById("project-title").value;
+      const url = document.getElementById("project-url").value;
+      const key = db.ref("portfolio").push().key;
+      db.ref("portfolio/" + key).set({ title, url });
+      alert("Project posted");
+      loadPortfolio();
     }
 
     function loadPortfolio() {
-      db.ref("portfolio").on("value", snapshot => {
-        const data = snapshot.val();
-        const container = document.getElementById("portfolio-container");
-        container.innerHTML = '';
-        for (let id in data) {
-          const p = data[id];
-          container.innerHTML += `<div><h4>${p.title}</h4><img src="${p.image}" width="100"/><p>${p.desc}</p><button onclick="deleteProject('${id}')">Delete</button></div>`;
-        }
+      db.ref("portfolio").once("value", (snapshot) => {
+        const list = document.getElementById("portfolio-list");
+        list.innerHTML = "";
+        snapshot.forEach((child) => {
+          const li = document.createElement("li");
+          li.innerText = `${child.val().title} - ${child.val().url}`;
+          list.appendChild(li);
+        });
       });
     }
-
-    function deleteProject(id) {
-      db.ref(`portfolio/${id}`).remove();
-    }
-
-    function loadUsers() {
-      db.ref("roles").on("value", snapshot => {
-        const data = snapshot.val();
-        const container = document.getElementById("users-container");
-        container.innerHTML = '';
-        for (let uid in data) {
-          const { email, role } = data[uid];
-          container.innerHTML += `
-            <div>
-              ${email} - <strong>${role}</strong>
-              <select onchange="updateRole('${uid}', this.value)">
-                <option value="pending" ${role === 'pending' ? 'selected' : ''}>Pending</option>
-                <option value="viewer" ${role === 'viewer' ? 'selected' : ''}>Viewer</option>
-                <option value="editor" ${role === 'editor' ? 'selected' : ''}>Editor</option>
-                <option value="admin" ${role === 'admin' ? 'selected' : ''}>Admin</option>
-              </select>
-            </div>`;
-        }
-      });
-    }
-
-    function updateRole(uid, newRole) {
-      db.ref(`roles/${uid}/role`).set(newRole);
-    }
-
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        login();
-      }
-    });
   </script></body>
 </html>
