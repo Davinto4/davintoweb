@@ -1,26 +1,10 @@
-<!-- admin-login.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div id="login-section">
-    <h2>Admin Login</h2>
-    <input type="email" id="login-email" placeholder="Email" required><br>
-    <input type="password" id="login-password" placeholder="Password" required><br>
-    <button onclick="login()">Login</button><br>
-    <small><a href="#" onclick="resendVerificationEmail()">Resend Verification Email</a></small>
-    <p id="login-error" style="color: red;"></p>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-
+  <title>Admin Login</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
       authDomain: "davintoweb-payments.firebaseapp.com",
@@ -30,40 +14,35 @@
       messagingSenderId: "667742200333",
       appId: "1:667742200333:web:cf75f6cef6798eed432b44"
     };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  <h2>Admin Login</h2>
+  <input id="email" type="email" placeholder="Email" /><br>
+  <input id="password" type="password" placeholder="Password" /><br>
+  <button onclick="login()">Login</button>
+  <p id="message"></p>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
+  <script>
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-    window.login = () => {
-      const email = document.getElementById('login-email').value;
-      const password = document.getElementById('login-password').value;
-      const errorElem = document.getElementById('login-error');
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
           const user = userCredential.user;
-          if (!user.emailVerified) {
-            errorElem.textContent = "Please verify your email before continuing.";
-          } else {
-            // Redirect to dashboard
+          if (user.emailVerified) {
             window.location.href = "admin.html";
+          } else {
+            user.sendEmailVerification();
+            document.getElementById('message').innerText = "Email not verified. A verification email has been sent.";
           }
         })
-        .catch(error => {
-          errorElem.textContent = error.message;
+        .catch((error) => {
+          document.getElementById('message').innerText = error.message;
         });
-    };
-
-    window.resendVerificationEmail = () => {
-      const user = auth.currentUser;
-      if (user && !user.emailVerified) {
-        sendEmailVerification(user).then(() => {
-          alert("Verification email sent.");
-        });
-      } else {
-        alert("You must be logged in to resend verification.");
-      }
-    };
+    }
   </script>
 </body>
 </html>
