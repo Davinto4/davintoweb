@@ -1,249 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard – DavintoWeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - DavintoWeb</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Add your styling here or link to an external stylesheet */
     .hidden { display: none; }
-    #dashboard { padding: 1rem; background: #f9f9f9; }
-    #loginForm, #verifyNotice { margin: 2rem; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
-    button { padding: 6px 12px; margin-top: 1rem; }
+    .modal { background: rgba(0,0,0,0.6); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .modal-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 500px; }
+    .admin-section { margin: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background-color: #f4f4f4; }
   </style>
 </head>
 <body>
-
-  <div id="loginForm">
+  <div id="auth-section">
     <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email" /><br/>
-    <input type="password" id="password" placeholder="Password" /><br/>
-    <button onclick="login()">Login</button>
-    <p>Not verified? <a href="#" onclick="resendVerification()">Resend Email Verification</a></p>
-  </div>
+    <input type="email" id="login-email" placeholder="Email" required><br>
+    <input type="password" id="login-password" placeholder="Password" required><br>
+    <button onclick="login()">Login</button><br>
+    <small><a href="#" onclick="resendVerificationEmail()">Resend Verification Email</a></small>
+  </div>  <div id="dashboard-section" class="hidden">
+    <h1>Welcome to Admin Dashboard</h1>
+    <p id="user-role"></p>
+    <button onclick="logout()">Logout</button><div class="admin-section">
+  <h2>Payments</h2>
+  <button onclick="exportToCSV('payments')">Export Payments CSV</button>
+  <table id="payments-table"></table>
+</div>
 
-  <div id="verifyNotice" class="hidden">
-    <p>Please verify your email before accessing the dashboard.</p>
-    <button onclick="resendVerification()">Resend Verification Email</button>
-  </div>
+<div class="admin-section">
+  <h2>Portfolio</h2>
+  <form id="portfolio-form">
+    <input type="text" id="project-title" placeholder="Project Title" required><br>
+    <input type="url" id="project-link" placeholder="Project Link" required><br>
+    <textarea id="project-description" placeholder="Description" required></textarea><br>
+    <button type="submit">Add Project</button>
+  </form>
+  <button onclick="exportToCSV('portfolio')">Export Portfolio CSV</button>
+  <table id="portfolio-table"></table>
+</div>
 
-  <div id="dashboard" class="hidden">
-    <h2>Welcome to DavintoWeb Admin Panel</h2>
-    <p id="adminRole"></p>
-    <button onclick="logout()">Logout</button>
-
-    <h3>Post New Project</h3>
-    <input type="text" id="projectTitle" placeholder="Project Title" />
-    <input type="url" id="projectURL" placeholder="Project URL" />
-    <button onclick="postProject()">Post Project</button>
-
-    <h3>Portfolio Projects</h3>
-    <table id="portfolioTable">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>URL</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button onclick="exportPortfolioCSV()">Export Portfolio CSV</button>
-
-    <h3>Payment Confirmations</h3>
-    <table id="paymentTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Account Used</th>
-          <th>Message</th>
-          <th>Service</th>
-          <th>Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button onclick="exportPaymentsCSV()">Export Payments CSV</button>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, onValue, push, remove, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const auth = getAuth();
-
-    const loginForm = document.getElementById("loginForm");
-    const verifyNotice = document.getElementById("verifyNotice");
-    const dashboard = document.getElementById("dashboard");
-
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          if (!user.emailVerified) {
-            verifyNotice.classList.remove("hidden");
-            loginForm.classList.add("hidden");
-          } else {
-            checkAccess(user.uid);
-          }
-        })
-        .catch((error) => alert("Login failed: " + error.message));
-    }
-
-    function resendVerification() {
-      const user = auth.currentUser;
-      if (user) {
-        sendEmailVerification(user).then(() => alert("Verification email sent to " + user.email));
-      } else {
-        alert("Please login first.");
-      }
-    }
-
-    function logout() {
-      signOut(auth).then(() => {
-        dashboard.classList.add("hidden");
-        loginForm.classList.remove("hidden");
-      });
-    }
-
-    function checkAccess(uid) {
-      const roleRef = ref(db, "roles/" + uid);
-      onValue(roleRef, (snapshot) => {
-        const role = snapshot.val()?.role || "none";
-        document.getElementById("adminRole").textContent = "Role: " + role;
-
-        if (role === "admin" || role === "editor") {
-          dashboard.classList.remove("hidden");
-          loginForm.classList.add("hidden");
-          verifyNotice.classList.add("hidden");
-          loadPayments();
-          loadProjects();
-        } else {
-          alert("Access denied. Contact super admin.");
-          logout();
-        }
-      });
-    }
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        if (!user.emailVerified) {
-          verifyNotice.classList.remove("hidden");
-          loginForm.classList.add("hidden");
-        } else {
-          checkAccess(user.uid);
-        }
-      }
-    });
-
-    function postProject() {
-      const title = document.getElementById("projectTitle").value;
-      const url = document.getElementById("projectURL").value;
-      const newRef = push(ref(db, "portfolio"));
-      set(newRef, { title, url });
-      document.getElementById("projectTitle").value = "";
-      document.getElementById("projectURL").value = "";
-    }
-
-    function loadProjects() {
-      const tableBody = document.querySelector("#portfolioTable tbody");
-      onValue(ref(db, "portfolio"), (snapshot) => {
-        tableBody.innerHTML = "";
-        snapshot.forEach((child) => {
-          const data = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${data.title}</td>
-            <td><a href="${data.url}" target="_blank">View</a></td>
-            <td><button onclick="deleteProject('${child.key}')">Delete</button></td>
-          `;
-          tableBody.appendChild(row);
-        });
-      });
-    }
-
-    function deleteProject(key) {
-      remove(ref(db, "portfolio/" + key));
-    }
-
-    function loadPayments() {
-      const tableBody = document.querySelector("#paymentTable tbody");
-      onValue(ref(db, "confirmations"), (snapshot) => {
-        tableBody.innerHTML = "";
-        snapshot.forEach((child) => {
-          const data = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${data.name}</td>
-            <td>${data.email}</td>
-            <td>${data.accountUsed}</td>
-            <td>${data.message}</td>
-            <td>${data.service}</td>
-            <td>${data.date || ''}</td>
-            <td><button onclick="deletePayment('${child.key}')">Delete</button></td>
-          `;
-          tableBody.appendChild(row);
-        });
-      });
-    }
-
-    function deletePayment(key) {
-      remove(ref(db, "confirmations/" + key));
-    }
-
-    function exportPortfolioCSV() {
-      const rows = [["Title", "URL"]];
-      const refPath = ref(db, "portfolio");
-      onValue(refPath, (snapshot) => {
-        snapshot.forEach((child) => {
-          const data = child.val();
-          rows.push([data.title, data.url]);
-        });
-        downloadCSV(rows, "portfolio.csv");
-      }, { onlyOnce: true });
-    }
-
-    function exportPaymentsCSV() {
-      const rows = [["Name", "Email", "Account Used", "Message", "Service", "Date"]];
-      const refPath = ref(db, "confirmations");
-      onValue(refPath, (snapshot) => {
-        snapshot.forEach((child) => {
-          const d = child.val();
-          rows.push([d.name, d.email, d.accountUsed, d.message, d.service, d.date || ""]);
-        });
-        downloadCSV(rows, "payments.csv");
-      }, { onlyOnce: true });
-    }
-
-    function downloadCSV(rows, filename) {
-      let csv = rows.map(r => r.join(",")).join("\n");
-      let blob = new Blob([csv], { type: "text/csv" });
-      let url = URL.createObjectURL(blob);
-      let a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      a.click();
-    }
-  </script>
-</body>
+  </div>  <!-- Edit/Delete Modal -->  <div id="edit-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Edit Entry</h3>
+      <form id="edit-form"></form>
+      <button onclick="saveEdit()">Save</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>  <script type="module" src="admin.js"></script></body>
 </html>
