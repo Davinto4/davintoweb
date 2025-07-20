@@ -1,92 +1,191 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DavintoWeb Admin Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics.js"></script>
-  <style>
-    body { font-family: sans-serif; margin: 0; padding: 0; background: #f0f0f0; }
-    .container { padding: 20px; }
-    .hidden { display: none; }
-    .verified-badge { color: green; font-weight: bold; }
-    .danger { color: red; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
-    th, td { padding: 10px; border: 1px solid #ddd; }
-    input, button, select { margin: 5px 0; padding: 8px; width: 100%; }
-    .form-section { margin: 20px 0; background: white; padding: 15px; border-radius: 8px; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-analytics-compat.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div id="login-section">
-      <h2>Admin Login</h2>
-      <input type="email" id="login-email" placeholder="Email" required />
-      <input type="password" id="login-password" placeholder="Password" required />
-      <button onclick="login()">Login</button>
-      <p id="login-status"></p>
-    </div>
+  <div id="login-section">
+    <h2>Admin Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="verification-message" style="color:red;"></p>
+    <button onclick="resendVerification()">Resend Verification Email</button>
+  </div>  <div id="dashboard" style="display:none;">
+    <h2>Admin Dashboard</h2><section>
+  <h3>Post New Project</h3>
+  <input type="text" id="projectTitle" placeholder="Title">
+  <input type="text" id="projectImage" placeholder="Image URL">
+  <textarea id="projectDesc" placeholder="Description"></textarea>
+  <button onclick="postProject()">Post Project</button>
+</section>
 
-    <div id="verify-section" class="hidden">
-      <h3>Please verify your email address to continue.</h3>
-      <button onclick="sendVerification()">Resend Verification Email</button>
-      <button onclick="logout()">Logout</button>
-    </div>
+<section>
+  <h3>Portfolio Entries</h3>
+  <table border="1" id="portfolioTable">
+    <thead>
+      <tr>
+        <th>Title</th><th>Image</th><th>Description</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-    <div id="admin-panel" class="hidden">
-      <h2>Welcome, <span id="admin-email"></span> <span class="verified-badge">(Verified)</span></h2>
-      <button onclick="logout()">Logout</button>
+<section>
+  <h3>Payments</h3>
+  <button onclick="exportPaymentsCSV()">Export CSV</button>
+  <table border="1" id="paymentsTable">
+    <thead>
+      <tr>
+        <th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-      <!-- Project Posting -->
-      <div class="form-section">
-        <h3>Post New Portfolio Project</h3>
-        <input type="text" id="project-title" placeholder="Title" />
-        <input type="text" id="project-image" placeholder="Image URL" />
-        <textarea id="project-desc" placeholder="Project Description"></textarea>
-        <button onclick="postProject()">Post Project</button>
-      </div>
+<section>
+  <h3>User Roles</h3>
+  <table border="1" id="rolesTable">
+    <thead>
+      <tr><th>Email</th><th>Role</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-      <!-- Portfolio Table -->
-      <div class="form-section">
-        <h3>Portfolio Projects</h3>
-        <button onclick="exportCSV('portfolio')">Export Portfolio CSV</button>
-        <table id="portfolio-table">
-          <thead>
-            <tr><th>Title</th><th>Image</th><th>Description</th><th>Actions</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+<button onclick="logout()">Logout</button>
 
-      <!-- Payments Table -->
-      <div class="form-section">
-        <h3>Payment Confirmations</h3>
-        <button onclick="exportCSV('payments')">Export Payments CSV</button>
-        <table id="payments-table">
-          <thead>
-            <tr><th>Name</th><th>Email</th><th>Account Used</th><th>Message</th><th>Time</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+  </div>  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js";
+    import { getDatabase, ref, push, onValue, remove, set, update } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-database.js";
 
-      <!-- User Roles -->
-      <div class="form-section">
-        <h3>Manage User Roles</h3>
-        <table id="users-table">
-          <thead>
-            <tr><th>Email</th><th>Role</th><th>Action</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "667742200333",
+      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    };
 
-  <script type="module" src="admin.js"></script>
-</body>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(userCred => {
+          if (!userCred.user.emailVerified) {
+            document.getElementById("verification-message").textContent = "Please verify your email first.";
+            return;
+          }
+          document.getElementById("login-section").style.display = "none";
+          document.getElementById("dashboard").style.display = "block";
+          loadPortfolio();
+          loadPayments();
+          loadRoles();
+        })
+        .catch(e => alert(e.message));
+    }
+
+    function resendVerification() {
+      if (auth.currentUser && !auth.currentUser.emailVerified) {
+        auth.currentUser.sendEmailVerification()
+          .then(() => alert("Verification email sent."))
+          .catch(err => alert("Error sending email: " + err.message));
+      }
+    }
+
+    function logout() {
+      signOut(auth).then(() => {
+        document.getElementById("dashboard").style.display = "none";
+        document.getElementById("login-section").style.display = "block";
+      });
+    }
+
+    function postProject() {
+      const title = document.getElementById('projectTitle').value;
+      const image = document.getElementById('projectImage').value;
+      const desc = document.getElementById('projectDesc').value;
+      push(ref(db, 'portfolio/'), { title, image, desc });
+    }
+
+    function loadPortfolio() {
+      const table = document.getElementById("portfolioTable").getElementsByTagName('tbody')[0];
+      onValue(ref(db, 'portfolio/'), snap => {
+        table.innerHTML = '';
+        snap.forEach(child => {
+          const val = child.val();
+          const row = `<tr><td>${val.title}</td><td><img src="${val.image}" height="40"></td><td>${val.desc}</td><td><button onclick="deleteEntry('portfolio','${child.key}')">Delete</button></td></tr>`;
+          table.innerHTML += row;
+        });
+      });
+    }
+
+    function loadPayments() {
+      const table = document.getElementById("paymentsTable").getElementsByTagName('tbody')[0];
+      onValue(ref(db, 'payments/'), snap => {
+        table.innerHTML = '';
+        snap.forEach(child => {
+          const val = child.val();
+          const row = `<tr><td>${val.name}</td><td>${val.email}</td><td>${val.account}</td><td>${val.message}</td><td><button onclick="deleteEntry('payments','${child.key}')">Delete</button></td></tr>`;
+          table.innerHTML += row;
+        });
+      });
+    }
+
+    function exportPaymentsCSV() {
+      onValue(ref(db, 'payments/'), snap => {
+        let csv = 'Name,Email,Account,Message\n';
+        snap.forEach(child => {
+          const d = child.val();
+          csv += `${d.name},${d.email},${d.account},${d.message}\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'payments.csv';
+        a.click();
+      });
+    }
+
+    function loadRoles() {
+      const table = document.getElementById("rolesTable").getElementsByTagName('tbody')[0];
+      onValue(ref(db, 'roles/'), snap => {
+        table.innerHTML = '';
+        snap.forEach(child => {
+          const email = child.key;
+          const role = child.val().role;
+          const row = `<tr><td>${email}</td><td>${role}</td><td><button onclick="changeRole('${child.key}', 'admin')">Make Admin</button></td></tr>`;
+          table.innerHTML += row;
+        });
+      });
+    }
+
+    function changeRole(uid, role) {
+      set(ref(db, `roles/${uid}`), { role });
+    }
+
+    window.login = login;
+    window.logout = logout;
+    window.postProject = postProject;
+    window.resendVerification = resendVerification;
+    window.exportPaymentsCSV = exportPaymentsCSV;
+    window.deleteEntry = function(type, id) {
+      remove(ref(db, `${type}/${id}`));
+    };
+    window.changeRole = changeRole;
+  </script></body>
 </html>
