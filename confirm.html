@@ -1,83 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Confirm Payment – DavintoWeb</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm Payment - DavintoWeb</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
       margin: 0;
-      background: #0f172a;
-      color: white;
-    }
-
-    header {
-      background: #1e293b;
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
-      border-bottom: 2px solid #334155;
-    }
-
-    nav {
-      display: flex;
-      gap: 1rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      background: #334155;
-      border-radius: 8px;
-      transition: background 0.3s;
-    }
-
-    nav a:hover {
-      background: #475569;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #121212, #1e1e1e);
+      color: #fff;
     }
 
     .container {
       max-width: 500px;
-      margin: 4rem auto;
-      padding: 2rem;
-      background: #1e293b;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      margin: 100px auto;
+      background: #222;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
-    .container h2 {
+    h2 {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 20px;
+      font-size: 24px;
     }
 
     input, textarea, button {
       width: 100%;
-      margin: 10px 0;
-      padding: 0.75rem;
-      border: none;
+      padding: 12px;
+      margin-bottom: 15px;
       border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    input, textarea {
-      background: #334155;
-      color: white;
+      border: none;
+      font-size: 16px;
     }
 
     button {
-      background: #22c55e;
-      color: black;
-      font-weight: bold;
+      background: #00b894;
+      color: white;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: 0.3s;
     }
 
     button:hover {
-      background: #16a34a;
+      background: #019875;
     }
 
     .loader {
@@ -85,99 +53,101 @@
       text-align: center;
     }
 
-    .success {
-      text-align: center;
-      color: #22c55e;
-      font-weight: bold;
-      display: none;
-      margin-top: 20px;
+    .loader span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 3px;
+      background: #00b894;
+      border-radius: 50%;
+      animation: bounce 0.6s infinite alternate;
+    }
+
+    .loader span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .loader span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes bounce {
+      to {
+        transform: translateY(-10px);
+      }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="about.html">About</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-
 <div class="container">
   <h2>Confirm Your Payment</h2>
-
   <form id="confirmForm">
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="email" id="email" placeholder="Your Email" required>
-    <input type="text" id="account" placeholder="Account Used for Payment" required>
-    <textarea id="service" placeholder="What service did you pay for?" required></textarea>
-    <textarea id="message" placeholder="Any message (optional)"></textarea>
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <input type="text" id="account" placeholder="Account Used for Payment" required />
+    <textarea id="message" rows="3" placeholder="Any Message (Optional)"></textarea>
     <button type="submit">Submit Confirmation</button>
+    <div class="loader" id="loader">
+      <span></span><span></span><span></span>
+    </div>
   </form>
-
-  <div class="loader" id="loader">Submitting...</div>
-  <div class="success" id="success">✅ Confirmation Submitted!</div>
 </div>
 
-<audio id="successSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_43bd86d57d.mp3"></audio>
+<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.wav" preload="auto"></audio>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
 
+<script>
   const firebaseConfig = {
-    apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+    apiKey: "AIzaSyD4EoJeHPzUk_Pe-K9UbbI8GdNYmIjAAlI",
     authDomain: "davintoweb-payments.firebaseapp.com",
     databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
     projectId: "davintoweb-payments",
     storageBucket: "davintoweb-payments.appspot.com",
-    messagingSenderId: "667742200333",
-    appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+    messagingSenderId: "907830729995",
+    appId: "1:907830729995:web:0f960a3774e79318b71d38"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
   const form = document.getElementById('confirmForm');
   const loader = document.getElementById('loader');
-  const successMsg = document.getElementById('success');
-  const successSound = document.getElementById('successSound');
+  const sound = document.getElementById('successSound');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    loader.style.display = 'block';
 
-    loader.style.display = "block";
-    successMsg.style.display = "none";
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const account = document.getElementById('account').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const date = new Date().toLocaleString();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const account = document.getElementById("account").value.trim();
-    const service = document.getElementById("service").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    const data = {
+    const newEntry = {
       name,
       email,
       account,
-      service,
       message,
-      date: new Date().toLocaleString()
+      date
     };
 
-    push(ref(db, "confirmations"), data)
+    db.ref('payments').push(newEntry)
       .then(() => {
-        loader.style.display = "none";
-        successMsg.style.display = "block";
-        successSound.play();
+        loader.style.display = 'none';
+        sound.play();
+        alert("✅ Payment Confirmed! We'll review it shortly.");
         form.reset();
       })
-      .catch((err) => {
-        loader.textContent = "Failed: " + err.message;
+      .catch((error) => {
+        loader.style.display = 'none';
+        alert("❌ Error submitting: " + error.message);
       });
   });
 </script>
-
 </body>
 </html>
