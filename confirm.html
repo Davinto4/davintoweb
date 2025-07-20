@@ -1,134 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Confirm Payment</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
+      background: #0f0f0f;
+      color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #111827, #1f2937);
-      color: white;
       padding: 2rem;
     }
-    .form-container {
+    .container {
       max-width: 500px;
       margin: auto;
-      background: #1e293b;
+      background: #1e1e1e;
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 100, 0.2);
     }
     input, textarea, select, button {
       width: 100%;
+      margin: 0.5rem 0;
       padding: 0.8rem;
-      margin-top: 1rem;
       border: none;
-      border-radius: 0.5rem;
+      border-radius: 5px;
     }
     button {
-      background: #3b82f6;
+      background: #00c851;
       color: white;
       font-weight: bold;
       cursor: pointer;
     }
-    button:hover {
-      background: #2563eb;
-    }
     .loader {
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #3b82f6;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 1rem auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .success {
+      display: none;
       text-align: center;
-      color: #10b981;
-      font-size: 1.5rem;
-      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
+  <div class="container">
     <h2>Confirm Your Payment</h2>
-    <form id="paymentForm">
-      <input type="text" placeholder="Full Name" id="name" required />
-      <input type="email" placeholder="Email Address" id="email" required />
-      <input type="text" placeholder="Account Used for Transfer" id="account" required />
-      <textarea placeholder="Optional Message" id="message" rows="4"></textarea>
-      <select id="service" required>
-        <option value="">Select Service</option>
-        <option value="Website Design">Website Design</option>
-        <option value="Ecommerce">Ecommerce</option>
-        <option value="Blog Setup">Blog Setup</option>
-        <option value="Custom Project">Custom Project</option>
+    <form id="confirmForm">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email Address" required />
+      <input type="text" id="account" placeholder="Bank Account Used" required />
+      <textarea id="message" placeholder="Your message (optional)" rows="3"></textarea>
+      <select id="service">
+        <option value="Web Design">Web Design</option>
+        <option value="E-Commerce">E-Commerce</option>
+        <option value="Portfolio">Portfolio Website</option>
+        <option value="Landing Page">Landing Page</option>
       </select>
       <button type="submit">Submit Confirmation</button>
+      <div class="loader" id="loader">⏳ Submitting...</div>
     </form>
-
-    <div id="loader" class="loader" style="display:none;"></div>
-    <div id="success" class="success" style="display:none;">✅ Payment Confirmed Successfully!</div>
   </div>
 
-  <!-- Firebase Scripts -->
+  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-confirmation-tone-2867.mp3"></audio>
+
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
-  
-  <!-- Firebase Config -->
+
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyA-XXXXXXX", // Replace with yours
+      apiKey: "AIzaSyDKU...",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "360598380640",
-      appId: "1:360598380640:web:e5d81898f9b6fd75d25516"
+      messagingSenderId: "74873314586",
+      appId: "1:74873314586:web:10ec..."
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-  </script>
 
-  <!-- Submission Logic + Sound -->
-  <script>
-    const form = document.getElementById('paymentForm');
-    const loader = document.getElementById('loader');
-    const success = document.getElementById('success');
-
-    form.addEventListener('submit', function(e) {
+    document.getElementById("confirmForm").addEventListener("submit", function (e) {
       e.preventDefault();
-      loader.style.display = 'block';
-      success.style.display = 'none';
+      const loader = document.getElementById("loader");
+      loader.style.display = "block";
 
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const account = document.getElementById('account').value;
-      const message = document.getElementById('message').value;
-      const service = document.getElementById('service').value;
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const account = document.getElementById("account").value;
+      const message = document.getElementById("message").value;
+      const service = document.getElementById("service").value;
 
-      const paymentRef = db.ref('payments').push();
-      paymentRef.set({
-        name, email, account, message, service,
-        date: new Date().toLocaleString()
-      }).then(() => {
-        loader.style.display = 'none';
-        success.style.display = 'block';
-        const sound = new Audio("https://assets.mixkit.co/sfx/download/mixkit-correct-answer-reward-952.mp3");
-        sound.play();
-        form.reset();
-      }).catch((error) => {
-        loader.style.display = 'none';
-        alert("Error submitting: " + error.message);
-      });
+      const data = {
+        name,
+        email,
+        account,
+        message,
+        service,
+        timestamp: new Date().toISOString()
+      };
+
+      // Push to Firebase
+      db.ref("payments").push(data)
+        .then(() => {
+          document.getElementById("successSound").play();
+
+          // Send WhatsApp alert
+          const whatsappLink = `https://api.whatsapp.com/send?phone=2348169045105&text=New%20Payment%20Confirmation:%0AName:%20${encodeURIComponent(name)}%0AEmail:%20${encodeURIComponent(email)}%0AAccount:%20${encodeURIComponent(account)}%0AService:%20${encodeURIComponent(service)}%0AMessage:%20${encodeURIComponent(message)}`;
+          window.open(whatsappLink, "_blank");
+
+          loader.style.display = "none";
+          alert("Confirmation submitted successfully!");
+          document.getElementById("confirmForm").reset();
+        })
+        .catch((err) => {
+          loader.style.display = "none";
+          alert("Error submitting confirmation: " + err.message);
+        });
     });
   </script>
 </body>
