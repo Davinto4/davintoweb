@@ -1,0 +1,8 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/confirm", "destination": "/confirm.html" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ]
+}
