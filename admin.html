@@ -2,98 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>DavintoWeb Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DavintoWeb Admin Dashboard</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f0f0f0; }
+    .container { padding: 20px; }
     .hidden { display: none; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
-    input, textarea, select, button { padding: 8px; margin: 5px; width: 100%; box-sizing: border-box; }
-    .admin-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
-    .button-primary { background-color: #007BFF; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
-    .button-primary:hover { background-color: #0056b3; }
+    .verified-badge { color: green; font-weight: bold; }
+    .danger { color: red; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+    th, td { padding: 10px; border: 1px solid #ddd; }
+    input, button, select { margin: 5px 0; padding: 8px; width: 100%; }
+    .form-section { margin: 20px 0; background: white; padding: 15px; border-radius: 8px; }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div id="login-section">
+      <h2>Admin Login</h2>
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button onclick="login()">Login</button>
+      <p id="login-status"></p>
+    </div>
 
-  <div id="loginForm" class="admin-section">
-    <h2>Login to Admin</h2>
-    <input type="email" id="email" placeholder="Email" aria-label="Enter your email">
-    <input type="password" id="password" placeholder="Password" aria-label="Enter your password">
-    <button class="button-primary" onclick="login()">Login</button>
+    <div id="verify-section" class="hidden">
+      <h3>Please verify your email address to continue.</h3>
+      <button onclick="sendVerification()">Resend Verification Email</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <div id="admin-panel" class="hidden">
+      <h2>Welcome, <span id="admin-email"></span> <span class="verified-badge">(Verified)</span></h2>
+      <button onclick="logout()">Logout</button>
+
+      <!-- Project Posting -->
+      <div class="form-section">
+        <h3>Post New Portfolio Project</h3>
+        <input type="text" id="project-title" placeholder="Title" />
+        <input type="text" id="project-image" placeholder="Image URL" />
+        <textarea id="project-desc" placeholder="Project Description"></textarea>
+        <button onclick="postProject()">Post Project</button>
+      </div>
+
+      <!-- Portfolio Table -->
+      <div class="form-section">
+        <h3>Portfolio Projects</h3>
+        <button onclick="exportCSV('portfolio')">Export Portfolio CSV</button>
+        <table id="portfolio-table">
+          <thead>
+            <tr><th>Title</th><th>Image</th><th>Description</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Payments Table -->
+      <div class="form-section">
+        <h3>Payment Confirmations</h3>
+        <button onclick="exportCSV('payments')">Export Payments CSV</button>
+        <table id="payments-table">
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Account Used</th><th>Message</th><th>Time</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- User Roles -->
+      <div class="form-section">
+        <h3>Manage User Roles</h3>
+        <table id="users-table">
+          <thead>
+            <tr><th>Email</th><th>Role</th><th>Action</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
-  <div id="adminPanel" class="hidden">
-
-    <div class="admin-section">
-      <h2>Post New Portfolio Project</h2>
-      <input type="text" id="projectTitle" placeholder="Project Title" aria-label="Enter project title">
-      <input type="text" id="projectImage" placeholder="Image URL" aria-label="Enter image URL">
-      <textarea id="projectDesc" placeholder="Project Description" aria-label="Enter project description"></textarea>
-      <button class="button-primary" onclick="postProject()">Post Project</button>
-    </div>
-
-    <div class="admin-section">
-      <h2>Portfolio Projects</h2>
-      <table id="portfolioTable">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <div class="admin-section">
-      <h2>Payment Confirmations</h2>
-      <button class="button-primary" onclick="exportTableToCSV('payments.csv', 'paymentsTable')">Export Payments CSV</button>
-      <table id="paymentsTable">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Account</th>
-            <th>Message</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <div class="admin-section">
-      <h2>Manage Users & Roles</h2>
-      <table id="rolesTable">
-        <thead>
-          <tr>
-            <th>UID</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Set Role</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <div class="admin-section">
-      <h2>Send Message to Users</h2>
-      <input type="text" id="messageTo" placeholder="User UID" aria-label="Enter user UID">
-      <textarea id="messageBody" placeholder="Your message here" aria-label="Enter your message"></textarea>
-      <button class="button-primary" onclick="sendMessage()">Send</button>
-    </div>
-
-    <button class="button-primary" onclick="logout()">Logout</button>
-  </div>
-
-  <!-- Firebase SDK -->
   <script type="module" src="admin.js"></script>
-
 </body>
 </html>
