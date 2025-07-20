@@ -1,63 +1,49 @@
-<!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";const firebaseConfig = {
-  apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-  authDomain: "davintoweb-payments.firebaseapp.com",
-  databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-  projectId: "davintoweb-payments",
-  storageBucket: "davintoweb-payments.firebasestorage.app",
-  messagingSenderId: "667742200333",
-  appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-};
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
 
-document.getElementById("loginForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      if (user.emailVerified) {
+  // Login Handler
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        // 1. Only allow specific email
+        if (email !== "macdinodavinto@gmail.com") {
+          alert("Access denied: unauthorized user.");
+          auth.signOut();
+          return;
+        }
+
+        // 2. Require email verification
+        if (!user.emailVerified) {
+          alert("Please verify your email address first.");
+          auth.signOut();
+          return;
+        }
+
+        // 3. Redirect to dashboard
         window.location.href = "admin.html";
-      } else {
-        alert("Please verify your email first. Check your inbox.");
-        sendEmailVerification(user).then(() => {
-          alert("Verification email sent again to " + email);
-        });
-      }
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-});
-
-// Optional: Redirect if already logged in
-onAuthStateChanged(auth, (user) => {
-  if (user && user.emailVerified) {
-    window.location.href = "admin.html";
-  }
-});
-
-  </script>
-</head>
-<body>
-  <div class="login-container">
-    <h2>Admin Login</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required><br>
-      <input type="password" id="password" placeholder="Password" required><br>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-</body>
-</html>
+      })
+      .catch((error) => {
+        alert("Login failed: " + error.message);
+      });
+  });
+</script>
