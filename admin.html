@@ -1,15 +1,4 @@
-<!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>DavintoWeb Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body { font-family: Arial; background: #f5f5f5; padding: 20px; }
-    .hidden { display: none; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { padding: 8px; border: 1px solid #ccc; }
-    input, textarea, select, button { padding: 8px; margin: 5px;<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -17,251 +6,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    body { font-family: Arial; background: #f5f5f5; padding: 20px; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
     .hidden { display: none; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { padding: 8px; border: 1px solid #ccc; }
-    input, textarea, select, button { padding: 8px; margin: 5px; width: 100%; }
-    .admin-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px #ddd; margin-bottom: 30px; }
+    th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
+    input, textarea, select, button { padding: 8px; margin: 5px; width: 100%; box-sizing: border-box; }
+    .admin-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+    .button-primary { background-color: #007BFF; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+    .button-primary:hover { background-color: #0056b3; }
   </style>
 </head>
 <body>
 
   <div id="loginForm" class="admin-section">
     <h2>Login to Admin</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
+    <input type="email" id="email" placeholder="Email" aria-label="Enter your email">
+    <input type="password" id="password" placeholder="Password" aria-label="Enter your password">
+    <button class="button-primary" onclick="login()">Login</button>
   </div>
 
   <div id="adminPanel" class="hidden">
 
     <div class="admin-section">
       <h2>Post New Portfolio Project</h2>
-      <input type="text" id="projectTitle" placeholder="Project Title">
-      <input type="text" id="projectImage" placeholder="Image URL">
-      <textarea id="projectDesc" placeholder="Project Description"></textarea>
-      <button onclick="postProject()">Post Project</button>
+      <input type="text" id="projectTitle" placeholder="Project Title" aria-label="Enter project title">
+      <input type="text" id="projectImage" placeholder="Image URL" aria-label="Enter image URL">
+      <textarea id="projectDesc" placeholder="Project Description" aria-label="Enter project description"></textarea>
+      <button class="button-primary" onclick="postProject()">Post Project</button>
     </div>
 
     <div class="admin-section">
       <h2>Portfolio Projects</h2>
-      <table id="portfolioTable"><thead><tr><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      <table id="portfolioTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
     <div class="admin-section">
       <h2>Payment Confirmations</h2>
-      <button onclick="exportTableToCSV('payments.csv', 'paymentsTable')">Export Payments CSV</button>
-      <table id="paymentsTable"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      <button class="button-primary" onclick="exportTableToCSV('payments.csv', 'paymentsTable')">Export Payments CSV</button>
+      <table id="paymentsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Account</th>
+            <th>Message</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
     <div class="admin-section">
       <h2>Manage Users & Roles</h2>
-      <table id="rolesTable"><thead><tr><th>UID</th><th>Email</th><th>Role</th><th>Set Role</th></tr></thead><tbody></tbody></table>
+      <table id="rolesTable">
+        <thead>
+          <tr>
+            <th>UID</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Set Role</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
     <div class="admin-section">
       <h2>Send Message to Users</h2>
-      <input type="text" id="messageTo" placeholder="User UID">
-      <textarea id="messageBody" placeholder="Your message here"></textarea>
-      <button onclick="sendMessage()">Send</button>
+      <input type="text" id="messageTo" placeholder="User UID" aria-label="Enter user UID">
+      <textarea id="messageBody" placeholder="Your message here" aria-label="Enter your message"></textarea>
+      <button class="button-primary" onclick="sendMessage()">Send</button>
     </div>
 
-    <button onclick="logout()">Logout</button>
+    <button class="button-primary" onclick="logout()">Logout</button>
   </div>
 
   <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getDatabase, ref, set, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  <script type="module" src="admin.js"></script>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
-      authDomain: "davintoweb-payments.firebaseapp.com",
-      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-      projectId: "davintoweb-payments",
-      storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
-
-    // Login
-    window.login = () => {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      signInWithEmailAndPassword(auth, email, password)
-        .catch(err => alert(err.message));
-    };
-
-    // Logout
-    window.logout = () => {
-      signOut(auth);
-    };
-
-    // Listen to auth state
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('adminPanel').classList.remove('hidden');
-        loadPortfolio();
-        loadPayments();
-        loadRoles();
-      } else {
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('adminPanel').classList.add('hidden');
-      }
-    });
-
-    // Post project
-    window.postProject = () => {
-      const title = document.getElementById('projectTitle').value;
-      const desc = document.getElementById('projectDesc').value;
-      const image = document.getElementById('projectImage').value;
-      const projectRef = push(ref(db, "portfolio/"));
-      set(projectRef, { title, desc, image });
-    };
-
-    // Load portfolio
-    function loadPortfolio() {
-      const table = document.querySelector('#portfolioTable tbody');
-      table.innerHTML = "";
-      onValue(ref(db, "portfolio/"), snap => {
-        table.innerHTML = "";
-        snap.forEach(child => {
-          const d = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `<td>${d.title}</td><td>${d.desc}</td><td><img src="${d.image}" width="80"></td>
-            <td><button onclick="deleteEntry('portfolio','${child.key}')">Delete</button></td>`;
-          table.appendChild(row);
-        });
-      });
-    }
-
-    // Load payments
-    function loadPayments() {
-      const table = document.querySelector('#paymentsTable tbody');
-      table.innerHTML = "";
-      onValue(ref(db, "payments/"), snap => {
-        table.innerHTML = "";
-        snap.forEach(child => {
-          const d = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `<td>${d.name}</td><td>${d.email}</td><td>${d.account}</td><td>${d.message}</td>
-            <td><button onclick="deleteEntry('payments','${child.key}')">Delete</button></td>`;
-          table.appendChild(row);
-        });
-      });
-    }
-
-    // Delete entry
-    window.deleteEntry = (section, key) => {
-      remove(ref(db, `${section}/${key}`));
-    };
-
-    // Load roles
-    function loadRoles() {
-      const table = document.querySelector('#rolesTable tbody');
-      table.innerHTML = "";
-      onValue(ref(db, "roles/"), snap => {
-        table.innerHTML = "";
-        snap.forEach(child => {
-          const role = child.val().role;
-          const email = child.val().email || "—";
-          const uid = child.key;
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${uid}</td>
-            <td>${email}</td>
-            <td>${role}</td>
-            <td>
-              <select onchange="changeRole('${uid}', this.value)">
-                <option value="viewer" ${role === "viewer" ? "selected" : ""}>Viewer</option>
-                <option value="editor" ${role === "editor" ? "selected" : ""}>Editor</option>
-                <option value="admin" ${role === "admin" ? "selected" : ""}>Admin</option>
-              </select>
-            </td>`;
-          table.appendChild(row);
-        });
-      });
-    }
-
-    window.changeRole = (uid, role) => {
-      update(ref(db, `roles/${uid}`), { role });
-    };
-
-    // Send message
-    window.sendMessage = () => {
-      const uid = document.getElementById("messageTo").value;
-      const message = document.getElementById("messageBody").value;
-      const msgRef = push(ref(db, `messages/${uid}`));
-      set(msgRef, { message, from: auth.currentUser.email, time: Date.now() });
-      alert("Message sent!");
-    };
-
-    // CSV export
-    window.exportTableToCSV = (filename, tableId) => {
-      let csv = [];
-      const rows = document.querySelectorAll(`#${tableId} tr`);
-      for (let row of rows) {
-        let cols = row.querySelectorAll("td, th");
-        let rowData = [...cols].map(col => `"${col.innerText}"`).join(",");
-        csv.push(rowData);
-      }
-      const csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
-      const downloadLink = document.createElement("a");
-      downloadLink.download = filename;
-      downloadLink.href = URL.createObjectURL(csvFile);
-      downloadLink.click();
-    };
-
-  </script>
 </body>
-</html> width: 100%; }
-    .admin-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px #ddd; margin-bottom: 30px; }
-  </style>
-</head>
-<body>  <div id="loginForm" class="admin-section">
-    <h2>Login to Admin</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-  </div>  <div id="adminPanel" class="hidden"><div class="admin-section">
-  <h2>Post New Portfolio Project</h2>
-  <input type="text" id="projectTitle" placeholder="Project Title">
-  <input type="text" id="projectImage" placeholder="Image URL">
-  <textarea id="projectDesc" placeholder="Project Description"></textarea>
-  <button onclick="postProject()">Post Project</button>
-</div>
-
-<div class="admin-section">
-  <h2>Portfolio Projects</h2>
-  <table id="portfolioTable"><thead><tr><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></tr></thead><tbody></tbody></table>
-</div>
-
-<div class="admin-section">
-  <h2>Payment Confirmations</h2>
-  <button onclick="exportTableToCSV('payments.csv', 'paymentsTable')">Export Payments CSV</button>
-  <table id="paymentsTable"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
-</div>
-
-<div class="admin-section">
-  <h2>Manage Users & Roles</h2>
-  <table id="rolesTable"><thead><tr><th>UID</th><th>Email</th><th>Role</th><th>Set Role</th></tr></thead><tbody></tbody></table>
-</div>
-
-<div class="admin-section">
-  <h2>Send Message to Users</h2>
-  <input type="text" id="messageTo" placeholder="User UID">
-  <textarea id="messageBody" placeholder="Your message here"></textarea>
-  <button onclick="sendMessage()">Send</button>
-</div>
-
-<button onclick="logout()">Logout</button>
-
-  </div>  <!-- Firebase SDK -->  <script type="module" src="admin.js"></script></body>
 </html>
