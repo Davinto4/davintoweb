@@ -1,194 +1,61 @@
-<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard</title>
-  <style>
-    body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
-    input, button, textarea { margin: 5px; padding: 8px; }
-    .hidden { display: none; }
-    table { border-collapse: collapse; width: 100%; margin-top: 20px; background: #222; }
-    th, td { border: 1px solid #555; padding: 10px; }
-    .admin-section { border: 1px solid #444; padding: 15px; margin-top: 20px; background: #1b1b1b; }
-  </style>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>Admin Panel - DavintoWeb</h2>
-  
-  <!-- Login Section -->
-  <div id="loginDiv">
-    <input type="email" id="email" placeholder="Email"><br>
-    <input type="password" id="password" placeholder="Password"><br>
-    <button onclick="login()">Login</button>
-    <button onclick="signup()">Sign Up</button>
-  </div>
+  <h2>Confirmed Payments</h2>
+  <table border="1" id="paymentsTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Account Used</th>
+        <th>Message</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody id="paymentsBody"></tbody>
+  </table>
 
-  <!-- Resend Verification -->
-  <div id="verifyDiv" class="hidden">
-    <p>Please verify your email. Check inbox.</p>
-    <button onclick="resendVerification()">Resend Verification Email</button>
-    <button onclick="logout()">Logout</button>
-  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  <!-- Admin Panel -->
-  <div id="adminPanel" class="hidden">
-
-    <button onclick="logout()">Logout</button>
-
-    <!-- Post Portfolio -->
-    <div class="admin-section">
-      <h3>Post Project</h3>
-      <input type="text" id="title" placeholder="Title"><br>
-      <input type="text" id="image" placeholder="Image URL"><br>
-      <textarea id="desc" placeholder="Description"></textarea><br>
-      <button onclick="postProject()">Post Project</button>
-    </div>
-
-    <!-- Portfolio Table -->
-    <div class="admin-section">
-      <h3>Portfolio</h3>
-      <table id="portfolioTable">
-        <thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Actions</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- Payment Table -->
-    <div class="admin-section">
-      <h3>Payments</h3>
-      <button onclick="exportPayments()">Export CSV</button>
-      <table id="paymentTable">
-        <thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Service</th><th>Actions</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-  </div>
-
-  <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyBqpSTk-zJvTwRijvnHVg8GcUkJ-fOaQSo",
+      apiKey: "YOUR_API_KEY",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "364768711223",
-      appId: "1:364768711223:web:058927fe03f503a8a4a541"
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
     };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
 
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        if (!user.emailVerified) {
-          document.getElementById("verifyDiv").classList.remove("hidden");
-          document.getElementById("loginDiv").classList.add("hidden");
-          return;
-        }
-        document.getElementById("adminPanel").classList.remove("hidden");
-        document.getElementById("loginDiv").classList.add("hidden");
-        loadPortfolio();
-        loadPayments();
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const paymentsRef = ref(db, "payments");
+    const paymentsBody = document.getElementById("paymentsBody");
+
+    onValue(paymentsRef, (snapshot) => {
+      paymentsBody.innerHTML = "";
+      const data = snapshot.val();
+      if (data) {
+        Object.values(data).forEach(entry => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${entry.name}</td>
+            <td>${entry.email}</td>
+            <td>${entry.account}</td>
+            <td>${entry.message || ""}</td>
+            <td>${new Date(entry.timestamp).toLocaleString()}</td>
+          `;
+          paymentsBody.appendChild(row);
+        });
       }
     });
-
-    function login() {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      auth.signInWithEmailAndPassword(email, password).catch(alert);
-    }
-
-    function signup() {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      auth.createUserWithEmailAndPassword(email, password).then(userCred => {
-        userCred.user.sendEmailVerification();
-        alert("Verify your email before accessing the dashboard.");
-      }).catch(alert);
-    }
-
-    function logout() {
-      auth.signOut();
-      location.reload();
-    }
-
-    function resendVerification() {
-      auth.currentUser.sendEmailVerification().then(() => {
-        alert("Verification email sent again.");
-      });
-    }
-
-    function postProject() {
-      const title = titleInput.value;
-      const image = imageInput.value;
-      const desc = descInput.value;
-      const id = Date.now();
-      db.ref("portfolio/" + id).set({ title, image, desc });
-    }
-
-    function loadPortfolio() {
-      db.ref("portfolio").on("value", snap => {
-        const tbody = document.querySelector("#portfolioTable tbody");
-        tbody.innerHTML = "";
-        snap.forEach(child => {
-          const data = child.val();
-          const row = `<tr>
-            <td>${data.title}</td>
-            <td><img src="${data.image}" width="50"></td>
-            <td>${data.desc}</td>
-            <td>
-              <button onclick="db.ref('portfolio/${child.key}').remove()">Delete</button>
-            </td>
-          </tr>`;
-          tbody.innerHTML += row;
-        });
-      });
-    }
-
-    function loadPayments() {
-      db.ref("payments").on("value", snap => {
-        const tbody = document.querySelector("#paymentTable tbody");
-        tbody.innerHTML = "";
-        snap.forEach(child => {
-          const data = child.val();
-          const row = `<tr>
-            <td>${data.name}</td>
-            <td>${data.email}</td>
-            <td>${data.account}</td>
-            <td>${data.message}</td>
-            <td>${data.service}</td>
-            <td>
-              <button onclick="db.ref('payments/${child.key}').remove()">Delete</button>
-            </td>
-          </tr>`;
-          tbody.innerHTML += row;
-        });
-      });
-    }
-
-    function exportPayments() {
-      db.ref("payments").once("value", snap => {
-        const rows = [["Name", "Email", "Account", "Message", "Service"]];
-        snap.forEach(child => {
-          const d = child.val();
-          rows.push([d.name, d.email, d.account, d.message, d.service]);
-        });
-        const csv = Papa.unparse(rows);
-        const blob = new Blob([csv], { type: "text/csv" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "payments.csv";
-        a.click();
-      });
-    }
   </script>
 </body>
 </html>
