@@ -6,114 +6,147 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: #0f0f0f;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 2rem;
+      background: linear-gradient(135deg, #111, #1e1e1e);
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
     .container {
       max-width: 500px;
-      margin: auto;
-      background: #1e1e1e;
-      padding: 2rem;
+      margin: 80px auto;
+      padding: 30px;
+      background: #222;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 255, 100, 0.2);
+      box-shadow: 0 0 10px #000;
     }
-    input, textarea, select, button {
+    h2 {
+      text-align: center;
+    }
+    form input, form textarea, form button {
       width: 100%;
-      margin: 0.5rem 0;
-      padding: 0.8rem;
+      margin: 10px 0;
+      padding: 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 16px;
     }
-    button {
-      background: #00c851;
+    form input, form textarea {
+      background: #333;
       color: white;
-      font-weight: bold;
-      cursor: pointer;
     }
-    .loader {
+    form button {
+      background: #00b894;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    form button:hover {
+      background: #019875;
+    }
+    #loader {
       display: none;
       text-align: center;
+      margin-top: 20px;
+    }
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
+
+  <!-- Music Player (Random track) -->
+  <audio autoplay loop id="bgMusic"></audio>
+
   <div class="container">
     <h2>Confirm Your Payment</h2>
     <form id="confirmForm">
-      <input type="text" id="name" placeholder="Full Name" required />
-      <input type="email" id="email" placeholder="Email Address" required />
-      <input type="text" id="account" placeholder="Bank Account Used" required />
-      <textarea id="message" placeholder="Your message (optional)" rows="3"></textarea>
-      <select id="service">
-        <option value="Web Design">Web Design</option>
-        <option value="E-Commerce">E-Commerce</option>
-        <option value="Portfolio">Portfolio Website</option>
-        <option value="Landing Page">Landing Page</option>
-      </select>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="account" placeholder="Account Used for Payment" required />
+      <textarea id="message" placeholder="Your Message (optional)"></textarea>
       <button type="submit">Submit Confirmation</button>
-      <div class="loader" id="loader">⏳ Submitting...</div>
     </form>
+    <div id="loader">
+      <p>Submitting...</p>
+    </div>
+    <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_e2c6cf81dc.mp3" preload="auto"></audio>
   </div>
 
-  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-confirmation-tone-2867.mp3"></audio>
-
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
 
   <script>
+    // Firebase config
     const firebaseConfig = {
-      apiKey: "AIzaSyDKU...",
+      apiKey: "AIzaSyDj3V9q-UYwABzYRuK0APxz4ihJSQss2ZY",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "74873314586",
-      appId: "1:74873314586:web:10ec..."
+      messagingSenderId: "150083370230",
+      appId: "1:150083370230:web:6e6f185b58ae95aa4be9b6"
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    document.getElementById("confirmForm").addEventListener("submit", function (e) {
+    // Music player logic
+    const musicList = [
+      "https://cdn.pixabay.com/audio/2023/05/06/audio_2037a731c7.mp3", // Pop Smoke Style
+      "https://cdn.pixabay.com/audio/2022/03/19/audio_6ab3a1bfb1.mp3", // Gospel Chill
+      "https://cdn.pixabay.com/audio/2023/03/31/audio_4e96590d57.mp3", // Rap Beat
+      "https://cdn.pixabay.com/audio/2023/01/18/audio_efc69edcc3.mp3", // Juice WRLD Type
+      "https://cdn.pixabay.com/audio/2023/07/09/audio_4b192ff3df.mp3"  // XXXTentacion Style
+    ];
+    const bgMusic = document.getElementById("bgMusic");
+    bgMusic.src = musicList[Math.floor(Math.random() * musicList.length)];
+
+    // Submit logic
+    document.getElementById("confirmForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      const loader = document.getElementById("loader");
-      loader.style.display = "block";
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const account = document.getElementById("account").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const account = document.getElementById("account").value;
-      const message = document.getElementById("message").value;
-      const service = document.getElementById("service").value;
+      if (!name || !email || !account) {
+        alert("Please fill all required fields.");
+        return;
+      }
 
-      const data = {
+      document.getElementById("loader").style.display = "block";
+
+      const newRef = db.ref("confirmations").push();
+      newRef.set({
         name,
         email,
         account,
         message,
-        service,
         timestamp: new Date().toISOString()
-      };
-
-      // Push to Firebase
-      db.ref("payments").push(data)
-        .then(() => {
-          document.getElementById("successSound").play();
-
-          // Send WhatsApp alert
-          const whatsappLink = `https://api.whatsapp.com/send?phone=2348169045105&text=New%20Payment%20Confirmation:%0AName:%20${encodeURIComponent(name)}%0AEmail:%20${encodeURIComponent(email)}%0AAccount:%20${encodeURIComponent(account)}%0AService:%20${encodeURIComponent(service)}%0AMessage:%20${encodeURIComponent(message)}`;
-          window.open(whatsappLink, "_blank");
-
-          loader.style.display = "none";
-          alert("Confirmation submitted successfully!");
-          document.getElementById("confirmForm").reset();
-        })
-        .catch((err) => {
-          loader.style.display = "none";
-          alert("Error submitting confirmation: " + err.message);
-        });
+      }).then(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("successSound").play();
+        alert("Payment Confirmation Submitted Successfully!");
+        document.getElementById("confirmForm").reset();
+      }).catch(err => {
+        alert("Error: " + err.message);
+        document.getElementById("loader").style.display = "none";
+      });
     });
+  </script>
+
+  <!-- SmartUpp Live Chat -->
+  <script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = 'd8b20155ae8293f81f36b10d6fb64d612aae5b8a';
+    window.smartsupp||(function(d) {
+      var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+      s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+      c.type='text/javascript';c.charset='utf-8';c.async=true;
+      c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+    })(document);
   </script>
 </body>
 </html>
