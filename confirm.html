@@ -1,153 +1,51 @@
+<!-- confirm.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirm Payment - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Payment Confirmation</title>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #121212, #1e1e1e);
-      color: #fff;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 100px auto;
-      background: #222;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 24px;
-    }
-
-    input, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
-
-    button {
-      background: #00b894;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #019875;
-    }
-
-    .loader {
-      display: none;
-      text-align: center;
-    }
-
-    .loader span {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 3px;
-      background: #00b894;
-      border-radius: 50%;
-      animation: bounce 0.6s infinite alternate;
-    }
-
-    .loader span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .loader span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes bounce {
-      to {
-        transform: translateY(-10px);
-      }
-    }
+    body { font-family: sans-serif; background: #111; color: white; padding: 20px; }
+    input, textarea, button { padding: 10px; margin: 8px; display: block; width: 100%; max-width: 400px; }
   </style>
 </head>
 <body>
-
-<div class="container">
   <h2>Confirm Your Payment</h2>
-  <form id="confirmForm">
-    <input type="text" id="name" placeholder="Your Name" required />
-    <input type="email" id="email" placeholder="Your Email" required />
-    <input type="text" id="account" placeholder="Account Used for Payment" required />
-    <textarea id="message" rows="3" placeholder="Any Message (Optional)"></textarea>
-    <button type="submit">Submit Confirmation</button>
-    <div class="loader" id="loader">
-      <span></span><span></span><span></span>
-    </div>
-  </form>
-</div>
+  <input type="text" id="name" placeholder="Your Name" />
+  <input type="email" id="email" placeholder="Email Address" />
+  <input type="text" id="account" placeholder="Account Used" />
+  <textarea id="message" placeholder="Message (optional)"></textarea>
+  <input type="text" id="service" placeholder="Service Paid For" />
+  <button onclick="submitConfirmation()">Submit</button>
 
-<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.wav" preload="auto"></audio>
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyD4EoJeHPzUk_Pe-K9UbbI8GdNYmIjAAlI",
-    authDomain: "davintoweb-payments.firebaseapp.com",
-    databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
-    projectId: "davintoweb-payments",
-    storageBucket: "davintoweb-payments.appspot.com",
-    messagingSenderId: "907830729995",
-    appId: "1:907830729995:web:0f960a3774e79318b71d38"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-
-  const form = document.getElementById('confirmForm');
-  const loader = document.getElementById('loader');
-  const sound = document.getElementById('successSound');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    loader.style.display = 'block';
-
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const account = document.getElementById('account').value.trim();
-    const message = document.getElementById('message').value.trim();
-    const date = new Date().toLocaleString();
-
-    const newEntry = {
-      name,
-      email,
-      account,
-      message,
-      date
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBqpSTk-zJvTwRijvnHVg8GcUkJ-fOaQSo",
+      authDomain: "davintoweb-payments.firebaseapp.com",
+      databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
+      projectId: "davintoweb-payments",
+      storageBucket: "davintoweb-payments.appspot.com",
+      messagingSenderId: "364768711223",
+      appId: "1:364768711223:web:058927fe03f503a8a4a541"
     };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    db.ref('payments').push(newEntry)
-      .then(() => {
-        loader.style.display = 'none';
-        sound.play();
-        alert("✅ Payment Confirmed! We'll review it shortly.");
-        form.reset();
-      })
-      .catch((error) => {
-        loader.style.display = 'none';
-        alert("❌ Error submitting: " + error.message);
+    function submitConfirmation() {
+      const data = {
+        name: name.value,
+        email: email.value,
+        account: account.value,
+        message: message.value,
+        service: service.value,
+        time: new Date().toISOString()
+      };
+      db.ref("payments").push(data).then(() => {
+        alert("Payment confirmation submitted.");
       });
-  });
-</script>
+    }
+  </script>
 </body>
 </html>
