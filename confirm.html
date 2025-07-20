@@ -1,59 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Confirm Payment</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>Confirm Your Payment</h2>
-    <form id="confirmForm">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <input type="text" id="account" placeholder="Account Used" required />
-      <textarea id="message" placeholder="Message (optional)"></textarea>
-      <button type="submit">Submit Confirmation</button>
-    </form>
-    <div id="status"></div>
+<body class="main-layout">
+  <!-- Navbar -->
+  <div class="navbar">
+    <button onclick="window.location.href='index.html'">Home</button>
+    <button onclick="window.location.href='about.html'">About</button>
+    <button onclick="window.location.href='pricing.html'">Pricing</button>
+    <button onclick="window.location.href='portfolio.html'">Portfolio</button>
+    <button onclick="window.location.href='confirm.html'">Confirm</button>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  <!-- Page Content -->
+  <div class="container">
+    <h2>Payment Confirmation</h2>
 
+    <form id="paymentForm">
+      <label>Full Name</label>
+      <input type="text" id="name" required>
+
+      <label>Email</label>
+      <input type="email" id="email" required>
+
+      <label>Account Used</label>
+      <input type="text" id="account" required>
+
+      <label>Message (optional)</label>
+      <textarea id="message" placeholder="I paid for..."></textarea>
+
+      <button type="submit">Submit</button>
+      <div id="loader" style="display: none;">Submitting...</div>
+    </form>
+
+    <audio id="successSound" src="success.mp3" preload="auto"></audio>
+  </div>
+
+  <!-- Firebase Config -->
+  <script>
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
+      apiKey: "AIzaSyDhgq6vM5FVEv16Pf6Pba07YjflAJDdWTA",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      messagingSenderId: "302344813751",
+      appId: "1:302344813751:web:f5cb2a6ea2f81e3b81e27b"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const form = document.getElementById("confirmForm");
-    const statusDiv = document.getElementById("status");
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
 
-    form.addEventListener("submit", async (e) => {
+    const form = document.getElementById("paymentForm");
+    const loader = document.getElementById("loader");
+    const sound = document.getElementById("successSound");
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
+
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
       const account = document.getElementById("account").value.trim();
       const message = document.getElementById("message").value.trim();
 
-      const data = { name, email, account, message, timestamp: Date.now() };
-      try {
-        await push(ref(db, "payments"), data);
-        statusDiv.innerText = "✅ Payment confirmed successfully!";
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        statusDiv.innerText = "❌ Error confirming payment.";
+      if (!name || !email || !account) {
+        alert("Please fill in all required fields.");
+        return;
       }
+
+      loader.style.display = "block";
+
+      const paymentRef = database.ref("payments").push();
+      paymentRef.set({
+        name,
+        email,
+        account,
+        message,
+        timestamp: new Date().toISOString()
+      }).then(() => {
+        loader.style.display = "none";
+        sound.play();
+        alert("Payment Confirmed Successfully ✅");
+        form.reset();
+      }).catch(error => {
+        loader.style.display = "none";
+        alert("Error: " + error.message);
+      });
     });
   </script>
 </body>
