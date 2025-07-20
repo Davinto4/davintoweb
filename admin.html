@@ -1,213 +1,194 @@
+<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>DavintoWeb Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
   <style>
-    body { font-family: Arial; background: #f5f5f5; padding: 20px; }
+    body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
+    input, button, textarea { margin: 5px; padding: 8px; }
     .hidden { display: none; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { padding: 8px; border: 1px solid #ccc; }
-    input, textarea, select, button { padding: 8px; margin: 5px; width: 100%; }
-    .admin-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px #ddd; margin-bottom: 30px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; background: #222; }
+    th, td { border: 1px solid #555; padding: 10px; }
+    .admin-section { border: 1px solid #444; padding: 15px; margin-top: 20px; background: #1b1b1b; }
   </style>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body>
-
-  <div id="loginForm" class="admin-section">
-    <h2>Login to Admin</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+  <h2>Admin Panel - DavintoWeb</h2>
+  
+  <!-- Login Section -->
+  <div id="loginDiv">
+    <input type="email" id="email" placeholder="Email"><br>
+    <input type="password" id="password" placeholder="Password"><br>
     <button onclick="login()">Login</button>
+    <button onclick="signup()">Sign Up</button>
   </div>
 
-  <div id="adminPanel" class="hidden">
-
-    <div class="admin-section">
-      <h2>Post New Portfolio Project</h2>
-      <input type="text" id="projectTitle" placeholder="Project Title">
-      <input type="text" id="projectImage" placeholder="Image URL">
-      <textarea id="projectDesc" placeholder="Project Description"></textarea>
-      <button onclick="postProject()">Post Project</button>
-    </div>
-
-    <div class="admin-section">
-      <h2>Portfolio Projects</h2>
-      <table id="portfolioTable"><thead><tr><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></tr></thead><tbody></tbody></table>
-    </div>
-
-    <div class="admin-section">
-      <h2>Payment Confirmations</h2>
-      <button onclick="exportTableToCSV('payments.csv', 'paymentsTable')">Export Payments CSV</button>
-      <table id="paymentsTable"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
-    </div>
-
-    <div class="admin-section">
-      <h2>Manage Users & Roles</h2>
-      <table id="rolesTable"><thead><tr><th>UID</th><th>Email</th><th>Role</th><th>Set Role</th></tr></thead><tbody></tbody></table>
-    </div>
-
-    <div class="admin-section">
-      <h2>Send Message to Users</h2>
-      <input type="text" id="messageTo" placeholder="User UID">
-      <textarea id="messageBody" placeholder="Your message here"></textarea>
-      <button onclick="sendMessage()">Send</button>
-    </div>
-
+  <!-- Resend Verification -->
+  <div id="verifyDiv" class="hidden">
+    <p>Please verify your email. Check inbox.</p>
+    <button onclick="resendVerification()">Resend Verification Email</button>
     <button onclick="logout()">Logout</button>
   </div>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getDatabase, ref, set, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  <!-- Admin Panel -->
+  <div id="adminPanel" class="hidden">
 
+    <button onclick="logout()">Logout</button>
+
+    <!-- Post Portfolio -->
+    <div class="admin-section">
+      <h3>Post Project</h3>
+      <input type="text" id="title" placeholder="Title"><br>
+      <input type="text" id="image" placeholder="Image URL"><br>
+      <textarea id="desc" placeholder="Description"></textarea><br>
+      <button onclick="postProject()">Post Project</button>
+    </div>
+
+    <!-- Portfolio Table -->
+    <div class="admin-section">
+      <h3>Portfolio</h3>
+      <table id="portfolioTable">
+        <thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Payment Table -->
+    <div class="admin-section">
+      <h3>Payments</h3>
+      <button onclick="exportPayments()">Export CSV</button>
+      <table id="paymentTable">
+        <thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Service</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyBz7fdasuQLxIFLq2TJzPAQrDTJq6h_YT8",
+      apiKey: "AIzaSyBqpSTk-zJvTwRijvnHVg8GcUkJ-fOaQSo",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "667742200333",
-      appId: "1:667742200333:web:cf75f6cef6798eed432b44"
+      messagingSenderId: "364768711223",
+      appId: "1:364768711223:web:058927fe03f503a8a4a541"
     };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
-
-    // Login
-    window.login = () => {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      signInWithEmailAndPassword(auth, email, password)
-        .catch(err => alert(err.message));
-    };
-
-    // Logout
-    window.logout = () => {
-      signOut(auth);
-    };
-
-    // Listen to auth state
-    onAuthStateChanged(auth, user => {
+    auth.onAuthStateChanged(user => {
       if (user) {
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('adminPanel').classList.remove('hidden');
+        if (!user.emailVerified) {
+          document.getElementById("verifyDiv").classList.remove("hidden");
+          document.getElementById("loginDiv").classList.add("hidden");
+          return;
+        }
+        document.getElementById("adminPanel").classList.remove("hidden");
+        document.getElementById("loginDiv").classList.add("hidden");
         loadPortfolio();
         loadPayments();
-        loadRoles();
-      } else {
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('adminPanel').classList.add('hidden');
       }
     });
 
-    // Post project
-    window.postProject = () => {
-      const title = document.getElementById('projectTitle').value;
-      const desc = document.getElementById('projectDesc').value;
-      const image = document.getElementById('projectImage').value;
-      const projectRef = push(ref(db, "portfolio/"));
-      set(projectRef, { title, desc, image });
-    };
+    function login() {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      auth.signInWithEmailAndPassword(email, password).catch(alert);
+    }
 
-    // Load portfolio
+    function signup() {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      auth.createUserWithEmailAndPassword(email, password).then(userCred => {
+        userCred.user.sendEmailVerification();
+        alert("Verify your email before accessing the dashboard.");
+      }).catch(alert);
+    }
+
+    function logout() {
+      auth.signOut();
+      location.reload();
+    }
+
+    function resendVerification() {
+      auth.currentUser.sendEmailVerification().then(() => {
+        alert("Verification email sent again.");
+      });
+    }
+
+    function postProject() {
+      const title = titleInput.value;
+      const image = imageInput.value;
+      const desc = descInput.value;
+      const id = Date.now();
+      db.ref("portfolio/" + id).set({ title, image, desc });
+    }
+
     function loadPortfolio() {
-      const table = document.querySelector('#portfolioTable tbody');
-      table.innerHTML = "";
-      onValue(ref(db, "portfolio/"), snap => {
-        table.innerHTML = "";
+      db.ref("portfolio").on("value", snap => {
+        const tbody = document.querySelector("#portfolioTable tbody");
+        tbody.innerHTML = "";
         snap.forEach(child => {
-          const d = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `<td>${d.title}</td><td>${d.desc}</td><td><img src="${d.image}" width="80"></td>
-            <td><button onclick="deleteEntry('portfolio','${child.key}')">Delete</button></td>`;
-          table.appendChild(row);
-        });
-      });
-    }
-
-    // Load payments
-    function loadPayments() {
-      const table = document.querySelector('#paymentsTable tbody');
-      table.innerHTML = "";
-      onValue(ref(db, "payments/"), snap => {
-        table.innerHTML = "";
-        snap.forEach(child => {
-          const d = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `<td>${d.name}</td><td>${d.email}</td><td>${d.account}</td><td>${d.message}</td>
-            <td><button onclick="deleteEntry('payments','${child.key}')">Delete</button></td>`;
-          table.appendChild(row);
-        });
-      });
-    }
-
-    // Delete entry
-    window.deleteEntry = (section, key) => {
-      remove(ref(db, `${section}/${key}`));
-    };
-
-    // Load roles
-    function loadRoles() {
-      const table = document.querySelector('#rolesTable tbody');
-      table.innerHTML = "";
-      onValue(ref(db, "roles/"), snap => {
-        table.innerHTML = "";
-        snap.forEach(child => {
-          const role = child.val().role;
-          const email = child.val().email || "—";
-          const uid = child.key;
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${uid}</td>
-            <td>${email}</td>
-            <td>${role}</td>
+          const data = child.val();
+          const row = `<tr>
+            <td>${data.title}</td>
+            <td><img src="${data.image}" width="50"></td>
+            <td>${data.desc}</td>
             <td>
-              <select onchange="changeRole('${uid}', this.value)">
-                <option value="viewer" ${role === "viewer" ? "selected" : ""}>Viewer</option>
-                <option value="editor" ${role === "editor" ? "selected" : ""}>Editor</option>
-                <option value="admin" ${role === "admin" ? "selected" : ""}>Admin</option>
-              </select>
-            </td>`;
-          table.appendChild(row);
+              <button onclick="db.ref('portfolio/${child.key}').remove()">Delete</button>
+            </td>
+          </tr>`;
+          tbody.innerHTML += row;
         });
       });
     }
 
-    window.changeRole = (uid, role) => {
-      update(ref(db, `roles/${uid}`), { role });
-    };
+    function loadPayments() {
+      db.ref("payments").on("value", snap => {
+        const tbody = document.querySelector("#paymentTable tbody");
+        tbody.innerHTML = "";
+        snap.forEach(child => {
+          const data = child.val();
+          const row = `<tr>
+            <td>${data.name}</td>
+            <td>${data.email}</td>
+            <td>${data.account}</td>
+            <td>${data.message}</td>
+            <td>${data.service}</td>
+            <td>
+              <button onclick="db.ref('payments/${child.key}').remove()">Delete</button>
+            </td>
+          </tr>`;
+          tbody.innerHTML += row;
+        });
+      });
+    }
 
-    // Send message
-    window.sendMessage = () => {
-      const uid = document.getElementById("messageTo").value;
-      const message = document.getElementById("messageBody").value;
-      const msgRef = push(ref(db, `messages/${uid}`));
-      set(msgRef, { message, from: auth.currentUser.email, time: Date.now() });
-      alert("Message sent!");
-    };
-
-    // CSV export
-    window.exportTableToCSV = (filename, tableId) => {
-      let csv = [];
-      const rows = document.querySelectorAll(`#${tableId} tr`);
-      for (let row of rows) {
-        let cols = row.querySelectorAll("td, th");
-        let rowData = [...cols].map(col => `"${col.innerText}"`).join(",");
-        csv.push(rowData);
-      }
-      const csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
-      const downloadLink = document.createElement("a");
-      downloadLink.download = filename;
-      downloadLink.href = URL.createObjectURL(csvFile);
-      downloadLink.click();
-    };
-
+    function exportPayments() {
+      db.ref("payments").once("value", snap => {
+        const rows = [["Name", "Email", "Account", "Message", "Service"]];
+        snap.forEach(child => {
+          const d = child.val();
+          rows.push([d.name, d.email, d.account, d.message, d.service]);
+        });
+        const csv = Papa.unparse(rows);
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "payments.csv";
+        a.click();
+      });
+    }
   </script>
 </body>
 </html>
