@@ -1,146 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirm Payment - DavintoWeb</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #1f1f1f, #2e2e2e);
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    .hidden { display: none; }
+    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
+    input, button, textarea {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+    th, td { padding: 10px; border: 1px solid #ccc; }
+    button.export-btn {
+      background: #4CAF50;
       color: #fff;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 500px;
-      margin: 80px auto;
-      background: #2b2b2b;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #000;
-    }
-    h2 {
-      text-align: center;
-      color: #00ffcc;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    input, textarea, select, button {
-      padding: 12px;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-    input, textarea {
-      background: #444;
-      color: #fff;
-    }
-    button {
-      background: #00ffcc;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-    .loader {
-      display: none;
-      text-align: center;
-    }
-    .success-sound {
-      display: none;
     }
   </style>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
 </head>
 <body>
   <div class="container">
-    <h2>Confirm Your Payment</h2>
-    <form id="confirmForm">
-      <input type="text" id="name" placeholder="Your Full Name" required />
-      <input type="email" id="email" placeholder="Your Email Address" required />
-      <input type="text" id="account" placeholder="Account Used for Payment" required />
-      <textarea id="message" rows="3" placeholder="Optional Message"></textarea>
-      <select id="service" required>
-        <option value="">Select a Service</option>
-        <option value="Website Design">Website Design</option>
-        <option value="Landing Page">Landing Page</option>
-        <option value="Portfolio Site">Portfolio Site</option>
-        <option value="Ecommerce Website">Ecommerce Website</option>
-        <option value="Custom Request">Custom Request</option>
-      </select>
-      <button type="submit" id="submitBtn">Submit Confirmation</button>
-      <div class="loader" id="loader">Submitting...</div>
-    </form>
-    <audio id="successSound" class="success-sound">
-      <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav" type="audio/wav">
-    </audio>
-  </div>
+    <h2>Admin Login</h2>
+    <div id="loginDiv">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button onclick="login()">Login</button>
+      <button onclick="resendVerification()">Resend Verification</button>
+    </div>
 
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+    <div id="adminPanel" class="hidden">
+      <h2>Welcome Admin</h2>
+      <button onclick="logout()">Logout</button>
+
+      <h3>Post New Project</h3>
+      <input id="title" placeholder="Project Title">
+      <input id="image" placeholder="Image URL">
+      <textarea id="description" placeholder="Project Description"></textarea>
+      <button onclick="postProject()">Post Project</button>
+
+      <h3>Portfolio</h3>
+      <table id="portfolioTable"><thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      <button onclick="exportCSV('portfolio')" class="export-btn">Export Portfolio CSV</button>
+
+      <h3>Payments</h3>
+      <table id="paymentsTable"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      <button onclick="exportCSV('payments')" class="export-btn">Export Payments CSV</button>
+    </div>
+  </div>
 
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyDXwXyA92K9tkMAlQ-LXWc-ntbqFGYW3ig",
+      apiKey: "AIzaSyA-...",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "662323460416",
-      appId: "1:662323460416:web:070e6a79eb1830837f4ed6"
+      messagingSenderId: "127777832432",
+      appId: "1:127777832432:web:..."
     };
 
     firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
     const db = firebase.database();
 
-    const form = document.getElementById('confirmForm');
-    const loader = document.getElementById('loader');
-    const submitBtn = document.getElementById('submitBtn');
-    const successSound = document.getElementById('successSound');
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+          if (!user.emailVerified) {
+            alert("Please verify your email first.");
+            auth.signOut();
+            return;
+          }
 
-      submitBtn.disabled = true;
-      loader.style.display = 'block';
+          if (email !== "macdinodavinto@gmail.com") {
+            alert("Access denied: You are not authorized.");
+            auth.signOut();
+            return;
+          }
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const account = document.getElementById('account').value.trim();
-      const message = document.getElementById('message').value.trim();
-      const service = document.getElementById('service').value;
+          document.getElementById("loginDiv").classList.add("hidden");
+          document.getElementById("adminPanel").classList.remove("hidden");
 
-      const data = {
-        name,
-        email,
-        account,
-        message,
-        service,
-        timestamp: new Date().toISOString()
-      };
+          loadPortfolio();
+          loadPayments();
+        })
+        .catch(error => alert(error.message));
+    }
 
-      try {
-        await db.ref('payments').push(data);
-        loader.style.display = 'none';
-        submitBtn.disabled = false;
-        successSound.play();
-        alert('Payment confirmation submitted successfully!');
-        form.reset();
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to submit. Please try again.');
-        loader.style.display = 'none';
-        submitBtn.disabled = false;
+    function resendVerification() {
+      const user = auth.currentUser;
+      if (user) {
+        user.sendEmailVerification()
+          .then(() => alert("Verification email sent."))
+          .catch(err => alert(err.message));
+      } else {
+        alert("Login first to resend verification.");
       }
-    });
+    }
+
+    function logout() {
+      auth.signOut();
+      location.reload();
+    }
+
+    function postProject() {
+      const title = document.getElementById("title").value;
+      const image = document.getElementById("image").value;
+      const description = document.getElementById("description").value;
+      const key = db.ref("portfolio").push().key;
+      db.ref("portfolio/" + key).set({ title, image, description });
+      alert("Project posted!");
+      loadPortfolio();
+    }
+
+    function loadPortfolio() {
+      const tbody = document.querySelector("#portfolioTable tbody");
+      tbody.innerHTML = "";
+      db.ref("portfolio").once("value", snapshot => {
+        snapshot.forEach(child => {
+          const data = child.val();
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${data.title}</td>
+            <td><img src="${data.image}" width="60"></td>
+            <td>${data.description}</td>
+            <td>
+              <button onclick="deleteItem('portfolio','${child.key}')">Delete</button>
+            </td>`;
+          tbody.appendChild(row);
+        });
+      });
+    }
+
+    function loadPayments() {
+      const tbody = document.querySelector("#paymentsTable tbody");
+      tbody.innerHTML = "";
+      db.ref("payments").once("value", snapshot => {
+        snapshot.forEach(child => {
+          const data = child.val();
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${data.name}</td>
+            <td>${data.email}</td>
+            <td>${data.account}</td>
+            <td>${data.message}</td>
+            <td><button onclick="deleteItem('payments','${child.key}')">Delete</button></td>`;
+          tbody.appendChild(row);
+        });
+      });
+    }
+
+    function deleteItem(path, key) {
+      if (confirm("Delete this item?")) {
+        db.ref(path + "/" + key).remove();
+        if (path === "portfolio") loadPortfolio();
+        if (path === "payments") loadPayments();
+      }
+    }
+
+    function exportCSV(type) {
+      const rows = [["Title/Name", "Email/Image", "Account/Desc", "Message"]];
+      db.ref(type).once("value", snapshot => {
+        snapshot.forEach(child => {
+          const d = child.val();
+          rows.push(type === "payments"
+            ? [d.name, d.email, d.account, d.message]
+            : [d.title, d.image, "", d.description]);
+        });
+
+        const csv = rows.map(r => r.join(",")).join("\n");
+        const blob = new Blob([csv], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `${type}.csv`;
+        link.click();
+      });
+    }
   </script>
 </body>
 </html>
