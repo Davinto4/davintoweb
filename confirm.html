@@ -1,196 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm Payment</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f2f2f2;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+      padding: 2rem;
     }
-    .hidden { display: none; }
-    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
-    input, button, textarea {
-      display: block;
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    input, textarea, select, button {
       width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    table { width: 100%; margin-top: 20px; border-collapse: collapse; }
-    th, td { padding: 10px; border: 1px solid #ccc; }
-    button.export-btn {
-      background: #4CAF50;
-      color: #fff;
+      padding: 0.8rem;
+      margin-top: 1rem;
       border: none;
+      border-radius: 0.5rem;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3b82f6;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 1rem auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .success {
+      text-align: center;
+      color: #10b981;
+      font-size: 1.5rem;
+      margin-top: 1rem;
     }
   </style>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h2>Admin Login</h2>
-    <div id="loginDiv">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button onclick="login()">Login</button>
-      <button onclick="resendVerification()">Resend Verification</button>
-    </div>
+  <div class="form-container">
+    <h2>Confirm Your Payment</h2>
+    <form id="paymentForm">
+      <input type="text" placeholder="Full Name" id="name" required />
+      <input type="email" placeholder="Email Address" id="email" required />
+      <input type="text" placeholder="Account Used for Transfer" id="account" required />
+      <textarea placeholder="Optional Message" id="message" rows="4"></textarea>
+      <select id="service" required>
+        <option value="">Select Service</option>
+        <option value="Website Design">Website Design</option>
+        <option value="Ecommerce">Ecommerce</option>
+        <option value="Blog Setup">Blog Setup</option>
+        <option value="Custom Project">Custom Project</option>
+      </select>
+      <button type="submit">Submit Confirmation</button>
+    </form>
 
-    <div id="adminPanel" class="hidden">
-      <h2>Welcome Admin</h2>
-      <button onclick="logout()">Logout</button>
-
-      <h3>Post New Project</h3>
-      <input id="title" placeholder="Project Title">
-      <input id="image" placeholder="Image URL">
-      <textarea id="description" placeholder="Project Description"></textarea>
-      <button onclick="postProject()">Post Project</button>
-
-      <h3>Portfolio</h3>
-      <table id="portfolioTable"><thead><tr><th>Title</th><th>Image</th><th>Description</th><th>Actions</th></tr></thead><tbody></tbody></table>
-      <button onclick="exportCSV('portfolio')" class="export-btn">Export Portfolio CSV</button>
-
-      <h3>Payments</h3>
-      <table id="paymentsTable"><thead><tr><th>Name</th><th>Email</th><th>Account</th><th>Message</th><th>Actions</th></tr></thead><tbody></tbody></table>
-      <button onclick="exportCSV('payments')" class="export-btn">Export Payments CSV</button>
-    </div>
+    <div id="loader" class="loader" style="display:none;"></div>
+    <div id="success" class="success" style="display:none;">✅ Payment Confirmed Successfully!</div>
   </div>
 
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  
+  <!-- Firebase Config -->
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyA-...",
+      apiKey: "AIzaSyA-XXXXXXX", // Replace with yours
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "127777832432",
-      appId: "1:127777832432:web:..."
+      messagingSenderId: "360598380640",
+      appId: "1:360598380640:web:e5d81898f9b6fd75d25516"
     };
-
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
     const db = firebase.database();
+  </script>
 
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+  <!-- Submission Logic + Sound -->
+  <script>
+    const form = document.getElementById('paymentForm');
+    const loader = document.getElementById('loader');
+    const success = document.getElementById('success');
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          const user = userCredential.user;
-          if (!user.emailVerified) {
-            alert("Please verify your email first.");
-            auth.signOut();
-            return;
-          }
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      loader.style.display = 'block';
+      success.style.display = 'none';
 
-          if (email !== "macdinodavinto@gmail.com") {
-            alert("Access denied: You are not authorized.");
-            auth.signOut();
-            return;
-          }
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const account = document.getElementById('account').value;
+      const message = document.getElementById('message').value;
+      const service = document.getElementById('service').value;
 
-          document.getElementById("loginDiv").classList.add("hidden");
-          document.getElementById("adminPanel").classList.remove("hidden");
-
-          loadPortfolio();
-          loadPayments();
-        })
-        .catch(error => alert(error.message));
-    }
-
-    function resendVerification() {
-      const user = auth.currentUser;
-      if (user) {
-        user.sendEmailVerification()
-          .then(() => alert("Verification email sent."))
-          .catch(err => alert(err.message));
-      } else {
-        alert("Login first to resend verification.");
-      }
-    }
-
-    function logout() {
-      auth.signOut();
-      location.reload();
-    }
-
-    function postProject() {
-      const title = document.getElementById("title").value;
-      const image = document.getElementById("image").value;
-      const description = document.getElementById("description").value;
-      const key = db.ref("portfolio").push().key;
-      db.ref("portfolio/" + key).set({ title, image, description });
-      alert("Project posted!");
-      loadPortfolio();
-    }
-
-    function loadPortfolio() {
-      const tbody = document.querySelector("#portfolioTable tbody");
-      tbody.innerHTML = "";
-      db.ref("portfolio").once("value", snapshot => {
-        snapshot.forEach(child => {
-          const data = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${data.title}</td>
-            <td><img src="${data.image}" width="60"></td>
-            <td>${data.description}</td>
-            <td>
-              <button onclick="deleteItem('portfolio','${child.key}')">Delete</button>
-            </td>`;
-          tbody.appendChild(row);
-        });
+      const paymentRef = db.ref('payments').push();
+      paymentRef.set({
+        name, email, account, message, service,
+        date: new Date().toLocaleString()
+      }).then(() => {
+        loader.style.display = 'none';
+        success.style.display = 'block';
+        const sound = new Audio("https://assets.mixkit.co/sfx/download/mixkit-correct-answer-reward-952.mp3");
+        sound.play();
+        form.reset();
+      }).catch((error) => {
+        loader.style.display = 'none';
+        alert("Error submitting: " + error.message);
       });
-    }
-
-    function loadPayments() {
-      const tbody = document.querySelector("#paymentsTable tbody");
-      tbody.innerHTML = "";
-      db.ref("payments").once("value", snapshot => {
-        snapshot.forEach(child => {
-          const data = child.val();
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${data.name}</td>
-            <td>${data.email}</td>
-            <td>${data.account}</td>
-            <td>${data.message}</td>
-            <td><button onclick="deleteItem('payments','${child.key}')">Delete</button></td>`;
-          tbody.appendChild(row);
-        });
-      });
-    }
-
-    function deleteItem(path, key) {
-      if (confirm("Delete this item?")) {
-        db.ref(path + "/" + key).remove();
-        if (path === "portfolio") loadPortfolio();
-        if (path === "payments") loadPayments();
-      }
-    }
-
-    function exportCSV(type) {
-      const rows = [["Title/Name", "Email/Image", "Account/Desc", "Message"]];
-      db.ref(type).once("value", snapshot => {
-        snapshot.forEach(child => {
-          const d = child.val();
-          rows.push(type === "payments"
-            ? [d.name, d.email, d.account, d.message]
-            : [d.title, d.image, "", d.description]);
-        });
-
-        const csv = rows.map(r => r.join(",")).join("\n");
-        const blob = new Blob([csv], { type: "text/csv" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `${type}.csv`;
-        link.click();
-      });
-    }
+    });
   </script>
 </body>
 </html>
