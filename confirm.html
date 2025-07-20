@@ -1,51 +1,60 @@
-<!-- confirm.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payment Confirmation</title>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
-  <style>
-    body { font-family: sans-serif; background: #111; color: white; padding: 20px; }
-    input, textarea, button { padding: 10px; margin: 8px; display: block; width: 100%; max-width: 400px; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirm Payment</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>Confirm Your Payment</h2>
-  <input type="text" id="name" placeholder="Your Name" />
-  <input type="email" id="email" placeholder="Email Address" />
-  <input type="text" id="account" placeholder="Account Used" />
-  <textarea id="message" placeholder="Message (optional)"></textarea>
-  <input type="text" id="service" placeholder="Service Paid For" />
-  <button onclick="submitConfirmation()">Submit</button>
+  <div class="container">
+    <h2>Confirm Your Payment</h2>
+    <form id="confirmForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="account" placeholder="Account Used" required />
+      <textarea id="message" placeholder="Message (optional)"></textarea>
+      <button type="submit">Submit Confirmation</button>
+    </form>
+    <div id="status"></div>
+  </div>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
     const firebaseConfig = {
-      apiKey: "AIzaSyBqpSTk-zJvTwRijvnHVg8GcUkJ-fOaQSo",
+      apiKey: "YOUR_API_KEY",
       authDomain: "davintoweb-payments.firebaseapp.com",
       databaseURL: "https://davintoweb-payments-default-rtdb.firebaseio.com",
       projectId: "davintoweb-payments",
       storageBucket: "davintoweb-payments.appspot.com",
-      messagingSenderId: "364768711223",
-      appId: "1:364768711223:web:058927fe03f503a8a4a541"
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
     };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
 
-    function submitConfirmation() {
-      const data = {
-        name: name.value,
-        email: email.value,
-        account: account.value,
-        message: message.value,
-        service: service.value,
-        time: new Date().toISOString()
-      };
-      db.ref("payments").push(data).then(() => {
-        alert("Payment confirmation submitted.");
-      });
-    }
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const form = document.getElementById("confirmForm");
+    const statusDiv = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const account = document.getElementById("account").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      const data = { name, email, account, message, timestamp: Date.now() };
+      try {
+        await push(ref(db, "payments"), data);
+        statusDiv.innerText = "✅ Payment confirmed successfully!";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        statusDiv.innerText = "❌ Error confirming payment.";
+      }
+    });
   </script>
 </body>
 </html>
